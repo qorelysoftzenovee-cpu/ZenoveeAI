@@ -2,7 +2,7 @@ import "server-only";
 
 import { NextResponse, type NextRequest } from "next/server";
 
-import { supabaseAdmin } from "@/lib/supabase/admin";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 type BillingWebhookPayload = {
   type?: string;
@@ -22,6 +22,22 @@ export async function POST(request: NextRequest) {
   // STRIPE_WEBHOOK_SECRET=...
   // or
   // RAZORPAY_WEBHOOK_SECRET=...
+
+  let supabaseAdmin;
+
+  try {
+    supabaseAdmin = createAdminClient();
+  } catch (error) {
+    return NextResponse.json(
+      {
+        error:
+          error instanceof Error
+            ? error.message
+            : "Admin Supabase client is not configured.",
+      },
+      { status: 500 },
+    );
+  }
 
   let payload: BillingWebhookPayload;
 
