@@ -31,9 +31,13 @@ export default function SignupPage() {
 
     try {
       const supabase = createClient();
+      const emailRedirectTo = `${window.location.origin}/auth/callback`;
       const { data, error: signUpError } = await supabase.auth.signUp({
         email: email.trim(),
         password,
+        options: {
+          emailRedirectTo,
+        },
       });
 
       if (signUpError) {
@@ -50,10 +54,15 @@ export default function SignupPage() {
       setSuccess(
         "Your account was created successfully. Please check your email inbox to confirm your address before signing in.",
       );
+      setEmail("");
       setPassword("");
       setConfirmPassword("");
-    } catch {
-      setError("Something went wrong while creating your account. Please try again.");
+    } catch (error) {
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong while creating your account. Please try again.",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -144,10 +153,6 @@ export default function SignupPage() {
             {isLoading ? "Creating your account..." : "Create account"}
           </button>
         </form>
-
-        <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm leading-6 text-white/55">
-          If email verification is enabled, we’ll ask you to confirm your inbox first. If it’s disabled, you’ll be securely redirected straight into your dashboard.
-        </div>
 
         <p className="mt-6 text-center text-sm text-white/50">
           Already have access?{" "}
