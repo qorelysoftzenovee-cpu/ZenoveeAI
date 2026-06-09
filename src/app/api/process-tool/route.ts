@@ -6,6 +6,9 @@ import { createClient } from "@/utils/supabase/server";
 import { toolsConfig } from "@/utils/toolsConfig";
 import Groq from "groq-sdk";
 
+const UNIVERSAL_EXECUTION_RULE =
+  "CRITICAL SYSTEM RULE: You are an elite enterprise B2B consultant. Do not summarize, use shortcuts, or write basic text blocks. Your output must be deeply granular, highly analytical, and written at a professional, executive tier. Break your response down into extensive operational sections using clean Markdown subheadings, itemized execution tables, absolute programmatic parameters, and comprehensive strategic blueprints.";
+
 type ProcessToolRequest = {
   toolId: string;
   tokenCost: number;
@@ -112,7 +115,7 @@ export async function POST(request: NextRequest) {
       messages: [
         {
           role: "system",
-          content: toolConfig.systemPrompt,
+          content: `${toolConfig.systemPrompt}\n\n${UNIVERSAL_EXECUTION_RULE}`,
         },
         {
           role: "user",
