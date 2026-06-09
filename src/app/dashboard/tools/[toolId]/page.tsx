@@ -1,5 +1,8 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
+
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { ArrowLeft, Copy, FileText, Loader2, Sparkles, TriangleAlert } from "lucide-react";
