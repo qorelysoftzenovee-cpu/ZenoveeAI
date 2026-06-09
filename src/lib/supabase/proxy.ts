@@ -10,6 +10,12 @@ type CookieToSet = {
 };
 
 export async function updateSession(request: NextRequest) {
+  if (!supabaseUrl || !supabaseAnonKey) {
+    throw new Error(
+      "Missing Supabase environment variables. Please add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to .env.local.",
+    );
+  }
+
   let response = NextResponse.next({
     request,
   });
