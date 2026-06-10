@@ -32,6 +32,24 @@ export default function LoginPage() {
         return;
       }
 
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("is_admin")
+          .eq("id", user.id)
+          .maybeSingle();
+
+        if (profile?.is_admin === true) {
+          router.push("/dashboard/admin");
+          router.refresh();
+          return;
+        }
+      }
+
       router.push("/dashboard");
       router.refresh();
     } catch {
