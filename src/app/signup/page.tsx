@@ -17,6 +17,20 @@ export default function SignupPage() {
   const [success, setSuccess] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  function normalizeSignupError(message: string) {
+    const lowered = message.toLowerCase();
+
+    if (lowered.includes("email rate limit exceeded")) {
+      return "Too many signup attempts were made recently. Please wait a few minutes before requesting another verification email.";
+    }
+
+    if (lowered.includes("rate limit")) {
+      return "Too many requests were made in a short period. Please wait a few minutes and try again.";
+    }
+
+    return message;
+  }
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
@@ -41,7 +55,7 @@ export default function SignupPage() {
       });
 
       if (signUpError) {
-        setError(signUpError.message || "Unable to create your account.");
+        setError(normalizeSignupError(signUpError.message || "Unable to create your account."));
         return;
       }
 
@@ -60,7 +74,7 @@ export default function SignupPage() {
     } catch (error) {
       setError(
         error instanceof Error
-          ? error.message
+          ? normalizeSignupError(error.message)
           : "Something went wrong while creating your account. Please try again.",
       );
     } finally {
