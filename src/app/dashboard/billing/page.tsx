@@ -1,6 +1,5 @@
 "use client";
 
-import Script from "next/script";
 import { Check, CreditCard, Loader2, Sparkles, Wallet } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
@@ -9,12 +8,12 @@ import { createClient } from "@/utils/supabase/client";
 type UserProfile = {
   id: string;
   email: string;
-  tier: "free" | "pro" | "agency";
+  tier: "free" | "pro" | "agency" | "trial";
   credits: number;
 };
 
 type PurchaseOption = {
-  id: "professional-access" | "agency-scaling" | "credit-topup";
+  id: "launch-trial-pass" | "professional-access" | "agency-scaling" | "credit-topup";
   title: string;
   price: string;
   amountInPaise: number;
@@ -34,6 +33,22 @@ declare global {
 }
 
 const purchaseOptions: PurchaseOption[] = [
+  {
+    id: "launch-trial-pass",
+    title: "🚀 Limited Grand Launch Special — $8 Trial Pass",
+    price: "$8 one-time",
+    amountInPaise: 800,
+    credits: 0,
+    description:
+      "Unlock access to try all 50 premium business automation tools (1 full generation run per tool). No monthly recurring subscription commitments.",
+    tier: null,
+    cta: "Claim Launch Trial Pass",
+    features: [
+      "One premium generation run per tool",
+      "Access all 50 tools in the launch loop",
+      "No monthly recurring subscription required",
+    ],
+  },
   {
     id: "professional-access",
     title: "Professional Access",
@@ -159,6 +174,8 @@ export default function BillingPage() {
     }
 
     switch (profile.tier) {
+      case "trial":
+        return "Launch Trial";
       case "agency":
         return "Agency";
       case "pro":
@@ -230,104 +247,111 @@ export default function BillingPage() {
   }
 
   return (
-    <>
-      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="afterInteractive" />
+    <div className="space-y-8">
+      <section className="rounded-[2rem] border border-white/10 bg-white/5 p-6 backdrop-blur sm:p-8">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-violet-300/20 bg-violet-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-violet-200">
+              <Sparkles className="h-3.5 w-3.5" />
+              Monetization Center
+            </div>
+            <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Scale your execution capacity</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base">
+              Upgrade your workspace tier, expand recurring monthly credits, and add on-demand top-ups for high-intensity execution cycles.
+            </p>
+          </div>
 
-      <div className="space-y-6">
-        <section className="rounded-[2rem] border border-white/10 bg-white/5 p-6 backdrop-blur sm:p-8">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-cyan-200">
-                <Sparkles className="h-3.5 w-3.5" />
-                Monetization Engine
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="rounded-[1.5rem] border border-white/10 bg-[#101522] p-5">
+              <p className="text-xs uppercase tracking-[0.28em] text-slate-500">Current tier</p>
+              <p className="mt-3 text-2xl font-semibold text-white">{tierLabel}</p>
+            </div>
+            <div className="rounded-[1.5rem] border border-emerald-400/20 bg-emerald-400/10 p-5">
+              <p className="text-xs uppercase tracking-[0.28em] text-emerald-200/80">Current credits</p>
+              <p className="mt-3 text-2xl font-semibold text-white">
+                {isLoadingProfile ? "..." : profile?.credits ?? 0}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {errorMessage ? (
+          <div className="mt-6 rounded-2xl border border-rose-400/30 bg-rose-400/10 px-4 py-3 text-sm leading-6 text-rose-100">
+            {errorMessage}
+          </div>
+        ) : null}
+
+        {statusMessage ? (
+          <div className="mt-6 rounded-2xl border border-emerald-400/30 bg-emerald-400/10 px-4 py-3 text-sm leading-6 text-emerald-100">
+            {statusMessage}
+          </div>
+        ) : null}
+      </section>
+
+      <section className="grid gap-6 xl:grid-cols-3">
+        {purchaseOptions.map((option) => (
+          <article
+            key={option.id}
+            className={`rounded-[2rem] border p-6 backdrop-blur sm:p-8 ${
+              option.id === "launch-trial-pass"
+                ? "border-amber-300/25 bg-gradient-to-br from-amber-400/12 via-white/5 to-violet-400/10 shadow-2xl shadow-amber-950/10"
+                : "border-white/10 bg-white/5"
+            }`}
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h3 className="text-2xl font-semibold text-white">{option.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-slate-300">{option.description}</p>
               </div>
-              <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Billing & credit scaling</h2>
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-white/65 sm:text-base">
-                Upgrade your workspace, expand monthly credit capacity, and unlock higher operational throughput with premium access plans.
+                <div className={`rounded-2xl border p-3 ${
+                  option.id === "launch-trial-pass"
+                    ? "border-amber-300/20 bg-amber-400/10 text-amber-200"
+                    : "border-violet-300/20 bg-violet-400/10 text-violet-200"
+                }`}>
+                {option.id === "credit-topup" ? (
+                  <Wallet className="h-5 w-5" />
+                ) : (
+                  <CreditCard className="h-5 w-5" />
+                )}
+              </div>
+            </div>
+
+            <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-[#101522] p-5">
+              <p className="text-3xl font-semibold text-white">{option.price}</p>
+              <p className="mt-2 text-sm text-cyan-200">
+                {option.id === "launch-trial-pass"
+                  ? "Full 50-tool launch access"
+                  : `+ ${option.credits.toLocaleString()} credits`}
               </p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-[1.5rem] border border-white/10 bg-[#08101f] p-5">
-                <p className="text-xs uppercase tracking-[0.28em] text-white/40">Current tier</p>
-                <p className="mt-3 text-2xl font-semibold text-white">{tierLabel}</p>
-              </div>
-              <div className="rounded-[1.5rem] border border-emerald-400/20 bg-emerald-400/10 p-5">
-                <p className="text-xs uppercase tracking-[0.28em] text-emerald-200/80">Current balance</p>
-                <p className="mt-3 text-2xl font-semibold text-white">
-                  {isLoadingProfile ? "..." : profile?.credits ?? 0}
-                </p>
-                <p className="mt-1 text-sm text-emerald-100/80">Credits available</p>
-              </div>
+            <div className="mt-6 space-y-3">
+              {option.features.map((feature) => (
+                <div key={feature} className="flex items-start gap-3 text-sm text-slate-300">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300" />
+                  <span>{feature}</span>
+                </div>
+              ))}
             </div>
-          </div>
 
-          {errorMessage ? (
-            <div className="mt-6 rounded-2xl border border-rose-400/30 bg-rose-400/10 px-4 py-3 text-sm leading-6 text-rose-100">
-              {errorMessage}
-            </div>
-          ) : null}
-
-          {statusMessage ? (
-            <div className="mt-6 rounded-2xl border border-emerald-400/30 bg-emerald-400/10 px-4 py-3 text-sm leading-6 text-emerald-100">
-              {statusMessage}
-            </div>
-          ) : null}
-        </section>
-
-        <section className="grid gap-6 xl:grid-cols-3">
-          {purchaseOptions.map((option) => (
-            <article
-              key={option.id}
-              className="rounded-[2rem] border border-white/10 bg-white/5 p-6 backdrop-blur sm:p-8"
+            <button
+              type="button"
+              onClick={() => void openCheckout(option)}
+              disabled={isLoadingProfile || activePurchaseId === option.id}
+              className="mt-8 inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-white px-5 py-3.5 text-sm font-semibold text-slate-950 transition hover:bg-violet-100 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-2xl font-semibold text-white">{option.title}</h3>
-                  <p className="mt-2 text-sm leading-7 text-white/65">{option.description}</p>
-                </div>
-                <div className="rounded-2xl border border-cyan-300/20 bg-cyan-400/10 p-3 text-cyan-200">
-                  {option.id === "credit-topup" ? (
-                    <Wallet className="h-5 w-5" />
-                  ) : (
-                    <CreditCard className="h-5 w-5" />
-                  )}
-                </div>
-              </div>
-
-              <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-[#08101f] p-5">
-                <p className="text-3xl font-semibold text-white">{option.price}</p>
-                <p className="mt-2 text-sm text-cyan-200">+ {option.credits.toLocaleString()} credits</p>
-              </div>
-
-              <div className="mt-6 space-y-3">
-                {option.features.map((feature) => (
-                  <div key={feature} className="flex items-start gap-3 text-sm text-white/70">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300" />
-                    <span>{feature}</span>
-                  </div>
-                ))}
-              </div>
-
-              <button
-                type="button"
-                onClick={() => void openCheckout(option)}
-                disabled={isLoadingProfile || activePurchaseId === option.id}
-                className="mt-8 inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-white px-5 py-3.5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-100 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {activePurchaseId === option.id ? (
-                  <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Opening checkout...
-                  </>
-                ) : (
-                  option.cta
-                )}
-              </button>
-            </article>
-          ))}
-        </section>
-      </div>
-    </>
+              {activePurchaseId === option.id ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Opening checkout...
+                </>
+              ) : (
+                option.cta
+              )}
+            </button>
+          </article>
+        ))}
+      </section>
+    </div>
   );
 }

@@ -6,6 +6,7 @@ import {
   LogOut,
   Mail,
   PanelLeft,
+  Shield,
   Sparkles,
 } from "lucide-react";
 
@@ -27,7 +28,7 @@ export default async function DashboardLayout({
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("credits")
+    .select("credits, is_admin")
     .eq("id", user.id)
     .maybeSingle();
 
@@ -36,6 +37,7 @@ export default async function DashboardLayout({
     user.email?.split("@")[0] ??
     "Member";
   const credits = profile?.credits ?? 0;
+  const isAdmin = profile?.is_admin === true;
   const creditProgress = Math.min(100, Math.max(6, Math.round((credits / 1500) * 100)));
 
   async function logout() {
@@ -112,6 +114,15 @@ export default async function DashboardLayout({
               <CreditCard className="h-4 w-4 text-violet-300" />
               Billing
             </Link>
+            {isAdmin ? (
+              <Link
+                href="/dashboard/admin"
+                className="flex items-center gap-3 rounded-2xl border border-amber-300/20 bg-amber-400/10 px-4 py-3 text-sm font-medium text-amber-100 transition hover:bg-amber-400/15 hover:text-white"
+              >
+                <Shield className="h-4 w-4 text-amber-300" />
+                Admin Panel
+              </Link>
+            ) : null}
           </nav>
 
           <form action={logout} className="mx-8 mt-auto pb-8 pt-8">

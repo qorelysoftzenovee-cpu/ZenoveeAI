@@ -81,24 +81,64 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { data: creditData, error: creditError } = await supabase.rpc(
-    "consume_user_credits",
-    {
-      u_id: user.id,
-      token_cost: tokenCost,
-      tool_name: toolId,
-    },
-  );
+  const { data: currentProfile, error: profileError } = await supabase
+    .from("profiles")
+    .select("tier")
+    .eq("id", user.id)
+    .maybeSingle();
 
-  if (creditError) {
-    return NextResponse.json(
-      { error: "Unable to validate credits at this time." },
-      { status: 500 },
-    );
+  if (profileError) {
+    return NextResponse.json({ error: "Unable to load your profile." }, { status: 500 });
   }
 
-  if (creditData !== true) {
-    return NextResponse.json({ error: "Insufficient Credits" }, { status: 402 });
+  const activeTier = currentProfile?.tier as "free" | "pro" | "agency" | "trial" | null;
+
+  if (activeTier === "trial") {
+    const { data: existingUsage, error: usageCheckError } = await supabase
+      .from("user_tool_usage")
+      .select("id")
+      .eq("user_id", user.id)
+      .eq("tool_id", toolId)
+      .maybeSingle();
+
+    if (usageCheckError) {
+      return NextResponse.json(
+        { error: "Unable to validate your launch trial usage right now." },
+        { status: 500 },
+      );
+    }
+
+    if (existingUsage) {
+      return NextResponse.json(
+        {
+          error:
+            "Launch Trial Limit Exhausted for this tool. Upgrade to Pro for unlimited monthly generations.",
+        },
+        { status: 403 },
+      );
+    }
+  }
+
+  if (activeTier !== "trial") {
+    const { data: creditData, error: creditError } = await supabase.rpc(
+      "consume_user_credits",
+      {
+        u_id: user.id,
+        token_cost: tokenCost,
+        tool_name: toolId,
+      },
+    );
+
+    if (creditError) {
+      return NextResponse.json(
+        { error: "Unable to validate credits at this time." },
+        { status: 500 },
+      );
+    }
+
+    if (creditData !== true) {
+      return NextResponse.json({ error: "Insufficient Credits" }, { status: 402 });
+    }
   }
 
   try {
@@ -131,6 +171,20 @@ export async function POST(request: NextRequest) {
         { error: "Empty response from Groq" },
         { status: 500 },
       );
+    }
+
+    if (activeTier === "trial") {
+      const { error: usageInsertError } = await supabase.from("user_tool_usage").insert({
+        user_id: user.id,
+        tool_id: toolId,
+      });
+
+      if (usageInsertError) {
+        return NextResponse.json(
+          { error: "Unable to record launch trial usage." },
+          { status: 500 },
+        );
+      }
     }
 
     return NextResponse.json({ toolId, output });

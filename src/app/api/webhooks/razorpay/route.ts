@@ -21,10 +21,15 @@ type RazorpayWebhookPayload = {
 
 type PlanUpdate = {
   creditsToAdd: number;
-  tier: "free" | "pro" | "agency" | null;
+  tier: "free" | "pro" | "agency" | "trial" | null;
+  launchOfferClaimed?: boolean;
 };
 
 function getPlanUpdate(planId?: string): PlanUpdate | null {
+  if (planId === "launch-trial-pass") {
+    return { creditsToAdd: 0, tier: "trial", launchOfferClaimed: true };
+  }
+
   if (planId === "professional-access") {
     return { creditsToAdd: 1500, tier: "pro" };
   }
@@ -121,11 +126,15 @@ export async function POST(request: NextRequest) {
   }
 
   const nextCredits = (profile?.credits ?? 0) + planUpdate.creditsToAdd;
-  const nextTier = planUpdate.tier ?? ((profile?.tier as "free" | "pro" | "agency" | null) ?? "free");
+  const nextTier = planUpdate.tier ?? ((profile?.tier as "free" | "pro" | "agency" | "trial" | null) ?? "free");
 
   const { error: updateError } = await supabaseAdmin
     .from("profiles")
-    .update({ tier: nextTier, credits: nextCredits })
+    .update({
+      tier: nextTier,
+      credits: nextCredits,
+      launch_offer_claimed: planUpdate.launchOfferClaimed ?? false,
+    })
     .eq("id", userId);
 
   if (updateError) {
