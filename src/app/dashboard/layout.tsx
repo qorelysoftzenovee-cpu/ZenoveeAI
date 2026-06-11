@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import {
   CreditCard,
+  History,
   LayoutGrid,
   LogOut,
   Mail,
@@ -31,6 +32,13 @@ export default async function DashboardLayout({
     .select("credits, is_admin")
     .eq("id", user.id)
     .maybeSingle();
+
+  const { data: historyRows } = await supabase
+    .from("generation_history")
+    .select("id, tool_id, output_text, created_at")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false })
+    .limit(5);
 
   const name =
     (user.user_metadata.full_name as string | undefined) ??
@@ -124,6 +132,29 @@ export default async function DashboardLayout({
               </Link>
             ) : null}
           </nav>
+
+
+
+          <section className="mx-8 mt-8 rounded-[1.75rem] border border-white/10 bg-[#11182A] p-5 shadow-lg shadow-black/20">
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">
+              <History className="h-3.5 w-3.5 text-cyan-300" />
+              Saved History
+            </div>
+            <div className="mt-4 space-y-3">
+              {(historyRows ?? []).length > 0 ? (historyRows ?? []).map((entry) => (
+                <Link
+                  key={entry.id}
+                  href={`/dashboard/tools/${entry.tool_id}?history=${entry.id}`}
+                  className="block rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition hover:bg-white/10"
+                >
+                  <p className="text-sm font-medium text-slate-100">{entry.tool_id}</p>
+                  <p className="mt-1 line-clamp-2 text-xs leading-5 text-slate-400">{entry.output_text}</p>
+                </Link>
+              )) : (
+                <p className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-500">No saved generations yet.</p>
+              )}
+            </div>
+          </section>
 
           <form action={logout} className="mx-8 mt-auto pb-8 pt-8">
             <button

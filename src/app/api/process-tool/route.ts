@@ -173,6 +173,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    await supabase.from("generation_history").insert({
+      user_id: user.id,
+      tool_id: toolId,
+      input_data: inputs,
+      output_text: output,
+    });
+
     if (activeTier === "trial") {
       const { error: usageInsertError } = await supabase.from("user_tool_usage").insert({
         user_id: user.id,

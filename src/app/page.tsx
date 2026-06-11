@@ -34,7 +34,7 @@ const comparisonRows = [
   {
     feature: "Monthly software stack",
     elsewhere: "$117/mo across fragmented tools",
-    here: "$8 entry / lifetime access plans during launch",
+    here: "$8 Grand Launch Trial Pass (Test All 50 Tools — 1 Full Execution Run Per Tool)",
   },
   {
     feature: "Tool switching",
@@ -70,14 +70,14 @@ export default function Home() {
         <div className="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <p className="font-semibold tracking-wide text-indigo-600">LAUNCH WEEK SPECIAL: Save 60% On The Ultimate Production Studio</p>
-            <h1 className="mt-6 max-w-5xl text-5xl font-semibold leading-tight text-slate-900 sm:text-6xl lg:text-7xl">
+            <h1 className="mt-6 max-w-5xl text-5xl font-semibold leading-tight text-[#0B132B] sm:text-6xl lg:text-7xl">
               Replace 10 Costly Subscriptions. 50 Professional Tools. One Single Payment.
             </h1>
             <p className="mt-8 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl">
               Stop burning money on individual app fees. Access 50 elite-tier tools for automation, content engine, and analytics in one secure workspace. No recurring fees if you lock in during launch week.
             </p>
             <div className="mt-10">
-              <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded-full bg-indigo-600 px-8 py-4 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.01] hover:bg-indigo-700 active:scale-[0.99]">
+              <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#E63946] px-8 py-4 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.01] hover:bg-[#c92a37] active:scale-[0.99]">
                 Get Instant Access & Save 60%
                 <ArrowRight className="h-4 w-4" />
               </Link>
@@ -90,12 +90,12 @@ export default function Home() {
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.28em] text-emerald-600">Launch Access Snapshot</p>
-                  <h2 className="mt-3 text-2xl font-semibold text-slate-900">A full production stack in one offer</h2>
+                  <h2 className="mt-3 text-2xl font-semibold text-[#0B132B]">A full production stack in one offer</h2>
                 </div>
                 <div className="rounded-2xl bg-emerald-50 p-3 text-emerald-600"><Sparkles className="h-5 w-5" /></div>
               </div>
               <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                {["50 professional tools", "Automation and analytics workflows", "Secure workspace delivery", "Launch-week lifetime-value pricing"].map((item) => (
+                {["50 professional tools", "Automation and analytics workflows", "Secure workspace delivery", "$8 Grand Launch Trial Pass (1 full run per tool)"].map((item) => (
                   <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-medium text-slate-700">
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
@@ -103,6 +103,13 @@ export default function Home() {
                     </div>
                   </div>
                 ))}
+              </div>
+
+              <div className="mt-8 rounded-[1.5rem] bg-[#0B132B] p-6 text-white">
+                <p className="text-sm uppercase tracking-[0.28em] text-emerald-300">Launch payment alignment</p>
+                <p className="mt-3 text-sm leading-7 text-slate-300">
+                  $8 Grand Launch Trial Pass (Test All 50 Tools — 1 Full Execution Run Per Tool)
+                </p>
               </div>
             </div>
           </div>
@@ -120,7 +127,7 @@ export default function Home() {
             <div className="grid border-b border-slate-200 md:grid-cols-[1.1fr_1fr_1fr]">
               <div className="p-6" />
               <div className="border-t border-slate-200 p-6 md:border-l md:border-t-0"><p className="text-lg font-semibold text-slate-900">What You Pay Elsewhere ($117/mo)</p></div>
-              <div className="border-t border-slate-200 bg-emerald-50/70 p-6 md:border-l md:border-t-0"><p className="text-lg font-semibold text-slate-900">What You Get Here ($8 Entry / Lifetime Access Plans)</p></div>
+              <div className="border-t border-slate-200 bg-emerald-50/70 p-6 md:border-l md:border-t-0"><p className="text-lg font-semibold text-slate-900">What You Get Here ($8 Grand Launch Trial Pass)</p></div>
             </div>
             {comparisonRows.map((row) => (
               <div key={row.feature} className="grid border-t border-slate-200 md:grid-cols-[1.1fr_1fr_1fr]">
@@ -135,7 +142,7 @@ export default function Home() {
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10">
         <div className="max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-600">50-Tool Showdown Grid</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#0B132B]">50-Tool Showdown Grid</p>
           <h2 className="mt-4 text-4xl font-semibold text-slate-900">One platform. Four high-output categories. Fifty revenue-grade utilities.</h2>
           <p className="mt-4 text-base leading-8 text-slate-600">Explore the production matrix built to replace scattered subscriptions and help teams move faster across content, development, analytics, and file operations.</p>
         </div>
@@ -169,7 +176,7 @@ export default function Home() {
                 <h2 className="mt-4 text-4xl font-semibold text-slate-900">Only 250 Founding Member Slots Available at This Price. Lock in your access today.</h2>
                 <p className="mt-4 text-base leading-8 text-slate-600">Move before launch pricing disappears and secure immediate access to the full production studio while the founding rate is still open.</p>
               </div>
-              <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded-full bg-indigo-600 px-8 py-4 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.01] hover:bg-indigo-700 active:scale-[0.99]">
+              <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#E63946] px-8 py-4 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.01] hover:bg-[#c92a37] active:scale-[0.99]">
                 Lock In Access Now
                 <ShieldCheck className="h-4 w-4" />
               </Link>

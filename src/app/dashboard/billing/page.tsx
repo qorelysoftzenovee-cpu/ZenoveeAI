@@ -13,7 +13,7 @@ type UserProfile = {
 };
 
 type PurchaseOption = {
-  id: "launch-trial-pass" | "professional-access" | "agency-scaling" | "credit-topup";
+  id: "starter-plan" | "power-plan" | "agency-suite" | "credit-topup";
   title: string;
   price: string;
   amountInPaise: number;
@@ -34,51 +34,51 @@ declare global {
 
 const purchaseOptions: PurchaseOption[] = [
   {
-    id: "launch-trial-pass",
-    title: "🚀 Limited Grand Launch Special — $8 Trial Pass",
-    price: "$8 one-time",
-    amountInPaise: 800,
-    credits: 0,
+    id: "starter-plan",
+    title: "$19/mo Starter Pass",
+    price: "$19/mo",
+    amountInPaise: 1900,
+    credits: 100,
     description:
-      "Unlock access to try all 50 premium business automation tools (1 full generation run per tool). No monthly recurring subscription commitments.",
-    tier: null,
-    cta: "Claim Launch Trial Pass",
-    features: [
-      "One premium generation run per tool",
-      "Access all 50 tools in the launch loop",
-      "No monthly recurring subscription required",
-    ],
-  },
-  {
-    id: "professional-access",
-    title: "Professional Access",
-    price: "$49/mo",
-    amountInPaise: 4900,
-    credits: 1500,
-    description:
-      "Built for focused operators who need dependable monthly AI capacity for outreach, research, and SEO execution.",
+      "A lightweight monthly starter tier for focused solo execution across the full workspace.",
     tier: "pro",
-    cta: "Upgrade to Professional",
+    cta: "Activate Starter Pass",
     features: [
-      "1,500 recurring monthly credits",
-      "Priority access to premium B2B tools",
-      "Ideal for founders, marketers, and lean teams",
+      "100 generation runs / month",
+      "Starter access across the full tool suite",
+      "Best for individual operators and early testing",
     ],
   },
   {
-    id: "agency-scaling",
-    title: "Agency Scaling Access",
-    price: "$149/mo",
-    amountInPaise: 14900,
-    credits: 6000,
+    id: "power-plan",
+    title: "$79/mo Power User Pass",
+    price: "$79/mo",
+    amountInPaise: 7900,
+    credits: 3000,
     description:
-      "Designed for high-volume client delivery teams, outbound agencies, and operators scaling multiple campaigns in parallel.",
-    tier: "agency",
-    cta: "Upgrade to Agency",
+      "A high-throughput monthly tier for serious operators who need more execution headroom and saved answer history.",
+    tier: "pro",
+    cta: "Activate Power User Pass",
     features: [
-      "6,000 recurring monthly credits",
-      "Better suited for team-wide usage",
-      "Supports larger research and execution workloads",
+      "3,000 monthly credits",
+      "Save History activated",
+      "Best for repeat research, writing, and optimization cycles",
+    ],
+  },
+  {
+    id: "agency-suite",
+    title: "$249/mo Team/Agency Suite",
+    price: "$249/mo",
+    amountInPaise: 24900,
+    credits: 10000,
+    description:
+      "The highest-capacity monthly package for team execution, client delivery, and multi-seat operational workflows.",
+    tier: "agency",
+    cta: "Activate Team/Agency Suite",
+    features: [
+      "10,000 high-tier runs",
+      "3 seat licenses included",
+      "Built for agency-scale and team-based production",
     ],
   },
   {
@@ -293,7 +293,7 @@ export default function BillingPage() {
           <article
             key={option.id}
             className={`rounded-[2rem] border p-6 backdrop-blur sm:p-8 ${
-              option.id === "launch-trial-pass"
+              option.id === "starter-plan"
                 ? "border-amber-300/25 bg-gradient-to-br from-amber-400/12 via-white/5 to-violet-400/10 shadow-2xl shadow-amber-950/10"
                 : "border-white/10 bg-white/5"
             }`}
@@ -304,7 +304,7 @@ export default function BillingPage() {
                 <p className="mt-2 text-sm leading-7 text-slate-300">{option.description}</p>
               </div>
                 <div className={`rounded-2xl border p-3 ${
-                  option.id === "launch-trial-pass"
+                  option.id === "starter-plan"
                     ? "border-amber-300/20 bg-amber-400/10 text-amber-200"
                     : "border-violet-300/20 bg-violet-400/10 text-violet-200"
                 }`}>
@@ -319,8 +319,8 @@ export default function BillingPage() {
             <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-[#101522] p-5">
               <p className="text-3xl font-semibold text-white">{option.price}</p>
               <p className="mt-2 text-sm text-cyan-200">
-                {option.id === "launch-trial-pass"
-                  ? "Full 50-tool launch access"
+                {option.id === "starter-plan"
+                  ? "100 generation runs / month"
                   : `+ ${option.credits.toLocaleString()} credits`}
               </p>
             </div>

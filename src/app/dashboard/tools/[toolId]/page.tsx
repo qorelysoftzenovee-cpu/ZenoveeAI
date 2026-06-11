@@ -1,302 +1,231 @@
 "use client";
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
+import React, { useEffect, useState } from "react";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { ArrowLeft, Copy, Check, Download, Play, ShieldAlert } from "lucide-react";
 
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import { ArrowLeft, Copy, FileText, Loader2, Sparkles, TriangleAlert } from "lucide-react";
-import { useMemo, useState } from "react";
-
-import { ToolErrorBoundary } from "@/components/tools/tool-error-boundary";
+import { createClient } from "@/utils/supabase/client";
 import { toolsConfig } from "@/utils/toolsConfig";
 
-function CopyOutputButton({ value }: { value: string }) {
-  const [copied, setCopied] = useState(false);
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
 
-  async function handleCopy() {
-    await navigator.clipboard.writeText(value);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1500);
-  }
+export default function ToolWorkspacePage() {
+  const params = useParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const toolId = params?.toolId as string;
+  const tool = toolsConfig.find((t) => t.id === toolId);
 
-  return (
-    <button
-      type="button"
-      onClick={handleCopy}
-      className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/75 transition hover:bg-white/10 hover:text-white"
-    >
-      <Copy className="h-4 w-4" />
-      {copied ? "Copied" : "Copy to Clipboard"}
-    </button>
-  );
-}
+  const [inputs, setInputs] = useState<Record<string, string>>({});
+  const [output, setOutput] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [copied, setCopied] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-function OutputViewport({ output }: { output: string }) {
-  return (
-    <article className="relative mt-8 overflow-hidden rounded-[1.75rem] border border-slate-800 bg-[#101522] p-6 shadow-2xl shadow-black/20">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-400/70 to-transparent" />
-      <div className="prose prose-invert max-w-none prose-headings:text-slate-100 prose-p:text-slate-300 prose-strong:text-white prose-li:text-slate-300 prose-code:text-cyan-200 prose-pre:bg-transparent prose-pre:p-0">
-        <pre className="whitespace-pre-wrap break-words font-sans text-sm leading-7 text-slate-300">
-          {output}
-        </pre>
-      </div>
-    </article>
-  );
-}
+  useEffect(() => {
+    const historyId = searchParams.get("history");
+    if (!historyId) return;
 
-export default function DynamicToolPage() {
-  const params = useParams<{ toolId: string }>();
-  const toolId = Array.isArray(params.toolId) ? params.toolId[0] : params.toolId;
+    async function loadHistory() {
+      const supabase = createClient();
+      const { data } = await supabase
+        .from("generation_history")
+        .select("tool_id, input_data, output_text")
+        .eq("id", historyId)
+        .maybeSingle();
 
-  const tool = useMemo(
-    () => toolsConfig.find((entry) => entry.id === toolId) ?? null,
-    [toolId],
-  );
+      if (!data || data.tool_id !== toolId) return;
 
-  const [formValues, setFormValues] = useState<Record<string, string>>({});
-  const [output, setOutput] = useState("");
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [showCreditPopup, setShowCreditPopup] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
+      setInputs((data.input_data as Record<string, string> | null) ?? {});
+      setOutput(data.output_text ?? "");
+      setError(null);
+    }
+
+    void loadHistory();
+  }, [searchParams, toolId]);
 
   if (!tool) {
     return (
-      <section className="rounded-[2rem] border border-slate-800 bg-[#101522] p-8 text-slate-100 shadow-2xl shadow-black/20">
-        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-rose-300">404</p>
-        <h2 className="mt-4 text-3xl font-semibold">Tool not found</h2>
-        <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400">
-          The tool you requested does not exist in the current platform registry. Please return to the dashboard and choose a valid tool.
-        </p>
-        <Link
-          href="/dashboard"
-          className="mt-6 inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-800 px-5 py-3 text-sm font-semibold text-slate-100 transition hover:bg-slate-700"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to Dashboard
-        </Link>
-      </section>
+      <div className="min-h-screen bg-[#030712] flex flex-col items-center justify-center p-6 text-center">
+        <ShieldAlert className="w-16 h-16 text-rose-500 mb-4 animate-pulse" />
+        <h1 className="text-2xl font-bold text-white mb-2">Tool Specification Not Found</h1>
+        <p className="text-slate-400 max-w-md mb-6">The requested tool ID does not match any authenticated configuration profiles inside our SaaS engine registry.</p>
+        <button onClick={() => router.push("/dashboard")} className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition-all">
+          Return to Dashboard Hub
+        </button>
+      </div>
     );
   }
 
-  const resolvedTool = tool;
+  const handleInputChange = (key: string, value: string) => {
+    setInputs((prev) => ({ ...prev, [key]: value }));
+  };
 
-  function updateValue(fieldId: string, value: string) {
-    setFormValues((current) => ({
-      ...current,
-      [fieldId]: value,
-    }));
-  }
-
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setError("");
+  const handleExecute = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
     setOutput("");
-    setShowCreditPopup(false);
-    setToastMessage("");
-    setIsLoading(true);
-
     try {
       const response = await fetch("/api/process-tool", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          toolId: resolvedTool.id,
-          tokenCost: resolvedTool.cost,
-          inputs: formValues,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ toolId, tokenCost: (tool as { cost?: number }).cost ?? 5, inputs }),
       });
 
-      const data = (await response.json()) as { output?: string; error?: string };
-
       if (!response.ok) {
-        if (data.error === "Insufficient Credits") {
-          setShowCreditPopup(true);
-          return;
-        }
-
-        setToastMessage("Engine busy, trying alternative node");
-        setError(data.error || "Unable to run this tool right now.");
-        return;
+        const errData = await response.json();
+        throw new Error(errData.error || "System engine processing failure.");
       }
 
-      if (!data.output) {
-        setToastMessage("Engine busy, trying alternative node");
-        setError("The engine returned an empty response. Please try again.");
-        return;
-      }
-
-      setOutput(data.output ?? "");
-    } catch {
-      setToastMessage("Engine busy, trying alternative node");
-      setError("Something went wrong while contacting the AI engine. Please try again.");
+      const data = await response.json();
+      setOutput(data.output);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An unexpected error occurred during execution.");
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
-  }
+  };
 
-  const content = (
-    <div className="space-y-6">
-      {toastMessage ? (
-        <div className="fixed right-6 top-6 z-50 rounded-2xl border border-amber-400/30 bg-[#120f06] px-4 py-3 text-sm font-medium text-amber-100 shadow-2xl shadow-black/30 backdrop-blur">
-          {toastMessage}
-        </div>
-      ) : null}
+  const handleCopy = () => {
+    if (!output) return;
+    navigator.clipboard.writeText(output);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
-      <section className="rounded-[2rem] border border-slate-800 bg-[#101522] p-6 shadow-2xl shadow-black/20 sm:p-8">
-        <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <Link
-              href="/dashboard"
-              className="inline-flex items-center gap-2 text-sm font-medium text-cyan-200 transition hover:text-cyan-100"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Back to Dashboard
-            </Link>
-            <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-cyan-200">
-              <Sparkles className="h-3.5 w-3.5" />
-              Dynamic AI Tool
-            </div>
-            <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">{resolvedTool.name}</h2>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-400 sm:text-base">
-              {resolvedTool.description}
-            </p>
-          </div>
+  const handleDownload = () => {
+    if (!output) return;
+    const element = document.createElement("a");
+    const file = new Blob([output], { type: "text/markdown" });
+    element.href = URL.createObjectURL(file);
+    element.download = `${toolId}-generation.md`;
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
 
-          <div className="rounded-full border border-emerald-400/25 bg-emerald-400/10 px-4 py-2 text-sm font-medium text-emerald-200">
-            Costs {resolvedTool.cost} Credits
-          </div>
-        </div>
-      </section>
+  return (
+    <div className="min-h-screen bg-[#030712] text-slate-100 p-6 md:p-8">
+      <div className="max-w-[1600px] mx-auto mb-6 flex items-center justify-between">
+        <button onClick={() => router.push("/dashboard")} className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group">
+          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+          <span>Back to Tools Catalog</span>
+        </button>
+        <span className="text-xs bg-slate-800/60 text-slate-400 px-3 py-1 rounded-full border border-slate-700/50 font-mono">
+          Token Weight: {(tool as { cost?: number }).cost ?? 5} Units
+        </span>
+      </div>
 
-      <section className="rounded-[2rem] border border-slate-800 bg-[#101522] p-6 shadow-2xl shadow-black/20 sm:p-8">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {resolvedTool.inputs.map((input) => (
-            <div key={input.id}>
-              <label htmlFor={input.id} className="mb-3 block text-sm font-medium text-slate-200">
-                {input.label}
-              </label>
+      <div className="max-w-[1600px] mx-auto mb-8">
+        <h1 className="text-3xl font-bold text-white mb-2">{tool.name}</h1>
+        <p className="text-slate-400 max-w-3xl text-sm leading-relaxed">{tool.description}</p>
+      </div>
 
-              {input.type === "textarea" ? (
+      <div className="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <form onSubmit={handleExecute} className="lg:col-span-5 bg-[#0B0F19] border border-slate-800/80 rounded-xl p-6 shadow-xl space-y-6">
+          <h2 className="text-lg font-semibold text-white tracking-wide border-b border-slate-800 pb-3">Operational Inputs</h2>
+
+          {tool.inputs.map((inputField) => (
+            <div key={inputField.id} className="space-y-2">
+              <label className="block text-xs font-medium text-slate-300 uppercase tracking-wider">{inputField.label}</label>
+              {inputField.type === "textarea" ? (
                 <textarea
-                  id={input.id}
-                  value={formValues[input.id] ?? ""}
-                  onChange={(event) => updateValue(input.id, event.target.value)}
                   required
-                  rows={8}
-                  placeholder={input.placeholder}
-                  className="w-full rounded-lg border border-slate-700 bg-[#161C2A] p-3 text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-violet-500"
+                  placeholder={inputField.placeholder || "Provide background context parameters..."}
+                  value={inputs[inputField.id] || ""}
+                  onChange={(e) => handleInputChange(inputField.id, e.target.value)}
+                  className="w-full h-32 bg-[#111827]/50 border border-slate-800 focus:border-indigo-500 rounded-lg p-3 text-sm text-slate-100 placeholder-slate-500 transition-all focus:outline-none focus:ring-1 focus:ring-indigo-500 resize-none"
                 />
               ) : (
                 <input
-                  id={input.id}
                   type="text"
-                  value={formValues[input.id] ?? ""}
-                  onChange={(event) => updateValue(input.id, event.target.value)}
                   required
-                  placeholder={input.placeholder}
-                  className="w-full rounded-lg border border-slate-700 bg-[#161C2A] p-3 text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-violet-500"
+                  placeholder={inputField.placeholder || "Enter target metadata..."}
+                  value={inputs[inputField.id] || ""}
+                  onChange={(e) => handleInputChange(inputField.id, e.target.value)}
+                  className="w-full bg-[#111827]/50 border border-slate-800 focus:border-indigo-500 rounded-lg p-3 text-sm text-slate-100 placeholder-slate-500 transition-all focus:outline-none focus:ring-1 focus:ring-indigo-500"
                 />
               )}
             </div>
           ))}
 
-          {error ? (
-            <div className="rounded-2xl border border-rose-400/30 bg-rose-400/10 px-4 py-3 text-sm leading-6 text-rose-100">
-              {error}
-            </div>
-          ) : null}
-
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-white px-5 py-4 text-sm font-semibold text-slate-950 transition hover:bg-violet-100 disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            {isLoading ? (
-              <>
-                <Loader2 className="h-4 w-4 animate-spin" />
-                Running {resolvedTool.name}...
-              </>
-            ) : (
-              `Execute Tool — Deducts ${resolvedTool.cost} Credits`
-            )}
-          </button>
-        </form>
-      </section>
-
-      <section className="rounded-[2rem] border border-slate-800 bg-[#101522] p-6 shadow-2xl shadow-black/20 sm:p-8">
-        <div className="flex items-center justify-between gap-4">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-violet-300">
-              Generated output
-            </p>
-            <h3 className="mt-3 text-2xl font-semibold">Professional tool result</h3>
-          </div>
-          {output ? <CopyOutputButton value={output} /> : null}
-        </div>
-
-        {isLoading ? (
-          <div className="mt-8 flex min-h-[220px] flex-col items-center justify-center rounded-[1.75rem] border border-dashed border-cyan-300/20 bg-[#161C2A] text-center">
-            <Loader2 className="h-8 w-8 animate-spin text-cyan-200" />
-            <p className="mt-4 text-sm font-medium text-white/75">
-              Building your professional output...
-            </p>
-            <p className="mt-2 text-sm text-white/45">
-              The result will appear here once the AI engine completes processing.
-            </p>
-          </div>
-        ) : output ? (
-          <div className="relative">
-            <div className="absolute right-4 top-4 z-10">
-              <CopyOutputButton value={output} />
-            </div>
-            <div className="mb-5 flex items-center gap-2 pt-2 text-cyan-200">
-              <FileText className="h-4 w-4" />
-              <span className="text-sm font-medium">Structured professional output</span>
-            </div>
-            <OutputViewport output={output} />
-          </div>
-        ) : (
-          <div className="mt-8 rounded-[1.75rem] border border-dashed border-slate-700 bg-[#161C2A] p-8 text-center text-sm leading-7 text-slate-500">
-            Submit the form to generate a premium AI result for this tool.
-          </div>
-        )}
-      </section>
-
-      {showCreditPopup ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-6 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-[2rem] border border-rose-400/20 bg-[#08101f] p-8 shadow-2xl shadow-black/40">
-            <div className="flex items-center gap-3">
-              <div className="rounded-2xl border border-rose-400/20 bg-rose-400/10 p-3 text-rose-200">
-                <TriangleAlert className="h-5 w-5" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-rose-300">
-                  Credit warning
-                </p>
-                <h3 className="mt-1 text-xl font-semibold text-white">Insufficient Credits</h3>
-              </div>
-            </div>
-
-            <p className="mt-5 text-sm leading-7 text-white/70">
-              You do not currently have enough credits to run this tool. Please top up your wallet and try again.
-            </p>
-
+          <div className="pt-4 space-y-3">
             <button
-              type="button"
-              onClick={() => setShowCreditPopup(false)}
-              className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-rose-100"
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 disabled:text-slate-500 text-white font-medium rounded-lg transition-all flex items-center justify-center gap-2 group shadow-lg shadow-indigo-600/10"
             >
-              Close
+              {loading ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <span>Synthesizing Architecture...</span>
+                </>
+              ) : (
+                <>
+                  <Play className="w-4 h-4 fill-current transition-transform group-hover:scale-110" />
+                  <span>Execute Automation Framework</span>
+                </>
+              )}
             </button>
+            <p className="text-[11px] text-center text-slate-500 font-mono">
+              Running this command will deduct {(tool as { cost?: number }).cost ?? 5} processing credits from your account ledger balance.
+            </p>
+          </div>
+        </form>
+        <div className="lg:col-span-7 flex flex-col h-[640px] bg-[#09090B] border border-slate-800/80 rounded-xl shadow-2xl relative overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-3 bg-[#0F0F13] border-b border-slate-800/80 shrink-0">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-rose-500/40 border border-rose-500/60" />
+              <div className="w-3 h-3 rounded-full bg-amber-500/40 border border-amber-500/60" />
+              <div className="w-3 h-3 rounded-full bg-emerald-500/40 border border-emerald-500/60" />
+              <span className="text-xs font-mono text-slate-500 ml-2">output-terminal.md</span>
+            </div>
+
+            {output && (
+              <div className="flex items-center gap-2">
+                <button onClick={handleCopy} className="p-1.5 text-slate-400 hover:text-white bg-slate-800/40 hover:bg-slate-800 border border-slate-700/50 rounded transition-all" title="Copy Output">
+                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                </button>
+                <button onClick={handleDownload} className="p-1.5 text-slate-400 hover:text-white bg-slate-800/40 hover:bg-slate-800 border border-slate-700/50 rounded transition-all" title="Export Markdown">
+                  <Download className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            )}
+          </div>
+
+          <div className="flex-1 overflow-y-auto p-6 font-sans select-text">
+            {loading && (
+              <div className="h-full flex flex-col items-center justify-center text-slate-500 space-y-3 font-mono text-xs">
+                <div className="w-6 h-6 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
+                <p className="animate-pulse">Awaiting data tokens from Groq API core node...</p>
+              </div>
+            )}
+
+            {error && (
+              <div className="p-4 bg-rose-950/30 border border-rose-800/50 rounded-lg text-rose-300 text-sm flex items-start gap-3">
+                <ShieldAlert className="w-5 h-5 shrink-0 mt-0.5 text-rose-400" />
+                <p>{error}</p>
+              </div>
+            )}
+
+            {!loading && !error && !output && (
+              <div className="h-full flex flex-col items-center justify-center text-center text-slate-600 font-mono text-xs max-w-sm mx-auto">
+                <p className="border border-slate-800 border-dashed rounded-lg p-6 bg-slate-900/10">
+                  System idle. Populate input matrix fields on the left pane and press execute to generate production blueprints.
+                </p>
+              </div>
+            )}
+
+            {!loading && output && (
+              <div className="prose prose-invert max-w-none text-slate-300 text-sm leading-relaxed whitespace-pre-wrap font-mono selection:bg-indigo-500/30">
+                {output}
+              </div>
+            )}
           </div>
         </div>
-      ) : null}
+      </div>
     </div>
   );
-
-  return <ToolErrorBoundary>{content}</ToolErrorBoundary>;
 }
