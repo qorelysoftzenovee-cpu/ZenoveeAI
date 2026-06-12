@@ -470,7 +470,9 @@ export const toolsConfig: ToolConfig[] = [
     description: 'Predicts likely procurement and legal pushback based on deal terms, vendor profile, and buyer requirements.',
     inputs: [
       { id: 'dealTerms', label: 'Deal Terms or Buyer Requirements', type: 'textarea', placeholder: 'Paste the known terms, security asks, procurement conditions, and contract requests...' },
-      { id: 'vendorProfile', label: 'Vendor / Product Profile', type: 'text', placeholder: 'e.g., early-stage SaaS with limited enterprise security certifications' }
+      { id: 'vendorProfile', label: 'Vendor / Product Profile', type: 'text', placeholder: 'e.g., early-stage SaaS with limited enterprise security certifications' },
+      { id: 'buyerEnvironment', label: 'Buyer Environment & Procurement Maturity', type: 'text', placeholder: 'e.g., public enterprise procurement with strict legal review gates' },
+      { id: 'primaryRiskType', label: 'Primary Risk Type', type: 'dropdown', options: ['Security / Compliance', 'Commercial Terms', 'Vendor Stability', 'Implementation Complexity', 'Data Governance'] }
     ],
     systemPrompt: 'You are a procurement strategy advisor for B2B software deals. Analyze the provided terms and vendor profile and output: 1) Likely Procurement Objections, 2) Legal Review Red Flags, 3) Security and Compliance Pressure Points, 4) Likely Buyer Negotiation Tactics, and 5) Countermeasure Recommendations. Keep the analysis direct and decision-useful. Avoid generic sales coaching and focus specifically on institutional procurement friction and how the deal team should prepare.'
   },
@@ -584,7 +586,9 @@ export const toolsConfig: ToolConfig[] = [
     description: 'Generates robust regular expressions and brief implementation notes for structured text-matching problems.',
     inputs: [
       { id: 'matchingGoal', label: 'Matching Goal', type: 'textarea', placeholder: 'Describe exactly what text pattern must be matched or excluded...' },
-      { id: 'exampleStrings', label: 'Example Strings', type: 'textarea', placeholder: 'Paste positive and negative examples here...' }
+      { id: 'exampleStrings', label: 'Example Strings', type: 'textarea', placeholder: 'Paste positive and negative examples here...' },
+      { id: 'regexEngine', label: 'Regex Engine / Runtime', type: 'dropdown', options: ['JavaScript / TypeScript', 'Python', 'PCRE / PHP', 'Java', 'Go / RE2'] },
+      { id: 'strictnessMode', label: 'Pattern Strictness Mode', type: 'dropdown', options: ['Strict Exact Match', 'Flexible Match with Groups', 'Validation-Oriented', 'Extraction-Oriented'] }
     ],
     systemPrompt: 'You are a regex generation engine. Return a syntactically correct regular expression tailored to the supplied matching goal and examples. Also return a short validation note explaining what the expression matches and any edge cases worth noting. Keep the response compact and technical. Do not include conversational filler. Prioritize correctness, maintainability, and practical deployability.'
   },
@@ -598,7 +602,8 @@ export const toolsConfig: ToolConfig[] = [
       { id: 'serviceRequirements', label: 'Service Requirements & Stack', type: 'textarea', placeholder: 'Describe the app services, dependencies, ports, databases, queues, and environment needs...' },
       { id: 'deploymentGoal', label: 'Deployment Goal', type: 'text', placeholder: 'e.g., production-ready local stack with web, worker, postgres, redis' },
       { id: 'environmentScale', label: 'Environment Type & Scale', type: 'dropdown', options: ['Local Development', 'Staging / QA', 'Production Optimized', 'High-Availability Multi-Region'] },
-      { id: 'orchestration', label: 'Orchestration Preference', type: 'dropdown', options: ['Docker Compose Only', 'Kubernetes Ready', 'Serverless Compatible', 'Cloud-Native (ECS/GKE)'] }
+      { id: 'orchestration', label: 'Orchestration Preference', type: 'dropdown', options: ['Docker Compose Only', 'Kubernetes Ready', 'Serverless Compatible', 'Cloud-Native (ECS/GKE)'] },
+      { id: 'securityBoundary', label: 'Security Boundary Priority', type: 'dropdown', options: ['Internal Tooling', 'Customer-Facing Production', 'Regulated / Compliance-Sensitive', 'Public Internet Edge'] }
     ],
     systemPrompt: 'You are a senior platform engineer. Based on the supplied service requirements, environment type, and orchestration preference, produce a markdown infrastructure blueprint for Docker-based deployment. Include: 1) Service Breakdown with resource limits appropriate to scale, 2) Container Responsibilities and image layering strategy, 3) Network and Volume Strategy with persistent data handling, 4) Environment Variable Separation by service and environment, 5) Security and Secret Handling Notes, 6) Suggested docker-compose or Kubernetes architecture, and 7) Local Development vs Production Configuration Guidance. Be technical, exact, and implementation-oriented. Do not provide conversational filler. Output should be immediately actionable for infrastructure teams.'
   },

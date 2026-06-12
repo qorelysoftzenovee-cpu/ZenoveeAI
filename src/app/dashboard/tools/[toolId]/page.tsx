@@ -138,6 +138,22 @@ export default function ToolWorkspacePage() {
                   onChange={(e) => handleInputChange(inputField.id, e.target.value)}
                   className="w-full h-32 bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm text-slate-900 placeholder:text-slate-400 transition-all focus:bg-white focus:outline-none focus:ring-1 focus:ring-slate-300 resize-none"
                 />
+              ) : inputField.type === "dropdown" ? (
+                <select
+                  required
+                  value={inputs[inputField.id] || ""}
+                  onChange={(e) => handleInputChange(inputField.id, e.target.value)}
+                  className="w-full rounded-lg border border-slate-300 bg-slate-50 p-3 text-sm text-slate-900 transition-all focus:bg-white focus:outline-none focus:ring-1 focus:ring-slate-300"
+                >
+                  <option value="" disabled>
+                    {inputField.placeholder || `Select ${inputField.label.toLowerCase()}...`}
+                  </option>
+                  {(inputField.options || []).map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
               ) : (
                 <input
                   type="text"
