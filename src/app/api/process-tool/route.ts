@@ -160,26 +160,33 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (activeTier !== "trial") {
-      const { data: creditData, error: creditError } = await supabase.rpc(
-        "consume_user_credits",
-        {
-          u_id: user.id,
-          token_cost: tokenCost,
-          tool_name: toolId,
-        },
-      );
+    let remainingCredits = currentProfile?.credits ?? 0;
 
-      if (creditError) {
+    if (activeTier !== "trial") {
+      const availableCredits = currentProfile?.credits ?? 0;
+      const newBalance = availableCredits - tokenCost;
+
+      const { error: creditUpdateError } = await supabase
+        .from("profiles")
+        .update({ credits: newBalance })
+        .eq("id", user.id);
+
+      if (creditUpdateError) {
         return NextResponse.json(
           { error: "AI completed, but we could not finalize credit deduction. Please contact support before retrying." },
           { status: 500 },
         );
       }
 
-      if (creditData !== true) {
-        return NextResponse.json({ error: "Insufficient Credits" }, { status: 402 });
-      }
+      remainingCredits = newBalance;
+
+      console.log("[process-tool] credits updated", {
+        userId: user.id,
+        toolId,
+        previousBalance: availableCredits,
+        debited: tokenCost,
+        newBalance,
+      });
     }
 
     const { error: historyInsertError } = await supabase.from("generation_history").insert({
@@ -210,7 +217,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    return NextResponse.json({ toolId, output });
+    return NextResponse.json({ success: true, toolId, output, remainingCredits });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Tool execution failed. Please try again.";
 

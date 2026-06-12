@@ -81,6 +81,7 @@ export default function ToolWorkspacePage() {
 
       const data = await response.json();
       setOutput(data.output);
+      router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "An unexpected error occurred during execution.");
     } finally {
