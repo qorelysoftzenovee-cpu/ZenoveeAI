@@ -135,9 +135,10 @@ export async function POST(request: NextRequest) {
     }
 
     const groq = new Groq({ apiKey: groqApiKey });
+    const groqModel = process.env.GROQ_MODEL?.trim() || "llama-3.3-70b-versatile";
 
     const completion = await groq.chat.completions.create({
-      model: "llama3-70b-8192",
+      model: groqModel,
       messages: [
         {
           role: "system",
