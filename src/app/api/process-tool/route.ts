@@ -1,5 +1,6 @@
 import "server-only";
 
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
 
 import { createClient } from "@/utils/supabase/server";
@@ -32,6 +33,22 @@ function buildUserPrompt(
     "User Inputs:",
     serializedInputs,
   ].join("\n");
+}
+
+function createPrivilegedSupabaseClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !serviceRoleKey) {
+    return null;
+  }
+
+  return createSupabaseClient(supabaseUrl, serviceRoleKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  });
 }
 
 export async function POST(request: NextRequest) {
@@ -163,29 +180,56 @@ export async function POST(request: NextRequest) {
     let remainingCredits = currentProfile?.credits ?? 0;
 
     if (activeTier !== "trial") {
-      const availableCredits = currentProfile?.credits ?? 0;
-      const newBalance = availableCredits - tokenCost;
+      const privilegedSupabase = createPrivilegedSupabaseClient() ?? supabase;
+      const currentBalance = currentProfile?.credits ?? 0;
+      const secureNewBalance = Math.max(0, Number(currentBalance) - Number(tokenCost));
 
-      const { error: creditUpdateError } = await supabase
-        .from("profiles")
-        .update({ credits: newBalance })
-        .eq("id", user.id);
+      if (!Number.isFinite(secureNewBalance)) {
+        console.error("[process-tool] invalid secureNewBalance", {
+          userId: user.id,
+          toolId,
+          currentBalance,
+          tokenCost,
+        });
 
-      if (creditUpdateError) {
         return NextResponse.json(
-          { error: "AI completed, but we could not finalize credit deduction. Please contact support before retrying." },
+          { error: "AI completed, but generated an invalid balance update value." },
           { status: 500 },
         );
       }
 
-      remainingCredits = newBalance;
+      try {
+        const { error: creditUpdateError } = await privilegedSupabase
+          .from("profiles")
+          .update({ credits: secureNewBalance })
+          .eq("id", user.id);
+
+        if (creditUpdateError) {
+          console.error("[process-tool] raw credit update error", creditUpdateError);
+
+          return NextResponse.json(
+            { error: "AI completed, but we could not finalize credit deduction. Please contact support before retrying." },
+            { status: 500 },
+          );
+        }
+      } catch (creditWriteError) {
+        console.error("[process-tool] credit update threw", creditWriteError);
+
+        return NextResponse.json(
+          { error: "AI completed, but the credit update transaction failed unexpectedly." },
+          { status: 500 },
+        );
+      }
+
+      remainingCredits = secureNewBalance;
 
       console.log("[process-tool] credits updated", {
         userId: user.id,
         toolId,
-        previousBalance: availableCredits,
-        debited: tokenCost,
-        newBalance,
+        previousBalance: Number(currentBalance),
+        debited: Number(tokenCost),
+        newBalance: secureNewBalance,
+        usedServiceRole: Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY),
       });
     }
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { Check, CreditCard, Loader2, Sparkles, Wallet } from "lucide-react";
+import Script from "next/script";
 import { useEffect, useMemo, useState } from "react";
 
 import { createClient } from "@/utils/supabase/client";
@@ -248,6 +249,7 @@ export default function BillingPage() {
 
   return (
     <div className="space-y-8">
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="afterInteractive" />
       <section className="rounded-[2rem] border border-slate-100 bg-white p-6 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),0_2px_4px_-2px_rgba(0,0,0,0.05)] sm:p-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
