@@ -69,7 +69,7 @@ export default function Home() {
       <section className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24">
         <div className="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
-            <p className="font-semibold tracking-wide text-indigo-600">LAUNCH WEEK SPECIAL: Save 60% On The Ultimate Production Studio</p>
+            <p className="font-semibold tracking-wide text-emerald-600">LAUNCH WEEK SPECIAL: Save 60% On The Ultimate Production Studio</p>
             <h1 className="mt-6 max-w-5xl text-5xl font-semibold leading-tight text-[#0B132B] sm:text-6xl lg:text-7xl">
               Replace 10 Costly Subscriptions. 50 Professional Tools. One Single Payment.
             </h1>
@@ -77,7 +77,7 @@ export default function Home() {
               Stop burning money on individual app fees. Access 50 elite-tier tools for automation, content engine, and analytics in one secure workspace. No recurring fees if you lock in during launch week.
             </p>
             <div className="mt-10">
-              <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#E63946] px-8 py-4 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.01] hover:bg-[#c92a37] active:scale-[0.99]">
+               <Link href="/signup" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#E63946] px-8 py-4 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.01] hover:bg-[#c92a37] active:scale-[0.99]">
                 Get Instant Access & Save 60%
                 <ArrowRight className="h-4 w-4" />
               </Link>
@@ -105,9 +105,9 @@ export default function Home() {
                 ))}
               </div>
 
-              <div className="mt-8 rounded-[1.5rem] bg-[#0B132B] p-6 text-white">
-                <p className="text-sm uppercase tracking-[0.28em] text-emerald-300">Launch payment alignment</p>
-                <p className="mt-3 text-sm leading-7 text-slate-300">
+              <div className="mt-8 rounded-[1.5rem] border border-emerald-200 bg-emerald-50 p-6 text-slate-900">
+                <p className="text-sm uppercase tracking-[0.28em] text-emerald-600">Launch payment alignment</p>
+                <p className="mt-3 text-sm leading-7 text-slate-600">
                   $8 Grand Launch Trial Pass (Test All 50 Tools — 1 Full Execution Run Per Tool)
                 </p>
               </div>
@@ -142,7 +142,7 @@ export default function Home() {
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-10">
         <div className="max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#0B132B]">50-Tool Showdown Grid</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-600">50-Tool Showdown Grid</p>
           <h2 className="mt-4 text-4xl font-semibold text-slate-900">One platform. Four high-output categories. Fifty revenue-grade utilities.</h2>
           <p className="mt-4 text-base leading-8 text-slate-600">Explore the production matrix built to replace scattered subscriptions and help teams move faster across content, development, analytics, and file operations.</p>
         </div>

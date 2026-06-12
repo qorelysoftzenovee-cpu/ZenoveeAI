@@ -185,19 +185,19 @@ export default function ToolWorkspacePage() {
 
             {output && (
               <div className="flex items-center gap-2">
-                <button onClick={handleCopy} className="p-1.5 text-slate-500 hover:text-slate-900 bg-slate-800/40 hover:bg-slate-800 border border-slate-700/50 rounded transition-all" title="Copy Output">
-                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                <button onClick={handleCopy} className="rounded border border-slate-200 bg-white p-1.5 text-slate-500 transition-all hover:bg-slate-100 hover:text-slate-900" title="Copy Output">
+                  {copied ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
                 </button>
-                <button onClick={handleDownload} className="p-1.5 text-slate-500 hover:text-slate-900 bg-slate-800/40 hover:bg-slate-800 border border-slate-700/50 rounded transition-all" title="Export Markdown">
-                  <Download className="w-3.5 h-3.5" />
+                <button onClick={handleDownload} className="rounded border border-slate-200 bg-white p-1.5 text-slate-500 transition-all hover:bg-slate-100 hover:text-slate-900" title="Export Markdown">
+                  <Download className="h-3.5 w-3.5" />
                 </button>
               </div>
             )}
           </div>
 
-          <div className="flex-1 overflow-y-auto p-6 font-sans select-text bg-white">
+          <div className="flex-1 overflow-y-auto bg-[#F8FAFC] p-6 font-sans select-text">
             {loading && (
-              <div className="h-full flex flex-col items-center justify-center text-slate-500 space-y-3 font-mono text-xs">
+              <div className="h-full flex flex-col items-center justify-center space-y-3 font-mono text-xs text-slate-500">
                 <div className="w-6 h-6 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
                 <p className="animate-pulse">Awaiting data tokens from Groq API core node...</p>
               </div>
@@ -211,15 +211,15 @@ export default function ToolWorkspacePage() {
             )}
 
             {!loading && !error && !output && (
-              <div className="h-full flex flex-col items-center justify-center text-center text-slate-500 font-mono text-xs max-w-sm mx-auto">
-                <p className="border border-slate-200 border-dashed rounded-lg p-6 bg-slate-50">
+              <div className="mx-auto flex h-full max-w-sm flex-col items-center justify-center text-center font-mono text-xs text-slate-500">
+                <p className="rounded-lg border border-slate-200 border-dashed bg-white p-6">
                   System idle. Populate input matrix fields on the left pane and press execute to generate production blueprints.
                 </p>
               </div>
             )}
 
             {!loading && output && (
-              <div className="prose prose-invert max-w-none text-slate-300 text-sm leading-relaxed whitespace-pre-wrap font-mono selection:bg-indigo-500/30">
+              <div className="max-w-none whitespace-pre-wrap font-mono text-sm leading-relaxed text-slate-700 selection:bg-indigo-100">
                 {output}
               </div>
             )}

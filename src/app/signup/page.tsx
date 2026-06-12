@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ArrowRight, ShieldCheck, UserPlus, Globe } from "lucide-react";
+import { ArrowRight, ShieldCheck, UserPlus } from "lucide-react";
 
 import { AuthMessage } from "@/components/auth/auth-message";
 import { createClient } from "@/utils/supabase/client";
@@ -103,33 +103,33 @@ export default function SignupPage() {
   const scoreLabel = ["Very weak", "Weak", "Fair", "Good", "Strong"][score];
 
   return (
-    <main className="min-h-screen bg-slate-900 text-white">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(139,92,246,0.18),transparent_24%),linear-gradient(180deg,#0f172a_0%,#020617_100%)]" />
+    <main className="min-h-screen bg-[#F8FAFC] text-slate-900">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(16,185,129,0.10),transparent_28%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)]" />
       <div className="mx-auto flex min-h-screen max-w-7xl items-center justify-center px-6 py-10 lg:px-10">
-        <div className="w-full max-w-md rounded-[2rem] border border-violet-400/20 bg-slate-900/85 p-[1px] shadow-[0_0_80px_rgba(139,92,246,0.16)] backdrop-blur-xl">
-          <div className="rounded-[calc(2rem-1px)] bg-[#0F172A] p-8 sm:p-10">
+        <div className="w-full max-w-md rounded-[2rem] border border-slate-200 bg-white p-[1px] shadow-[0_24px_60px_rgba(15,23,42,0.08)]">
+          <div className="rounded-[calc(2rem-1px)] bg-white p-8 sm:p-10">
             <div className="flex items-center gap-3">
-              <div className="rounded-2xl border border-violet-400/20 bg-violet-500/10 p-3 text-violet-200">
+              <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-3 text-emerald-600">
                 <UserPlus className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.35em] text-violet-300">
+                <p className="text-xs font-semibold uppercase tracking-[0.35em] text-emerald-600">
                   Pro-Suite 50
                 </p>
-                <p className="mt-1 text-sm text-slate-400">Secure premium workspace registration</p>
+                <p className="mt-1 text-sm text-slate-500">Secure premium workspace registration</p>
               </div>
             </div>
 
             <div className="mt-8">
-              <h1 className="text-3xl font-semibold tracking-tight">Create your account</h1>
-              <p className="mt-3 text-sm leading-7 text-slate-400">
+              <h1 className="text-3xl font-semibold tracking-tight text-slate-900">Create your account</h1>
+              <p className="mt-3 text-sm leading-7 text-slate-500">
                 Register your workspace access and unlock the premium dashboard, internal tools, and billing controls.
               </p>
             </div>
 
-            <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-slate-300">
+            <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
               <div className="flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-emerald-300" />
+                <ShieldCheck className="h-4 w-4 text-emerald-600" />
                 Account verification and protected session access handled securely through Supabase
               </div>
             </div>
@@ -140,29 +140,8 @@ export default function SignupPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="mt-6 space-y-5">
-              <div className="flex flex-col items-center gap-3">
-                <p className="text-xs text-slate-400">Or start with</p>
-                <div className="flex w-full gap-3">
-                  <button
-                    type="button"
-                    aria-label="Continue with GitHub"
-                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-800/70 px-4 py-2 text-sm font-medium text-slate-100 transition hover:bg-slate-800"
-                  >
-                    <Globe className="h-4 w-4" />
-                    GitHub
-                  </button>
-                  <button
-                    type="button"
-                    aria-label="Continue with SSO"
-                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-800/70 px-4 py-2 text-sm font-medium text-slate-100 transition hover:bg-slate-800"
-                  >
-                    <Globe className="h-4 w-4" />
-                    SSO
-                  </button>
-                </div>
-              </div>
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="email">
+                <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="email">
                   Email
                 </label>
                 <input
@@ -173,12 +152,12 @@ export default function SignupPage() {
                   required
                   autoComplete="email"
                   placeholder="you@company.com"
-                  className="w-full rounded-xl border border-slate-700 bg-slate-800/90 px-4 py-3.5 text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-violet-500"
+                  className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3.5 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-400 focus:bg-white"
                 />
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="password">
+                <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="password">
                   Password
                 </label>
                 <div className="relative">
@@ -191,13 +170,13 @@ export default function SignupPage() {
                     minLength={6}
                     autoComplete="new-password"
                     placeholder="Choose a secure password"
-                    className="w-full rounded-xl border border-slate-700 bg-slate-800/90 px-4 py-3.5 pr-12 text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-violet-500"
+                    className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3.5 pr-12 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-400 focus:bg-white"
                   />
                   <button
                     type="button"
                     tabIndex={-1}
                     onClick={() => setShowPassword((s) => !s)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded px-2 py-1 text-sm text-slate-300 hover:text-white"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded px-2 py-1 text-sm text-slate-500 hover:text-slate-900"
                   >
                     {showPassword ? "Hide" : "Show"}
                   </button>
@@ -205,19 +184,19 @@ export default function SignupPage() {
 
                 <div className="mt-2 flex items-center justify-between gap-3">
                   <div className="flex-1">
-                    <div className="h-2 w-full rounded-full bg-white/5">
+                    <div className="h-2 w-full rounded-full bg-slate-200">
                       <div
-                        className={`h-2 rounded-full bg-gradient-to-r from-rose-500 to-emerald-400 transition-all`} 
+                        className={`h-2 rounded-full bg-gradient-to-r from-amber-400 to-emerald-500 transition-all`}
                         style={{ width: `${(score / 4) * 100}%` }}
                       />
                     </div>
-                    <p className="mt-1 text-xs text-slate-400">{scoreLabel}</p>
+                    <p className="mt-1 text-xs text-slate-500">{scoreLabel}</p>
                   </div>
                 </div>
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="confirmPassword">
+                <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="confirmPassword">
                   Password confirmation
                 </label>
                 <div className="relative">
@@ -230,13 +209,13 @@ export default function SignupPage() {
                     minLength={6}
                     autoComplete="new-password"
                     placeholder="Re-enter your password"
-                    className="w-full rounded-xl border border-slate-700 bg-slate-800/90 px-4 py-3.5 pr-12 text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-violet-500"
+                    className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3.5 pr-12 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-400 focus:bg-white"
                   />
                   <button
                     type="button"
                     tabIndex={-1}
                     onClick={() => setShowConfirm((s) => !s)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded px-2 py-1 text-sm text-slate-300 hover:text-white"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded px-2 py-1 text-sm text-slate-500 hover:text-slate-900"
                   >
                     {showConfirm ? "Hide" : "Show"}
                   </button>
@@ -244,21 +223,21 @@ export default function SignupPage() {
               </div>
 
               <div className="flex items-start gap-3">
-                <label className="flex items-center gap-2 text-slate-300">
+                <label className="flex items-center gap-2 text-slate-500">
                   <input
                     type="checkbox"
                     checked={termsAccepted}
                     onChange={(e) => setTermsAccepted(e.target.checked)}
-                    className="h-4 w-4 rounded border-slate-600 bg-slate-700 text-violet-500"
+                    className="h-4 w-4 rounded border-slate-300 bg-white text-emerald-500"
                   />
-                  <span className="text-sm">I agree to the <a href="#" className="text-violet-300">Terms</a> and <a href="#" className="text-violet-300">Privacy Policy</a></span>
+                  <span className="text-sm">I agree to the <a href="#" className="text-emerald-600">Terms</a> and <a href="#" className="text-emerald-600">Privacy Policy</a></span>
                 </label>
               </div>
 
               <button
                 type="submit"
                 disabled={isLoading || !termsAccepted}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-400 to-indigo-500 px-5 py-3.5 text-sm font-semibold text-slate-950 shadow-md transition transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#E63946] px-5 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#c92a37] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isLoading ? (
                   "Creating your account..."
@@ -271,13 +250,13 @@ export default function SignupPage() {
               </button>
             </form>
 
-            <p className="mt-6 text-sm leading-7 text-slate-400">
+            <p className="mt-6 text-sm leading-7 text-slate-500">
               After signup, please check your email inbox for your verification message before signing in.
             </p>
 
-            <p className="mt-6 text-center text-sm text-slate-400">
+            <p className="mt-6 text-center text-sm text-slate-500">
               Already registered?{" "}
-              <Link href="/login" className="font-semibold text-violet-300 transition hover:text-violet-200">
+              <Link href="/login" className="font-semibold text-emerald-600 transition hover:text-emerald-500">
                 Sign in here
               </Link>
             </p>
