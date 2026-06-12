@@ -107,8 +107,8 @@ export default function ToolWorkspacePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 p-6 md:p-8">
-      <div className="max-w-[1600px] mx-auto mb-6 flex items-center justify-between">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 px-4 py-6 md:px-6 md:py-8">
+      <div className="mb-6 flex items-center justify-between gap-4">
         <button onClick={() => router.push("/dashboard")} className="flex items-center gap-2 text-slate-500 hover:text-slate-900 transition-colors group">
           <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
           <span>Back to Tools Catalog</span>
@@ -118,13 +118,13 @@ export default function ToolWorkspacePage() {
         </span>
       </div>
 
-      <div className="max-w-[1600px] mx-auto mb-8">
+      <div className="mb-8">
         <h1 className="text-3xl font-bold text-slate-900 mb-2">{tool.name}</h1>
         <p className="text-slate-500 max-w-3xl text-sm leading-relaxed">{tool.description}</p>
       </div>
 
-      <div className="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <form onSubmit={handleExecute} className="lg:col-span-5 bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-6">
+      <div className="grid min-h-[calc(100vh-13rem)] grid-cols-1 gap-6 xl:grid-cols-[minmax(380px,0.95fr)_minmax(0,1.45fr)] items-start">
+        <form onSubmit={handleExecute} className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-6 h-full">
           <h2 className="text-lg font-semibold text-slate-900 tracking-wide border-b border-slate-200 pb-3">Operational Inputs</h2>
 
           {tool.inputs.map((inputField) => (
@@ -174,7 +174,7 @@ export default function ToolWorkspacePage() {
             </p>
           </div>
         </form>
-        <div className="lg:col-span-7 flex flex-col h-[640px] bg-white border border-slate-200/60 rounded-xl shadow-sm relative overflow-hidden">
+        <div className="flex min-h-[640px] h-full flex-col bg-white border border-slate-200/60 rounded-xl shadow-sm relative overflow-hidden">
           <div className="flex items-center justify-between px-4 py-3 bg-slate-50 border-b border-slate-200 shrink-0">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-rose-500/40 border border-rose-500/60" />
