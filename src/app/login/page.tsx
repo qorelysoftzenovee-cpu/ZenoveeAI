@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ArrowRight, LogIn, ShieldCheck, Github, Globe } from "lucide-react";
+import { ArrowRight, LogIn, ShieldCheck, Globe } from "lucide-react";
 
 import { AuthMessage } from "@/components/auth/auth-message";
 import { createClient } from "@/utils/supabase/client";
@@ -106,7 +106,7 @@ export default function LoginPage() {
                     aria-label="Continue with GitHub"
                     className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-800/70 px-4 py-2 text-sm font-medium text-slate-100 transition hover:bg-slate-800"
                   >
-                    <Github className="h-4 w-4" />
+                    <Globe className="h-4 w-4" />
                     GitHub
                   </button>
                   <button
