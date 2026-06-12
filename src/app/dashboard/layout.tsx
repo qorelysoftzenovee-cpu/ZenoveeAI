@@ -167,19 +167,19 @@ export default async function DashboardLayout({
           </form>
         </aside>
 
-        <section className="min-w-0 flex-1">
-          <div className="h-screen overflow-y-auto p-8 md:p-12">
-            <header className="rounded-[2rem] border border-slate-100 bg-white p-6 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),0_2px_4px_-2px_rgba(0,0,0,0.05)] sm:p-8">
+        <section className="min-w-0 flex-1 bg-[#F8FAFC]">
+          <div className="h-screen overflow-y-auto bg-[#F8FAFC] p-8 md:p-12">
+            <header className="rounded-xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8">
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
-                  <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-[#64748B]">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
                     <PanelLeft className="h-3.5 w-3.5" />
                     Internal platform
                   </div>
-                  <h1 className="mt-4 text-3xl font-semibold sm:text-4xl">
+                  <h1 className="mt-4 text-3xl font-semibold text-slate-900 sm:text-4xl">
                     Welcome back, {name}
                   </h1>
-                  <p className="mt-3 max-w-3xl text-sm leading-7 text-[#64748B] sm:text-base">
+                  <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-500 sm:text-base">
                     Browse and launch your AI-powered B2B suite through a premium internal workspace designed for category scale, live credit visibility, and smoother execution.
                   </p>
                 </div>
