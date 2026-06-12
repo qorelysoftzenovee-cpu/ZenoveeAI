@@ -248,27 +248,27 @@ export default function BillingPage() {
 
   return (
     <div className="space-y-8">
-      <section className="rounded-[2rem] border border-white/10 bg-white/5 p-6 backdrop-blur sm:p-8">
+      <section className="rounded-[2rem] border border-slate-100 bg-white p-6 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),0_2px_4px_-2px_rgba(0,0,0,0.05)] sm:p-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-violet-300/20 bg-violet-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-violet-200">
+            <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-[#64748B]">
               <Sparkles className="h-3.5 w-3.5" />
               Monetization Center
             </div>
             <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Scale your execution capacity</h2>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base">
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-[#64748B] sm:text-base">
               Upgrade your workspace tier, expand recurring monthly credits, and add on-demand top-ups for high-intensity execution cycles.
             </p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-[1.5rem] border border-white/10 bg-[#101522] p-5">
+            <div className="rounded-[1.5rem] border border-slate-200/80 bg-white p-5 shadow-md">
               <p className="text-xs uppercase tracking-[0.28em] text-slate-500">Current tier</p>
-              <p className="mt-3 text-2xl font-semibold text-white">{tierLabel}</p>
+              <p className="mt-3 text-2xl font-semibold text-[#1E293B]">{tierLabel}</p>
             </div>
-            <div className="rounded-[1.5rem] border border-emerald-400/20 bg-emerald-400/10 p-5">
-              <p className="text-xs uppercase tracking-[0.28em] text-emerald-200/80">Current credits</p>
-              <p className="mt-3 text-2xl font-semibold text-white">
+            <div className="rounded-[1.5rem] border border-slate-200 bg-gradient-to-br from-slate-50 to-slate-100 p-5">
+              <p className="text-xs uppercase tracking-[0.28em] text-[#64748B]">Current credits</p>
+              <p className="mt-3 text-2xl font-semibold text-[#1E293B]">
                 {isLoadingProfile ? "..." : profile?.credits ?? 0}
               </p>
             </div>
@@ -293,20 +293,24 @@ export default function BillingPage() {
           <article
             key={option.id}
             className={`rounded-[2rem] border p-6 backdrop-blur sm:p-8 ${
-              option.id === "starter-plan"
-                ? "border-amber-300/25 bg-gradient-to-br from-amber-400/12 via-white/5 to-violet-400/10 shadow-2xl shadow-amber-950/10"
-                : "border-white/10 bg-white/5"
+              option.id === "power-plan"
+                ? "border border-transparent bg-white shadow-md [background:linear-gradient(white,white)_padding-box,linear-gradient(135deg,#E8F0FE,#F3E8FF,#FFEFE7)_border-box]"
+                : "bg-white border border-slate-200/80 shadow-md"
             }`}
           >
             <div className="flex items-start justify-between gap-4">
               <div>
-                <h3 className="text-2xl font-semibold text-white">{option.title}</h3>
-                <p className="mt-2 text-sm leading-7 text-slate-300">{option.description}</p>
+                <h3 className="text-2xl font-semibold text-[#1E293B]">{option.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-[#64748B]">{option.description}</p>
               </div>
                 <div className={`rounded-2xl border p-3 ${
                   option.id === "starter-plan"
-                    ? "border-amber-300/20 bg-amber-400/10 text-amber-200"
-                    : "border-violet-300/20 bg-violet-400/10 text-violet-200"
+                    ? "border-[#E6F4EA] bg-[#E6F4EA] text-[#137333]"
+                    : option.id === "power-plan"
+                      ? "border-[#F3E8FF] bg-[#F3E8FF] text-[#6B21A8]"
+                      : option.id === "agency-suite"
+                        ? "border-[#FFEFE7] bg-[#FFEFE7] text-[#C0392B]"
+                        : "border-slate-200 bg-slate-50 text-[#64748B]"
                 }`}>
                 {option.id === "credit-topup" ? (
                   <Wallet className="h-5 w-5" />
@@ -316,9 +320,9 @@ export default function BillingPage() {
               </div>
             </div>
 
-            <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-[#101522] p-5">
-              <p className="text-3xl font-semibold text-white">{option.price}</p>
-              <p className="mt-2 text-sm text-cyan-200">
+            <div className="mt-8 rounded-[1.5rem] border border-slate-200 bg-[#F8FAFC] p-5">
+              <p className="text-3xl font-semibold text-[#1E293B]">{option.price}</p>
+              <p className="mt-2 text-sm text-[#64748B]">
                 {option.id === "starter-plan"
                   ? "100 generation runs / month"
                   : `+ ${option.credits.toLocaleString()} credits`}
@@ -327,8 +331,8 @@ export default function BillingPage() {
 
             <div className="mt-6 space-y-3">
               {option.features.map((feature) => (
-                <div key={feature} className="flex items-start gap-3 text-sm text-slate-300">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300" />
+                <div key={feature} className="flex items-start gap-3 text-sm text-[#64748B]">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#137333]" />
                   <span>{feature}</span>
                 </div>
               ))}
@@ -338,7 +342,7 @@ export default function BillingPage() {
               type="button"
               onClick={() => void openCheckout(option)}
               disabled={isLoadingProfile || activePurchaseId === option.id}
-              className="mt-8 inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-white px-5 py-3.5 text-sm font-semibold text-slate-950 transition hover:bg-violet-100 disabled:cursor-not-allowed disabled:opacity-60"
+              className="mt-8 inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-[#1E293B] px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {activePurchaseId === option.id ? (
                 <>

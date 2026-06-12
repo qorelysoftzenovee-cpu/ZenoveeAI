@@ -57,51 +57,51 @@ export default async function DashboardLayout({
   }
 
   return (
-    <main className="min-h-screen bg-[#0B0F19] text-slate-100">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(139,92,246,0.14),transparent_24%),radial-gradient(circle_at_80%_16%,rgba(34,211,238,0.12),transparent_18%),linear-gradient(180deg,#0B0F19_0%,#0B0F19_55%,#070A12_100%)]" />
+    <main className="min-h-screen bg-[#F8FAFC] text-[#1E293B]">
+      <div className="absolute inset-0 -z-10 bg-[#F4F7F6]" />
 
       <div className="flex min-h-screen">
-        <aside className="hidden w-[320px] shrink-0 border-r border-white/10 bg-[#0F1422]/90 backdrop-blur xl:flex xl:flex-col">
+        <aside className="hidden w-[320px] shrink-0 border-r border-slate-200 bg-[#FFFFFF] shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),0_2px_4px_-2px_rgba(0,0,0,0.05)] xl:flex xl:flex-col">
           <div className="flex items-center gap-3">
-            <div className="m-8 rounded-2xl border border-cyan-300/20 bg-cyan-400/10 p-3 text-cyan-200">
+            <div className="m-8 rounded-2xl border border-slate-200 bg-slate-50 p-3 text-slate-700">
               <Sparkles className="h-5 w-5" />
             </div>
             <div className="-ml-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300">
+              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#1E293B]">
                 Pro-Suite 50
               </p>
-              <p className="mt-1 text-sm text-slate-400">Premium internal workspace</p>
+              <p className="mt-1 text-sm text-[#64748B]">Premium internal workspace</p>
             </div>
           </div>
 
-          <div className="mx-8 mt-2 rounded-[1.75rem] border border-white/10 bg-[#11182A] p-5 shadow-lg shadow-black/20">
+          <div className="mx-8 mt-2 rounded-[1.75rem] border border-slate-100 bg-white p-5 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),0_2px_4px_-2px_rgba(0,0,0,0.05)]">
             <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Signed in as</p>
-            <div className="mt-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-              <Mail className="h-4 w-4 text-cyan-300" />
-              <p className="break-all text-sm font-medium text-slate-100">{user.email}</p>
+            <div className="mt-4 flex items-center gap-3 rounded-2xl border border-slate-100 bg-[#F8FAFC] px-4 py-3">
+              <Mail className="h-4 w-4 text-[#1E293B]" />
+              <p className="break-all text-sm font-medium text-[#1E293B]">{user.email}</p>
             </div>
 
-            <div className="mt-6 rounded-[1.5rem] border border-emerald-400/20 bg-emerald-400/10 p-4">
+            <div className="mt-6 rounded-[1.5rem] border border-slate-200 bg-gradient-to-br from-slate-50 to-slate-100 p-4">
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-200">
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#1E293B]">
                     Credits Available
                   </p>
-                  <p className="mt-3 text-3xl font-semibold text-white">{credits}</p>
+                  <p className="mt-3 text-3xl font-semibold text-[#1E293B]">{credits}</p>
                 </div>
-                <div className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs font-medium text-emerald-100">
+                <div className="rounded-full border border-white/10 bg-white px-3 py-1 text-xs font-medium text-[#1E293B] border border-slate-200">
                   Live
                 </div>
               </div>
 
-              <div className="mt-5 h-3 overflow-hidden rounded-full bg-white/10">
+              <div className="mt-5 h-3 overflow-hidden rounded-full bg-slate-200">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-emerald-300 via-cyan-300 to-violet-300"
+                  className="h-full rounded-full bg-gradient-to-r from-slate-300 via-slate-400 to-slate-500"
                   style={{ width: `${creditProgress}%` }}
                 />
               </div>
 
-              <p className="mt-3 text-sm text-emerald-100/80">
+              <p className="mt-3 text-sm text-[#64748B]">
                 Premium wallet progress track linked directly to your live profile balance.
               </p>
             </div>
@@ -110,14 +110,14 @@ export default async function DashboardLayout({
           <nav className="mx-8 mt-8 space-y-3">
             <Link
               href="/dashboard"
-              className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-200 transition hover:bg-white/10 hover:text-white"
+              className="flex items-center gap-3 rounded-2xl border border-slate-100 bg-white px-4 py-3 text-sm font-medium text-[#1E293B] transition hover:bg-slate-50"
             >
-              <LayoutGrid className="h-4 w-4 text-cyan-300" />
+              <LayoutGrid className="h-4 w-4 text-[#1E293B]" />
               All Tools
             </Link>
             <Link
               href="/dashboard/billing"
-              className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-200 transition hover:bg-white/10 hover:text-white"
+              className="flex items-center gap-3 rounded-2xl border border-slate-100 bg-white px-4 py-3 text-sm font-medium text-[#1E293B] transition hover:bg-slate-50"
             >
               <CreditCard className="h-4 w-4 text-violet-300" />
               Billing
@@ -125,7 +125,7 @@ export default async function DashboardLayout({
             {isAdmin ? (
               <Link
                 href="/dashboard/admin"
-                className="flex items-center gap-3 rounded-2xl border border-amber-300/20 bg-amber-400/10 px-4 py-3 text-sm font-medium text-amber-100 transition hover:bg-amber-400/15 hover:text-white"
+                className="flex items-center gap-3 rounded-2xl border border-[#FFEFE7] bg-[#FFEFE7] px-4 py-3 text-sm font-medium text-[#C0392B] transition hover:opacity-90"
               >
                 <Shield className="h-4 w-4 text-amber-300" />
                 Admin Panel
@@ -135,9 +135,9 @@ export default async function DashboardLayout({
 
 
 
-          <section className="mx-8 mt-8 rounded-[1.75rem] border border-white/10 bg-[#11182A] p-5 shadow-lg shadow-black/20">
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">
-              <History className="h-3.5 w-3.5 text-cyan-300" />
+          <section className="mx-8 mt-8 rounded-[1.75rem] border border-slate-100 bg-white p-5 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),0_2px_4px_-2px_rgba(0,0,0,0.05)]">
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.28em] text-[#64748B]">
+              <History className="h-3.5 w-3.5 text-[#1E293B]" />
               Saved History
             </div>
             <div className="mt-4 space-y-3">
@@ -145,13 +145,13 @@ export default async function DashboardLayout({
                 <Link
                   key={entry.id}
                   href={`/dashboard/tools/${entry.tool_id}?history=${entry.id}`}
-                  className="block rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition hover:bg-white/10"
+                  className="block rounded-2xl border border-slate-100 bg-[#F8FAFC] px-4 py-3 transition hover:bg-slate-50"
                 >
-                  <p className="text-sm font-medium text-slate-100">{entry.tool_id}</p>
-                  <p className="mt-1 line-clamp-2 text-xs leading-5 text-slate-400">{entry.output_text}</p>
+                  <p className="text-sm font-medium text-[#1E293B]">{entry.tool_id}</p>
+                  <p className="mt-1 line-clamp-2 text-xs leading-5 text-[#64748B]">{entry.output_text}</p>
                 </Link>
               )) : (
-                <p className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-500">No saved generations yet.</p>
+                <p className="rounded-2xl border border-slate-100 bg-[#F8FAFC] px-4 py-3 text-sm text-[#64748B]">No saved generations yet.</p>
               )}
             </div>
           </section>
@@ -159,7 +159,7 @@ export default async function DashboardLayout({
           <form action={logout} className="mx-8 mt-auto pb-8 pt-8">
             <button
               type="submit"
-              className="flex w-full items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+              className="flex w-full items-center justify-center gap-3 rounded-2xl border border-slate-100 bg-white px-4 py-3 text-sm font-semibold text-[#1E293B] transition hover:bg-slate-50"
             >
               <LogOut className="h-4 w-4" />
               Sign Out
@@ -169,17 +169,17 @@ export default async function DashboardLayout({
 
         <section className="min-w-0 flex-1">
           <div className="h-screen overflow-y-auto p-8 md:p-12">
-            <header className="rounded-[2rem] border border-white/10 bg-white/5 p-6 backdrop-blur sm:p-8">
+            <header className="rounded-[2rem] border border-slate-100 bg-white p-6 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),0_2px_4px_-2px_rgba(0,0,0,0.05)] sm:p-8">
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
-                  <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-cyan-200">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-[#64748B]">
                     <PanelLeft className="h-3.5 w-3.5" />
                     Internal platform
                   </div>
                   <h1 className="mt-4 text-3xl font-semibold sm:text-4xl">
                     Welcome back, {name}
                   </h1>
-                  <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base">
+                  <p className="mt-3 max-w-3xl text-sm leading-7 text-[#64748B] sm:text-base">
                     Browse and launch your AI-powered B2B suite through a premium internal workspace designed for category scale, live credit visibility, and smoother execution.
                   </p>
                 </div>
