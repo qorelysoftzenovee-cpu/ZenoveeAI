@@ -83,7 +83,7 @@ export async function POST(request: NextRequest) {
 
   const { data: currentProfile, error: profileError } = await supabase
     .from("profiles")
-    .select("tier")
+    .select("tier, credits")
     .eq("id", user.id)
     .maybeSingle();
 
@@ -120,23 +120,9 @@ export async function POST(request: NextRequest) {
   }
 
   if (activeTier !== "trial") {
-    const { data: creditData, error: creditError } = await supabase.rpc(
-      "consume_user_credits",
-      {
-        u_id: user.id,
-        token_cost: tokenCost,
-        tool_name: toolId,
-      },
-    );
+    const availableCredits = currentProfile?.credits ?? 0;
 
-    if (creditError) {
-      return NextResponse.json(
-        { error: "Unable to validate credits at this time." },
-        { status: 500 },
-      );
-    }
-
-    if (creditData !== true) {
+    if (availableCredits < tokenCost) {
       return NextResponse.json({ error: "Insufficient Credits" }, { status: 402 });
     }
   }
@@ -173,12 +159,41 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    await supabase.from("generation_history").insert({
+    if (activeTier !== "trial") {
+      const { data: creditData, error: creditError } = await supabase.rpc(
+        "consume_user_credits",
+        {
+          u_id: user.id,
+          token_cost: tokenCost,
+          tool_name: toolId,
+        },
+      );
+
+      if (creditError) {
+        return NextResponse.json(
+          { error: "AI completed, but we could not finalize credit deduction. Please contact support before retrying." },
+          { status: 500 },
+        );
+      }
+
+      if (creditData !== true) {
+        return NextResponse.json({ error: "Insufficient Credits" }, { status: 402 });
+      }
+    }
+
+    const { error: historyInsertError } = await supabase.from("generation_history").insert({
       user_id: user.id,
       tool_id: toolId,
       input_data: inputs,
       output_text: output,
     });
+
+    if (historyInsertError) {
+      return NextResponse.json(
+        { error: "AI completed, but we could not save generation history." },
+        { status: 500 },
+      );
+    }
 
     if (activeTier === "trial") {
       const { error: usageInsertError } = await supabase.from("user_tool_usage").insert({
@@ -195,10 +210,9 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ toolId, output });
-  } catch {
-    return NextResponse.json(
-      { error: "Tool execution failed. Please try again." },
-      { status: 500 },
-    );
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Tool execution failed. Please try again.";
+
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
