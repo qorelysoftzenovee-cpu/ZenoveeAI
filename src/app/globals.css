@@ -32,6 +32,88 @@ body {
   margin: 0;
 }
 
+/* ── Floating Particles ─────────────────────────────────────────────── */
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.6), rgba(139, 92, 246, 0.3));
+  pointer-events: none;
+  animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-120px) translateX(40px) scale(1.2);
+    opacity: 0.3;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-250px) translateX(-20px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* ── CTA Button Shimmer Sweep ───────────────────────────────────────── */
+
+.shimmer-sweep {
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  animation: shimmerSweep 3s ease-in-out infinite;
+}
+
+@keyframes shimmerSweep {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Glass Card Effect ──────────────────────────────────────────────── */
+
+.glass-card {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ── Logo Spin on Load ──────────────────────────────────────────────── */
+
+@keyframes logoSpin {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+.animate-logo-spin {
+  animation: logoSpin 1s ease-out 0.5s 1 both;
+  perspective: 600px;
+}
+
+/* ── Tool Card 3D Hover ─────────────────────────────────────────────── */
+
+.tool-card {
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.tool-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -12px rgba(99, 102, 241, 0.15), 0 8px 16px -8px rgba(0, 0, 0, 0.08);
+}
+
 /* ── Animated Flowing Colour Blobs (Hero) ───────────────────────────── */
 
 .hero-blob {
