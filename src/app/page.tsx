@@ -53,37 +53,10 @@ function AnimatedCounter({ end, suffix = "", duration = 2000 }: { end: number; s
   return <span ref={ref}>{count}{suffix}</span>;
 }
 
-/* ── Embedded Keyframes (can't be purged by Tailwind) ────────────────── */
+/* ── Embedded Keyframes ─────────────────────────────────────────────── */
 function AnimationStyles() {
   return (
     <style jsx global>{`
-      @keyframes blob1Move {
-        0%, 100% { transform: translate(0, 0) scale(1); }
-        25% { transform: translate(80px, 50px) scale(1.15); }
-        50% { transform: translate(-40px, 100px) scale(0.9); }
-        75% { transform: translate(60px, -30px) scale(1.1); }
-      }
-      @keyframes blob2Move {
-        0%, 100% { transform: translate(0, 0) scale(1); }
-        33% { transform: translate(-70px, 40px) scale(1.1); }
-        66% { transform: translate(50px, -60px) scale(0.9); }
-      }
-      @keyframes blob3Move {
-        0%, 100% { transform: translate(0, 0) scale(1); }
-        50% { transform: translate(90px, -50px) scale(1.15); }
-      }
-      @keyframes blob4Move {
-        0%, 100% { transform: translate(0, 0) scale(1); }
-        40% { transform: translate(-50px, -70px) scale(1.12); }
-        80% { transform: translate(60px, 40px) scale(0.88); }
-      }
-      @keyframes particleDrift {
-        0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
-        10% { opacity: 0.7; }
-        50% { transform: translateY(-150px) translateX(50px) scale(1.3); opacity: 0.3; }
-        90% { opacity: 0; }
-        100% { transform: translateY(-300px) translateX(-30px) scale(0.4); opacity: 0; }
-      }
       @keyframes shimmerBtn {
         0% { background-position: 200% 0; }
         100% { background-position: -200% 0; }
@@ -97,87 +70,278 @@ function AnimationStyles() {
         0%, 100% { transform: translate(0, 0); }
         50% { transform: translate(30px, -25px); }
       }
-      @keyframes floatReverse {
-        0%, 100% { transform: translate(0, 0); }
-        50% { transform: translate(-25px, 20px); }
-      }
     `}</style>
   );
 }
 
-/* ── Animated Background Blobs (inline styles) ──────────────────────── */
-function HeroBackground() {
-  const blobBase: React.CSSProperties = {
-    position: "absolute",
-    borderRadius: "50%",
-    filter: "blur(80px)",
-    willChange: "transform",
-    pointerEvents: "none",
-  };
+/* ══════════════════════════════════════════════════════════════════════
+   INTERACTIVE AURORA + CONSTELLATION CANVAS
+   A full-screen animated background with:
+   • Flowing aurora light ribbons
+   • Constellation dots connected by glowing lines
+   • Mouse-reactive glow & particle attraction
+   ══════════════════════════════════════════════════════════════════════ */
+function AuroraCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mouseRef = useRef({ x: -1000, y: -1000 });
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const maybeCtx = canvas.getContext("2d");
+    if (!maybeCtx) return;
+    const ctx = maybeCtx;
+
+    let animId: number;
+    let w = 0;
+    let h = 0;
+
+    // ── Constellation nodes ─────────────────────────────
+    interface Node {
+      x: number; y: number;
+      vx: number; vy: number;
+      baseX: number; baseY: number;
+      radius: number;
+      brightness: number;
+    }
+
+    let nodes: Node[] = [];
+    const NODE_COUNT = 60;
+    const CONNECT_DIST = 160;
+    const MOUSE_RADIUS = 200;
+
+    function initNodes() {
+      nodes = [];
+      for (let i = 0; i < NODE_COUNT; i++) {
+        const x = Math.random() * w;
+        const y = Math.random() * h;
+        nodes.push({
+          x, y,
+          baseX: x,
+          baseY: y,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          radius: 1.5 + Math.random() * 2,
+          brightness: 0.3 + Math.random() * 0.5,
+        });
+      }
+    }
+
+    // ── Aurora ribbon data ───────────────────────────────
+    interface Ribbon {
+      offset: number;
+      speed: number;
+      amplitude: number;
+      wavelength: number;
+      yBase: number;
+      color1: string;
+      color2: string;
+      width: number;
+    }
+
+    const ribbons: Ribbon[] = [
+      { offset: 0, speed: 0.003, amplitude: 60, wavelength: 0.003, yBase: 0.25, color1: "99,102,241", color2: "139,92,246", width: 200 },
+      { offset: 2, speed: 0.002, amplitude: 80, wavelength: 0.004, yBase: 0.35, color1: "139,92,246", color2: "168,85,247", width: 250 },
+      { offset: 4, speed: 0.004, amplitude: 50, wavelength: 0.005, yBase: 0.45, color1: "79,70,229", color2: "99,102,241", width: 180 },
+      { offset: 6, speed: 0.0015, amplitude: 70, wavelength: 0.002, yBase: 0.3, color1: "236,72,153", color2: "168,85,247", width: 160 },
+    ];
+
+    function resize() {
+      if (!canvas || !ctx) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + "px";
+      canvas.style.height = h + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      initNodes();
+    }
+
+    function drawAurora(time: number) {
+      for (const r of ribbons) {
+        const t = time * r.speed + r.offset;
+        ctx.beginPath();
+        const startY = h * r.yBase + Math.sin(t) * r.amplitude;
+        ctx.moveTo(-10, startY);
+
+        for (let x = 0; x <= w + 10; x += 8) {
+          const y = h * r.yBase +
+            Math.sin(x * r.wavelength + t) * r.amplitude +
+            Math.sin(x * r.wavelength * 0.5 + t * 1.3) * (r.amplitude * 0.4);
+          ctx.lineTo(x, y);
+        }
+
+        // Complete the ribbon shape
+        const endY = h * r.yBase + Math.sin((w + 10) * r.wavelength + t) * r.amplitude;
+        ctx.lineTo(w + 10, endY + r.width);
+        for (let x = w + 10; x >= -10; x -= 8) {
+          const y = h * r.yBase +
+            Math.sin(x * r.wavelength + t) * r.amplitude +
+            Math.sin(x * r.wavelength * 0.5 + t * 1.3) * (r.amplitude * 0.4) + r.width;
+          ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+
+        const grad = ctx.createLinearGradient(0, 0, w, 0);
+        grad.addColorStop(0, `rgba(${r.color1},0)`);
+        grad.addColorStop(0.2, `rgba(${r.color1},0.06)`);
+        grad.addColorStop(0.5, `rgba(${r.color2},0.1)`);
+        grad.addColorStop(0.8, `rgba(${r.color1},0.06)`);
+        grad.addColorStop(1, `rgba(${r.color2},0)`);
+        ctx.fillStyle = grad;
+        ctx.fill();
+      }
+    }
+
+    function drawConstellation(time: number) {
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
+
+      // Update nodes
+      for (const n of nodes) {
+        n.x += n.vx;
+        n.y += n.vy;
+
+        // Soft boundary bounce
+        if (n.x < 0 || n.x > w) n.vx *= -1;
+        if (n.y < 0 || n.y > h) n.vy *= -1;
+        n.x = Math.max(0, Math.min(w, n.x));
+        n.y = Math.max(0, Math.min(h, n.y));
+
+        // Mouse attraction
+        const dx = mx - n.x;
+        const dy = my - n.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < MOUSE_RADIUS && dist > 0) {
+          const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS * 0.02;
+          n.vx += dx / dist * force;
+          n.vy += dy / dist * force;
+        }
+
+        // Damping
+        n.vx *= 0.99;
+        n.vy *= 0.99;
+      }
+
+      // Draw connections
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < CONNECT_DIST) {
+            const alpha = (1 - dist / CONNECT_DIST) * 0.15;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.strokeStyle = `rgba(129,140,248,${alpha})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw nodes
+      for (const n of nodes) {
+        const dx = mx - n.x;
+        const dy = my - n.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const mouseInfluence = dist < MOUSE_RADIUS ? (1 - dist / MOUSE_RADIUS) : 0;
+        const pulse = 0.5 + Math.sin(time * 0.002 + n.baseX) * 0.3;
+        const finalAlpha = (n.brightness + mouseInfluence * 0.5) * pulse;
+        const r = n.radius + mouseInfluence * 2;
+
+        // Glow
+        if (mouseInfluence > 0.1) {
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, r * 4, 0, Math.PI * 2);
+          const glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 4);
+          glow.addColorStop(0, `rgba(129,140,248,${mouseInfluence * 0.2})`);
+          glow.addColorStop(1, "rgba(129,140,248,0)");
+          ctx.fillStyle = glow;
+          ctx.fill();
+        }
+
+        // Dot
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(165,180,252,${finalAlpha})`;
+        ctx.fill();
+      }
+
+      // Mouse glow
+      if (mx > 0 && my > 0) {
+        const glow = ctx.createRadialGradient(mx, my, 0, mx, my, MOUSE_RADIUS);
+        glow.addColorStop(0, "rgba(99,102,241,0.08)");
+        glow.addColorStop(0.5, "rgba(139,92,246,0.03)");
+        glow.addColorStop(1, "rgba(99,102,241,0)");
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(mx, my, MOUSE_RADIUS, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function animate(time: number) {
+      ctx.clearRect(0, 0, w, h);
+      drawAurora(time);
+      drawConstellation(time);
+      animId = requestAnimationFrame(animate);
+    }
+
+    function onMouseMove(e: MouseEvent) {
+      mouseRef.current = { x: e.clientX, y: e.clientY };
+    }
+
+    function onMouseLeave() {
+      mouseRef.current = { x: -1000, y: -1000 };
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseleave", onMouseLeave);
+    animId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseleave", onMouseLeave);
+    };
+  }, []);
 
   return (
-    <div style={{ position: "absolute", inset: 0, zIndex: 0, overflow: "hidden" }}>
-      {/* Blob 1 — Large indigo */}
-      <div style={{ ...blobBase, width: 700, height: 700, top: "-15%", left: "5%", background: "radial-gradient(circle, rgba(129,140,248,0.45), transparent 70%)", animation: "blob1Move 12s ease-in-out infinite" }} />
-      {/* Blob 2 — Violet right */}
-      <div style={{ ...blobBase, width: 550, height: 550, top: "15%", right: "0%", background: "radial-gradient(circle, rgba(167,139,250,0.4), transparent 70%)", animation: "blob2Move 15s ease-in-out infinite" }} />
-      {/* Blob 3 — Blue bottom */}
-      <div style={{ ...blobBase, width: 500, height: 500, bottom: "-10%", left: "25%", background: "radial-gradient(circle, rgba(99,102,241,0.35), transparent 70%)", animation: "blob3Move 18s ease-in-out infinite" }} />
-      {/* Blob 4 — Pink accent */}
-      <div style={{ ...blobBase, width: 400, height: 400, top: "35%", left: "-8%", background: "radial-gradient(circle, rgba(236,72,153,0.2), transparent 70%)", animation: "blob4Move 20s ease-in-out infinite" }} />
-      {/* Particles */}
-      <Particles />
-    </div>
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        zIndex: 0,
+        pointerEvents: "none",
+      }}
+    />
   );
 }
 
-/* ── Floating Particles (inline styles) ─────────────────────────────── */
-function Particles() {
-  // Generate stable positions using seed-like approach
-  const particles = Array.from({ length: 25 }, (_, i) => ({
-    left: `${(i * 17 + 7) % 100}%`,
-    top: `${(i * 23 + 13) % 100}%`,
-    delay: `${(i * 0.7) % 8}s`,
-    duration: `${6 + (i % 5) * 2}s`,
-    size: `${3 + (i % 3) * 2}px`,
-  }));
-
-  return (
-    <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
-      {particles.map((p, i) => (
-        <div
-          key={i}
-          style={{
-            position: "absolute",
-            left: p.left,
-            top: p.top,
-            width: p.size,
-            height: p.size,
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(99,102,241,0.7), rgba(139,92,246,0.3))",
-            animation: `particleDrift ${p.duration} linear infinite`,
-            animationDelay: p.delay,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-/* ── Floating blobs for section backgrounds ─────────────────────────── */
+/* ── Section background blob (inline) ───────────────────────────────── */
 function SectionBlob({ color, size, top, left, right, bottom, delay }: {
   color: string; size: number; top?: string; left?: string; right?: string; bottom?: string; delay?: string;
 }) {
   return (
     <div style={{
       position: "absolute",
-      width: size,
-      height: size,
+      width: size, height: size,
       borderRadius: "50%",
       background: `radial-gradient(circle, ${color}, transparent 70%)`,
       filter: "blur(80px)",
       top, left, right, bottom,
-      animation: `floatGentle 14s ease-in-out infinite`,
+      animation: "floatGentle 14s ease-in-out infinite",
       animationDelay: delay || "0s",
       pointerEvents: "none",
     }} />
@@ -204,7 +368,6 @@ const comparisonRows = [
    ═══════════════════════════════════════════════════════════════════════ */
 export default function Home() {
   const [heroReady, setHeroReady] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const heroRef = useRef<HTMLElement>(null);
   const statsReveal = useReveal();
   const matrixReveal = useReveal();
@@ -215,15 +378,6 @@ export default function Home() {
     const timer = setTimeout(() => setHeroReady(true), 100);
     return () => clearTimeout(timer);
   }, []);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!heroRef.current) return;
-    const rect = heroRef.current.getBoundingClientRect();
-    setMousePos({
-      x: ((e.clientX - rect.left) / rect.width - 0.5) * 30,
-      y: ((e.clientY - rect.top) / rect.height - 0.5) * 30,
-    });
-  };
 
   return (
     <main className="min-h-screen bg-[#FAFBFE] text-slate-900 selection:bg-indigo-100 selection:text-indigo-900 font-sans overflow-x-hidden">
@@ -252,27 +406,9 @@ export default function Home() {
       </nav>
 
       {/* ── Hero Section ───────────────────────────────────────── */}
-      <section ref={heroRef} onMouseMove={handleMouseMove} className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        {/* Animated mesh gradient background */}
-        <HeroBackground />
-
-        {/* Mouse-following glow */}
-        <div
-          style={{
-            position: "absolute",
-            width: 500,
-            height: 500,
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(99,102,241,0.15), transparent 70%)",
-            filter: "blur(120px)",
-            zIndex: 0,
-            transition: "transform 2s ease-out",
-            pointerEvents: "none",
-            left: "30%",
-            top: "20%",
-            transform: `translate(${mousePos.x}px, ${mousePos.y}px)`,
-          }}
-        />
+      <section ref={heroRef} className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        {/* Interactive Aurora + Constellation canvas background */}
+        <AuroraCanvas />
         
         <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10 text-center">
           {/* Badge */}
@@ -468,7 +604,6 @@ export default function Home() {
             <div style={{ position: "absolute", inset: 0, zIndex: -1, overflow: "hidden" }}>
               <SectionBlob color="rgba(99,102,241,0.25)" size={600} top="-30%" left="-10%" />
               <SectionBlob color="rgba(139,92,246,0.2)" size={400} bottom="-20%" right="-5%" delay="3s" />
-              <Particles />
             </div>
             
             <div className="lg:max-w-2xl relative z-10">
