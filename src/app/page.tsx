@@ -53,26 +53,134 @@ function AnimatedCounter({ end, suffix = "", duration = 2000 }: { end: number; s
   return <span ref={ref}>{count}{suffix}</span>;
 }
 
-/* ── Floating Particles ─────────────────────────────────────────────── */
-function Particles() {
+/* ── Embedded Keyframes (can't be purged by Tailwind) ────────────────── */
+function AnimationStyles() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {Array.from({ length: 20 }).map((_, i) => (
+    <style jsx global>{`
+      @keyframes blob1Move {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        25% { transform: translate(80px, 50px) scale(1.15); }
+        50% { transform: translate(-40px, 100px) scale(0.9); }
+        75% { transform: translate(60px, -30px) scale(1.1); }
+      }
+      @keyframes blob2Move {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(-70px, 40px) scale(1.1); }
+        66% { transform: translate(50px, -60px) scale(0.9); }
+      }
+      @keyframes blob3Move {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(90px, -50px) scale(1.15); }
+      }
+      @keyframes blob4Move {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        40% { transform: translate(-50px, -70px) scale(1.12); }
+        80% { transform: translate(60px, 40px) scale(0.88); }
+      }
+      @keyframes particleDrift {
+        0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+        10% { opacity: 0.7; }
+        50% { transform: translateY(-150px) translateX(50px) scale(1.3); opacity: 0.3; }
+        90% { opacity: 0; }
+        100% { transform: translateY(-300px) translateX(-30px) scale(0.4); opacity: 0; }
+      }
+      @keyframes shimmerBtn {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+      @keyframes gradientFlow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      @keyframes floatGentle {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(30px, -25px); }
+      }
+      @keyframes floatReverse {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(-25px, 20px); }
+      }
+    `}</style>
+  );
+}
+
+/* ── Animated Background Blobs (inline styles) ──────────────────────── */
+function HeroBackground() {
+  const blobBase: React.CSSProperties = {
+    position: "absolute",
+    borderRadius: "50%",
+    filter: "blur(80px)",
+    willChange: "transform",
+    pointerEvents: "none",
+  };
+
+  return (
+    <div style={{ position: "absolute", inset: 0, zIndex: 0, overflow: "hidden" }}>
+      {/* Blob 1 — Large indigo */}
+      <div style={{ ...blobBase, width: 700, height: 700, top: "-15%", left: "5%", background: "radial-gradient(circle, rgba(129,140,248,0.45), transparent 70%)", animation: "blob1Move 12s ease-in-out infinite" }} />
+      {/* Blob 2 — Violet right */}
+      <div style={{ ...blobBase, width: 550, height: 550, top: "15%", right: "0%", background: "radial-gradient(circle, rgba(167,139,250,0.4), transparent 70%)", animation: "blob2Move 15s ease-in-out infinite" }} />
+      {/* Blob 3 — Blue bottom */}
+      <div style={{ ...blobBase, width: 500, height: 500, bottom: "-10%", left: "25%", background: "radial-gradient(circle, rgba(99,102,241,0.35), transparent 70%)", animation: "blob3Move 18s ease-in-out infinite" }} />
+      {/* Blob 4 — Pink accent */}
+      <div style={{ ...blobBase, width: 400, height: 400, top: "35%", left: "-8%", background: "radial-gradient(circle, rgba(236,72,153,0.2), transparent 70%)", animation: "blob4Move 20s ease-in-out infinite" }} />
+      {/* Particles */}
+      <Particles />
+    </div>
+  );
+}
+
+/* ── Floating Particles (inline styles) ─────────────────────────────── */
+function Particles() {
+  // Generate stable positions using seed-like approach
+  const particles = Array.from({ length: 25 }, (_, i) => ({
+    left: `${(i * 17 + 7) % 100}%`,
+    top: `${(i * 23 + 13) % 100}%`,
+    delay: `${(i * 0.7) % 8}s`,
+    duration: `${6 + (i % 5) * 2}s`,
+    size: `${3 + (i % 3) * 2}px`,
+  }));
+
+  return (
+    <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
+      {particles.map((p, i) => (
         <div
           key={i}
-          className="particle"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 8}s`,
-            animationDuration: `${6 + Math.random() * 10}s`,
-            width: `${2 + Math.random() * 4}px`,
-            height: `${2 + Math.random() * 4}px`,
-            opacity: 0.2 + Math.random() * 0.4,
+            position: "absolute",
+            left: p.left,
+            top: p.top,
+            width: p.size,
+            height: p.size,
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(99,102,241,0.7), rgba(139,92,246,0.3))",
+            animation: `particleDrift ${p.duration} linear infinite`,
+            animationDelay: p.delay,
           }}
         />
       ))}
     </div>
+  );
+}
+
+/* ── Floating blobs for section backgrounds ─────────────────────────── */
+function SectionBlob({ color, size, top, left, right, bottom, delay }: {
+  color: string; size: number; top?: string; left?: string; right?: string; bottom?: string; delay?: string;
+}) {
+  return (
+    <div style={{
+      position: "absolute",
+      width: size,
+      height: size,
+      borderRadius: "50%",
+      background: `radial-gradient(circle, ${color}, transparent 70%)`,
+      filter: "blur(80px)",
+      top, left, right, bottom,
+      animation: `floatGentle 14s ease-in-out infinite`,
+      animationDelay: delay || "0s",
+      pointerEvents: "none",
+    }} />
   );
 }
 
@@ -119,6 +227,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#FAFBFE] text-slate-900 selection:bg-indigo-100 selection:text-indigo-900 font-sans overflow-x-hidden">
+      <AnimationStyles />
       {/* ── Navigation ─────────────────────────────────────────── */}
       <nav className={`fixed top-0 left-0 right-0 z-50 border-b border-white/40 bg-white/70 backdrop-blur-lg transition-all duration-700 ${heroReady ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`}>
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
@@ -145,18 +254,24 @@ export default function Home() {
       {/* ── Hero Section ───────────────────────────────────────── */}
       <section ref={heroRef} onMouseMove={handleMouseMove} className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
         {/* Animated mesh gradient background */}
-        <div className="absolute inset-0 -z-10">
-          <div className="hero-blob hero-blob-1" />
-          <div className="hero-blob hero-blob-2" />
-          <div className="hero-blob hero-blob-3" />
-          <div className="hero-blob hero-blob-4" />
-          <Particles />
-        </div>
+        <HeroBackground />
 
         {/* Mouse-following glow */}
         <div
-          className="absolute w-[500px] h-[500px] rounded-full bg-indigo-400/10 blur-[120px] -z-10 transition-transform duration-[2000ms] ease-out pointer-events-none"
-          style={{ transform: `translate(${mousePos.x}px, ${mousePos.y}px)`, left: "30%", top: "20%" }}
+          style={{
+            position: "absolute",
+            width: 500,
+            height: 500,
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(99,102,241,0.15), transparent 70%)",
+            filter: "blur(120px)",
+            zIndex: 0,
+            transition: "transform 2s ease-out",
+            pointerEvents: "none",
+            left: "30%",
+            top: "20%",
+            transform: `translate(${mousePos.x}px, ${mousePos.y}px)`,
+          }}
         />
         
         <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10 text-center">
@@ -172,7 +287,7 @@ export default function Home() {
           {/* Title — staggered word reveal */}
           <h1 className={`mt-8 mx-auto max-w-5xl text-5xl font-extrabold tracking-tight text-slate-900 sm:text-6xl lg:text-7xl transition-all duration-1000 delay-200 ${heroReady ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}>
              The Ultimate{" "}
-             <span className="gradient-text-animated inline-block">AI Operating System</span>
+             <span style={{ background: "linear-gradient(270deg, #6366f1, #8b5cf6, #a855f7, #6366f1)", backgroundSize: "300% 100%", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent", animation: "gradientFlow 6s ease-in-out infinite", display: "inline-block" }}>AI Operating System</span>
           </h1>
           
           {/* Subtitle */}
@@ -182,8 +297,8 @@ export default function Home() {
           
           {/* CTA Buttons */}
           <div className={`mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 transition-all duration-1000 ${heroReady ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`} style={{ transitionDelay: "600ms" }}>
-             <Link href="/signup" className="cta-button group relative flex w-full sm:w-auto items-center justify-center gap-2 overflow-hidden rounded-full bg-indigo-600 px-8 py-4 text-sm font-semibold text-white shadow-[0_0_40px_-10px_rgba(79,70,229,0.5)] transition-all hover:bg-indigo-500 hover:shadow-[0_0_60px_-15px_rgba(79,70,229,0.6)] active:scale-95 hover:-translate-y-1">
-              <div className="absolute inset-0 shimmer-sweep" />
+             <Link href="/signup" className="group relative flex w-full sm:w-auto items-center justify-center gap-2 overflow-hidden rounded-full bg-indigo-600 px-8 py-4 text-sm font-semibold text-white shadow-[0_0_40px_-10px_rgba(79,70,229,0.5)] transition-all hover:bg-indigo-500 hover:shadow-[0_0_60px_-15px_rgba(79,70,229,0.6)] active:scale-95 hover:-translate-y-1">
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.25) 50%, transparent 60%)", backgroundSize: "200% 100%", animation: "shimmerBtn 3s ease-in-out infinite" }} />
               Start Building Now
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
@@ -233,12 +348,12 @@ export default function Home() {
 
       {/* ── Dashboard Preview ─────────────────────────────────── */}
       <section className="relative px-6 py-24 lg:px-8 max-w-7xl mx-auto">
-        <div className="glass-card rounded-2xl p-2 sm:p-3 shadow-2xl shadow-indigo-900/5">
+        <div style={{ border: "1px solid rgba(255,255,255,0.4)", background: "rgba(255,255,255,0.4)", backdropFilter: "blur(20px)" }} className="rounded-2xl p-2 sm:p-3 shadow-2xl shadow-indigo-900/5">
           <div className="aspect-[16/9] w-full overflow-hidden rounded-xl border border-slate-200/40 bg-gradient-to-br from-slate-50 to-indigo-50/30 shadow-inner flex items-center justify-center relative">
-             <div className="absolute inset-0 overflow-hidden">
-               <div className="absolute w-[300px] h-[300px] rounded-full bg-indigo-200/30 blur-[60px] top-[10%] left-[20%] animate-float-slow" />
-               <div className="absolute w-[200px] h-[200px] rounded-full bg-violet-200/30 blur-[50px] bottom-[15%] right-[15%] animate-float-delayed" />
-               <div className="absolute w-[150px] h-[150px] rounded-full bg-pink-200/20 blur-[40px] top-[50%] left-[60%] animate-float-slow" style={{ animationDelay: "4s" }} />
+             <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
+               <SectionBlob color="rgba(129,140,248,0.35)" size={300} top="10%" left="20%" />
+               <SectionBlob color="rgba(167,139,250,0.3)" size={200} bottom="15%" right="15%" delay="3s" />
+               <SectionBlob color="rgba(236,72,153,0.2)" size={150} top="50%" left="60%" delay="5s" />
              </div>
              <div className="text-center p-8 z-10">
                 <div className="mx-auto w-16 h-16 rounded-2xl bg-white shadow-lg border border-slate-100 flex items-center justify-center mb-6 animate-pulse-glow">
@@ -254,8 +369,8 @@ export default function Home() {
       {/* ── Value Matrix ──────────────────────────────────────── */}
       <section ref={matrixReveal.ref} className="border-y border-slate-200 bg-white relative overflow-hidden">
         {/* Flowing background */}
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute w-[600px] h-[600px] rounded-full bg-indigo-50/50 blur-[100px] -top-[30%] -right-[10%] animate-float-slow" />
+        <div style={{ position: "absolute", inset: 0, zIndex: -1, overflow: "hidden" }}>
+          <SectionBlob color="rgba(224,231,255,0.6)" size={600} top="-30%" right="-10%" />
         </div>
 
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
@@ -290,9 +405,9 @@ export default function Home() {
 
       {/* ── Tool Categories Grid ──────────────────────────────── */}
       <section ref={toolsReveal.ref} className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute w-[500px] h-[500px] rounded-full bg-indigo-100/40 blur-[100px] -top-[10%] -left-[10%] animate-float-slow" />
-          <div className="absolute w-[400px] h-[400px] rounded-full bg-violet-100/30 blur-[80px] -bottom-[10%] -right-[5%] animate-float-delayed" />
+        <div style={{ position: "absolute", inset: 0, zIndex: -1, overflow: "hidden" }}>
+          <SectionBlob color="rgba(199,210,254,0.5)" size={500} top="-10%" left="-10%" />
+          <SectionBlob color="rgba(196,181,253,0.35)" size={400} bottom="-10%" right="-5%" delay="4s" />
         </div>
 
         <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
@@ -350,9 +465,9 @@ export default function Home() {
       <section ref={ctaReveal.ref} className="py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className={`relative overflow-hidden rounded-[2.5rem] bg-slate-900 px-8 py-20 shadow-2xl sm:px-16 md:py-24 lg:flex lg:items-center lg:justify-between lg:px-24 text-center lg:text-left transition-all duration-1000 ${ctaReveal.visible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-16 scale-95"}`}>
-            <div className="absolute inset-0 -z-10 overflow-hidden">
-              <div className="absolute w-[600px] h-[600px] rounded-full bg-indigo-600/20 blur-[100px] -top-[30%] -left-[10%] animate-float-slow" />
-              <div className="absolute w-[400px] h-[400px] rounded-full bg-violet-500/20 blur-[80px] -bottom-[20%] -right-[5%] animate-float-delayed" />
+            <div style={{ position: "absolute", inset: 0, zIndex: -1, overflow: "hidden" }}>
+              <SectionBlob color="rgba(99,102,241,0.25)" size={600} top="-30%" left="-10%" />
+              <SectionBlob color="rgba(139,92,246,0.2)" size={400} bottom="-20%" right="-5%" delay="3s" />
               <Particles />
             </div>
             
