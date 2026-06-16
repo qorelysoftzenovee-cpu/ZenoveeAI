@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, CheckCircle2, Sparkles, Zap, LayoutGrid, Layers, LineChart, ChevronRight } from "lucide-react";
+import { ArrowRight, CheckCircle2, Sparkles, Zap, LayoutGrid, Layers, LineChart, ChevronRight, Terminal, Copy, Play } from "lucide-react";
 
 import { toolsConfig } from "@/utils/toolsConfig";
 
@@ -96,55 +96,41 @@ function AuroraCanvas() {
     let w = 0;
     let h = 0;
 
-    // ── Constellation nodes ─────────────────────────────
-    interface Node {
-      x: number; y: number;
-      vx: number; vy: number;
-      baseX: number; baseY: number;
-      radius: number;
-      brightness: number;
-    }
+    const spacing = 55;
+    const PARTICLE_COUNT = 85;
+    const colors = ["#6366f1", "#8b5cf6", "#a855f7", "#ec4899"];
 
-    let nodes: Node[] = [];
-    const NODE_COUNT = 60;
-    const CONNECT_DIST = 160;
-    const MOUSE_RADIUS = 200;
-
-    function initNodes() {
-      nodes = [];
-      for (let i = 0; i < NODE_COUNT; i++) {
-        const x = Math.random() * w;
-        const y = Math.random() * h;
-        nodes.push({
-          x, y,
-          baseX: x,
-          baseY: y,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
-          radius: 1.5 + Math.random() * 2,
-          brightness: 0.3 + Math.random() * 0.5,
-        });
-      }
-    }
-
-    // ── Aurora ribbon data ───────────────────────────────
-    interface Ribbon {
-      offset: number;
+    interface Particle {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      history: { x: number; y: number }[];
+      maxHistory: number;
+      color: string;
       speed: number;
-      amplitude: number;
-      wavelength: number;
-      yBase: number;
-      color1: string;
-      color2: string;
-      width: number;
+      size: number;
     }
 
-    const ribbons: Ribbon[] = [
-      { offset: 0, speed: 0.003, amplitude: 60, wavelength: 0.003, yBase: 0.25, color1: "99,102,241", color2: "139,92,246", width: 200 },
-      { offset: 2, speed: 0.002, amplitude: 80, wavelength: 0.004, yBase: 0.35, color1: "139,92,246", color2: "168,85,247", width: 250 },
-      { offset: 4, speed: 0.004, amplitude: 50, wavelength: 0.005, yBase: 0.45, color1: "79,70,229", color2: "99,102,241", width: 180 },
-      { offset: 6, speed: 0.0015, amplitude: 70, wavelength: 0.002, yBase: 0.3, color1: "236,72,153", color2: "168,85,247", width: 160 },
-    ];
+    const particles: Particle[] = [];
+
+    interface Ripple {
+      x: number;
+      y: number;
+      radius: number;
+      maxRadius: number;
+      strength: number;
+      speed: number;
+    }
+
+    let ripples: Ripple[] = [];
+
+    function hexToRgba(hex: string, alpha: number) {
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      return `rgba(${r},${g},${b},${alpha})`;
+    }
 
     function resize() {
       if (!canvas || !ctx) return;
@@ -156,153 +142,274 @@ function AuroraCanvas() {
       canvas.style.width = w + "px";
       canvas.style.height = h + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      initNodes();
-    }
 
-    function drawAurora(time: number) {
-      for (const r of ribbons) {
-        const t = time * r.speed + r.offset;
-        ctx.beginPath();
-        const startY = h * r.yBase + Math.sin(t) * r.amplitude;
-        ctx.moveTo(-10, startY);
-
-        for (let x = 0; x <= w + 10; x += 8) {
-          const y = h * r.yBase +
-            Math.sin(x * r.wavelength + t) * r.amplitude +
-            Math.sin(x * r.wavelength * 0.5 + t * 1.3) * (r.amplitude * 0.4);
-          ctx.lineTo(x, y);
-        }
-
-        // Complete the ribbon shape
-        const endY = h * r.yBase + Math.sin((w + 10) * r.wavelength + t) * r.amplitude;
-        ctx.lineTo(w + 10, endY + r.width);
-        for (let x = w + 10; x >= -10; x -= 8) {
-          const y = h * r.yBase +
-            Math.sin(x * r.wavelength + t) * r.amplitude +
-            Math.sin(x * r.wavelength * 0.5 + t * 1.3) * (r.amplitude * 0.4) + r.width;
-          ctx.lineTo(x, y);
-        }
-        ctx.closePath();
-
-        const grad = ctx.createLinearGradient(0, 0, w, 0);
-        grad.addColorStop(0, `rgba(${r.color1},0)`);
-        grad.addColorStop(0.2, `rgba(${r.color1},0.06)`);
-        grad.addColorStop(0.5, `rgba(${r.color2},0.1)`);
-        grad.addColorStop(0.8, `rgba(${r.color1},0.06)`);
-        grad.addColorStop(1, `rgba(${r.color2},0)`);
-        ctx.fillStyle = grad;
-        ctx.fill();
+      particles.length = 0;
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: 0,
+          vy: 0,
+          history: [],
+          maxHistory: 6 + Math.floor(Math.random() * 8),
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speed: 0.6 + Math.random() * 1.4,
+          size: 1.2 + Math.random() * 1.8,
+        });
       }
     }
 
-    function drawConstellation(time: number) {
+    function drawGrid(time: number) {
       const mx = mouseRef.current.x;
       const my = mouseRef.current.y;
+      const cameraD = 800;
+      const cx = w / 2;
+      const cy = h / 2;
 
-      // Update nodes
-      for (const n of nodes) {
-        n.x += n.vx;
-        n.y += n.vy;
+      const cols = Math.ceil(w / spacing) + 2;
+      const rows = Math.ceil(h / spacing) + 2;
 
-        // Soft boundary bounce
-        if (n.x < 0 || n.x > w) n.vx *= -1;
-        if (n.y < 0 || n.y > h) n.vy *= -1;
-        n.x = Math.max(0, Math.min(w, n.x));
-        n.y = Math.max(0, Math.min(h, n.y));
+      const gridPoints: { px: number; py: number; z: number }[][] = [];
+      for (let r = 0; r < rows; r++) {
+        gridPoints[r] = [];
+        for (let c = 0; c < cols; c++) {
+          let bx = c * spacing - spacing;
+          let by = r * spacing - spacing;
 
-        // Mouse attraction
-        const dx = mx - n.x;
-        const dy = my - n.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < MOUSE_RADIUS && dist > 0) {
-          const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS * 0.02;
-          n.vx += dx / dist * force;
-          n.vy += dy / dist * force;
+          let z = Math.sin(c * 0.18 + r * 0.18 + time * 0.0012) * 10;
+
+          let dx = bx - mx;
+          let dy = by - my;
+          let dist = Math.sqrt(dx * dx + dy * dy);
+          const warpRadius = 240;
+          if (mx > 0 && my > 0 && dist < warpRadius) {
+            const force = (1 - dist / warpRadius);
+            z -= force * force * 70;
+            const push = force * 24;
+            bx -= (dx / dist) * push;
+            by -= (dy / dist) * push;
+          }
+
+          for (const rip of ripples) {
+            const rdx = bx - rip.x;
+            const rdy = by - rip.y;
+            const rdist = Math.sqrt(rdx * rdx + rdy * rdy);
+            const diff = Math.abs(rdist - rip.radius);
+            if (diff < 90) {
+              const thicknessFactor = (1 - diff / 90);
+              const fade = (1 - rip.radius / rip.maxRadius);
+              z += Math.sin((rdist - rip.radius) * 0.08) * rip.strength * thicknessFactor * fade;
+            }
+          }
+
+          const scale = cameraD / (cameraD + z);
+          const px = cx + (bx - cx) * scale;
+          const py = cy + (by - cy) * scale;
+
+          gridPoints[r].push({ px, py, z });
         }
-
-        // Damping
-        n.vx *= 0.99;
-        n.vy *= 0.99;
       }
 
-      // Draw connections
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[i].x - nodes[j].x;
-          const dy = nodes[i].y - nodes[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < CONNECT_DIST) {
-            const alpha = (1 - dist / CONNECT_DIST) * 0.15;
-            ctx.beginPath();
-            ctx.moveTo(nodes[i].x, nodes[i].y);
-            ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.strokeStyle = `rgba(129,140,248,${alpha})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
+      ctx.strokeStyle = "rgba(99, 102, 241, 0.045)";
+      ctx.lineWidth = 0.85;
+      for (let r = 0; r < rows; r++) {
+        ctx.beginPath();
+        ctx.moveTo(gridPoints[r][0].px, gridPoints[r][0].py);
+        for (let c = 1; c < cols; c++) {
+          ctx.lineTo(gridPoints[r][c].px, gridPoints[r][c].py);
+        }
+        ctx.stroke();
+      }
+
+      for (let c = 0; c < cols; c++) {
+        ctx.beginPath();
+        ctx.moveTo(gridPoints[0][c].px, gridPoints[0][c].py);
+        for (let r = 1; r < rows; r++) {
+          ctx.lineTo(gridPoints[r][c].px, gridPoints[r][c].py);
+        }
+        ctx.stroke();
+      }
+
+      if (mx > 0 && my > 0) {
+        ctx.lineWidth = 1.6;
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const pt = gridPoints[r][c];
+            if (c < cols - 1) {
+              const nextPt = gridPoints[r][c + 1];
+              const midX = (pt.px + nextPt.px) / 2;
+              const midY = (pt.py + nextPt.py) / 2;
+              const dx = midX - mx;
+              const dy = midY - my;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < 185) {
+                const alpha = (1 - dist / 185) * 0.2;
+                ctx.beginPath();
+                ctx.moveTo(pt.px, pt.py);
+                ctx.lineTo(nextPt.px, nextPt.py);
+                ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
+                ctx.stroke();
+              }
+            }
+            if (r < rows - 1) {
+              const nextPt = gridPoints[r + 1][c];
+              const midX = (pt.px + nextPt.px) / 2;
+              const midY = (pt.py + nextPt.py) / 2;
+              const dx = midX - mx;
+              const dy = midY - my;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < 185) {
+                const alpha = (1 - dist / 185) * 0.2;
+                ctx.beginPath();
+                ctx.moveTo(pt.px, pt.py);
+                ctx.lineTo(nextPt.px, nextPt.py);
+                ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
+                ctx.stroke();
+              }
+            }
           }
         }
       }
+    }
 
-      // Draw nodes
-      for (const n of nodes) {
-        const dx = mx - n.x;
-        const dy = my - n.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const mouseInfluence = dist < MOUSE_RADIUS ? (1 - dist / MOUSE_RADIUS) : 0;
-        const pulse = 0.5 + Math.sin(time * 0.002 + n.baseX) * 0.3;
-        const finalAlpha = (n.brightness + mouseInfluence * 0.5) * pulse;
-        const r = n.radius + mouseInfluence * 2;
+    function drawParticles(time: number) {
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
 
-        // Glow
-        if (mouseInfluence > 0.1) {
-          ctx.beginPath();
-          ctx.arc(n.x, n.y, r * 4, 0, Math.PI * 2);
-          const glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 4);
-          glow.addColorStop(0, `rgba(129,140,248,${mouseInfluence * 0.2})`);
-          glow.addColorStop(1, "rgba(129,140,248,0)");
-          ctx.fillStyle = glow;
-          ctx.fill();
+      for (const p of particles) {
+        const angle = Math.sin(p.x * 0.003 + time * 0.0003) * Math.cos(p.y * 0.003 - time * 0.0003) * Math.PI * 1.5;
+        const fx = Math.cos(angle) * p.speed;
+        const fy = Math.sin(angle) * p.speed;
+
+        if (mx > 0 && my > 0) {
+          const dx = mx - p.x;
+          const dy = my - p.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 260) {
+            const force = (1 - dist / 260) * 0.7;
+            const tx = -dy / dist;
+            const ty = dx / dist;
+            p.vx += (dx / dist * 0.12 + tx * 0.24) * force;
+            p.vy += (dy / dist * 0.12 + ty * 0.24) * force;
+          }
         }
 
-        // Dot
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(165,180,252,${finalAlpha})`;
-        ctx.fill();
-      }
+        p.vx = p.vx * 0.93 + fx * 0.07;
+        p.vy = p.vy * 0.93 + fy * 0.07;
+        p.x += p.vx;
+        p.y += p.vy;
 
-      // Mouse glow
-      if (mx > 0 && my > 0) {
-        const glow = ctx.createRadialGradient(mx, my, 0, mx, my, MOUSE_RADIUS);
-        glow.addColorStop(0, "rgba(99,102,241,0.08)");
-        glow.addColorStop(0.5, "rgba(139,92,246,0.03)");
-        glow.addColorStop(1, "rgba(99,102,241,0)");
-        ctx.fillStyle = glow;
+        if (p.x < -30) p.x = w + 30;
+        if (p.x > w + 30) p.x = -30;
+        if (p.y < -30) p.y = h + 30;
+        if (p.y > h + 30) p.y = -30;
+
+        p.history.push({ x: p.x, y: p.y });
+        if (p.history.length > p.maxHistory) p.history.shift();
+
+        if (p.history.length < 2) continue;
+        ctx.lineWidth = p.size;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        for (let i = 0; i < p.history.length - 1; i++) {
+          ctx.beginPath();
+          ctx.moveTo(p.history[i].x, p.history[i].y);
+          ctx.lineTo(p.history[i + 1].x, p.history[i + 1].y);
+          const alpha = (i / p.history.length) * 0.35;
+          ctx.strokeStyle = hexToRgba(p.color, alpha);
+          ctx.stroke();
+        }
+
         ctx.beginPath();
-        ctx.arc(mx, my, MOUSE_RADIUS, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.size * 0.9, 0, Math.PI * 2);
+        ctx.fillStyle = hexToRgba(p.color, 0.6);
         ctx.fill();
       }
     }
 
     function animate(time: number) {
       ctx.clearRect(0, 0, w, h);
-      drawAurora(time);
-      drawConstellation(time);
+
+      ripples = ripples.map(rip => ({
+        ...rip,
+        radius: rip.radius + rip.speed
+      })).filter(rip => rip.radius < rip.maxRadius);
+
+      drawGrid(time);
+      drawParticles(time);
+
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
+      if (mx > 0 && my > 0) {
+        const radialGlow = ctx.createRadialGradient(mx, my, 0, mx, my, 220);
+        radialGlow.addColorStop(0, "rgba(99, 102, 241, 0.06)");
+        radialGlow.addColorStop(0.5, "rgba(139, 92, 246, 0.02)");
+        radialGlow.addColorStop(1, "rgba(99, 102, 241, 0)");
+        ctx.fillStyle = radialGlow;
+        ctx.beginPath();
+        ctx.arc(mx, my, 220, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
       animId = requestAnimationFrame(animate);
     }
 
+    let lastMouseX = -1;
+    let lastMouseY = -1;
+    let lastMouseTime = 0;
+
     function onMouseMove(e: MouseEvent) {
-      mouseRef.current = { x: e.clientX, y: e.clientY };
+      const now = performance.now();
+      const mx = e.clientX;
+      const my = e.clientY;
+      mouseRef.current = { x: mx, y: my };
+
+      if (lastMouseX !== -1) {
+        const dx = mx - lastMouseX;
+        const dy = my - lastMouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const dt = now - lastMouseTime;
+        if (dt > 0) {
+          const speed = dist / dt;
+          if (speed > 1.8 && Math.random() < 0.15) {
+            ripples.push({
+              x: mx,
+              y: my,
+              radius: 0,
+              maxRadius: 180,
+              strength: Math.min(speed * 9, 30),
+              speed: 4.5,
+            });
+          }
+        }
+      }
+      lastMouseX = mx;
+      lastMouseY = my;
+      lastMouseTime = now;
     }
 
     function onMouseLeave() {
       mouseRef.current = { x: -1000, y: -1000 };
+      lastMouseX = -1;
+      lastMouseY = -1;
+    }
+
+    function onClick(e: MouseEvent) {
+      ripples.push({
+        x: e.clientX,
+        y: e.clientY,
+        radius: 0,
+        maxRadius: Math.max(w, h) * 0.9,
+        strength: 55,
+        speed: 6.5,
+      });
     }
 
     resize();
     window.addEventListener("resize", resize);
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseleave", onMouseLeave);
+    window.addEventListener("click", onClick);
     animId = requestAnimationFrame(animate);
 
     return () => {
@@ -310,6 +417,7 @@ function AuroraCanvas() {
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseleave", onMouseLeave);
+      window.removeEventListener("click", onClick);
     };
   }, []);
 
@@ -345,6 +453,318 @@ function SectionBlob({ color, size, top, left, right, bottom, delay }: {
       animationDelay: delay || "0s",
       pointerEvents: "none",
     }} />
+  );
+}
+
+/* ── 3D Tilt Card Helper Component ───────────────────────────────────── */
+function TiltCard({ children, className = "", style: externalStyle }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [style, setStyle] = useState<React.CSSProperties>({});
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const xc = rect.width / 2;
+    const yc = rect.height / 2;
+    const angleX = ((yc - y) / yc) * 7;
+    const angleY = ((x - xc) / xc) * 7;
+    setStyle({
+      transform: `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale3d(1.015, 1.015, 1.015)`,
+      boxShadow: "0 25px 50px -12px rgba(99, 102, 241, 0.12), 0 12px 24px -10px rgba(0, 0, 0, 0.05)",
+      zIndex: 10,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setStyle({
+      transform: "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)",
+      boxShadow: "none",
+      transition: "all 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
+    });
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transition: "transform 0.1s ease, box-shadow 0.1s ease",
+        transformStyle: "preserve-3d",
+        ...externalStyle,
+        ...style
+      }}
+      className={className}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* ── Simulated Workspace Interactive Demo Player ──────────────────────── */
+function InteractiveWorkspaceDemo() {
+  const [activeTab, setActiveTab] = useState(0);
+  const [phase, setPhase] = useState<"typing" | "generating" | "streaming" | "done">("typing");
+  const [promptText, setPromptText] = useState("");
+  const [outputText, setOutputText] = useState("");
+
+  const demos = [
+    {
+      tab: "Marketing",
+      tool: "Cold Email Writer",
+      prompt: "Draft a high-converting cold email selling Zenovee AI to startup founders. Keep it short.",
+      output: `Subject: 10 subscriptions, 1 tab.
+
+Hi {Founder},
+
+Quick question: how many separate monthly SaaS bills did you pay last month?
+
+Zenovee AI consolidates 50 elite-tier AI tools into one secure workspace. No subscription lock-in. Just raw execution power.
+
+Worth a quick 2-minute look?
+
+Cheers,
+Alex`,
+      stats: { time: "1.1s", cost: "1 credit", tokens: "128 tokens" },
+      icon: <Sparkles className="w-4 h-4" />
+    },
+    {
+      tab: "Legal",
+      tool: "Contract Audit",
+      prompt: "Analyze the liability clause in this draft service agreement and highlight potential risks.",
+      output: `### ⚖️ Contract Audit Report
+
+**Flag 1 — Uncapped Liability:** Section 8.2 states the vendor has unlimited liability. Recommend capping at 12x monthly fees.
+
+**Flag 2 — Jurisdiction:** Governing law is set to Delaware but dispute resolution is in London. Align to single jurisdiction.
+
+**Status:** Minor risks found. Revisions suggested.`,
+      stats: { time: "1.4s", cost: "3 credits", tokens: "192 tokens" },
+      icon: <CheckCircle2 className="w-4 h-4" />
+    },
+    {
+      tab: "Financial",
+      tool: "Runway Calculator",
+      prompt: "Calculate runway for a team of 6 engineers with $450k capital and $30k/mo total burn rate.",
+      output: `### 📊 Runway Analysis
+
+- **Total Monthly Burn:** $30,000 / month
+- **Projected Runway:** 15.0 Months
+- **Optimization Tip:** Consolidating engineering tools to Zenovee AI saves $6,400/mo, extending runway by +2.7 months.`,
+      stats: { time: "0.9s", cost: "2 credits", tokens: "94 tokens" },
+      icon: <LineChart className="w-4 h-4" />
+    },
+    {
+      tab: "Strategy",
+      tool: "Objection Crusher",
+      prompt: "How do we handle the customer objection: 'We already build our own AI wrappers in-house'?",
+      output: `### 🎯 Objection Handler: In-House Wrappers
+
+1. **Acknowledge:** "Building in-house is great for proprietary core logic..."
+2. **Pivot:** "...but maintenance, API updates, and security auditing for 50 utility tools costs $15k+/yr of developer time."
+3. **Close:** "Zenovee handles the utilities, so your team focuses on core IP."`,
+      stats: { time: "1.2s", cost: "1 credit", tokens: "148 tokens" },
+      icon: <Layers className="w-4 h-4" />
+    }
+  ];
+
+  useEffect(() => {
+    let timer: any;
+    const currentDemo = demos[activeTab];
+
+    if (phase === "typing") {
+      let charIdx = 0;
+      setPromptText("");
+      setOutputText("");
+      const interval = setInterval(() => {
+        if (charIdx < currentDemo.prompt.length) {
+          setPromptText(currentDemo.prompt.slice(0, charIdx + 1));
+          charIdx++;
+        } else {
+          clearInterval(interval);
+          timer = setTimeout(() => setPhase("generating"), 800);
+        }
+      }, 30);
+      return () => clearInterval(interval);
+    } else if (phase === "generating") {
+      timer = setTimeout(() => {
+        setPhase("streaming");
+      }, 1400);
+    } else if (phase === "streaming") {
+      let charIdx = 0;
+      const interval = setInterval(() => {
+        if (charIdx < currentDemo.output.length) {
+          const nextIndex = Math.min(charIdx + 4, currentDemo.output.length);
+          setOutputText(currentDemo.output.slice(0, nextIndex));
+          charIdx = nextIndex;
+        } else {
+          clearInterval(interval);
+          timer = setTimeout(() => setPhase("done"), 600);
+        }
+      }, 12);
+      return () => clearInterval(interval);
+    } else if (phase === "done") {
+      timer = setTimeout(() => {
+        setPhase("typing");
+        setActiveTab((prev) => (prev + 1) % demos.length);
+      }, 3500);
+    }
+
+    return () => clearTimeout(timer);
+  }, [phase, activeTab]);
+
+  return (
+    <div className="w-full rounded-2xl border border-slate-200/80 bg-white shadow-2xl overflow-hidden text-left flex flex-col h-[520px] md:h-[460px]">
+      {/* Browser Top Bar */}
+      <div className="bg-slate-50 border-b border-slate-200 px-4 py-3 flex items-center justify-between">
+        <div className="flex gap-1.5 items-center">
+          <span className="w-3 h-3 rounded-full bg-rose-400" />
+          <span className="w-3 h-3 rounded-full bg-amber-400" />
+          <span className="w-3 h-3 rounded-full bg-emerald-400" />
+        </div>
+        <div className="bg-white border border-slate-200 rounded-md px-3 py-1 text-xs text-slate-400 font-mono w-60 md:w-80 text-center truncate">
+          app.zenovee.ai/workspace/{demos[activeTab].tool.toLowerCase().replace(/ /g, "-")}
+        </div>
+        <div className="flex gap-2">
+          <span className="w-4 h-1.5 rounded-full bg-slate-200" />
+        </div>
+      </div>
+
+      {/* Main Sandbox Workspace */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* Sidebar */}
+        <div className="w-36 md:w-48 bg-slate-50/50 border-r border-slate-200 p-3 flex flex-col gap-2 shrink-0">
+          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2 px-2">Console Tools</div>
+          {demos.map((d, idx) => (
+            <button
+              key={d.tab}
+              onClick={() => {
+                if (activeTab !== idx) {
+                  setActiveTab(idx);
+                  setPhase("typing");
+                }
+              }}
+              className={`flex items-center gap-2 px-2.5 py-2 rounded-xl text-xs font-semibold transition-all text-left ${
+                activeTab === idx
+                  ? "bg-indigo-50 text-indigo-600 border border-indigo-100/50 shadow-sm"
+                  : "text-slate-600 hover:bg-slate-100 border border-transparent"
+              }`}
+            >
+              {d.icon}
+              <span className="truncate">{d.tab}</span>
+            </button>
+          ))}
+          <div className="mt-auto border-t border-slate-200/60 pt-3 px-2 flex flex-col gap-2">
+            <div className="flex items-center gap-1.5 text-[10px] font-medium text-slate-400">
+              <Zap className="w-3 h-3 text-amber-500" />
+              <span>Credits: 940</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-[10px] font-medium text-slate-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>API Gateway: Online</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Panel View */}
+        <div className="flex-1 flex flex-col md:flex-row min-w-0">
+          {/* Input Panel */}
+          <div className="w-full md:w-[45%] border-r border-slate-150 p-4 flex flex-col justify-between bg-white h-[200px] md:h-full shrink-0">
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 border border-indigo-100 px-2.5 py-0.5 rounded">
+                  Active Tool
+                </span>
+                <span className="text-xs font-bold text-slate-800">{demos[activeTab].tool}</span>
+              </div>
+              <label className="text-[11px] font-semibold text-slate-500 block mb-1">User Prompt</label>
+              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 min-h-[90px] text-xs text-slate-700 leading-relaxed font-mono whitespace-pre-wrap select-none relative overflow-y-auto">
+                {promptText}
+                {phase === "typing" && <span className="w-1.5 h-3.5 bg-indigo-500 inline-block animate-pulse ml-0.5" />}
+              </div>
+            </div>
+
+            <div className="flex gap-2 items-center justify-between border-t border-slate-100 pt-3 mt-2">
+              <div className="flex gap-3 text-[10px] font-mono text-slate-400">
+                <div>Cost: <span className="font-bold text-slate-600">{demos[activeTab].stats.cost}</span></div>
+                <div>Est: <span className="font-bold text-slate-600">{demos[activeTab].stats.time}</span></div>
+              </div>
+              <button 
+                className={`px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  phase === "generating"
+                    ? "bg-amber-500 text-white shadow-[0_0_15px_rgba(245,158,11,0.4)] animate-pulse"
+                    : "bg-indigo-600 text-white shadow-sm hover:bg-indigo-500"
+                }`}
+                disabled
+              >
+                {phase === "generating" ? (
+                  <>
+                    <span className="w-2.5 h-2.5 rounded-full border-2 border-white border-t-transparent animate-spin" />
+                    Running
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-3 h-3 fill-current" />
+                    Execute
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Output Panel */}
+          <div className="flex-1 bg-slate-900 text-slate-100 p-4 flex flex-col min-w-0 font-mono text-xs overflow-hidden relative">
+            <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_bottom_right,rgba(99,102,241,0.06),transparent_70%)] pointer-events-none" />
+            <div className="flex items-center justify-between border-b border-slate-800 pb-2 mb-3 relative z-10">
+              <div className="flex items-center gap-2 text-slate-400">
+                <Terminal className="w-3.5 h-3.5 text-indigo-400" />
+                <span>Console Output</span>
+              </div>
+              <div className="flex gap-2">
+                {phase === "done" && (
+                  <span className="text-[10px] text-emerald-400 font-bold bg-emerald-950/40 border border-emerald-900/50 px-2 py-0.5 rounded flex items-center gap-1 animate-fade-in-up">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                    Ready · {demos[activeTab].stats.tokens}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <div className="flex-1 overflow-y-auto whitespace-pre-wrap leading-relaxed text-[11px] text-slate-300 relative z-10 select-all scrollbar-thin">
+              {phase === "generating" ? (
+                <div className="flex flex-col gap-2 text-indigo-400 animate-pulse mt-4">
+                  <div>&gt; Initializing connection to Supabase API...</div>
+                  <div>&gt; Authorizing with Zenovee credit token...</div>
+                  <div>&gt; Dispatching payload request to Llama-3-70B model...</div>
+                  <div className="flex items-center gap-2 mt-2">
+                    <span className="w-3 h-3 border-2 border-indigo-400 border-t-transparent animate-spin rounded-full" />
+                    <span>Streaming response stream...</span>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {outputText}
+                  {phase === "streaming" && <span className="w-1.5 h-3 bg-emerald-400 inline-block animate-pulse ml-0.5" />}
+                </>
+              )}
+            </div>
+
+            <div className="border-t border-slate-800 pt-2 mt-3 flex items-center justify-between text-[10px] text-slate-500 relative z-10">
+              <span>Time: {phase === "done" ? demos[activeTab].stats.time : phase === "streaming" ? "generating..." : "0.0s"}</span>
+              {phase === "done" && (
+                <button className="flex items-center gap-1 text-slate-400 hover:text-indigo-400 transition-colors">
+                  <Copy className="w-3 h-3" />
+                  <span>Copy</span>
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -483,23 +903,8 @@ export default function Home() {
       </section>
 
       {/* ── Dashboard Preview ─────────────────────────────────── */}
-      <section className="relative px-6 py-24 lg:px-8 max-w-7xl mx-auto">
-        <div style={{ border: "1px solid rgba(255,255,255,0.4)", background: "rgba(255,255,255,0.4)", backdropFilter: "blur(20px)" }} className="rounded-2xl p-2 sm:p-3 shadow-2xl shadow-indigo-900/5">
-          <div className="aspect-[16/9] w-full overflow-hidden rounded-xl border border-slate-200/40 bg-gradient-to-br from-slate-50 to-indigo-50/30 shadow-inner flex items-center justify-center relative">
-             <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
-               <SectionBlob color="rgba(129,140,248,0.35)" size={300} top="10%" left="20%" />
-               <SectionBlob color="rgba(167,139,250,0.3)" size={200} bottom="15%" right="15%" delay="3s" />
-               <SectionBlob color="rgba(236,72,153,0.2)" size={150} top="50%" left="60%" delay="5s" />
-             </div>
-             <div className="text-center p-8 z-10">
-                <div className="mx-auto w-16 h-16 rounded-2xl bg-white shadow-lg border border-slate-100 flex items-center justify-center mb-6 animate-pulse-glow">
-                  <LayoutGrid className="w-8 h-8 text-indigo-500" />
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-2">Unified Dashboard Interface</h3>
-                <p className="text-slate-500 max-w-md mx-auto">Access all your AI tools, generation history, and billing in one seamless workspace.</p>
-             </div>
-          </div>
-        </div>
+      <section className="relative px-6 py-24 lg:px-8 max-w-7xl mx-auto z-10">
+        <InteractiveWorkspaceDemo />
       </section>
 
       {/* ── Value Matrix ──────────────────────────────────────── */}
@@ -554,9 +959,9 @@ export default function Home() {
           
           <div className="grid gap-8 lg:grid-cols-2">
             {showdownGroups.map((group, gIdx) => (
-              <div
+              <TiltCard
                 key={group.title}
-                className={`tool-card rounded-3xl border border-slate-200/80 bg-white/80 backdrop-blur-sm p-8 shadow-sm transition-all duration-700 ${toolsReveal.visible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-16 scale-95"}`}
+                className={`rounded-3xl border border-slate-200/80 bg-white/80 backdrop-blur-sm p-8 shadow-sm transition-all duration-700 ${toolsReveal.visible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-16 scale-95"}`}
                 style={{ transitionDelay: `${300 + gIdx * 200}ms` }}
               >
                 <div className="flex items-center gap-4 mb-6">
@@ -591,7 +996,7 @@ export default function Home() {
                     View all {group.tools.length} tools <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
-              </div>
+              </TiltCard>
             ))}
           </div>
         </div>
