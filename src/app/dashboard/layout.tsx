@@ -68,7 +68,7 @@ export default async function DashboardLayout({
             </div>
             <div className="-ml-5">
               <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#1E293B]">
-                Pro-Suite 50
+                Zenovee AI
               </p>
               <p className="mt-1 text-sm text-[#64748B]">Premium internal workspace</p>
             </div>
@@ -77,8 +77,8 @@ export default async function DashboardLayout({
           <div className="mx-8 mt-2 rounded-[1.75rem] border border-slate-100 bg-white p-5 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),0_2px_4px_-2px_rgba(0,0,0,0.05)]">
             <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Signed in as</p>
             <div className="mt-4 flex items-center gap-3 rounded-2xl border border-slate-100 bg-[#F8FAFC] px-4 py-3">
-              <Mail className="h-4 w-4 text-[#1E293B]" />
-              <p className="break-all text-sm font-medium text-[#1E293B]">{user.email}</p>
+               <Mail className="h-4 w-4 text-[#1E293B]" />
+               <p className="break-all text-sm font-medium text-[#1E293B]">{user.email}</p>
             </div>
 
             <div className="mt-6 rounded-[1.5rem] border border-slate-200 bg-gradient-to-br from-slate-50 to-slate-100 p-4">
@@ -89,7 +89,7 @@ export default async function DashboardLayout({
                   </p>
                   <p className="mt-3 text-3xl font-semibold text-[#1E293B]">{credits}</p>
                 </div>
-                <div className="rounded-full border border-white/10 bg-white px-3 py-1 text-xs font-medium text-[#1E293B] border border-slate-200">
+                <div className="rounded-full bg-white px-3 py-1 text-xs font-medium text-[#1E293B] border border-slate-200">
                   Live
                 </div>
               </div>

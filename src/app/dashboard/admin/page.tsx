@@ -166,88 +166,89 @@ export default async function AdminDashboardPage({ searchParams }: AdminPageProp
   }
 
   return (
-    <main className="min-h-screen bg-[#030712] text-slate-100">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(139,92,246,0.16),transparent_22%),radial-gradient(circle_at_80%_18%,rgba(34,211,238,0.12),transparent_18%),linear-gradient(180deg,#030712_0%,#020617_100%)]" />
-
-      <div className="mx-auto max-w-7xl px-6 py-10 lg:px-10">
-        <section className="rounded-[2rem] border border-slate-800/80 bg-[#111827]/50 p-6 backdrop-blur-md sm:p-8">
+    <div className="text-slate-900 animate-fade-in-up">
+      <div className="mx-auto max-w-7xl pb-10">
+        {/* Header Section */}
+        <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-amber-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-amber-200">
+              <div className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-indigo-600">
                 <ShieldCheck className="h-3.5 w-3.5" />
                 Administrative Command Center
               </div>
-              <h1 className="mt-4 text-4xl font-semibold text-white">Admin operations dashboard</h1>
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-400 sm:text-base">
-                Monitor platform growth, track operational usage, review revenue posture, and manage user credit balances from one isolated executive workspace.
+              <h1 className="mt-4 text-3xl font-bold text-slate-900">Admin Operations Dashboard</h1>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-500 sm:text-base">
+                Monitor platform growth, track operational usage, review revenue posture, and manage user credit balances from one executive workspace.
               </p>
             </div>
 
             <form className="w-full max-w-sm" action="/dashboard/admin" method="get">
-              <label htmlFor="query" className="mb-2 block text-sm font-medium text-white">
+              <label htmlFor="query" className="mb-2 block text-sm font-medium text-slate-700">
                 Search users
               </label>
-              <div className="flex items-center gap-2 rounded-2xl border border-slate-800/80 bg-[#111827]/70 px-4 py-3">
-                <Search className="h-4 w-4 text-slate-500" />
+              <div className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 focus-within:border-indigo-300 focus-within:ring-1 focus-within:ring-indigo-300 transition-all">
+                <Search className="h-4 w-4 text-slate-400" />
                 <input
                   id="query"
                   name="query"
                   defaultValue={query}
                   placeholder="Search by email, tier, or ID"
-                  className="w-full bg-transparent text-sm text-white outline-none placeholder:text-slate-500"
+                  className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
                 />
               </div>
             </form>
           </div>
         </section>
 
+        {/* KPIs Section */}
         <section className="mt-8 grid gap-6 md:grid-cols-3">
-          <article className="rounded-[2rem] border border-slate-800/80 bg-[#111827]/50 p-6 backdrop-blur-md sm:p-8">
+          <article className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs uppercase tracking-[0.28em] text-slate-500">Total Platform Users</p>
-                <p className="mt-3 text-3xl font-semibold text-white">{totalPlatformUsers}</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Total Platform Users</p>
+                <p className="mt-3 text-3xl font-bold text-slate-900">{totalPlatformUsers}</p>
               </div>
-              <div className="rounded-2xl border border-cyan-300/20 bg-cyan-400/10 p-3 text-cyan-200">
+              <div className="rounded-2xl border border-blue-100 bg-blue-50 p-3 text-blue-500">
                 <Users className="h-5 w-5" />
               </div>
             </div>
           </article>
 
-          <article className="rounded-[2rem] border border-slate-800/80 bg-[#111827]/50 p-6 backdrop-blur-md sm:p-8">
+          <article className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs uppercase tracking-[0.28em] text-slate-500">Groq API Call Volume</p>
-                <p className="mt-3 text-3xl font-semibold text-white">{groqApiCallVolume.toLocaleString()}</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Groq API Call Volume</p>
+                <p className="mt-3 text-3xl font-bold text-slate-900">{groqApiCallVolume.toLocaleString()}</p>
               </div>
-              <div className="rounded-2xl border border-emerald-300/20 bg-emerald-400/10 p-3 text-emerald-200">
+              <div className="rounded-2xl border border-emerald-100 bg-emerald-50 p-3 text-emerald-500">
                 <Coins className="h-5 w-5" />
               </div>
             </div>
           </article>
 
-          <article className="rounded-[2rem] border border-slate-800/80 bg-[#111827]/50 p-6 backdrop-blur-md sm:p-8">
+          <article className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs uppercase tracking-[0.28em] text-slate-500">Gross Revenue Ledger</p>
-                <p className="mt-3 text-3xl font-semibold text-white">${grossRevenueLedger.toLocaleString()}</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Gross Revenue Ledger</p>
+                <p className="mt-3 text-3xl font-bold text-slate-900">${grossRevenueLedger.toLocaleString()}</p>
               </div>
-              <div className="rounded-2xl border border-violet-300/20 bg-violet-400/10 p-3 text-violet-200">
+              <div className="rounded-2xl border border-violet-100 bg-violet-50 p-3 text-violet-500">
                 <DollarSign className="h-5 w-5" />
               </div>
             </div>
           </article>
         </section>
 
-        <section className="mt-8 rounded-[2rem] border border-slate-800/80 bg-[#111827]/50 p-6 backdrop-blur-md sm:p-8">
+        {/* Users Table Section */}
+        <section className="mt-8 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <div className="flex items-center gap-3">
-            <div className="rounded-2xl border border-cyan-300/20 bg-cyan-400/10 p-3 text-cyan-200">
+            <div className="rounded-2xl border border-indigo-100 bg-indigo-50 p-3 text-indigo-500">
               <BarChart3 className="h-5 w-5" />
             </div>
             <div>
-              <h2 className="text-2xl font-semibold text-white">User management ledger</h2>
-              <p className="mt-2 text-sm leading-7 text-slate-400">
-                Review user access tiers, inspect live balances, and apply instant credit adjustments from a single database-facing control table.
+              <h2 className="text-xl font-bold text-slate-900">User Management Ledger</h2>
+              <p className="mt-1 text-sm leading-7 text-slate-500">
+                Review user access tiers, inspect live balances, and apply instant credit adjustments.
               </p>
             </div>
           </div>
@@ -255,56 +256,56 @@ export default async function AdminDashboardPage({ searchParams }: AdminPageProp
           <div className="mt-8 overflow-x-auto">
             <table className="min-w-full border-separate border-spacing-y-3">
               <thead>
-                <tr className="text-left text-xs uppercase tracking-[0.28em] text-slate-500">
+                <tr className="text-left text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
                   <th className="px-4 py-2">Email</th>
                   <th className="px-4 py-2">Tier</th>
                   <th className="px-4 py-2">Credit Balance</th>
-                  <th className="px-4 py-2">Admin</th>
+                  <th className="px-4 py-2">Role</th>
                   <th className="px-4 py-2">Manage Credits</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredProfiles.map((profile) => (
-                  <tr key={profile.id} className="text-sm text-slate-200">
-                    <td className="rounded-l-2xl border border-slate-800/80 border-r-0 bg-[#0F172A] px-4 py-4 align-top">
+                  <tr key={profile.id} className="text-sm">
+                    <td className="rounded-l-2xl border border-slate-200 border-r-0 bg-slate-50 px-4 py-4 align-top">
                       <div>
-                        <p className="font-medium text-white">{emailLookup.get(profile.id) ?? "unknown@example.com"}</p>
-                        <p className="mt-1 text-xs text-slate-500">{profile.id}</p>
+                        <p className="font-medium text-slate-900">{emailLookup.get(profile.id) ?? "unknown@example.com"}</p>
+                        <p className="mt-1 text-[11px] text-slate-400 font-mono">{profile.id}</p>
                       </div>
                     </td>
-                    <td className="border border-slate-800/80 border-r-0 bg-[#0F172A] px-4 py-4 align-top">
-                      <span className="rounded-full border border-slate-700 bg-slate-800/80 px-3 py-1 text-xs font-medium text-slate-200">
+                    <td className="border border-slate-200 border-r-0 bg-slate-50 px-4 py-4 align-top">
+                      <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-semibold text-slate-600 shadow-sm">
                         {(profile.tier ?? "free").toUpperCase()}
                       </span>
                     </td>
-                    <td className="border border-slate-800/80 border-r-0 bg-[#0F172A] px-4 py-4 align-top">
-                      <span className="font-semibold text-white">{profile.credits ?? 0}</span>
+                    <td className="border border-slate-200 border-r-0 bg-slate-50 px-4 py-4 align-top">
+                      <span className="font-semibold text-slate-900">{profile.credits ?? 0}</span>
                     </td>
-                    <td className="border border-slate-800/80 border-r-0 bg-[#0F172A] px-4 py-4 align-top">
+                    <td className="border border-slate-200 border-r-0 bg-slate-50 px-4 py-4 align-top">
                       <span
-                        className={`rounded-full px-3 py-1 text-xs font-medium ${
+                        className={`rounded-full px-3 py-1 text-[11px] font-bold ${
                           profile.is_admin
-                            ? "border border-amber-300/20 bg-amber-400/10 text-amber-200"
-                            : "border border-slate-700 bg-slate-800/70 text-slate-400"
+                            ? "bg-indigo-100 text-indigo-700"
+                            : "bg-slate-200/50 text-slate-500"
                         }`}
                       >
                         {profile.is_admin ? "ADMIN" : "STANDARD"}
                       </span>
                     </td>
-                    <td className="rounded-r-2xl border border-slate-800/80 bg-[#0F172A] px-4 py-4 align-top">
-                      <form action={manageCreditsAction} className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                    <td className="rounded-r-2xl border border-slate-200 bg-slate-50 px-4 py-4 align-top">
+                      <form action={manageCreditsAction} className="flex flex-col gap-2 sm:flex-row sm:items-center">
                         <input type="hidden" name="userId" value={profile.id} />
                         <input
                           name="creditAdjustment"
                           type="number"
                           step="1"
-                          placeholder="e.g. +100 or -50"
-                          className="w-full rounded-xl border border-slate-700 bg-[#161C2A] px-3 py-2.5 text-sm text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-violet-500 sm:max-w-[190px]"
+                          placeholder="+100 or -50"
+                          className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 sm:max-w-[140px]"
                           required
                         />
                         <button
                           type="submit"
-                          className="inline-flex items-center justify-center rounded-xl bg-violet-500 px-4 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.01] hover:bg-violet-600 active:scale-[0.99]"
+                          className="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-indigo-500 active:scale-95"
                         >
                           Apply
                         </button>
@@ -317,6 +318,6 @@ export default async function AdminDashboardPage({ searchParams }: AdminPageProp
           </div>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

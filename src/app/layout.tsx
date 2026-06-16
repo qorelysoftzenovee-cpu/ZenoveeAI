@@ -1,9 +1,49 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export const metadata: Metadata = {
-  title: "Pro-Suite 50",
+  title: {
+    default: "Zenovee AI | The Ultimate AI Operating System",
+    template: "%s | Zenovee AI",
+  },
   description: "Premium B2B multi-tool operating system for marketing, legal, finance, sales, and technical execution.",
+  keywords: ["AI Tools", "B2B SaaS", "Marketing AI", "Legal AI", "Finance AI"],
+  authors: [{ name: "Zenovee" }],
+  creator: "Zenovee AI",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://zenovee.ai",
+    title: "Zenovee AI | The Ultimate AI Operating System",
+    description: "Premium B2B multi-tool operating system.",
+    siteName: "Zenovee AI",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Zenovee AI | The Ultimate AI Operating System",
+    description: "Premium B2B multi-tool operating system.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -12,12 +52,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
-      <body className="min-h-full bg-[#0B0F19] font-sans text-slate-100">
-        <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-[#0B0F19] text-slate-100">
-          <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(139,92,246,0.16),transparent_24%),radial-gradient(circle_at_80%_20%,rgba(34,211,238,0.12),transparent_20%),linear-gradient(180deg,#0B0F19_0%,#0B0F19_45%,#070A12_100%)]" />
-          {children}
-        </div>
+    <html lang="en" className={`${inter.variable} font-sans h-full antialiased`}>
+      <body className="min-h-full">
+        {children}
       </body>
     </html>
   );

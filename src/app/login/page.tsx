@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ArrowRight, LogIn, ShieldCheck } from "lucide-react";
+import { ArrowRight, LogIn, ShieldCheck, Sparkles } from "lucide-react";
 
 import { AuthMessage } from "@/components/auth/auth-message";
 import { createClient } from "@/utils/supabase/client";
@@ -62,35 +62,28 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#F8FAFC] text-slate-900">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(16,185,129,0.10),transparent_28%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)]" />
-      <div className="mx-auto flex min-h-screen max-w-7xl items-center justify-center px-6 py-10 lg:px-10">
-        <div className="w-full max-w-md rounded-[2rem] border border-slate-200 bg-white p-[1px] shadow-[0_24px_60px_rgba(15,23,42,0.08)]">
-          <div className="rounded-[calc(2rem-1px)] bg-white p-8 sm:p-10">
+    <main className="min-h-screen bg-[#FAFBFE] text-slate-900 font-sans">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(99,102,241,0.08),transparent_40%),linear-gradient(180deg,#ffffff_0%,#FAFBFE_100%)]" />
+      <div className="mx-auto flex min-h-screen max-w-7xl items-center justify-center px-6 py-10 lg:px-10 animate-fade-in-up">
+        <div className="w-full max-w-md rounded-[2rem] border border-slate-200 bg-white/60 p-[1px] shadow-[0_24px_60px_rgba(15,23,42,0.04)] backdrop-blur-xl">
+          <div className="rounded-[calc(2rem-1px)] bg-white/80 p-8 sm:p-10 shadow-inner">
             <div className="flex items-center gap-3">
-              <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-3 text-emerald-600">
-                <LogIn className="h-5 w-5" />
+              <div className="rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-violet-50 p-3 text-indigo-600 shadow-sm">
+                <Sparkles className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.35em] text-emerald-600">
-                  Pro-Suite 50
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-indigo-600">
+                  Zenovee AI
                 </p>
-                <p className="mt-1 text-sm text-slate-500">Secure premium workspace login</p>
+                <p className="mt-1 text-[11px] font-medium text-slate-500 uppercase tracking-wider">Secure Workspace</p>
               </div>
             </div>
 
             <div className="mt-8">
-              <h1 className="text-3xl font-semibold tracking-tight text-slate-900">Welcome back</h1>
-              <p className="mt-3 text-sm leading-7 text-slate-500">
-                Sign in to access your dashboard, tools, billing controls, and protected B2B workflows.
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900">Welcome back</h1>
+              <p className="mt-3 text-sm leading-relaxed text-slate-500">
+                Sign in to access your dashboard, AI tools, and protected business workflows.
               </p>
-            </div>
-
-            <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-emerald-600" />
-                Protected access with secure Supabase session handling
-              </div>
             </div>
 
             <div className="mt-6 space-y-4">
@@ -99,7 +92,7 @@ export default function LoginPage() {
 
             <form onSubmit={handleSubmit} className="mt-6 space-y-5">
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="email">
+                <label className="mb-2 block text-sm font-semibold text-slate-700" htmlFor="email">
                   Email
                 </label>
                 <input
@@ -110,12 +103,12 @@ export default function LoginPage() {
                   required
                   autoComplete="email"
                   placeholder="you@company.com"
-                  className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3.5 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-400 focus:bg-white"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white focus:ring-1 focus:ring-indigo-400 shadow-sm"
                 />
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="password">
+                <label className="mb-2 block text-sm font-semibold text-slate-700" htmlFor="password">
                   Password
                 </label>
                 <div className="relative">
@@ -127,54 +120,60 @@ export default function LoginPage() {
                     required
                     autoComplete="current-password"
                     placeholder="Enter your password"
-                    className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3.5 pr-12 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-400 focus:bg-white"
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3.5 pr-12 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white focus:ring-1 focus:ring-indigo-400 shadow-sm"
                   />
                   <button
                     type="button"
                     tabIndex={-1}
                     onClick={() => setShowPassword((s) => !s)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded px-2 py-1 text-sm text-slate-500 hover:text-slate-900"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded p-1 text-xs font-medium text-slate-400 hover:text-slate-700 transition-colors"
                   >
                     {showPassword ? "Hide" : "Show"}
                   </button>
                 </div>
 
-                <div className="mt-2 flex items-center justify-between text-xs">
-                  <label className="flex items-center gap-2 text-slate-500">
+                <div className="mt-3 flex items-center justify-between text-xs">
+                  <label className="flex items-center gap-2 font-medium text-slate-500 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={rememberMe}
                       onChange={(e) => setRememberMe(e.target.checked)}
-                      className="h-4 w-4 rounded border-slate-300 bg-white text-emerald-500"
+                      className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-600 focus:ring-offset-0 cursor-pointer"
                     />
                     Remember me
                   </label>
-                  <Link href="/auth/forgot" className="text-emerald-600 hover:text-emerald-500">
-                    Forgot password?
-                  </Link>
                 </div>
               </div>
 
               <button
                 type="submit"
                 disabled={isLoading}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#E63946] px-5 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#c92a37] disabled:cursor-not-allowed disabled:opacity-60"
+                className="group relative mt-2 inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 transition-all hover:from-indigo-500 hover:to-violet-500 hover:shadow-xl hover:shadow-indigo-500/30 hover:-translate-y-[1px] active:scale-[0.98] disabled:cursor-not-allowed disabled:from-slate-300 disabled:to-slate-300 disabled:shadow-none"
               >
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
                 {isLoading ? (
-                  "Signing you in..."
+                  <>
+                     <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Signing in...
+                  </>
                 ) : (
                   <>
-                    Log in
-                    <ArrowRight className="h-4 w-4" />
+                    <LogIn className="h-4 w-4" />
+                    Access Workspace
                   </>
                 )}
               </button>
             </form>
 
-            <p className="mt-8 text-center text-sm text-slate-500">
-              Not registered yet?{" "}
-              <Link href="/signup" className="font-semibold text-emerald-600 transition hover:text-emerald-500">
-                Create your account
+            <div className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-slate-50/80 p-3 text-xs font-medium text-slate-500 border border-slate-100">
+              <ShieldCheck className="h-4 w-4 text-emerald-500" />
+              Protected by enterprise security
+            </div>
+
+            <p className="mt-8 text-center text-sm font-medium text-slate-500">
+              Don't have an account?{" "}
+              <Link href="/signup" className="text-indigo-600 hover:text-indigo-500 transition-colors font-bold">
+                Create one now
               </Link>
             </p>
           </div>
