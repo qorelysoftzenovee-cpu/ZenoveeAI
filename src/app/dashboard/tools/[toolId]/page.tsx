@@ -1,14 +1,27 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { ArrowLeft, Copy, Check, Download, Play, ShieldAlert } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import {
+  ArrowLeft,
+  Check,
+  ChevronDown,
+  ClipboardCopy,
+  Download,
+  FileText,
+  Layers,
+  Play,
+  RotateCcw,
+  ShieldAlert,
+  Sparkles,
+  Terminal,
+  Zap,
+} from "lucide-react";
 
 import { createClient } from "@/utils/supabase/client";
 import { toolsConfig } from "@/utils/toolsConfig";
-
-export const dynamic = "force-dynamic";
-export const dynamicParams = true;
 
 export default function ToolWorkspacePage() {
   const params = useParams();
@@ -22,6 +35,7 @@ export default function ToolWorkspacePage() {
   const [loading, setLoading] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [showRaw, setShowRaw] = useState(false);
 
   useEffect(() => {
     const historyId = searchParams.get("history");
@@ -45,202 +59,476 @@ export default function ToolWorkspacePage() {
     void loadHistory();
   }, [searchParams, toolId]);
 
+  const handleInputChange = useCallback((key: string, value: string) => {
+    setInputs((prev) => ({ ...prev, [key]: value }));
+  }, []);
+
+  const handleExecute = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!tool) return;
+      setLoading(true);
+      setError(null);
+      setOutput("");
+      try {
+        const response = await fetch("/api/process-tool", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ toolId, tokenCost: tool.cost ?? 5, inputs }),
+        });
+
+        if (!response.ok) {
+          const errData = await response.json();
+          throw new Error(errData.error || "Processing failed. Please try again.");
+        }
+
+        const data = await response.json();
+        setOutput(data.output);
+        router.refresh();
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "An unexpected error occurred."
+        );
+      } finally {
+        setLoading(false);
+      }
+    },
+    [tool, toolId, inputs, router]
+  );
+
+  const handleCopy = useCallback(() => {
+    if (!output) return;
+    navigator.clipboard.writeText(output);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  }, [output]);
+
+  const handleDownload = useCallback(() => {
+    if (!output) return;
+    const blob = new Blob([output], { type: "text/markdown" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${toolId}-output.md`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, [output, toolId]);
+
+  const handleReset = useCallback(() => {
+    setInputs({});
+    setOutput("");
+    setError(null);
+  }, []);
+
+  const wordCount = useMemo(() => {
+    if (!output) return 0;
+    return output
+      .split(/\s+/)
+      .filter((w) => w.length > 0).length;
+  }, [output]);
+
+  // ─── 404 ──────────────────────────────────────────────────────────
   if (!tool) {
     return (
-      <div className="min-h-screen bg-[#F8FAFC] flex flex-col items-center justify-center p-6 text-center">
-        <ShieldAlert className="w-16 h-16 text-rose-500 mb-4 animate-pulse" />
-        <h1 className="text-2xl font-bold text-slate-900 mb-2">Tool Specification Not Found</h1>
-        <p className="text-slate-500 max-w-md mb-6">The requested tool ID does not match any authenticated configuration profiles inside our SaaS engine registry.</p>
-        <button onClick={() => router.push("/dashboard")} className="px-5 py-2.5 bg-white border border-slate-200 shadow-sm hover:bg-slate-50 text-slate-900 font-medium rounded-lg transition-all">
-          Return to Dashboard Hub
+      <div className="flex min-h-[60vh] flex-col items-center justify-center p-8 text-center animate-fade-in-up">
+        <div className="rounded-2xl border border-rose-200 bg-gradient-to-br from-rose-50 to-rose-100/50 p-5 mb-6">
+          <ShieldAlert className="w-10 h-10 text-rose-500" />
+        </div>
+        <h1 className="text-2xl font-bold text-slate-900 mb-2">
+          Tool Not Found
+        </h1>
+        <p className="text-slate-500 max-w-sm mb-8 text-sm leading-relaxed">
+          The requested tool does not exist in the registry. It may have been
+          removed or the URL is incorrect.
+        </p>
+        <button
+          onClick={() => router.push("/dashboard")}
+          className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-medium text-slate-700 shadow-sm transition-all hover:bg-slate-50 hover:shadow-md active:scale-[0.98]"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to Dashboard
         </button>
       </div>
     );
   }
 
-  const handleInputChange = (key: string, value: string) => {
-    setInputs((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const handleExecute = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setOutput("");
-    try {
-      const response = await fetch("/api/process-tool", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ toolId, tokenCost: (tool as { cost?: number }).cost ?? 5, inputs }),
-      });
-
-      if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.error || "System engine processing failure.");
-      }
-
-      const data = await response.json();
-      setOutput(data.output);
-      router.refresh();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An unexpected error occurred during execution.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleCopy = () => {
-    if (!output) return;
-    navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleDownload = () => {
-    if (!output) return;
-    const element = document.createElement("a");
-    const file = new Blob([output], { type: "text/markdown" });
-    element.href = URL.createObjectURL(file);
-    element.download = `${toolId}-generation.md`;
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-  };
+  // ─── Computed ─────────────────────────────────────────────────────
+  const filledCount = tool.inputs.filter(
+    (f) => (inputs[f.id] ?? "").trim().length > 0
+  ).length;
+  const totalFields = tool.inputs.length;
+  const fillPercent = totalFields > 0 ? Math.round((filledCount / totalFields) * 100) : 0;
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 px-4 py-6 md:px-6 md:py-8">
-      <div className="mb-6 flex items-center justify-between gap-4">
-        <button onClick={() => router.push("/dashboard")} className="flex items-center gap-2 text-slate-500 hover:text-slate-900 transition-colors group">
-          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-          <span>Back to Tools Catalog</span>
+    <div className="text-slate-900 animate-fade-in-up">
+      {/* ── Toolbar ─────────────────────────────────────────────────── */}
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+        <button
+          onClick={() => router.push("/dashboard")}
+          className="flex items-center gap-2 text-sm text-slate-500 transition-colors hover:text-slate-900 group"
+        >
+          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
+          <span>All Tools</span>
         </button>
-        <span className="text-xs bg-slate-50 text-slate-500 px-3 py-1 rounded-full border border-slate-200 font-mono">
-          Token Weight: {(tool as { cost?: number }).cost ?? 5} Units
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="inline-flex items-center gap-1.5 rounded-lg border border-indigo-100 bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-600">
+            <Zap className="w-3 h-3" />
+            {tool.cost} credits
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-500">
+            <Layers className="w-3 h-3" />
+            {tool.category}
+          </span>
+        </div>
       </div>
 
+      {/* ── Header ──────────────────────────────────────────────────── */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-900 mb-2">{tool.name}</h1>
-        <p className="text-slate-500 max-w-3xl text-sm leading-relaxed">{tool.description}</p>
+        <div className="flex items-start gap-4">
+          <div className="rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-violet-50 p-3.5 text-indigo-500 shadow-sm">
+            <Sparkles className="w-6 h-6" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <h1 className="text-2xl font-bold text-slate-900 tracking-tight sm:text-3xl">
+              {tool.name}
+            </h1>
+            <p className="mt-2 text-sm leading-relaxed text-slate-500 max-w-3xl">
+              {tool.description}
+            </p>
+          </div>
+        </div>
       </div>
 
-      <div className="grid min-h-[calc(100vh-13rem)] grid-cols-1 gap-6 xl:grid-cols-[minmax(380px,0.95fr)_minmax(0,1.45fr)] items-start">
-        <form onSubmit={handleExecute} className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-6 h-full">
-          <h2 className="text-lg font-semibold text-slate-900 tracking-wide border-b border-slate-200 pb-3">Operational Inputs</h2>
-
-          {tool.inputs.map((inputField) => (
-            <div key={inputField.id} className="space-y-2">
-              <label className="block text-xs font-medium text-slate-700 uppercase tracking-wider">{inputField.label}</label>
-              {inputField.type === "textarea" ? (
-                <textarea
-                  required
-                  placeholder={inputField.placeholder || "Provide background context parameters..."}
-                  value={inputs[inputField.id] || ""}
-                  onChange={(e) => handleInputChange(inputField.id, e.target.value)}
-                  className="w-full h-32 bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm text-slate-900 placeholder:text-slate-400 transition-all focus:bg-white focus:outline-none focus:ring-1 focus:ring-slate-300 resize-none"
-                />
-              ) : inputField.type === "dropdown" ? (
-                <select
-                  required
-                  value={inputs[inputField.id] || ""}
-                  onChange={(e) => handleInputChange(inputField.id, e.target.value)}
-                  className="w-full rounded-lg border border-slate-300 bg-slate-50 p-3 text-sm text-slate-900 transition-all focus:bg-white focus:outline-none focus:ring-1 focus:ring-slate-300"
-                >
-                  <option value="" disabled>
-                    {inputField.placeholder || `Select ${inputField.label.toLowerCase()}...`}
-                  </option>
-                  {(inputField.options || []).map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                <input
-                  type="text"
-                  required
-                  placeholder={inputField.placeholder || "Enter target metadata..."}
-                  value={inputs[inputField.id] || ""}
-                  onChange={(e) => handleInputChange(inputField.id, e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm text-slate-900 placeholder:text-slate-400 transition-all focus:bg-white focus:outline-none focus:ring-1 focus:ring-slate-300"
-                />
-              )}
+      {/* ── Main Grid ───────────────────────────────────────────────── */}
+      <div className="grid min-h-[calc(100vh-16rem)] grid-cols-1 gap-6 xl:grid-cols-[minmax(380px,0.9fr)_minmax(0,1.55fr)] items-stretch">
+        {/* ── Input Panel ─────────────────────────────────────────── */}
+        <form
+          onSubmit={handleExecute}
+          className="flex flex-col rounded-2xl border border-slate-200 bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04)] overflow-hidden"
+        >
+          {/* Panel header */}
+          <div className="flex items-center justify-between border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white px-6 py-4">
+            <div className="flex items-center gap-2.5">
+              <div className="rounded-lg border border-slate-200 bg-white p-1.5 shadow-sm">
+                <Terminal className="w-3.5 h-3.5 text-slate-500" />
+              </div>
+              <h2 className="text-sm font-semibold text-slate-800 tracking-wide">
+                Configuration
+              </h2>
             </div>
-          ))}
+            <div className="flex items-center gap-2">
+              <div className="h-1.5 w-16 rounded-full bg-slate-100 overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-indigo-400 to-indigo-500 transition-all duration-500 ease-out"
+                  style={{ width: `${fillPercent}%` }}
+                />
+              </div>
+              <span className="text-[10px] font-medium text-slate-400 tabular-nums">
+                {filledCount}/{totalFields}
+              </span>
+            </div>
+          </div>
 
-          <div className="pt-4 space-y-3">
+          {/* Fields */}
+          <div className="flex-1 space-y-5 p-6 overflow-y-auto stagger-children">
+            {tool.inputs.map((inputField) => (
+              <div key={inputField.id} className="space-y-1.5">
+                <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                  {inputField.label}
+                  {(inputs[inputField.id] ?? "").trim().length > 0 && (
+                    <Check className="w-3 h-3 text-emerald-500" />
+                  )}
+                </label>
+
+                {inputField.type === "textarea" ? (
+                  <textarea
+                    required
+                    placeholder={inputField.placeholder || "Enter details..."}
+                    value={inputs[inputField.id] || ""}
+                    onChange={(e) =>
+                      handleInputChange(inputField.id, e.target.value)
+                    }
+                    className="w-full min-h-[120px] rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 text-sm text-slate-800 placeholder:text-slate-400 transition-all duration-200 resize-none focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300"
+                  />
+                ) : inputField.type === "dropdown" ? (
+                  <div className="relative">
+                    <select
+                      required
+                      value={inputs[inputField.id] || ""}
+                      onChange={(e) =>
+                        handleInputChange(inputField.id, e.target.value)
+                      }
+                      className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 pr-10 text-sm text-slate-800 transition-all duration-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300"
+                    >
+                      <option value="" disabled>
+                        {inputField.placeholder ||
+                          `Select ${inputField.label.toLowerCase()}...`}
+                      </option>
+                      {(inputField.options || []).map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                  </div>
+                ) : (
+                  <input
+                    type="text"
+                    required
+                    placeholder={inputField.placeholder || "Enter value..."}
+                    value={inputs[inputField.id] || ""}
+                    onChange={(e) =>
+                      handleInputChange(inputField.id, e.target.value)
+                    }
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 text-sm text-slate-800 placeholder:text-slate-400 transition-all duration-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300"
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Action bar */}
+          <div className="border-t border-slate-100 bg-gradient-to-r from-slate-50/80 to-white p-5 space-y-3">
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-200 disabled:text-slate-400 text-white font-medium rounded-lg transition-all flex items-center justify-center gap-2 group shadow-lg shadow-indigo-600/10"
+              className="group relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 py-3.5 px-5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:from-indigo-500 hover:to-indigo-400 hover:shadow-xl hover:shadow-indigo-500/30 hover:-translate-y-[1px] active:translate-y-0 disabled:from-slate-200 disabled:to-slate-200 disabled:text-slate-400 disabled:shadow-none disabled:cursor-not-allowed"
             >
-              {loading ? (
-                <>
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  <span>Synthesizing Architecture...</span>
-                </>
-              ) : (
-                <>
-                  <Play className="w-4 h-4 fill-current transition-transform group-hover:scale-110" />
-                  <span>Execute Automation Framework</span>
-                </>
-              )}
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
+              <div className="relative flex items-center justify-center gap-2.5">
+                {loading ? (
+                  <>
+                    <div className="w-4.5 h-4.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span>Generating...</span>
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-4 h-4 fill-current" />
+                    <span>Generate Output</span>
+                  </>
+                )}
+              </div>
             </button>
-            <p className="text-[11px] text-center text-slate-500 font-mono">
-              Running this command will deduct {(tool as { cost?: number }).cost ?? 5} processing credits from your account ledger balance.
-            </p>
+
+            <div className="flex items-center justify-between">
+              <p className="text-[11px] text-slate-400">
+                Uses {tool.cost} credits per run
+              </p>
+              {(output || Object.keys(inputs).length > 0) && (
+                <button
+                  type="button"
+                  onClick={handleReset}
+                  className="flex items-center gap-1 text-[11px] text-slate-400 hover:text-slate-600 transition-colors"
+                >
+                  <RotateCcw className="w-3 h-3" />
+                  Reset
+                </button>
+              )}
+            </div>
           </div>
         </form>
-        <div className="flex min-h-[640px] h-full flex-col bg-white border border-slate-200/60 rounded-xl shadow-sm relative overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-3 bg-slate-50 border-b border-slate-200 shrink-0">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-rose-500/40 border border-rose-500/60" />
-              <div className="w-3 h-3 rounded-full bg-amber-500/40 border border-amber-500/60" />
-              <div className="w-3 h-3 rounded-full bg-emerald-500/40 border border-emerald-500/60" />
-              <span className="text-xs font-mono text-slate-500 ml-2">output-terminal.md</span>
+
+        {/* ── Output Panel ────────────────────────────────────────── */}
+        <div className="flex flex-col rounded-2xl border border-slate-200 bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04)] overflow-hidden">
+          {/* Output header */}
+          <div className="flex items-center justify-between border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white px-5 py-3.5 shrink-0">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-rose-400" />
+                <div className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+              </div>
+              <div className="flex items-center gap-1.5 rounded-md border border-slate-200 bg-white px-2.5 py-1">
+                <FileText className="w-3 h-3 text-slate-400" />
+                <span className="text-[11px] font-medium text-slate-500">
+                  output.md
+                </span>
+              </div>
+              {output && (
+                <span className="text-[10px] text-slate-400 tabular-nums">
+                  {wordCount.toLocaleString()} words
+                </span>
+              )}
             </div>
 
             {output && (
-              <div className="flex items-center gap-2">
-                <button onClick={handleCopy} className="rounded border border-slate-200 bg-white p-1.5 text-slate-500 transition-all hover:bg-slate-100 hover:text-slate-900" title="Copy Output">
-                  {copied ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
+              <div className="flex items-center gap-1.5">
+                {/* Toggle raw / rendered */}
+                <button
+                  type="button"
+                  onClick={() => setShowRaw((v) => !v)}
+                  className="rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-[11px] font-medium text-slate-500 transition-all hover:bg-slate-50 hover:text-slate-700"
+                  title={showRaw ? "Show rendered" : "Show raw markdown"}
+                >
+                  {showRaw ? "Rendered" : "Raw"}
                 </button>
-                <button onClick={handleDownload} className="rounded border border-slate-200 bg-white p-1.5 text-slate-500 transition-all hover:bg-slate-100 hover:text-slate-900" title="Export Markdown">
+                <button
+                  type="button"
+                  onClick={handleCopy}
+                  className="rounded-lg border border-slate-200 bg-white p-1.5 text-slate-500 transition-all hover:bg-slate-50 hover:text-slate-700 active:scale-95"
+                  title="Copy to clipboard"
+                >
+                  {copied ? (
+                    <Check className="h-3.5 w-3.5 text-emerald-500" />
+                  ) : (
+                    <ClipboardCopy className="h-3.5 w-3.5" />
+                  )}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleDownload}
+                  className="rounded-lg border border-slate-200 bg-white p-1.5 text-slate-500 transition-all hover:bg-slate-50 hover:text-slate-700 active:scale-95"
+                  title="Download as markdown"
+                >
                   <Download className="h-3.5 w-3.5" />
                 </button>
               </div>
             )}
           </div>
 
-          <div className="flex-1 overflow-y-auto bg-[#F8FAFC] p-6 font-sans select-text">
+          {/* Output body */}
+          <div className="flex-1 overflow-y-auto output-scroll bg-[#FAFBFE] relative">
+            {/* ── Loading state ───────────────────────────────────── */}
             {loading && (
-              <div className="h-full flex flex-col items-center justify-center space-y-3 font-mono text-xs text-slate-500">
-                <div className="w-6 h-6 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
-                <p className="animate-pulse">Awaiting data tokens from Groq API core node...</p>
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 bg-[#FAFBFE] z-10">
+                <div className="relative">
+                  <div className="w-14 h-14 rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-violet-50 flex items-center justify-center animate-pulse-glow">
+                    <Sparkles className="w-6 h-6 text-indigo-500" />
+                  </div>
+                </div>
+                <div className="text-center space-y-2">
+                  <p className="text-sm font-medium text-slate-700">
+                    AI is generating your output
+                  </p>
+                  <p className="text-xs text-slate-400">
+                    Processing with advanced language model...
+                  </p>
+                  <div className="flex items-center justify-center gap-1.5 pt-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 loading-dot" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 loading-dot" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 loading-dot" />
+                  </div>
+                </div>
               </div>
             )}
 
-            {error && (
-              <div className="p-4 bg-rose-50 border border-rose-200 rounded-lg text-rose-700 text-sm flex items-start gap-3">
-                <ShieldAlert className="w-5 h-5 shrink-0 mt-0.5 text-rose-500" />
-                <p>{error}</p>
+            {/* ── Error state ─────────────────────────────────────── */}
+            {error && !loading && (
+              <div className="p-6 animate-fade-in-up">
+                <div className="rounded-xl border border-rose-200 bg-gradient-to-br from-rose-50 to-rose-50/50 p-5">
+                  <div className="flex items-start gap-3">
+                    <div className="rounded-lg border border-rose-200 bg-white p-2 shadow-sm">
+                      <ShieldAlert className="w-4 h-4 text-rose-500" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-semibold text-rose-800">
+                        Generation Failed
+                      </p>
+                      <p className="mt-1 text-sm leading-relaxed text-rose-600">
+                        {error}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
 
+            {/* ── Empty state ─────────────────────────────────────── */}
             {!loading && !error && !output && (
-              <div className="mx-auto flex h-full max-w-sm flex-col items-center justify-center text-center font-mono text-xs text-slate-500">
-                <p className="rounded-lg border border-slate-200 border-dashed bg-white p-6">
-                  System idle. Populate input matrix fields on the left pane and press execute to generate production blueprints.
-                </p>
+              <div className="flex h-full items-center justify-center p-8">
+                <div className="text-center max-w-xs space-y-5 animate-fade-in-up">
+                  <div className="mx-auto w-16 h-16 rounded-2xl border-2 border-dashed border-slate-200 flex items-center justify-center">
+                    <Terminal className="w-7 h-7 text-slate-300" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-slate-500">
+                      Ready to generate
+                    </p>
+                    <p className="mt-1.5 text-xs text-slate-400 leading-relaxed">
+                      Fill in the configuration fields and click{" "}
+                      <span className="font-semibold text-indigo-500">
+                        Generate Output
+                      </span>{" "}
+                      to create your content.
+                    </p>
+                  </div>
+                </div>
               </div>
             )}
 
-            {!loading && output && (
-              <div className="max-w-none whitespace-pre-wrap font-mono text-sm leading-relaxed text-slate-700 selection:bg-indigo-100">
-                {output}
+            {/* ── Rendered output ─────────────────────────────────── */}
+            {!loading && output && !showRaw && (
+              <div className="p-6 sm:p-8 lg:p-10 animate-fade-in-up">
+                {/* Success banner */}
+                <div className="mb-6 flex items-center gap-3 rounded-xl border border-emerald-200 bg-gradient-to-r from-emerald-50 to-emerald-50/50 px-4 py-3">
+                  <div className="rounded-full bg-emerald-100 p-1">
+                    <Check className="w-3 h-3 text-emerald-600" />
+                  </div>
+                  <p className="text-xs font-medium text-emerald-700">
+                    Generation complete •{" "}
+                    <span className="tabular-nums">
+                      {wordCount.toLocaleString()}
+                    </span>{" "}
+                    words •{" "}
+                    <button
+                      onClick={handleCopy}
+                      className="underline underline-offset-2 hover:text-emerald-900 transition-colors"
+                    >
+                      {copied ? "Copied!" : "Copy all"}
+                    </button>
+                  </p>
+                </div>
+
+                {/* Markdown content */}
+                <div className="prose-output selection:bg-indigo-100">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {output}
+                  </ReactMarkdown>
+                </div>
+              </div>
+            )}
+
+            {/* ── Raw output ──────────────────────────────────────── */}
+            {!loading && output && showRaw && (
+              <div className="p-6 animate-fade-in-up">
+                <pre className="rounded-xl border border-slate-200 bg-[#0f172a] p-5 overflow-x-auto">
+                  <code className="text-sm leading-relaxed text-slate-300 whitespace-pre-wrap break-words font-mono">
+                    {output}
+                  </code>
+                </pre>
               </div>
             )}
           </div>
+
+          {/* Output footer (when content is present) */}
+          {output && !loading && (
+            <div className="flex items-center justify-between border-t border-slate-100 bg-gradient-to-r from-slate-50/80 to-white px-5 py-3 shrink-0">
+              <p className="text-[11px] text-slate-400">
+                Powered by AI • Results may require review
+              </p>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleCopy}
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-slate-100 px-3 py-1.5 text-[11px] font-medium text-slate-600 transition-all hover:bg-slate-200"
+                >
+                  <ClipboardCopy className="w-3 h-3" />
+                  {copied ? "Copied!" : "Copy"}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleDownload}
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-50 px-3 py-1.5 text-[11px] font-medium text-indigo-600 transition-all hover:bg-indigo-100"
+                >
+                  <Download className="w-3 h-3" />
+                  Export .md
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
