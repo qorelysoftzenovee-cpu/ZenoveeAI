@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, ShieldCheck, Sparkles, Zap, LayoutGrid, Layers, LineChart } from "lucide-react";
+import { ArrowRight, CheckCircle2, Sparkles, Zap, LayoutGrid, Layers, LineChart } from "lucide-react";
 
 import { toolsConfig } from "@/utils/toolsConfig";
 
@@ -7,29 +7,33 @@ const showdownGroups = [
   {
     title: "Content & Marketing",
     description: "Generate marketing materials in seconds with advanced AI.",
-    accent: "from-indigo-500 to-indigo-400",
-    icon: <Sparkles className="w-5 h-5 text-indigo-500" />,
+    accentBg: "bg-indigo-50",
+    accentText: "text-indigo-600",
+    icon: <Sparkles className="w-5 h-5" />,
     tools: toolsConfig.slice(0, 10),
   },
   {
-    title: "Developer & Tech Utilities",
-    description: "Clean, format, and audit code instantly.",
-    accent: "from-violet-500 to-violet-400",
-    icon: <LayoutGrid className="w-5 h-5 text-violet-500" />,
+    title: "Legal & Compliance",
+    description: "Audit contracts, policies, and regulatory documents instantly.",
+    accentBg: "bg-violet-50",
+    accentText: "text-violet-600",
+    icon: <LayoutGrid className="w-5 h-5" />,
     tools: toolsConfig.slice(10, 20),
   },
   {
-    title: "Data & SEO Analytics",
-    description: "Audit web traffic metrics securely.",
-    accent: "from-blue-500 to-blue-400",
-    icon: <LineChart className="w-5 h-5 text-blue-500" />,
+    title: "Financial Intelligence",
+    description: "Model unit economics, runway, and valuation scenarios.",
+    accentBg: "bg-blue-50",
+    accentText: "text-blue-600",
+    icon: <LineChart className="w-5 h-5" />,
     tools: toolsConfig.slice(20, 30),
   },
   {
-    title: "File Conversion & Media",
-    description: "Process files with zero quality loss.",
-    accent: "from-indigo-400 to-violet-400",
-    icon: <Layers className="w-5 h-5 text-indigo-500" />,
+    title: "Sales & Strategy",
+    description: "Crush objections, qualify leads, and close deals faster.",
+    accentBg: "bg-rose-50",
+    accentText: "text-rose-600",
+    icon: <Layers className="w-5 h-5" />,
     tools: toolsConfig.slice(30, 40),
   },
 ];
@@ -57,11 +61,18 @@ const comparisonRows = [
   },
 ];
 
+const stats = [
+  { label: "AI Tools", value: "50+" },
+  { label: "Response Time", value: "<3s" },
+  { label: "Uptime", value: "99.9%" },
+  { label: "Cost Saved", value: "85%" },
+];
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#FAFBFE] text-slate-900 selection:bg-indigo-100 selection:text-indigo-900 font-sans">
       {/* ── Navigation ──────────────────────────────────────────────────────── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/20 bg-white/60 backdrop-blur-md">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/40 bg-white/70 backdrop-blur-lg">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
           <div className="flex items-center gap-2.5">
             <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 shadow-sm">
@@ -87,18 +98,26 @@ export default function Home() {
 
       {/* ── Hero Section ────────────────────────────────────────────────────── */}
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        {/* Background glow effects */}
-        <div className="absolute top-1/2 left-1/2 -z-10 h-[600px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/10 blur-[100px]" />
-        <div className="absolute top-0 right-0 -z-10 h-[400px] w-[400px] rounded-full bg-violet-500/10 blur-[80px]" />
+        {/* Animated flowing colour blobs */}
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="hero-blob hero-blob-1" />
+          <div className="hero-blob hero-blob-2" />
+          <div className="hero-blob hero-blob-3" />
+          <div className="hero-blob hero-blob-4" />
+        </div>
         
         <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10 text-center">
-          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50/50 px-4 py-1.5 backdrop-blur-sm animate-fade-in-up">
-            <span className="flex h-2 w-2 rounded-full bg-indigo-600 animate-pulse" />
-            <span className="text-xs font-semibold uppercase tracking-widest text-indigo-600">Zenovee AI Platform 2.0</span>
+          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-white/60 px-4 py-1.5 backdrop-blur-sm animate-fade-in-up shadow-sm">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-600" />
+            </span>
+            <span className="text-xs font-semibold uppercase tracking-widest text-indigo-600">Live — Zenovee AI Platform 2.0</span>
           </div>
           
           <h1 className="mt-8 mx-auto max-w-5xl text-5xl font-extrabold tracking-tight text-slate-900 sm:text-6xl lg:text-7xl animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-             The Ultimate <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">AI Operating System</span>
+             The Ultimate{" "}
+             <span className="gradient-text-animated">AI Operating System</span>
           </h1>
           
           <p className="mt-6 mx-auto max-w-2xl text-lg leading-relaxed text-slate-600 sm:text-xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
@@ -111,28 +130,46 @@ export default function Home() {
               Start Building Now
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
-            <Link href="/features" className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-8 py-4 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-slate-50 hover:text-slate-900 active:scale-95">
+            <Link href="/features" className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-slate-200 bg-white/80 backdrop-blur-sm px-8 py-4 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-white hover:text-slate-900 active:scale-95">
               View All 50 Tools
             </Link>
           </div>
           
           <p className="mt-6 text-sm font-medium text-slate-500 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-            🔒 Instant access. Secure processing. No credit card required to explore.
+            🔒 Instant access · Secure processing · No credit card required
           </p>
         </div>
       </section>
 
-      {/* ── Dashboard Preview (Glassmorphism) ─────────────────────────────── */}
-      <section className="relative px-6 pb-24 lg:px-8 max-w-7xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
-        <div className="rounded-2xl border border-white/40 bg-white/40 p-2 shadow-2xl shadow-indigo-900/5 backdrop-blur-xl sm:p-4">
-          <div className="aspect-[16/9] w-full overflow-hidden rounded-xl border border-slate-200/60 bg-slate-50 shadow-inner flex items-center justify-center relative">
-             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
+      {/* ── Stats Strip ───────────────────────────────────────────────────── */}
+      <section className="border-y border-slate-200/60 bg-white/50 backdrop-blur-sm">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid grid-cols-2 divide-x divide-slate-200/60 sm:grid-cols-4">
+            {stats.map((stat) => (
+              <div key={stat.label} className="py-8 text-center">
+                <p className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">{stat.value}</p>
+                <p className="mt-1 text-sm font-medium text-slate-500">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Dashboard Preview ─────────────────────────────────────────────── */}
+      <section className="relative px-6 py-24 lg:px-8 max-w-7xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+        <div className="rounded-2xl border border-slate-200/60 bg-white/60 p-2 shadow-2xl shadow-indigo-900/5 backdrop-blur-xl sm:p-3">
+          <div className="aspect-[16/9] w-full overflow-hidden rounded-xl border border-slate-200/40 bg-gradient-to-br from-slate-50 to-indigo-50/30 shadow-inner flex items-center justify-center relative">
+             {/* Animated mesh gradient inside the preview */}
+             <div className="absolute inset-0 overflow-hidden">
+               <div className="absolute w-[300px] h-[300px] rounded-full bg-indigo-200/30 blur-[60px] top-[10%] left-[20%] animate-float-slow" />
+               <div className="absolute w-[200px] h-[200px] rounded-full bg-violet-200/30 blur-[50px] bottom-[15%] right-[15%] animate-float-delayed" />
+             </div>
              <div className="text-center p-8 z-10">
                 <div className="mx-auto w-16 h-16 rounded-2xl bg-white shadow-lg border border-slate-100 flex items-center justify-center mb-6">
                   <LayoutGrid className="w-8 h-8 text-indigo-500" />
                 </div>
                 <h3 className="text-2xl font-bold text-slate-900 mb-2">Unified Dashboard Interface</h3>
-                <p className="text-slate-500 max-w-md mx-auto">Access all your AI models, generation history, and billing in one seamless, high-performance workspace.</p>
+                <p className="text-slate-500 max-w-md mx-auto">Access all your AI tools, generation history, and billing in one seamless workspace.</p>
              </div>
           </div>
         </div>
@@ -167,8 +204,14 @@ export default function Home() {
       </section>
 
       {/* ── Tool Categories Grid ──────────────────────────────────────────── */}
-      <section className="bg-slate-50 py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="bg-slate-50/50 py-24 relative overflow-hidden">
+        {/* Subtle background colour flow */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute w-[500px] h-[500px] rounded-full bg-indigo-100/40 blur-[100px] -top-[10%] -left-[10%] animate-float-slow" />
+          <div className="absolute w-[400px] h-[400px] rounded-full bg-violet-100/30 blur-[80px] -bottom-[10%] -right-[5%] animate-float-delayed" />
+        </div>
+
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
           <div className="mb-16">
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">50 Professional Utilities</h2>
             <p className="mt-4 text-lg text-slate-600 max-w-2xl">Explore the production matrix built to replace scattered subscriptions across four high-output categories.</p>
@@ -176,9 +219,9 @@ export default function Home() {
           
           <div className="grid gap-8 lg:grid-cols-2">
             {showdownGroups.map((group) => (
-              <div key={group.title} className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition-all hover:shadow-md">
+              <div key={group.title} className="rounded-3xl border border-slate-200/80 bg-white/80 backdrop-blur-sm p-8 shadow-sm transition-all hover:shadow-lg hover:-translate-y-1 duration-300">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className={`p-3 rounded-2xl bg-gradient-to-br ${group.accent} bg-opacity-10`}>
+                  <div className={`p-3 rounded-2xl ${group.accentBg} ${group.accentText}`}>
                     {group.icon}
                   </div>
                   <div>
@@ -189,7 +232,7 @@ export default function Home() {
                 
                 <div className="grid gap-3 sm:grid-cols-2">
                   {group.tools.slice(0, 4).map((tool) => (
-                    <div key={tool.id} className="rounded-xl border border-slate-100 bg-slate-50/50 p-4 transition-colors hover:bg-slate-50 hover:border-indigo-100 group">
+                    <div key={tool.id} className="rounded-xl border border-slate-100 bg-slate-50/70 p-4 transition-colors hover:bg-indigo-50/50 hover:border-indigo-200 group">
                       <div className="flex items-start justify-between gap-2">
                         <h4 className="text-sm font-semibold text-slate-800 group-hover:text-indigo-600 transition-colors line-clamp-1">{tool.name}</h4>
                         <span className="flex items-center gap-1 text-[10px] font-medium text-slate-400 bg-white px-2 py-0.5 rounded border border-slate-200 shrink-0">
@@ -215,7 +258,11 @@ export default function Home() {
       <section className="py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-[2.5rem] bg-slate-900 px-8 py-20 shadow-2xl sm:px-16 md:py-24 lg:flex lg:items-center lg:justify-between lg:px-24 text-center lg:text-left">
-            <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.3),transparent_60%)]" />
+            {/* Animated gradient inside CTA */}
+            <div className="absolute inset-0 -z-10">
+              <div className="absolute w-[600px] h-[600px] rounded-full bg-indigo-600/20 blur-[100px] -top-[30%] -left-[10%] animate-float-slow" />
+              <div className="absolute w-[400px] h-[400px] rounded-full bg-violet-500/20 blur-[80px] -bottom-[20%] -right-[5%] animate-float-delayed" />
+            </div>
             
             <div className="lg:max-w-2xl relative z-10">
               <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
