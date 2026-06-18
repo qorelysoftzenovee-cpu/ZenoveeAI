@@ -172,8 +172,8 @@ export default async function AdminDashboardPage({ searchParams }: AdminPageProp
         <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.02)] sm:p-8">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 rounded-full border border-teal-500/10 bg-teal-50/70 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-teal-600 font-mono shadow-sm">
-                <ShieldCheck className="h-3.5 w-3.5 animate-pulse text-teal-500" />
+              <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/10 bg-amber-50/70 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-amber-600 font-mono shadow-sm">
+                <ShieldCheck className="h-3.5 w-3.5 animate-pulse text-amber-500" />
                 Administrative Control Core
               </div>
               <h1 className="text-2xl font-bold font-mono tracking-tight text-slate-900 uppercase sm:text-3xl">System Administration</h1>
@@ -186,7 +186,7 @@ export default async function AdminDashboardPage({ searchParams }: AdminPageProp
               <label htmlFor="query" className="mb-2 block text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest">
                 // SEARCH OPERATORS
               </label>
-              <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 focus-within:border-teal-500/60 focus-within:ring-2 focus-within:ring-teal-500/10 focus-within:bg-white transition-all font-mono text-xs shadow-inner">
+              <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 focus-within:border-amber-500/60 focus-within:ring-2 focus-within:ring-amber-500/10 focus-within:bg-white transition-all font-mono text-xs shadow-inner">
                 <Search className="h-4 w-4 text-slate-400" />
                 <input
                   id="query"
@@ -202,7 +202,7 @@ export default async function AdminDashboardPage({ searchParams }: AdminPageProp
 
         {/* KPIs Section */}
         <section className="mt-8 grid gap-6 md:grid-cols-3">
-          <article className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.02)] hover:border-blue-500/20 hover:shadow-[0_8px_30px_rgba(59,130,246,0.04)] transition-all duration-300 sm:p-8">
+          <article className="rounded-[2rem] border border-blue-100 bg-blue-50/20 p-6 shadow-[0_8px_30px_rgba(59,130,246,0.01)] hover:border-blue-500/20 hover:shadow-[0_8px_30px_rgba(59,130,246,0.04)] transition-all duration-300 sm:p-8">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-slate-400">OPERATORS REGISTERED</p>
@@ -214,7 +214,7 @@ export default async function AdminDashboardPage({ searchParams }: AdminPageProp
             </div>
           </article>
 
-          <article className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.02)] hover:border-emerald-500/20 hover:shadow-[0_8px_30px_rgba(16,185,129,0.04)] transition-all duration-300 sm:p-8">
+          <article className="rounded-[2rem] border border-emerald-100 bg-emerald-50/20 p-6 shadow-[0_8px_30px_rgba(16,185,129,0.01)] hover:border-emerald-500/20 hover:shadow-[0_8px_30px_rgba(16,185,129,0.04)] transition-all duration-300 sm:p-8">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-slate-400">GROQ DISPATCH VOL</p>
@@ -226,7 +226,7 @@ export default async function AdminDashboardPage({ searchParams }: AdminPageProp
             </div>
           </article>
 
-          <article className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.02)] hover:border-purple-500/20 hover:shadow-[0_8px_30px_rgba(168,85,247,0.04)] transition-all duration-300 sm:p-8">
+          <article className="rounded-[2rem] border border-purple-100 bg-purple-50/20 p-6 shadow-[0_8px_30px_rgba(168,85,247,0.01)] hover:border-purple-500/20 hover:shadow-[0_8px_30px_rgba(168,85,247,0.04)] transition-all duration-300 sm:p-8">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-slate-400">EST REVENUE POSTURE</p>
@@ -239,10 +239,10 @@ export default async function AdminDashboardPage({ searchParams }: AdminPageProp
           </article>
         </section>
 
-        {/* Users Table Section */}
+        {/* Table Section */}
         <section className="mt-8 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.02)] sm:p-8">
           <div className="flex items-center gap-3">
-            <div className="rounded-2xl border border-teal-500/10 bg-teal-50/70 p-3 text-teal-600">
+            <div className="rounded-2xl border border-amber-500/10 bg-amber-50/70 p-3 text-amber-600">
               <BarChart3 className="h-5 w-5" />
             </div>
             <div>
@@ -274,7 +274,15 @@ export default async function AdminDashboardPage({ searchParams }: AdminPageProp
                       </div>
                     </td>
                     <td className="border border-slate-200/60 border-r-0 bg-slate-50/50 hover:bg-slate-50 transition-colors px-4 py-4 align-top font-mono">
-                      <span className="rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-[10px] font-bold text-slate-600 shadow-sm">
+                      <span className={`rounded-lg border px-2.5 py-1 text-[10px] font-bold shadow-sm ${
+                        profile.tier === "agency"
+                          ? "border-rose-200 bg-rose-50 text-rose-600"
+                          : profile.tier === "pro"
+                            ? "border-indigo-200 bg-indigo-50 text-indigo-600"
+                            : profile.tier === "trial"
+                              ? "border-emerald-200 bg-emerald-50 text-emerald-600"
+                              : "border-slate-200 bg-white text-slate-500"
+                      }`}>
                         {(profile.tier ?? "free").toUpperCase()}
                       </span>
                     </td>
@@ -285,7 +293,7 @@ export default async function AdminDashboardPage({ searchParams }: AdminPageProp
                       <span
                         className={`rounded-lg px-2.5 py-1 text-[9px] font-bold border ${
                           profile.is_admin
-                            ? "border-teal-500/10 bg-teal-50 text-teal-600 shadow-sm"
+                            ? "border-amber-200 bg-amber-50 text-amber-700 shadow-sm"
                             : "border-slate-200 bg-white text-slate-500"
                         }`}
                       >
@@ -300,12 +308,12 @@ export default async function AdminDashboardPage({ searchParams }: AdminPageProp
                           type="number"
                           step="1"
                           placeholder="+100 or -50"
-                          className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-mono text-slate-800 placeholder:text-slate-400 outline-none transition focus:border-teal-500/60 focus:ring-2 focus:ring-teal-500/10 sm:max-w-[140px]"
+                          className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-mono text-slate-800 placeholder:text-slate-400 outline-none transition focus:border-amber-500/60 focus:ring-2 focus:ring-amber-500/10 sm:max-w-[140px]"
                           required
                         />
                         <button
                           type="submit"
-                          className="inline-flex items-center justify-center rounded-xl bg-teal-600 px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-white shadow-sm hover:bg-teal-500 active:scale-95 transition-all cursor-pointer"
+                          className="inline-flex items-center justify-center rounded-xl bg-amber-600 px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-white shadow-sm hover:bg-amber-500 active:scale-95 transition-all cursor-pointer"
                         >
                           Apply
                         </button>

@@ -157,8 +157,102 @@ export default function ToolWorkspacePage() {
       .filter((w) => w.length > 0).length;
   }, [output]);
 
+  const theme = useMemo(() => {
+    if (!tool) return null;
+    const cat = tool.category.toLowerCase();
+    if (cat.includes("marketing")) {
+      return {
+        text: "text-rose-600",
+        bg: "bg-rose-50/70",
+        border: "border-rose-200/50",
+        borderFocus: "focus:border-rose-500/60 focus:ring-rose-500/10",
+        icon: "text-rose-500",
+        badge: "border-rose-100 bg-rose-50/80 text-rose-650",
+        btn: "from-rose-600 via-pink-600 to-rose-700 hover:shadow-rose-500/20",
+        cursor: "bg-rose-500",
+        glow: "shadow-[0_2px_8px_rgba(244,63,94,0.03)]",
+        rawCode: "text-rose-600",
+        progress: "from-rose-500 to-pink-500",
+      };
+    }
+    if (cat.includes("legal")) {
+      return {
+        text: "text-purple-600",
+        bg: "bg-purple-50/70",
+        border: "border-purple-200/50",
+        borderFocus: "focus:border-purple-500/60 focus:ring-purple-500/10",
+        icon: "text-purple-500",
+        badge: "border-purple-100 bg-purple-50/80 text-purple-650",
+        btn: "from-purple-600 via-violet-600 to-purple-700 hover:shadow-purple-500/20",
+        cursor: "bg-purple-500",
+        glow: "shadow-[0_2px_8px_rgba(168,85,247,0.03)]",
+        rawCode: "text-purple-600",
+        progress: "from-purple-500 to-violet-500",
+      };
+    }
+    if (cat.includes("financial") || cat.includes("sales engineering")) {
+      if (cat.includes("sales")) {
+        return {
+          text: "text-orange-655",
+          bg: "bg-orange-50/70",
+          border: "border-orange-200/50",
+          borderFocus: "focus:border-orange-500/60 focus:ring-orange-500/10",
+          icon: "text-orange-500",
+          badge: "border-orange-100 bg-orange-50/80 text-orange-650",
+          btn: "from-orange-600 via-red-500 to-orange-700 hover:shadow-orange-500/20",
+          cursor: "bg-orange-550",
+          glow: "shadow-[0_2px_8px_rgba(249,115,22,0.03)]",
+          rawCode: "text-orange-600",
+          progress: "from-orange-500 to-red-500",
+        };
+      }
+      return {
+        text: "text-amber-700",
+        bg: "bg-amber-50/70",
+        border: "border-amber-200/50",
+        borderFocus: "focus:border-amber-500/60 focus:ring-amber-500/10",
+        icon: "text-amber-600",
+        badge: "border-amber-100 bg-amber-50/80 text-amber-700",
+        btn: "from-amber-600 via-orange-600 to-amber-700 hover:shadow-amber-500/20",
+        cursor: "bg-amber-500",
+        glow: "shadow-[0_2px_8px_rgba(245,158,11,0.03)]",
+        rawCode: "text-amber-750",
+        progress: "from-amber-500 to-orange-500",
+      };
+    }
+    if (cat.includes("sales")) {
+      return {
+        text: "text-orange-655",
+        bg: "bg-orange-50/70",
+        border: "border-orange-200/50",
+        borderFocus: "focus:border-orange-500/60 focus:ring-orange-500/10",
+        icon: "text-orange-500",
+        badge: "border-orange-100 bg-orange-50/80 text-orange-650",
+        btn: "from-orange-600 via-red-500 to-orange-700 hover:shadow-orange-500/20",
+        cursor: "bg-orange-550",
+        glow: "shadow-[0_2px_8px_rgba(249,115,22,0.03)]",
+        rawCode: "text-orange-600",
+        progress: "from-orange-500 to-red-500",
+      };
+    }
+    // Default is Dev/Complex Data Processing
+    return {
+      text: "text-indigo-650",
+      bg: "bg-indigo-50/70",
+      border: "border-indigo-200/50",
+      borderFocus: "focus:border-indigo-550/60 focus:ring-indigo-550/10",
+      icon: "text-indigo-500",
+      badge: "border-indigo-100 bg-indigo-50/80 text-indigo-650",
+      btn: "from-indigo-600 via-blue-600 to-indigo-700 hover:shadow-indigo-500/20",
+      cursor: "bg-indigo-550",
+      glow: "shadow-[0_2px_8px_rgba(99,102,241,0.03)]",
+      rawCode: "text-indigo-650",
+      progress: "from-indigo-500 to-blue-500",
+    };
+  }, [tool]);
+
   // ─── 404 ──────────────────────────────────────────────────────────
-  if (!tool) {
+  if (!tool || !theme) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center p-8 text-center animate-fade-in-up bg-[#FAFBFE] text-slate-800">
         <div className="rounded-2xl border border-rose-200 bg-rose-50 p-5 mb-6 shadow-[0_4px_12px_rgba(244,63,94,0.05)]">
@@ -200,12 +294,12 @@ export default function ToolWorkspacePage() {
           <span>Console Registry</span>
         </button>
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 rounded-lg border border-teal-500/10 bg-teal-50/70 px-3 py-1.5 text-xs font-semibold text-teal-600 font-mono shadow-[0_2px_8px_rgba(20,184,166,0.04)]">
-            <Zap className="w-3 h-3 animate-pulse text-teal-500" />
+          <span className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/10 bg-emerald-50/70 px-3 py-1.5 text-xs font-semibold text-emerald-600 font-mono shadow-[0_2px_8px_rgba(16,185,129,0.02)]">
+            <Zap className="w-3 h-3 animate-pulse text-emerald-500" />
             {tool.cost} CREDITS
           </span>
-          <span className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-500 font-mono shadow-sm">
-            <Layers className="w-3 h-3 text-slate-400" />
+          <span className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-semibold font-mono shadow-sm ${theme.badge}`}>
+            <Layers className="w-3 h-3" />
             {tool.category.toUpperCase().split(" & ")[0]}
           </span>
         </div>
@@ -214,7 +308,7 @@ export default function ToolWorkspacePage() {
       {/* ── Header ──────────────────────────────────────────────────── */}
       <div className="mb-8 rounded-2xl border border-slate-200/80 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.02)]">
         <div className="flex items-start gap-4">
-          <div className="rounded-2xl border border-teal-500/15 bg-teal-50/50 p-3.5 text-teal-600 shadow-sm">
+          <div className={`rounded-2xl border p-3.5 shadow-sm ${theme.border} ${theme.bg} ${theme.text}`}>
             <Sparkles className="w-6 h-6" />
           </div>
           <div className="min-w-0 flex-1">
@@ -239,7 +333,7 @@ export default function ToolWorkspacePage() {
           <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/50 px-6 py-4">
             <div className="flex items-center gap-2.5">
               <div className="rounded-lg border border-slate-200 bg-white p-1.5 shadow-sm">
-                <Terminal className="w-3.5 h-3.5 text-teal-600" />
+                <Terminal className={`w-3.5 h-3.5 ${theme.text}`} />
               </div>
               <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-700">
                 Compiler Config
@@ -248,7 +342,7 @@ export default function ToolWorkspacePage() {
             <div className="flex items-center gap-2">
               <div className="h-1.5 w-16 rounded-full bg-slate-100 border border-slate-200 overflow-hidden">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-teal-500 to-cyan-500 transition-all duration-500 ease-out"
+                  className={`h-full rounded-full bg-gradient-to-r ${theme.progress} transition-all duration-500 ease-out`}
                   style={{ width: `${fillPercent}%` }}
                 />
               </div>
@@ -277,7 +371,7 @@ export default function ToolWorkspacePage() {
                     onChange={(e) =>
                       handleInputChange(inputField.id, e.target.value)
                     }
-                    className="w-full min-h-[140px] rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 font-mono text-xs text-slate-800 placeholder:text-slate-400 transition-all duration-200 resize-none focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/10 focus:border-teal-500/60"
+                    className={`w-full min-h-[140px] rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 font-mono text-xs text-slate-800 placeholder:text-slate-400 transition-all duration-200 resize-none focus:bg-white focus:outline-none focus:ring-2 ${theme.borderFocus}`}
                   />
                 ) : inputField.type === "dropdown" ? (
                   <div className="relative">
@@ -287,7 +381,7 @@ export default function ToolWorkspacePage() {
                       onChange={(e) =>
                         handleInputChange(inputField.id, e.target.value)
                       }
-                      className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 pr-10 font-mono text-xs text-slate-800 transition-all duration-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/10 focus:border-teal-500/60"
+                      className={`w-full appearance-none rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 pr-10 font-mono text-xs text-slate-800 transition-all duration-200 focus:bg-white focus:outline-none focus:ring-2 ${theme.borderFocus}`}
                     >
                       <option value="" disabled className="bg-white text-slate-400">
                         {inputField.placeholder || `Select option...`}
@@ -309,7 +403,7 @@ export default function ToolWorkspacePage() {
                     onChange={(e) =>
                       handleInputChange(inputField.id, e.target.value)
                     }
-                    className="w-full rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 font-mono text-xs text-slate-800 placeholder:text-slate-400 transition-all duration-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/10 focus:border-teal-500/60"
+                    className={`w-full rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 font-mono text-xs text-slate-800 placeholder:text-slate-400 transition-all duration-200 focus:bg-white focus:outline-none focus:ring-2 ${theme.borderFocus}`}
                   />
                 )}
               </div>
@@ -321,7 +415,7 @@ export default function ToolWorkspacePage() {
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-teal-600 via-cyan-600 to-teal-700 py-3.5 px-5 text-xs font-bold font-mono uppercase tracking-wider text-white shadow-md shadow-teal-500/10 transition-all duration-300 hover:from-teal-500 hover:to-cyan-600 hover:shadow-lg hover:shadow-teal-500/20 hover:-translate-y-[1px] active:translate-y-0 disabled:from-slate-200 disabled:to-slate-250 disabled:text-slate-400 disabled:shadow-none disabled:cursor-not-allowed cursor-pointer"
+              className={`group relative w-full overflow-hidden rounded-xl bg-gradient-to-r ${theme.btn} py-3.5 px-5 text-xs font-bold font-mono uppercase tracking-wider text-white shadow-md transition-all duration-300 hover:scale-[1.005] hover:shadow-lg hover:-translate-y-[1px] active:translate-y-0 disabled:from-slate-200 disabled:to-slate-250 disabled:text-slate-400 disabled:shadow-none disabled:cursor-not-allowed cursor-pointer`}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
               <div className="relative flex items-center justify-center gap-2.5">
@@ -370,7 +464,7 @@ export default function ToolWorkspacePage() {
               </div>
               
               <div className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-3 py-1">
-                <Terminal className="w-3.5 h-3.5 text-teal-600" />
+                <Terminal className={`w-3.5 h-3.5 ${theme.text}`} />
                 <span className="text-[10px] font-mono text-slate-600">
                   zenovee-shell@core: ~
                 </span>
@@ -422,15 +516,15 @@ export default function ToolWorkspacePage() {
           <div className="flex-1 overflow-y-auto output-scroll bg-[#F8FAFC] relative text-slate-700 font-mono text-xs leading-relaxed p-6 selection:bg-teal-100 selection:text-teal-900">
             {/* ── Loading state (Terminal logging stream) ────────────────── */}
             {loading && (
-              <div className="space-y-2 text-[11px] text-teal-700 font-mono">
+              <div className="space-y-2 text-[11px] text-slate-600 font-mono">
                 {terminalLogs.map((log, index) => (
-                  <p key={index} className="animate-slide-in-left">
+                  <p key={index} className={`animate-slide-in-left ${log.includes('[INFO]') || log.includes('[STREAM]') ? theme.text : 'text-slate-450'}`}>
                     {log}
                   </p>
                 ))}
                 <div className="flex items-center gap-1.5 text-slate-400 pt-2 font-mono">
                   <span>[COMPILE] writing stdout buffer</span>
-                  <span className="w-1 h-3.5 bg-teal-500 animate-pulse" />
+                  <span className={`w-1 h-3.5 ${theme.cursor} animate-pulse`} />
                 </div>
               </div>
             )}
@@ -498,7 +592,7 @@ export default function ToolWorkspacePage() {
             {!loading && output && showRaw && (
               <div className="animate-fade-in-up h-full">
                 <pre className="rounded-xl border border-slate-200 bg-white p-5 overflow-x-auto h-full shadow-inner">
-                  <code className="text-xs leading-relaxed text-teal-700 whitespace-pre-wrap break-words font-mono">
+                  <code className={`text-xs leading-relaxed ${theme.rawCode} whitespace-pre-wrap break-words font-mono`}>
                     {output}
                   </code>
                 </pre>
@@ -510,7 +604,7 @@ export default function ToolWorkspacePage() {
           {output && !loading && (
             <div className="flex items-center justify-between border-t border-slate-200 bg-white px-5 py-3 shrink-0">
               <p className="text-[10px] font-mono text-slate-400 uppercase">
-                // zenovee model stdout compiled
+                // {toolId.toUpperCase()} model stdout compiled
               </p>
               <div className="flex items-center gap-2">
                 <button
@@ -524,7 +618,7 @@ export default function ToolWorkspacePage() {
                 <button
                   type="button"
                   onClick={handleDownload}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-teal-50/70 border border-teal-200 px-3 py-1.5 text-[10px] font-mono text-teal-600 hover:text-teal-800 hover:bg-teal-100/30 transition-all cursor-pointer shadow-sm"
+                  className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-[10px] font-mono transition-all cursor-pointer shadow-sm ${theme.bg} ${theme.border} ${theme.text} hover:opacity-80`}
                 >
                   <Download className="w-3 h-3" />
                   EXPORT .MD

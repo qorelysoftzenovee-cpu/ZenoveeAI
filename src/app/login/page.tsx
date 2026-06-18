@@ -60,17 +60,17 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#FAFBFE] text-slate-850 font-sans selection:bg-teal-100 selection:text-teal-900">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(20,184,166,0.08),transparent_40%)]" />
+    <main className="min-h-screen bg-[#FAFBFE] text-slate-850 font-sans selection:bg-indigo-100 selection:text-indigo-900">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(99,102,241,0.08),transparent_40%)]" />
       <div className="mx-auto flex min-h-screen max-w-7xl items-center justify-center px-6 py-10 lg:px-10 animate-fade-in-up">
         <div className="w-full max-w-md rounded-[2rem] border border-slate-200/80 bg-white/80 p-[1px] shadow-[0_24px_80px_rgba(0,0,0,0.02)] backdrop-blur-xl">
           <div className="rounded-[calc(2rem-1px)] bg-white p-8 sm:p-10 shadow-sm">
             <div className="flex items-center gap-3">
-              <div className="rounded-2xl border border-teal-500/10 bg-teal-50/70 p-3 text-teal-600 shadow-sm">
+              <div className="rounded-2xl border border-indigo-500/10 bg-indigo-50/70 p-3 text-indigo-600 shadow-sm">
                 <Sparkles className="h-5 w-5 animate-pulse" />
               </div>
               <div>
-                <p className="text-xs font-bold uppercase tracking-[0.25em] text-teal-600 font-mono">
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-indigo-600 font-mono">
                   Zenovee AI
                 </p>
                 <p className="mt-1 text-[9px] font-bold text-slate-400 uppercase tracking-widest font-mono">Secure Terminal</p>
@@ -90,7 +90,7 @@ export default function LoginPage() {
 
             <form onSubmit={handleSubmit} className="mt-6 space-y-5">
               <div>
-                <label className="mb-2 block text-[10px] font-mono font-bold text-slate-450 uppercase tracking-widest" htmlFor="email">
+                <label className="mb-2 block text-[10px] font-mono font-bold text-slate-455 uppercase tracking-widest" htmlFor="email">
                   // OPERATOR_EMAIL
                 </label>
                 <input
@@ -101,12 +101,12 @@ export default function LoginPage() {
                   required
                   autoComplete="email"
                   placeholder="you@company.com"
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 font-mono text-xs text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-teal-500/60 focus:bg-white focus:ring-2 focus:ring-teal-500/10 shadow-inner"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 font-mono text-xs text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-indigo-500/60 focus:bg-white focus:ring-2 focus:ring-indigo-500/10 shadow-inner"
                 />
               </div>
 
               <div>
-                <label className="mb-2 block text-[10px] font-mono font-bold text-slate-450 uppercase tracking-widest" htmlFor="password">
+                <label className="mb-2 block text-[10px] font-mono font-bold text-slate-455 uppercase tracking-widest" htmlFor="password">
                   // OPERATOR_PASS
                 </label>
                 <div className="relative">
@@ -118,7 +118,7 @@ export default function LoginPage() {
                     required
                     autoComplete="current-password"
                     placeholder="Enter system credentials"
-                    className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 pr-12 font-mono text-xs text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-teal-500/60 focus:bg-white focus:ring-2 focus:ring-teal-500/10 shadow-inner"
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 pr-12 font-mono text-xs text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-indigo-500/60 focus:bg-white focus:ring-2 focus:ring-indigo-500/10 shadow-inner"
                   />
                   <button
                     type="button"
@@ -136,7 +136,7 @@ export default function LoginPage() {
                       type="checkbox"
                       checked={rememberMe}
                       onChange={(e) => setRememberMe(e.target.checked)}
-                      className="h-4 w-4 rounded border-slate-300 bg-slate-50 text-teal-600 focus:ring-teal-500/10 cursor-pointer"
+                      className="h-4 w-4 rounded border-slate-300 bg-slate-50 text-indigo-600 focus:ring-indigo-500/10 cursor-pointer"
                     />
                     Remember connection
                   </label>
@@ -146,7 +146,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="group relative mt-2 inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-teal-600 to-cyan-600 px-5 py-3.5 text-xs font-bold font-mono uppercase tracking-wider text-white shadow-md shadow-teal-500/10 transition-all hover:from-teal-500 hover:to-cyan-500 hover:shadow-lg hover:shadow-teal-500/20 hover:-translate-y-[1px] active:scale-[0.98] disabled:cursor-not-allowed disabled:from-slate-200 disabled:to-slate-250 disabled:text-slate-400 disabled:shadow-none cursor-pointer"
+                className="group relative mt-2 inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-5 py-3.5 text-xs font-bold font-mono uppercase tracking-wider text-white shadow-md shadow-indigo-500/10 transition-all hover:from-indigo-500 hover:to-violet-500 hover:shadow-lg hover:shadow-indigo-500/20 hover:-translate-y-[1px] active:scale-[0.98] disabled:cursor-not-allowed disabled:from-slate-200 disabled:to-slate-250 disabled:text-slate-400 disabled:shadow-none cursor-pointer"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
                 {isLoading ? (
@@ -170,7 +170,7 @@ export default function LoginPage() {
 
             <p className="mt-8 text-center text-xs font-mono text-slate-500">
               NO SESSION LOGGED?{" "}
-              <Link href="/signup" className="text-teal-600 hover:text-teal-700 transition-colors font-bold uppercase">
+              <Link href="/signup" className="text-indigo-600 hover:text-indigo-700 transition-colors font-bold uppercase">
                 Register Core ID
               </Link>
             </p>

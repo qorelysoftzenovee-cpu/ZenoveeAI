@@ -33,6 +33,40 @@ declare global {
   }
 }
 
+function getOptionTheme(optionId: string) {
+  switch (optionId) {
+    case "starter-plan":
+      return {
+        card: "border-blue-200 bg-white hover:border-blue-300 hover:shadow-[0_8px_30px_rgba(59,130,246,0.03)]",
+        badge: "border-blue-100 bg-blue-50 text-blue-600",
+        costBox: "border-blue-100 bg-blue-50/30",
+        btn: "bg-blue-600 hover:bg-blue-550 text-white shadow-sm hover:scale-[1.005]",
+      };
+    case "power-plan":
+      return {
+        card: "border-purple-300 bg-white shadow-[0_8px_30px_rgba(168,85,247,0.03)] hover:border-purple-400 hover:shadow-[0_8px_30px_rgba(168,85,247,0.05)]",
+        badge: "border-purple-100 bg-purple-50 text-purple-600",
+        costBox: "border-purple-100 bg-purple-50/30",
+        btn: "bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-md shadow-purple-500/10 hover:scale-[1.005]",
+      };
+    case "agency-suite":
+      return {
+        card: "border-rose-200 bg-white hover:border-rose-300 hover:shadow-[0_8px_30px_rgba(244,63,94,0.03)]",
+        badge: "border-rose-100 bg-rose-50 text-rose-600",
+        costBox: "border-rose-100 bg-rose-50/30",
+        btn: "bg-rose-600 hover:bg-rose-550 text-white shadow-sm hover:scale-[1.005]",
+      };
+    default:
+      // credit-topup
+      return {
+        card: "border-amber-200 bg-white hover:border-amber-300 hover:shadow-[0_8px_30px_rgba(245,158,11,0.03)]",
+        badge: "border-amber-100 bg-amber-50 text-amber-600",
+        costBox: "border-amber-100 bg-amber-50/30",
+        btn: "bg-amber-600 hover:bg-amber-550 text-white shadow-sm hover:scale-[1.005]",
+      };
+  }
+}
+
 const purchaseOptions: PurchaseOption[] = [
   {
     id: "starter-plan",
@@ -299,78 +333,65 @@ export default function BillingPage() {
 
       {/* Pricing options */}
       <section className="grid gap-6 xl:grid-cols-3">
-        {purchaseOptions.map((option) => (
-          <article
-            key={option.id}
-            className={`rounded-[2rem] border p-6 sm:p-8 flex flex-col justify-between ${
-              option.id === "power-plan"
-                ? "border-teal-400 bg-white shadow-[0_8px_30px_rgba(20,184,166,0.04)]"
-                : "bg-white border-slate-200 shadow-[0_8px_30px_rgba(0,0,0,0.02)]"
-            }`}
-          >
-            <div>
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-lg font-bold font-mono text-slate-900 uppercase tracking-tight">{option.title.split(" ")[1] || option.title}</h3>
-                  <p className="mt-2 text-xs leading-relaxed text-slate-500 font-sans">{option.description}</p>
-                </div>
-                <div className={`rounded-xl border p-2.5 ${
-                  option.id === "starter-plan"
-                    ? "border-teal-500/10 bg-teal-50/70 text-teal-600"
-                    : option.id === "power-plan"
-                      ? "border-purple-500/10 bg-purple-50/70 text-purple-600"
-                      : option.id === "agency-suite"
-                        ? "border-rose-500/10 bg-rose-50/70 text-rose-600"
-                        : "border-slate-200 bg-slate-50 text-slate-500"
-                }`}>
-                  {option.id === "credit-topup" ? (
-                    <Wallet className="h-4.5 w-4.5" />
-                  ) : (
-                    <CreditCard className="h-4.5 w-4.5" />
-                  )}
-                </div>
-              </div>
-
-              <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50/50 p-4 font-mono">
-                <p className="text-2xl font-bold text-slate-900">{option.price}</p>
-                <p className="mt-1 text-[10px] text-slate-400 uppercase tracking-wider">
-                  {option.id === "starter-plan"
-                    ? "100 runs / month"
-                    : `+ ${option.credits.toLocaleString()} credits`}
-                </p>
-              </div>
-
-              <div className="mt-6 space-y-2.5">
-                {option.features.map((feature) => (
-                  <div key={feature} className="flex items-start gap-2.5 text-xs text-slate-600 font-sans">
-                    <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-500" />
-                    <span>{feature}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => void openCheckout(option)}
-              disabled={isLoadingProfile || activePurchaseId === option.id}
-              className={`mt-8 inline-flex w-full items-center justify-center gap-2 rounded-xl py-3 px-4 text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-                option.id === "power-plan"
-                  ? "bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white shadow-md shadow-teal-500/10"
-                  : "bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:bg-slate-50/50 hover:border-slate-300 shadow-sm"
-              } disabled:cursor-not-allowed disabled:opacity-50`}
+        {purchaseOptions.map((option) => {
+          const theme = getOptionTheme(option.id);
+          return (
+            <article
+              key={option.id}
+              className={`rounded-[2rem] border p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 ${theme.card}`}
             >
-              {activePurchaseId === option.id ? (
-                <>
-                  <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                  Opening connection...
-                </>
-              ) : (
-                option.cta.toUpperCase()
-              )}
-            </button>
-          </article>
-        ))}
+              <div>
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="text-lg font-bold font-mono text-slate-900 uppercase tracking-tight">{option.title.split(" ")[1] || option.title}</h3>
+                    <p className="mt-2 text-xs leading-relaxed text-slate-500 font-sans">{option.description}</p>
+                  </div>
+                  <div className={`rounded-xl border p-2.5 ${theme.badge}`}>
+                    {option.id === "credit-topup" ? (
+                      <Wallet className="h-4.5 w-4.5" />
+                    ) : (
+                      <CreditCard className="h-4.5 w-4.5" />
+                    )}
+                  </div>
+                </div>
+
+                <div className={`mt-6 rounded-xl border p-4 font-mono ${theme.costBox}`}>
+                  <p className="text-2xl font-bold text-slate-900">{option.price}</p>
+                  <p className="mt-1 text-[10px] text-slate-400 uppercase tracking-wider">
+                    {option.id === "starter-plan"
+                      ? "100 runs / month"
+                      : `+ ${option.credits.toLocaleString()} credits`}
+                  </p>
+                </div>
+
+                <div className="mt-6 space-y-2.5">
+                  {option.features.map((feature) => (
+                    <div key={feature} className="flex items-start gap-2.5 text-xs text-slate-600 font-sans">
+                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-500" />
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => void openCheckout(option)}
+                disabled={isLoadingProfile || activePurchaseId === option.id}
+                className={`mt-8 inline-flex w-full items-center justify-center gap-2 rounded-xl py-3 px-4 text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${theme.btn} disabled:cursor-not-allowed disabled:opacity-50`}
+              >
+                {activePurchaseId === option.id ? (
+                  <>
+                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                    Opening connection...
+                  </>
+                ) : (
+                  option.cta.toUpperCase()
+                )}
+              </button>
+            </article>
+          );
+        })}
       </section>
     </div>
   );
