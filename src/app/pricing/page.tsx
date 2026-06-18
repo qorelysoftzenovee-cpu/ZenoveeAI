@@ -35,12 +35,12 @@ export default function PricingPage() {
             </div>
             
             <div className="mb-6 flex items-baseline gap-x-2">
-              <span className="text-5xl font-bold tracking-tight text-slate-900">$8</span>
-              <span className="text-sm font-semibold leading-6 text-slate-500">one-time</span>
+              <span className="text-5xl font-bold tracking-tight text-slate-900">Free</span>
+              <span className="text-sm font-semibold leading-6 text-slate-500">no credit card required</span>
             </div>
             
             <p className="text-slate-600 mb-8 leading-relaxed">
-              Test all 50 professional AI tools with 1 full execution run per tool to experience the platform.
+              Test all 50 professional AI tools with 1 full execution run per tool to experience the platform completely free.
             </p>
             
             <ul className="space-y-4 mb-8">
@@ -49,7 +49,7 @@ export default function PricingPage() {
                 "Marketing, Dev, Data, & Media categories",
                 "Secure, private workspace",
                 "Advanced AI models (Llama 3 70B)",
-                "No recurring subscription lock-in",
+                "No payment or subscription lock-in",
                 "Generate up to 50 full productions"
               ].map((feature, idx) => (
                 <li key={idx} className="flex gap-x-3">
@@ -65,7 +65,7 @@ export default function PricingPage() {
             >
               Get Instant Access
             </Link>
-            <p className="text-center mt-4 text-xs text-slate-500">14-day money-back guarantee. No hidden fees.</p>
+            <p className="text-center mt-4 text-xs text-slate-500">Instant activation. Start creating immediately.</p>
           </div>
         </div>
         
@@ -82,7 +82,7 @@ export default function PricingPage() {
                   name: "Is there a recurring fee?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "No, the Launch Trial Pass is a one-time payment of $8. You are not locked into any recurring subscription."
+                    text: "No, the Launch Trial Pass is completely free. You are not locked into any recurring subscription or hidden fees."
                   }
                 },
                 {

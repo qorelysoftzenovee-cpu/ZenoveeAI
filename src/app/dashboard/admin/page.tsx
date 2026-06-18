@@ -38,7 +38,7 @@ function getEstimatedRevenueForTier(tier: ProfileRow["tier"]) {
     case "pro":
       return 49;
     case "trial":
-      return 8;
+      return 0;
     default:
       return 0;
   }
