@@ -11,7 +11,7 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[#FAFBFE] pb-24 font-sans text-slate-900">
       <div className="mx-auto max-w-7xl px-6 pt-12 lg:px-8">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors mb-10">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-teal-600 transition-colors mb-10">
           <ArrowLeft className="w-4 h-4" />
           Back to Home
         </Link>
@@ -25,7 +25,7 @@ export default function AboutPage() {
 
         <div className="grid gap-8 md:grid-cols-3 mb-24">
           <div className="rounded-3xl border border-slate-200 bg-white p-8">
-            <div className="p-3 bg-indigo-50 text-indigo-600 rounded-xl w-fit mb-6">
+            <div className="p-3 bg-teal-50 text-teal-600 rounded-xl w-fit mb-6">
               <Target className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-slate-900 mb-3">Our Mission</h3>
@@ -35,7 +35,7 @@ export default function AboutPage() {
           </div>
           
           <div className="rounded-3xl border border-slate-200 bg-white p-8">
-            <div className="p-3 bg-indigo-50 text-indigo-600 rounded-xl w-fit mb-6">
+            <div className="p-3 bg-teal-50 text-teal-600 rounded-xl w-fit mb-6">
               <Sparkles className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-slate-900 mb-3">Enterprise Quality</h3>
@@ -45,7 +45,7 @@ export default function AboutPage() {
           </div>
 
           <div className="rounded-3xl border border-slate-200 bg-white p-8">
-            <div className="p-3 bg-indigo-50 text-indigo-600 rounded-xl w-fit mb-6">
+            <div className="p-3 bg-teal-50 text-teal-600 rounded-xl w-fit mb-6">
               <Zap className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-slate-900 mb-3">Unmatched Speed</h3>
@@ -56,7 +56,7 @@ export default function AboutPage() {
         </div>
 
         <div className="rounded-[2.5rem] bg-slate-900 px-8 py-16 sm:p-16 relative overflow-hidden text-center">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.2),transparent_70%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(20,184,166,0.2),transparent_70%)]" />
           <h2 className="text-3xl font-bold tracking-tight text-white relative z-10">Join the Zenovee AI Network</h2>
           <p className="mt-4 text-lg text-slate-300 max-w-2xl mx-auto relative z-10">
             Experience the platform that is changing how modern businesses operate.

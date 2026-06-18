@@ -11,7 +11,7 @@ export default function PricingPage() {
   return (
     <main className="min-h-screen bg-[#FAFBFE] pb-24 font-sans text-slate-900">
       <div className="mx-auto max-w-7xl px-6 pt-12 lg:px-8">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors mb-10">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-teal-600 transition-colors mb-10">
           <ArrowLeft className="w-4 h-4" />
           Back to Home
         </Link>
@@ -25,11 +25,11 @@ export default function PricingPage() {
 
         <div className="mx-auto max-w-lg">
           <div className="rounded-[2.5rem] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-200/40 sm:p-10 relative overflow-hidden">
-            <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-indigo-500 to-violet-500" />
+            <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-teal-500 to-cyan-500" />
             
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold text-slate-900">Launch Trial Pass</h2>
-              <span className="inline-flex items-center rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-600 ring-1 ring-inset ring-indigo-500/20">
+              <span className="inline-flex items-center rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-600 ring-1 ring-inset ring-teal-500/20">
                 Most Popular
               </span>
             </div>
@@ -53,7 +53,7 @@ export default function PricingPage() {
                 "Generate up to 50 full productions"
               ].map((feature, idx) => (
                 <li key={idx} className="flex gap-x-3">
-                  <CheckCircle2 className="h-6 w-5 flex-none text-indigo-600" aria-hidden="true" />
+                  <CheckCircle2 className="h-6 w-5 flex-none text-teal-600" aria-hidden="true" />
                   <span className="text-sm leading-6 text-slate-700">{feature}</span>
                 </li>
               ))}
@@ -61,7 +61,7 @@ export default function PricingPage() {
             
             <Link
               href="/signup"
-              className="block w-full rounded-xl bg-indigo-600 px-3 py-4 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="block w-full rounded-xl bg-teal-600 px-3 py-4 text-center text-sm font-semibold text-white shadow-sm hover:bg-teal-500 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
             >
               Get Instant Access
             </Link>

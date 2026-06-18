@@ -11,7 +11,7 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen bg-[#FAFBFE] pb-24 font-sans text-slate-900">
       <div className="mx-auto max-w-7xl px-6 pt-12 lg:px-8">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors mb-10">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-teal-600 transition-colors mb-10">
           <ArrowLeft className="w-4 h-4" />
           Back to Home
         </Link>
@@ -27,20 +27,20 @@ export default function ContactPage() {
           <div>
             <div className="space-y-8">
               <div className="flex gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-600">
                   <Mail className="h-6 w-6" />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-slate-900">Email Support</h3>
                   <p className="mt-2 text-slate-600">For general inquiries and technical assistance.</p>
-                  <a href="mailto:support@zenovee.ai" className="mt-2 block font-medium text-indigo-600 hover:text-indigo-500">
+                  <a href="mailto:support@zenovee.ai" className="mt-2 block font-medium text-teal-600 hover:text-teal-500">
                     support@zenovee.ai
                   </a>
                 </div>
               </div>
 
               <div className="flex gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-600">
                   <MapPin className="h-6 w-6" />
                 </div>
                 <div>
@@ -63,7 +63,7 @@ export default function ContactPage() {
                   type="text"
                   name="name"
                   id="name"
-                  className="mt-2 block w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none transition-colors"
+                  className="mt-2 block w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm outline-none transition-colors"
                   placeholder="Jane Doe"
                 />
               </div>
@@ -73,7 +73,7 @@ export default function ContactPage() {
                   type="email"
                   name="email"
                   id="email"
-                  className="mt-2 block w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none transition-colors"
+                  className="mt-2 block w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm outline-none transition-colors"
                   placeholder="jane@company.com"
                 />
               </div>
@@ -83,13 +83,13 @@ export default function ContactPage() {
                   id="message"
                   name="message"
                   rows={4}
-                  className="mt-2 block w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm outline-none transition-colors resize-none"
+                  className="mt-2 block w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 shadow-sm focus:border-teal-500 focus:ring-teal-500 sm:text-sm outline-none transition-colors resize-none"
                   placeholder="How can we help you?"
                 />
               </div>
               <button
                 type="button"
-                className="w-full rounded-xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-colors"
+                className="w-full rounded-xl bg-teal-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 transition-colors"
               >
                 Send Message
               </button>

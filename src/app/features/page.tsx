@@ -23,7 +23,7 @@ export default function FeaturesPage() {
   return (
     <main className="min-h-screen bg-[#FAFBFE] pb-24 font-sans text-slate-900">
       <div className="mx-auto max-w-7xl px-6 pt-12 lg:px-8">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors mb-10">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-teal-600 transition-colors mb-10">
           <ArrowLeft className="w-4 h-4" />
           Back to Home
         </Link>
@@ -39,7 +39,7 @@ export default function FeaturesPage() {
           {categories.map((cat, idx) => (
             <section key={idx}>
               <div className="flex items-center gap-3 mb-8 border-b border-slate-200 pb-4">
-                <div className="p-2.5 rounded-xl bg-indigo-50 text-indigo-600">
+                <div className="p-2.5 rounded-xl bg-teal-50 text-teal-600">
                   {cat.icon}
                 </div>
                 <h2 className="text-2xl font-bold text-slate-900">{cat.name}</h2>
@@ -55,7 +55,7 @@ export default function FeaturesPage() {
                       </span>
                     </div>
                     <p className="text-sm text-slate-500 leading-relaxed mb-4">{tool.description}</p>
-                    <div className="flex items-center gap-2 text-xs font-medium text-indigo-600">
+                    <div className="flex items-center gap-2 text-xs font-medium text-teal-600">
                       <CheckCircle2 className="w-3.5 h-3.5" /> Ready to use
                     </div>
                   </div>
@@ -65,11 +65,11 @@ export default function FeaturesPage() {
           ))}
         </div>
         
-        <div className="mt-24 rounded-3xl bg-indigo-600 px-6 py-16 text-center sm:px-12">
+        <div className="mt-24 rounded-3xl bg-teal-600 px-6 py-16 text-center sm:px-12">
           <h2 className="text-3xl font-bold tracking-tight text-white">Ready to access all 50 tools?</h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-indigo-100">Join professionals using Zenovee AI to automate their workflows.</p>
+          <p className="mx-auto mt-4 max-w-xl text-lg text-teal-100">Join professionals using Zenovee AI to automate their workflows.</p>
           <div className="mt-8 flex justify-center">
-            <Link href="/signup" className="rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-50 transition-colors">
+            <Link href="/signup" className="rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-teal-600 shadow-sm hover:bg-teal-50 transition-colors">
               Get Started Now
             </Link>
           </div>

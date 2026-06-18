@@ -24,7 +24,7 @@ export default function LoginPage() {
 
     try {
       const supabase = createClient();
-      const { error: signInError } = await supabase.auth.signInWithPassword({
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
         email: email.trim(),
         password,
       });
@@ -34,9 +34,7 @@ export default function LoginPage() {
         return;
       }
 
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+      const user = data.user;
 
       if (user) {
         const { data: profile } = await supabase
@@ -63,16 +61,16 @@ export default function LoginPage() {
 
   return (
     <main className="min-h-screen bg-[#FAFBFE] text-slate-900 font-sans">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(99,102,241,0.08),transparent_40%),linear-gradient(180deg,#ffffff_0%,#FAFBFE_100%)]" />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(20,184,166,0.08),transparent_40%),linear-gradient(180deg,#ffffff_0%,#FAFBFE_100%)]" />
       <div className="mx-auto flex min-h-screen max-w-7xl items-center justify-center px-6 py-10 lg:px-10 animate-fade-in-up">
         <div className="w-full max-w-md rounded-[2rem] border border-slate-200 bg-white/60 p-[1px] shadow-[0_24px_60px_rgba(15,23,42,0.04)] backdrop-blur-xl">
           <div className="rounded-[calc(2rem-1px)] bg-white/80 p-8 sm:p-10 shadow-inner">
             <div className="flex items-center gap-3">
-              <div className="rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-violet-50 p-3 text-indigo-600 shadow-sm">
+              <div className="rounded-2xl border border-teal-100 bg-gradient-to-br from-teal-50 to-cyan-50 p-3 text-teal-600 shadow-sm">
                 <Sparkles className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-xs font-bold uppercase tracking-[0.25em] text-indigo-600">
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-teal-600">
                   Zenovee AI
                 </p>
                 <p className="mt-1 text-[11px] font-medium text-slate-500 uppercase tracking-wider">Secure Workspace</p>
@@ -103,7 +101,7 @@ export default function LoginPage() {
                   required
                   autoComplete="email"
                   placeholder="you@company.com"
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white focus:ring-1 focus:ring-indigo-400 shadow-sm"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-teal-400 focus:bg-white focus:ring-1 focus:ring-teal-400 shadow-sm"
                 />
               </div>
 
@@ -120,7 +118,7 @@ export default function LoginPage() {
                     required
                     autoComplete="current-password"
                     placeholder="Enter your password"
-                    className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3.5 pr-12 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white focus:ring-1 focus:ring-indigo-400 shadow-sm"
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3.5 pr-12 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-teal-400 focus:bg-white focus:ring-1 focus:ring-teal-400 shadow-sm"
                   />
                   <button
                     type="button"
@@ -138,7 +136,7 @@ export default function LoginPage() {
                       type="checkbox"
                       checked={rememberMe}
                       onChange={(e) => setRememberMe(e.target.checked)}
-                      className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-600 focus:ring-offset-0 cursor-pointer"
+                      className="h-4 w-4 rounded border-slate-300 text-teal-600 focus:ring-teal-600 focus:ring-offset-0 cursor-pointer"
                     />
                     Remember me
                   </label>
@@ -148,7 +146,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="group relative mt-2 inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 transition-all hover:from-indigo-500 hover:to-violet-500 hover:shadow-xl hover:shadow-indigo-500/30 hover:-translate-y-[1px] active:scale-[0.98] disabled:cursor-not-allowed disabled:from-slate-300 disabled:to-slate-300 disabled:shadow-none"
+                className="group relative mt-2 inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-teal-600 to-cyan-600 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-teal-500/25 transition-all hover:from-teal-500 hover:to-cyan-500 hover:shadow-xl hover:shadow-teal-500/30 hover:-translate-y-[1px] active:scale-[0.98] disabled:cursor-not-allowed disabled:from-slate-300 disabled:to-slate-300 disabled:shadow-none"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
                 {isLoading ? (
@@ -172,7 +170,7 @@ export default function LoginPage() {
 
             <p className="mt-8 text-center text-sm font-medium text-slate-500">
               Don't have an account?{" "}
-              <Link href="/signup" className="text-indigo-600 hover:text-indigo-500 transition-colors font-bold">
+              <Link href="/signup" className="text-teal-600 hover:text-teal-500 transition-colors font-bold">
                 Create one now
               </Link>
             </p>
