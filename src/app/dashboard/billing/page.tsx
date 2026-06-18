@@ -248,111 +248,125 @@ export default function BillingPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-fade-in-up text-slate-200">
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="afterInteractive" />
-      <section className="rounded-[2rem] border border-slate-100 bg-white p-6 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),0_2px_4px_-2px_rgba(0,0,0,0.05)] sm:p-8">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-[#64748B]">
+      
+      {/* License Management Header */}
+      <section className="rounded-[2rem] border border-[#1C2C55]/60 bg-[#0D1527]/50 p-6 shadow-lg shadow-black/25 sm:p-8 backdrop-blur-md">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="space-y-3">
+            <div className="inline-flex items-center gap-2 rounded-full border border-teal-500/20 bg-teal-950/30 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-teal-400 font-mono">
               <Sparkles className="h-3.5 w-3.5" />
-              Monetization Center
+              Consolidation Center // Licenses
             </div>
-            <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">Scale your execution capacity</h2>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-[#64748B] sm:text-base">
-              Upgrade your workspace tier, expand recurring monthly credits, and add on-demand top-ups for high-intensity execution cycles.
+            <h2 className="text-2xl font-bold font-mono tracking-tight text-slate-100 uppercase sm:text-3xl">System License Profile</h2>
+            <p className="max-w-2xl text-xs leading-relaxed text-slate-400 font-sans">
+              Upgrade your operator license tier, allocate credit capacities, and acquire on-demand top-ups for high-throughput computation cycles.
             </p>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-[1.5rem] border border-slate-200/80 bg-white p-5 shadow-md">
-              <p className="text-xs uppercase tracking-[0.28em] text-slate-500">Current tier</p>
-              <p className="mt-3 text-2xl font-semibold text-[#1E293B]">{tierLabel}</p>
+          {/* Holographic Developer License passport */}
+          <div className="rounded-2xl border border-[#1C2C55] bg-[#080C14] p-5 shadow-inner font-mono text-[10px] leading-relaxed min-w-[290px] relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-teal-500/5 rounded-full blur-xl pointer-events-none" />
+            <div className="flex items-center justify-between border-b border-[#1C2C55]/50 pb-2 mb-3">
+              <span className="font-bold text-[#4C5D8B]">// SECURITY SYSTEM</span>
+              <span className="inline-flex items-center gap-1 font-bold text-emerald-400 uppercase">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                Valid
+              </span>
             </div>
-            <div className="rounded-[1.5rem] border border-slate-200 bg-gradient-to-br from-slate-50 to-slate-100 p-5">
-              <p className="text-xs uppercase tracking-[0.28em] text-[#64748B]">Current credits</p>
-              <p className="mt-3 text-2xl font-semibold text-[#1E293B]">
-                {isLoadingProfile ? "..." : profile?.credits ?? 0}
-              </p>
+            <div className="space-y-1 text-slate-300">
+              <p><span className="text-slate-500">KEY:</span> ZN-CRD-{(profile?.id || "guest").slice(0, 8).toUpperCase()}</p>
+              <p><span className="text-slate-500">CLASS:</span> {tierLabel.toUpperCase()}_PASS</p>
+              <p><span className="text-slate-500">BALANCE:</span> {isLoadingProfile ? "..." : profile?.credits ?? 0} CREDITS</p>
+              <p><span className="text-slate-500">STATUS:</span> ACTIVE_STABLE</p>
             </div>
           </div>
         </div>
 
         {errorMessage ? (
-          <div className="mt-6 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm leading-6 text-rose-700">
-            {errorMessage}
+          <div className="mt-6 rounded-2xl border border-rose-950 bg-rose-950/20 px-4 py-3 text-xs font-mono text-rose-400">
+            [FATAL] {errorMessage}
           </div>
         ) : null}
 
         {statusMessage ? (
-          <div className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm leading-6 text-emerald-700">
-            {statusMessage}
+          <div className="mt-6 rounded-2xl border border-emerald-950 bg-emerald-950/20 px-4 py-3 text-xs font-mono text-emerald-400">
+            [OK] {statusMessage}
           </div>
         ) : null}
       </section>
 
+      {/* Pricing options */}
       <section className="grid gap-6 xl:grid-cols-3">
         {purchaseOptions.map((option) => (
           <article
             key={option.id}
-            className={`rounded-[2rem] border p-6 backdrop-blur sm:p-8 ${
+            className={`rounded-[2rem] border p-6 backdrop-blur sm:p-8 flex flex-col justify-between ${
               option.id === "power-plan"
-                ? "border border-transparent bg-white shadow-md [background:linear-gradient(white,white)_padding-box,linear-gradient(135deg,#E8F0FE,#F3E8FF,#FFEFE7)_border-box]"
-                : "bg-white border border-slate-200/80 shadow-md"
+                ? "border-teal-500/30 bg-[#0D1527]/80 shadow-[0_0_20px_rgba(20,184,166,0.08)]"
+                : "bg-[#0D1527]/40 border-[#1C2C55]/50 shadow-md"
             }`}
           >
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <h3 className="text-2xl font-semibold text-[#1E293B]">{option.title}</h3>
-                <p className="mt-2 text-sm leading-7 text-[#64748B]">{option.description}</p>
-              </div>
-                <div className={`rounded-2xl border p-3 ${
-                  option.id === "starter-plan"
-                    ? "border-[#E6F4EA] bg-[#E6F4EA] text-[#137333]"
-                    : option.id === "power-plan"
-                      ? "border-[#F3E8FF] bg-[#F3E8FF] text-[#6B21A8]"
-                      : option.id === "agency-suite"
-                        ? "border-[#FFEFE7] bg-[#FFEFE7] text-[#C0392B]"
-                        : "border-slate-200 bg-slate-50 text-[#64748B]"
-                }`}>
-                {option.id === "credit-topup" ? (
-                  <Wallet className="h-5 w-5" />
-                ) : (
-                  <CreditCard className="h-5 w-5" />
-                )}
-              </div>
-            </div>
-
-            <div className="mt-8 rounded-[1.5rem] border border-slate-200 bg-[#F8FAFC] p-5">
-              <p className="text-3xl font-semibold text-[#1E293B]">{option.price}</p>
-              <p className="mt-2 text-sm text-[#64748B]">
-                {option.id === "starter-plan"
-                  ? "100 generation runs / month"
-                  : `+ ${option.credits.toLocaleString()} credits`}
-              </p>
-            </div>
-
-            <div className="mt-6 space-y-3">
-              {option.features.map((feature) => (
-                <div key={feature} className="flex items-start gap-3 text-sm text-[#64748B]">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#137333]" />
-                  <span>{feature}</span>
+            <div>
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h3 className="text-lg font-bold font-mono text-slate-100 uppercase tracking-tight">{option.title.split(" ")[1] || option.title}</h3>
+                  <p className="mt-2 text-xs leading-relaxed text-slate-400 font-sans">{option.description}</p>
                 </div>
-              ))}
+                <div className={`rounded-xl border p-2.5 ${
+                  option.id === "starter-plan"
+                    ? "border-teal-500/20 bg-teal-950/20 text-teal-400"
+                    : option.id === "power-plan"
+                      ? "border-purple-500/20 bg-purple-950/20 text-purple-400"
+                      : option.id === "agency-suite"
+                        ? "border-rose-500/20 bg-rose-950/20 text-rose-400"
+                        : "border-[#1C2C55] bg-[#080C14] text-slate-400"
+                }`}>
+                  {option.id === "credit-topup" ? (
+                    <Wallet className="h-4.5 w-4.5" />
+                  ) : (
+                    <CreditCard className="h-4.5 w-4.5" />
+                  )}
+                </div>
+              </div>
+
+              <div className="mt-6 rounded-xl border border-[#1C2C55]/60 bg-[#080C14] p-4 font-mono">
+                <p className="text-2xl font-bold text-slate-100">{option.price}</p>
+                <p className="mt-1 text-[10px] text-slate-500 uppercase tracking-wider">
+                  {option.id === "starter-plan"
+                    ? "100 runs / month"
+                    : `+ ${option.credits.toLocaleString()} credits`}
+                </p>
+              </div>
+
+              <div className="mt-6 space-y-2.5">
+                {option.features.map((feature) => (
+                  <div key={feature} className="flex items-start gap-2.5 text-xs text-slate-400 font-sans">
+                    <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" />
+                    <span>{feature}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <button
               type="button"
               onClick={() => void openCheckout(option)}
               disabled={isLoadingProfile || activePurchaseId === option.id}
-              className="mt-8 inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-[#1E293B] px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-60"
+              className={`mt-8 inline-flex w-full items-center justify-center gap-2 rounded-xl py-3 px-4 text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                option.id === "power-plan"
+                  ? "bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white shadow-lg shadow-teal-500/15"
+                  : "bg-[#080C14] border border-[#1C2C55] text-slate-300 hover:text-slate-100 hover:bg-[#0D1527]"
+              } disabled:cursor-not-allowed disabled:opacity-50`}
             >
               {activePurchaseId === option.id ? (
                 <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  Opening checkout...
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                  Opening connection...
                 </>
               ) : (
-                option.cta
+                option.cta.toUpperCase()
               )}
             </button>
           </article>
