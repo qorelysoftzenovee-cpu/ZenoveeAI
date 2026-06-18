@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import { toolsConfig } from "@/utils/toolsConfig";
+import { TiltCard } from "@/components/ui/TiltCard";
 
 const tabs = [
   { id: "all", label: "All Tools" },
@@ -81,17 +82,21 @@ export default function DashboardPage() {
 
       <section className="grid gap-6 md:grid-cols-2 2xl:grid-cols-3">
         {filteredTools.map((tool) => (
-          <Link
+          <TiltCard
             key={tool.id}
-            href={"/dashboard/tools/" + tool.id}
-            className="rounded-[1.75rem] border border-slate-100 bg-white p-6 text-[#1E293B] shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),0_2px_4px_-2px_rgba(0,0,0,0.05)] transition-all duration-200 hover:-translate-y-1 hover:border-slate-200"
+            className="rounded-[1.75rem] border border-slate-100 bg-white shadow-sm hover:border-teal-200 transition-all duration-200"
           >
-            <span className={"inline-flex rounded-full px-3 py-1 text-xs font-semibold " + getCategoryBadge(tool.category)}>
-              {tool.category}
-            </span>
-            <h3 className="mt-4 text-xl font-semibold text-[#1E293B]">{tool.name}</h3>
-            <p className="mt-3 text-sm leading-7 text-[#64748B]">{tool.description}</p>
-          </Link>
+            <Link
+              href={"/dashboard/tools/" + tool.id}
+              className="block p-6 text-[#1E293B] group"
+            >
+              <span className={"inline-flex rounded-full px-3 py-1 text-xs font-semibold " + getCategoryBadge(tool.category)}>
+                {tool.category}
+              </span>
+              <h3 className="mt-4 text-xl font-semibold text-[#1E293B] group-hover:text-teal-600 transition-colors">{tool.name}</h3>
+              <p className="mt-3 text-sm leading-7 text-[#64748B]">{tool.description}</p>
+            </Link>
+          </TiltCard>
         ))}
       </section>
     </div>

@@ -173,7 +173,7 @@ export default function ToolWorkspacePage() {
           <span>All Tools</span>
         </button>
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 rounded-lg border border-indigo-100 bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-600">
+          <span className="inline-flex items-center gap-1.5 rounded-lg border border-teal-100 bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-600">
             <Zap className="w-3 h-3" />
             {tool.cost} credits
           </span>
@@ -187,7 +187,7 @@ export default function ToolWorkspacePage() {
       {/* ── Header ──────────────────────────────────────────────────── */}
       <div className="mb-8">
         <div className="flex items-start gap-4">
-          <div className="rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-violet-50 p-3.5 text-indigo-500 shadow-sm">
+          <div className="rounded-2xl border border-teal-100 bg-gradient-to-br from-teal-50 to-cyan-50 p-3.5 text-teal-500 shadow-sm">
             <Sparkles className="w-6 h-6" />
           </div>
           <div className="min-w-0 flex-1">
@@ -221,7 +221,7 @@ export default function ToolWorkspacePage() {
             <div className="flex items-center gap-2">
               <div className="h-1.5 w-16 rounded-full bg-slate-100 overflow-hidden">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-indigo-400 to-indigo-500 transition-all duration-500 ease-out"
+                  className="h-full rounded-full bg-gradient-to-r from-teal-400 to-cyan-500 transition-all duration-500 ease-out"
                   style={{ width: `${fillPercent}%` }}
                 />
               </div>
@@ -250,7 +250,7 @@ export default function ToolWorkspacePage() {
                     onChange={(e) =>
                       handleInputChange(inputField.id, e.target.value)
                     }
-                    className="w-full min-h-[120px] rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 text-sm text-slate-800 placeholder:text-slate-400 transition-all duration-200 resize-none focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300"
+                    className="w-full min-h-[120px] rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 text-sm text-slate-800 placeholder:text-slate-400 transition-all duration-200 resize-none focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-300"
                   />
                 ) : inputField.type === "dropdown" ? (
                   <div className="relative">
@@ -260,7 +260,7 @@ export default function ToolWorkspacePage() {
                       onChange={(e) =>
                         handleInputChange(inputField.id, e.target.value)
                       }
-                      className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 pr-10 text-sm text-slate-800 transition-all duration-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300"
+                      className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 pr-10 text-sm text-slate-800 transition-all duration-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-300"
                     >
                       <option value="" disabled>
                         {inputField.placeholder ||
@@ -283,7 +283,7 @@ export default function ToolWorkspacePage() {
                     onChange={(e) =>
                       handleInputChange(inputField.id, e.target.value)
                     }
-                    className="w-full rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 text-sm text-slate-800 placeholder:text-slate-400 transition-all duration-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300"
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 text-sm text-slate-800 placeholder:text-slate-400 transition-all duration-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-300"
                   />
                 )}
               </div>
@@ -295,7 +295,7 @@ export default function ToolWorkspacePage() {
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 py-3.5 px-5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:from-indigo-500 hover:to-indigo-400 hover:shadow-xl hover:shadow-indigo-500/30 hover:-translate-y-[1px] active:translate-y-0 disabled:from-slate-200 disabled:to-slate-200 disabled:text-slate-400 disabled:shadow-none disabled:cursor-not-allowed"
+              className="group relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-teal-600 to-cyan-600 py-3.5 px-5 text-sm font-semibold text-white shadow-lg shadow-teal-500/25 transition-all duration-300 hover:from-teal-500 hover:to-cyan-500 hover:shadow-xl hover:shadow-teal-500/30 hover:-translate-y-[1px] active:translate-y-0 disabled:from-slate-200 disabled:to-slate-200 disabled:text-slate-400 disabled:shadow-none disabled:cursor-not-allowed"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
               <div className="relative flex items-center justify-center gap-2.5">
@@ -395,8 +395,8 @@ export default function ToolWorkspacePage() {
             {loading && (
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 bg-[#FAFBFE] z-10">
                 <div className="relative">
-                  <div className="w-14 h-14 rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-violet-50 flex items-center justify-center animate-pulse-glow">
-                    <Sparkles className="w-6 h-6 text-indigo-500" />
+                  <div className="w-14 h-14 rounded-2xl border border-teal-100 bg-gradient-to-br from-teal-50 to-cyan-50 flex items-center justify-center animate-pulse-glow">
+                    <Sparkles className="w-6 h-6 text-teal-500" />
                   </div>
                 </div>
                 <div className="text-center space-y-2">
@@ -407,9 +407,9 @@ export default function ToolWorkspacePage() {
                     Processing with advanced language model...
                   </p>
                   <div className="flex items-center justify-center gap-1.5 pt-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 loading-dot" />
-                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 loading-dot" />
-                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 loading-dot" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-teal-400 loading-dot" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-teal-400 loading-dot" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-teal-400 loading-dot" />
                   </div>
                 </div>
               </div>
@@ -449,7 +449,7 @@ export default function ToolWorkspacePage() {
                     </p>
                     <p className="mt-1.5 text-xs text-slate-400 leading-relaxed">
                       Fill in the configuration fields and click{" "}
-                      <span className="font-semibold text-indigo-500">
+                      <span className="font-semibold text-teal-500">
                         Generate Output
                       </span>{" "}
                       to create your content.
@@ -483,7 +483,7 @@ export default function ToolWorkspacePage() {
                 </div>
 
                 {/* Markdown content */}
-                <div className="prose-output selection:bg-indigo-100">
+                <div className="prose-output selection:bg-teal-100">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
                     {output}
                   </ReactMarkdown>
@@ -521,7 +521,7 @@ export default function ToolWorkspacePage() {
                 <button
                   type="button"
                   onClick={handleDownload}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-50 px-3 py-1.5 text-[11px] font-medium text-indigo-600 transition-all hover:bg-indigo-100"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-teal-50 px-3 py-1.5 text-[11px] font-medium text-teal-600 transition-all hover:bg-teal-100"
                 >
                   <Download className="w-3 h-3" />
                   Export .md

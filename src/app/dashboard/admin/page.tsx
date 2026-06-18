@@ -172,7 +172,7 @@ export default async function AdminDashboardPage({ searchParams }: AdminPageProp
         <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-indigo-600">
+              <div className="inline-flex items-center gap-2 rounded-full border border-teal-100 bg-teal-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-teal-600">
                 <ShieldCheck className="h-3.5 w-3.5" />
                 Administrative Command Center
               </div>
@@ -186,7 +186,7 @@ export default async function AdminDashboardPage({ searchParams }: AdminPageProp
               <label htmlFor="query" className="mb-2 block text-sm font-medium text-slate-700">
                 Search users
               </label>
-              <div className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 focus-within:border-indigo-300 focus-within:ring-1 focus-within:ring-indigo-300 transition-all">
+              <div className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 focus-within:border-teal-300 focus-within:ring-1 focus-within:ring-teal-300 transition-all">
                 <Search className="h-4 w-4 text-slate-400" />
                 <input
                   id="query"
@@ -242,7 +242,7 @@ export default async function AdminDashboardPage({ searchParams }: AdminPageProp
         {/* Users Table Section */}
         <section className="mt-8 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <div className="flex items-center gap-3">
-            <div className="rounded-2xl border border-indigo-100 bg-indigo-50 p-3 text-indigo-500">
+            <div className="rounded-2xl border border-teal-100 bg-teal-50 p-3 text-teal-500">
               <BarChart3 className="h-5 w-5" />
             </div>
             <div>
@@ -285,7 +285,7 @@ export default async function AdminDashboardPage({ searchParams }: AdminPageProp
                       <span
                         className={`rounded-full px-3 py-1 text-[11px] font-bold ${
                           profile.is_admin
-                            ? "bg-indigo-100 text-indigo-700"
+                            ? "bg-teal-100 text-teal-700"
                             : "bg-slate-200/50 text-slate-500"
                         }`}
                       >
@@ -300,12 +300,12 @@ export default async function AdminDashboardPage({ searchParams }: AdminPageProp
                           type="number"
                           step="1"
                           placeholder="+100 or -50"
-                          className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 sm:max-w-[140px]"
+                          className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-teal-400 focus:ring-1 focus:ring-teal-400 sm:max-w-[140px]"
                           required
                         />
                         <button
                           type="submit"
-                          className="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-indigo-500 active:scale-95"
+                          className="inline-flex items-center justify-center rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-teal-500 active:scale-95"
                         >
                           Apply
                         </button>

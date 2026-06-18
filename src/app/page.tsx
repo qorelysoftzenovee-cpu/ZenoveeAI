@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight, CheckCircle2, Sparkles, Zap, LayoutGrid, Layers, LineChart, ChevronRight, Terminal, Copy, Play } from "lucide-react";
 
 import { toolsConfig } from "@/utils/toolsConfig";
+import { TiltCard } from "@/components/ui/TiltCard";
 
 /* â”€â”€ Intersection Observer hook for scroll reveal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function useReveal() {
@@ -488,53 +489,7 @@ function SectionBlob({ color, size, top, left, right, bottom, delay }: {
   );
 }
 
-/* â”€â”€ 3D Tilt Card Helper Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-function TiltCard({ children, className = "", style: externalStyle }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [style, setStyle] = useState<React.CSSProperties>({});
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const card = cardRef.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const xc = rect.width / 2;
-    const yc = rect.height / 2;
-    const angleX = ((yc - y) / yc) * 7;
-    const angleY = ((x - xc) / xc) * 7;
-    setStyle({
-      transform: `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale3d(1.015, 1.015, 1.015)`,
-      boxShadow: "0 25px 50px -12px rgba(20, 184, 166, 0.12), 0 12px 24px -10px rgba(0, 0, 0, 0.05)",
-      zIndex: 10,
-    });
-  };
-
-  const handleMouseLeave = () => {
-    setStyle({
-      transform: "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)",
-      boxShadow: "none",
-      transition: "all 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
-    });
-  };
-
-  return (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        transition: "transform 0.1s ease, box-shadow 0.1s ease",
-        transformStyle: "preserve-3d",
-        ...externalStyle,
-        ...style
-      }}
-      className={className}
-    >
-      {children}
-    </div>
-  );
-}
 
 /* â”€â”€ Simulated Workspace Interactive Demo Player â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function InteractiveWorkspaceDemo() {

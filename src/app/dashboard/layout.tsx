@@ -1,16 +1,14 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import {
-  CreditCard,
-  LayoutGrid,
   LogOut,
   Mail,
   PanelLeft,
-  Shield,
   Sparkles,
 } from "lucide-react";
 
 import { createClient } from "@/utils/supabase/server";
+import { SidebarNav } from "@/components/dashboard/SidebarNav";
 
 export default async function DashboardLayout({
   children,
@@ -53,7 +51,7 @@ export default async function DashboardLayout({
       <div className="flex min-h-screen">
         <aside className="hidden w-[300px] shrink-0 border-r border-slate-200/80 bg-white xl:flex xl:flex-col">
           <div className="flex items-center gap-3 p-6 pb-0">
-            <div className="rounded-xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-violet-50 p-2.5 text-indigo-600 shadow-sm">
+            <div className="rounded-xl border border-teal-100 bg-gradient-to-br from-teal-50 to-cyan-50 p-2.5 text-teal-600 shadow-sm">
               <Sparkles className="h-5 w-5" />
             </div>
             <div>
@@ -84,38 +82,14 @@ export default async function DashboardLayout({
               <p className="mt-2 text-2xl font-bold text-slate-900">{credits}</p>
               <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-100">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-indigo-400 to-violet-500 transition-all duration-500"
+                  className="h-full rounded-full bg-gradient-to-r from-teal-400 to-cyan-500 transition-all duration-500"
                   style={{ width: `${creditProgress}%` }}
                 />
               </div>
             </div>
           </div>
 
-          <nav className="mx-6 mt-6 space-y-1.5">
-            <Link
-              href="/dashboard"
-              className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-slate-900"
-            >
-              <LayoutGrid className="h-4 w-4 text-slate-400" />
-              All Tools
-            </Link>
-            <Link
-              href="/dashboard/billing"
-              className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-slate-900"
-            >
-              <CreditCard className="h-4 w-4 text-slate-400" />
-              Billing
-            </Link>
-            {isAdmin ? (
-              <Link
-                href="/dashboard/admin"
-                className="flex items-center gap-3 rounded-xl bg-indigo-50 px-3 py-2.5 text-sm font-medium text-indigo-700 transition hover:bg-indigo-100"
-              >
-                <Shield className="h-4 w-4 text-indigo-500" />
-                Admin Panel
-              </Link>
-            ) : null}
-          </nav>
+          <SidebarNav isAdmin={isAdmin} />
 
           <form action={logout} className="mx-6 mt-auto pb-6 pt-6">
             <button

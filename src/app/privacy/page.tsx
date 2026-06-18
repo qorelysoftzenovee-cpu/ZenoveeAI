@@ -11,7 +11,7 @@ export default function PrivacyPage() {
   return (
     <main className="min-h-screen bg-[#FAFBFE] pb-24 font-sans text-slate-900">
       <div className="mx-auto max-w-3xl px-6 pt-12 lg:px-8">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors mb-10">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-teal-600 transition-colors mb-10">
           <ArrowLeft className="w-4 h-4" />
           Back to Home
         </Link>
@@ -25,7 +25,7 @@ export default function PrivacyPage() {
           <h2 className="text-xl font-semibold text-slate-900 mt-8">3. Data Security</h2>
           <p>We implement industry-standard security measures to protect your data, including encryption in transit and at rest via Supabase infrastructure.</p>
           <h2 className="text-xl font-semibold text-slate-900 mt-8">4. Contact Us</h2>
-          <p>If you have questions about this Privacy Policy, please contact us at <a href="mailto:support@zenovee.ai" className="text-indigo-600 hover:underline">support@zenovee.ai</a>.</p>
+          <p>If you have questions about this Privacy Policy, please contact us at <a href="mailto:support@zenovee.ai" className="text-teal-600 hover:underline">support@zenovee.ai</a>.</p>
         </div>
       </div>
     </main>
