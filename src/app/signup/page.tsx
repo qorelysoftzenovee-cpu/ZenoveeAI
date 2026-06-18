@@ -103,26 +103,26 @@ export default function SignupPage() {
   const scoreLabel = ["Very weak", "Weak", "Fair", "Good", "Strong"][score];
 
   return (
-    <main className="min-h-screen bg-[#080C14] text-slate-200 font-sans selection:bg-teal-950 selection:text-teal-400">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(20,184,166,0.12),transparent_40%),linear-gradient(180deg,#080C14_0%,#05080E_100%)]" />
+    <main className="min-h-screen bg-[#FAFBFE] text-slate-850 font-sans selection:bg-teal-100 selection:text-teal-900">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(20,184,166,0.08),transparent_40%)]" />
       <div className="mx-auto flex min-h-screen max-w-7xl items-center justify-center px-6 py-10 lg:px-10 animate-fade-in-up">
-        <div className="w-full max-w-md rounded-[2rem] border border-[#1C2C55]/80 bg-[#0D1527]/50 p-[1px] shadow-[0_24px_80px_rgba(0,0,0,0.6)] backdrop-blur-xl">
-          <div className="rounded-[calc(2rem-1px)] bg-[#0D1527]/85 p-8 sm:p-10 shadow-inner">
+        <div className="w-full max-w-md rounded-[2rem] border border-slate-200/80 bg-white/80 p-[1px] shadow-[0_24px_80px_rgba(0,0,0,0.02)] backdrop-blur-xl">
+          <div className="rounded-[calc(2rem-1px)] bg-white p-8 sm:p-10 shadow-sm">
             <div className="flex items-center gap-3">
-              <div className="rounded-2xl border border-teal-500/20 bg-teal-950/40 p-3 text-teal-400 shadow-[0_0_15px_rgba(20,184,166,0.1)]">
+              <div className="rounded-2xl border border-teal-500/10 bg-teal-50/70 p-3 text-teal-600 shadow-sm">
                 <Sparkles className="h-5 w-5 animate-pulse" />
               </div>
               <div>
-                <p className="text-xs font-bold uppercase tracking-[0.25em] text-teal-400 font-mono">
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-teal-600 font-mono">
                   Zenovee AI
                 </p>
-                <p className="mt-1 text-[9px] font-bold text-slate-500 uppercase tracking-widest font-mono">Secure Terminal</p>
+                <p className="mt-1 text-[9px] font-bold text-slate-400 uppercase tracking-widest font-mono">Secure Terminal</p>
               </div>
             </div>
 
             <div className="mt-8">
-              <h1 className="text-2xl font-bold font-mono tracking-tight text-slate-100 uppercase">Registry Sign-up</h1>
-              <p className="mt-3 text-xs leading-relaxed text-slate-400">
+              <h1 className="text-2xl font-bold font-mono tracking-tight text-slate-900 uppercase">Registry Sign-up</h1>
+              <p className="mt-3 text-xs leading-relaxed text-slate-500">
                 Register a new operator ID to gain console clearance and initialize workspace tools.
               </p>
             </div>
@@ -134,7 +134,7 @@ export default function SignupPage() {
 
             <form onSubmit={handleSubmit} className="mt-6 space-y-5">
               <div>
-                <label className="mb-2 block text-[10px] font-mono font-bold text-[#4C5D8B] uppercase tracking-widest" htmlFor="email">
+                <label className="mb-2 block text-[10px] font-mono font-bold text-slate-450 uppercase tracking-widest" htmlFor="email">
                   // OPERATOR_EMAIL
                 </label>
                 <input
@@ -145,12 +145,12 @@ export default function SignupPage() {
                   required
                   autoComplete="email"
                   placeholder="you@company.com"
-                  className="w-full rounded-xl border border-[#1C2C55] bg-[#080C14] px-4 py-3.5 font-mono text-xs text-slate-200 outline-none transition placeholder:text-slate-655 focus:border-teal-500/50 focus:bg-[#080C14] focus:ring-1 focus:ring-teal-500/10 shadow-inner"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 font-mono text-xs text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-teal-500/60 focus:bg-white focus:ring-2 focus:ring-teal-500/10 shadow-inner"
                 />
               </div>
 
               <div>
-                <label className="mb-2 block text-[10px] font-mono font-bold text-[#4C5D8B] uppercase tracking-widest" htmlFor="password">
+                <label className="mb-2 block text-[10px] font-mono font-bold text-slate-450 uppercase tracking-widest" htmlFor="password">
                   // OPERATOR_PASS
                 </label>
                 <div className="relative">
@@ -163,13 +163,13 @@ export default function SignupPage() {
                     minLength={6}
                     autoComplete="new-password"
                     placeholder="Set system access key"
-                    className="w-full rounded-xl border border-[#1C2C55] bg-[#080C14] px-4 py-3.5 pr-12 font-mono text-xs text-slate-200 outline-none transition placeholder:text-slate-655 focus:border-teal-500/50 focus:bg-[#080C14] focus:ring-1 focus:ring-teal-500/10 shadow-inner"
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 pr-12 font-mono text-xs text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-teal-500/60 focus:bg-white focus:ring-2 focus:ring-teal-500/10 shadow-inner"
                   />
                   <button
                     type="button"
                     tabIndex={-1}
                     onClick={() => setShowPassword((s) => !s)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded p-1 text-[10px] font-mono text-slate-500 hover:text-slate-350 transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded p-1 text-[10px] font-mono text-slate-400 hover:text-slate-700 transition-colors"
                   >
                     {showPassword ? "HIDE" : "SHOW"}
                   </button>
@@ -177,19 +177,19 @@ export default function SignupPage() {
 
                 <div className="mt-2.5 flex items-center justify-between gap-3">
                   <div className="flex-1">
-                    <div className="h-1 w-full rounded-full bg-[#080C14] border border-[#1C2C55]/30 overflow-hidden">
+                    <div className="h-1 w-full rounded-full bg-slate-100 border border-slate-200 overflow-hidden">
                       <div
                         className={`h-full rounded-full bg-gradient-to-r from-amber-500 to-teal-500 transition-all duration-300`}
                         style={{ width: `${(score / 4) * 100}%` }}
                       />
                     </div>
-                    <p className="mt-1 text-[9px] font-mono text-slate-500">KEY COMPLEXITY: {scoreLabel.toUpperCase()}</p>
+                    <p className="mt-1 text-[9px] font-mono text-slate-400">KEY COMPLEXITY: {scoreLabel.toUpperCase()}</p>
                   </div>
                 </div>
               </div>
 
               <div>
-                <label className="mb-2 block text-[10px] font-mono font-bold text-[#4C5D8B] uppercase tracking-widest" htmlFor="confirmPassword">
+                <label className="mb-2 block text-[10px] font-mono font-bold text-slate-455 uppercase tracking-widest" htmlFor="confirmPassword">
                   // CONFIRM_OPERATOR_PASS
                 </label>
                 <div className="relative">
@@ -202,13 +202,13 @@ export default function SignupPage() {
                     minLength={6}
                     autoComplete="new-password"
                     placeholder="Confirm access key"
-                    className="w-full rounded-xl border border-[#1C2C55] bg-[#080C14] px-4 py-3.5 pr-12 font-mono text-xs text-slate-200 outline-none transition placeholder:text-slate-655 focus:border-teal-500/50 focus:bg-[#080C14] focus:ring-1 focus:ring-teal-500/10 shadow-inner"
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 pr-12 font-mono text-xs text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-teal-500/60 focus:bg-white focus:ring-2 focus:ring-teal-500/10 shadow-inner"
                   />
                   <button
                     type="button"
                     tabIndex={-1}
                     onClick={() => setShowConfirm((s) => !s)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded p-1 text-[10px] font-mono text-slate-500 hover:text-slate-350 transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded p-1 text-[10px] font-mono text-slate-400 hover:text-slate-700 transition-colors"
                   >
                     {showConfirm ? "HIDE" : "SHOW"}
                   </button>
@@ -216,26 +216,26 @@ export default function SignupPage() {
               </div>
 
               <div className="flex items-start gap-3">
-                <label className="flex items-center gap-2 font-mono text-[11px] text-slate-500 cursor-pointer hover:text-slate-400">
+                <label className="flex items-center gap-2 font-mono text-[11px] text-slate-500 cursor-pointer hover:text-slate-700">
                   <input
                     type="checkbox"
                     checked={termsAccepted}
                     onChange={(e) => setTermsAccepted(e.target.checked)}
-                    className="h-4 w-4 rounded border-[#1C2C55] bg-[#080C14] text-teal-600 focus:ring-teal-500/20 cursor-pointer"
+                    className="h-4 w-4 rounded border-slate-300 bg-slate-50 text-teal-600 focus:ring-teal-500/10 cursor-pointer"
                   />
-                  <span>ACCEPT <Link href="/terms" className="text-teal-400 hover:underline">TERMS</Link> & <Link href="/privacy" className="text-teal-400 hover:underline">PRIVACY</Link></span>
+                  <span>ACCEPT <Link href="/terms" className="text-teal-600 hover:underline">TERMS</Link> & <Link href="/privacy" className="text-teal-600 hover:underline">PRIVACY</Link></span>
                 </label>
               </div>
 
               <button
                 type="submit"
                 disabled={isLoading || !termsAccepted}
-                className="group relative mt-2 inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-teal-600 to-cyan-600 px-5 py-3.5 text-xs font-bold font-mono uppercase tracking-wider text-white shadow-lg shadow-teal-500/15 transition-all hover:from-teal-500 hover:to-cyan-500 hover:shadow-xl hover:shadow-teal-500/25 hover:-translate-y-[1px] active:scale-[0.98] disabled:cursor-not-allowed disabled:from-slate-800 disabled:to-slate-800 disabled:shadow-none cursor-pointer"
+                className="group relative mt-2 inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-teal-600 to-cyan-600 px-5 py-3.5 text-xs font-bold font-mono uppercase tracking-wider text-white shadow-md shadow-teal-500/10 transition-all hover:from-teal-500 hover:to-cyan-500 hover:shadow-lg hover:shadow-teal-500/20 hover:-translate-y-[1px] active:scale-[0.98] disabled:cursor-not-allowed disabled:from-slate-200 disabled:to-slate-250 disabled:text-slate-400 disabled:shadow-none cursor-pointer"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
                 {isLoading ? (
                   <>
-                     <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                    <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
                     Registering ID...
                   </>
                 ) : (
@@ -247,14 +247,14 @@ export default function SignupPage() {
               </button>
             </form>
 
-            <div className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-[#080C14]/50 p-3 text-[10px] font-mono text-slate-500 border border-[#1C2C55]/60 shadow-inner">
-              <ShieldCheck className="h-4 w-4 text-emerald-400" />
+            <div className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-slate-50 p-3 text-[10px] font-mono text-slate-500 border border-slate-200 shadow-inner">
+              <ShieldCheck className="h-4 w-4 text-emerald-600" />
               REGISTRATION ENCRYPTED
             </div>
 
             <p className="mt-8 text-center text-xs font-mono text-slate-500">
               OPERATOR CLEARANCE ACTIVE?{" "}
-              <Link href="/login" className="text-teal-400 hover:text-teal-300 transition-colors font-bold uppercase">
+              <Link href="/login" className="text-teal-600 hover:text-teal-700 transition-colors font-bold uppercase">
                 Connect Session
               </Link>
             </p>

@@ -36,17 +36,17 @@ export function SidebarNav({ isAdmin }: SidebarNavProps) {
             href={link.href}
             className={`flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-semibold transition-all duration-200 border relative overflow-hidden group ${
               link.active
-                ? "bg-[#0D1527] text-teal-400 border-teal-500/20 shadow-[0_0_15px_rgba(20,184,166,0.08)]"
-                : "text-slate-400 border-transparent hover:bg-[#0D1527]/30 hover:text-slate-100 hover:border-[#1C2C55]/50"
+                ? "bg-teal-50/60 text-teal-600 border-teal-500/10 shadow-[0_4px_12px_rgba(20,184,166,0.04)]"
+                : "text-slate-500 border-transparent hover:bg-slate-50 hover:text-slate-900 hover:border-slate-100"
             }`}
           >
             {/* Hover/Active Subtle Glow Indicator */}
             {link.active && (
-              <span className="absolute left-0 top-0 bottom-0 w-1 bg-teal-400 rounded-r shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
+              <span className="absolute left-0 top-0 bottom-0 w-1 bg-teal-500 rounded-r shadow-[0_0_8px_rgba(20,184,166,0.4)]" />
             )}
             <Icon
               className={`h-4.5 w-4.5 transition-colors duration-200 ${
-                link.active ? "text-teal-400" : "text-slate-500 group-hover:text-slate-300"
+                link.active ? "text-teal-500" : "text-slate-400 group-hover:text-slate-650"
               }`}
             />
             <span className="font-mono text-xs uppercase tracking-wider">{link.label}</span>
@@ -59,16 +59,16 @@ export function SidebarNav({ isAdmin }: SidebarNavProps) {
           href="/dashboard/admin"
           className={`flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-semibold transition-all duration-200 border relative overflow-hidden group ${
             pathname === "/dashboard/admin"
-              ? "bg-[#0D1527] text-amber-400 border-amber-500/20 shadow-[0_0_15px_rgba(245,158,11,0.08)]"
-              : "text-slate-400 border-transparent hover:bg-[#0D1527]/30 hover:text-slate-100 hover:border-[#1C2C55]/50"
+              ? "bg-amber-50/60 text-amber-600 border-amber-500/10 shadow-[0_4px_12px_rgba(245,158,11,0.04)]"
+              : "text-slate-500 border-transparent hover:bg-slate-50 hover:text-slate-900 hover:border-slate-100"
           }`}
         >
           {pathname === "/dashboard/admin" && (
-            <span className="absolute left-0 top-0 bottom-0 w-1 bg-amber-400 rounded-r shadow-[0_0_10px_rgba(245,158,11,0.8)]" />
+            <span className="absolute left-0 top-0 bottom-0 w-1 bg-amber-500 rounded-r shadow-[0_0_8px_rgba(245,158,11,0.4)]" />
           )}
           <Shield
             className={`h-4.5 w-4.5 transition-colors duration-200 ${
-              pathname === "/dashboard/admin" ? "text-amber-400" : "text-slate-500 group-hover:text-slate-300"
+              pathname === "/dashboard/admin" ? "text-amber-500" : "text-slate-400 group-hover:text-slate-650"
             }`}
           />
           <span className="font-mono text-xs uppercase tracking-wider">Admin Panel</span>

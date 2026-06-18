@@ -53,18 +53,18 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8 animate-fade-in-up">
       {/* Search Console */}
-      <section className="rounded-[2rem] border border-[#1C2C55]/60 bg-[#0D1527]/50 p-6 shadow-lg shadow-black/25 sm:p-8 backdrop-blur-md">
+      <section className="rounded-[2rem] border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8">
         <div className="relative flex items-center">
-          <Search className="absolute left-4 h-4.5 w-4.5 text-slate-500" />
+          <Search className="absolute left-4 h-4.5 w-4.5 text-slate-450" />
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Query system registry: enter keywords, categories, or tool IDs..."
-            className="w-full rounded-2xl border border-[#1C2C55]/80 bg-[#080C14] pl-12 pr-20 py-4 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-teal-500/50 focus:ring-1 focus:ring-teal-500/20 transition-all font-mono"
+            className="w-full rounded-2xl border border-slate-200 bg-[#F8FAFC] pl-12 pr-20 py-4 text-sm text-slate-800 outline-none placeholder:text-slate-400 focus:border-teal-400 focus:ring-1 focus:ring-teal-400/25 transition-all font-mono shadow-inner"
           />
           <div className="absolute right-4 hidden items-center gap-1 sm:flex">
-            <kbd className="rounded-md border border-[#1C2C55] bg-[#0D1527] px-1.5 py-0.5 text-[10px] font-mono text-slate-500">Ctrl</kbd>
-            <kbd className="rounded-md border border-[#1C2C55] bg-[#0D1527] px-1.5 py-0.5 text-[10px] font-mono text-slate-500">K</kbd>
+            <kbd className="rounded-md border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[10px] font-mono text-slate-400">Ctrl</kbd>
+            <kbd className="rounded-md border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[10px] font-mono text-slate-400">K</kbd>
           </div>
         </div>
 
@@ -79,8 +79,8 @@ export default function DashboardPage() {
                 className={
                   "rounded-xl border px-4 py-2 text-xs font-bold font-mono tracking-wider transition-all duration-200 cursor-pointer " +
                   (isActive
-                    ? "border-teal-500/30 bg-[#0D1527] text-teal-400 shadow-[0_0_12px_rgba(20,184,166,0.12)]"
-                    : "border-transparent bg-[#080C14]/40 text-slate-400 hover:bg-[#0D1527]/50 hover:text-slate-200 hover:border-[#1C2C55]/60")
+                    ? "border-teal-500/20 bg-teal-50/60 text-teal-600 shadow-sm"
+                    : "border-slate-200 bg-white text-slate-500 hover:bg-slate-50 hover:text-slate-800")
                 }
               >
                 {tab.label}
@@ -95,26 +95,26 @@ export default function DashboardPage() {
         {filteredTools.map((tool) => (
           <TiltCard
             key={tool.id}
-            glowColor="rgba(20, 184, 166, 0.08)"
-            className="rounded-[1.75rem] border border-[#1C2C55]/50 bg-[#0D1527]/40 shadow-lg hover:border-teal-500/40 hover:shadow-[0_0_25px_rgba(20,184,166,0.08)] transition-all duration-300"
+            glowColor="rgba(20, 184, 166, 0.05)"
+            className="rounded-[1.75rem] border border-slate-150/80 bg-white shadow-sm hover:border-teal-300/80 hover:shadow-[0_8px_30px_rgba(20,184,166,0.04)] transition-all duration-300"
           >
             <Link
               href={"/dashboard/tools/" + tool.id}
-              className="block p-6 text-slate-200 group"
+              className="block p-6 text-slate-800 group"
             >
               <div className="flex items-center justify-between">
                 <span className={"inline-flex rounded-lg px-2.5 py-1 text-[9px] font-bold font-mono tracking-widest uppercase " + getCategoryBadge(tool.category)}>
                   {tool.category.split(" & ")[0]}
                 </span>
-                <Terminal className="h-3.5 w-3.5 text-slate-600 group-hover:text-teal-400 transition-colors" />
+                <Terminal className="h-3.5 w-3.5 text-slate-400 group-hover:text-teal-500 transition-colors" />
               </div>
 
-              <h3 className="mt-4 text-base font-bold font-mono text-slate-100 group-hover:text-teal-400 transition-colors uppercase tracking-tight flex items-center gap-1.5">
+              <h3 className="mt-4 text-base font-bold font-mono text-slate-900 group-hover:text-teal-600 transition-colors uppercase tracking-tight flex items-center gap-1.5">
                 {tool.name}
                 <ChevronRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-x-0 group-hover:translate-x-0.5" />
               </h3>
 
-              <p className="mt-3 text-xs leading-relaxed text-slate-400 font-sans">{tool.description}</p>
+              <p className="mt-3 text-xs leading-relaxed text-slate-500 font-sans">{tool.description}</p>
             </Link>
           </TiltCard>
         ))}

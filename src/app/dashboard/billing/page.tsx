@@ -248,50 +248,50 @@ export default function BillingPage() {
   }
 
   return (
-    <div className="space-y-8 animate-fade-in-up text-slate-200">
+    <div className="space-y-8 animate-fade-in-up text-slate-800">
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="afterInteractive" />
       
       {/* License Management Header */}
-      <section className="rounded-[2rem] border border-[#1C2C55]/60 bg-[#0D1527]/50 p-6 shadow-lg shadow-black/25 sm:p-8 backdrop-blur-md">
+      <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.02)] sm:p-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 rounded-full border border-teal-500/20 bg-teal-950/30 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-teal-400 font-mono">
+            <div className="inline-flex items-center gap-2 rounded-full border border-teal-500/10 bg-teal-50/70 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-teal-600 font-mono shadow-sm">
               <Sparkles className="h-3.5 w-3.5" />
               Consolidation Center // Licenses
             </div>
-            <h2 className="text-2xl font-bold font-mono tracking-tight text-slate-100 uppercase sm:text-3xl">System License Profile</h2>
-            <p className="max-w-2xl text-xs leading-relaxed text-slate-400 font-sans">
+            <h2 className="text-2xl font-bold font-mono tracking-tight text-slate-900 uppercase sm:text-3xl">System License Profile</h2>
+            <p className="max-w-2xl text-xs leading-relaxed text-slate-500 font-sans">
               Upgrade your operator license tier, allocate credit capacities, and acquire on-demand top-ups for high-throughput computation cycles.
             </p>
           </div>
 
           {/* Holographic Developer License passport */}
-          <div className="rounded-2xl border border-[#1C2C55] bg-[#080C14] p-5 shadow-inner font-mono text-[10px] leading-relaxed min-w-[290px] relative overflow-hidden">
+          <div className="rounded-2xl border border-slate-200 bg-slate-50/50 p-5 shadow-inner font-mono text-[10px] leading-relaxed min-w-[290px] relative overflow-hidden">
             <div className="absolute top-0 right-0 w-24 h-24 bg-teal-500/5 rounded-full blur-xl pointer-events-none" />
-            <div className="flex items-center justify-between border-b border-[#1C2C55]/50 pb-2 mb-3">
-              <span className="font-bold text-[#4C5D8B]">// SECURITY SYSTEM</span>
-              <span className="inline-flex items-center gap-1 font-bold text-emerald-400 uppercase">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <div className="flex items-center justify-between border-b border-slate-200/60 pb-2 mb-3">
+              <span className="font-bold text-slate-400">// SECURITY SYSTEM</span>
+              <span className="inline-flex items-center gap-1 font-bold text-emerald-600 uppercase">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 Valid
               </span>
             </div>
-            <div className="space-y-1 text-slate-300">
-              <p><span className="text-slate-500">KEY:</span> ZN-CRD-{(profile?.id || "guest").slice(0, 8).toUpperCase()}</p>
-              <p><span className="text-slate-500">CLASS:</span> {tierLabel.toUpperCase()}_PASS</p>
-              <p><span className="text-slate-500">BALANCE:</span> {isLoadingProfile ? "..." : profile?.credits ?? 0} CREDITS</p>
-              <p><span className="text-slate-500">STATUS:</span> ACTIVE_STABLE</p>
+            <div className="space-y-1 text-slate-600">
+              <p><span className="text-slate-400">KEY:</span> ZN-CRD-{(profile?.id || "guest").slice(0, 8).toUpperCase()}</p>
+              <p><span className="text-slate-400">CLASS:</span> {tierLabel.toUpperCase()}_PASS</p>
+              <p><span className="text-slate-400">BALANCE:</span> {isLoadingProfile ? "..." : profile?.credits ?? 0} CREDITS</p>
+              <p><span className="text-slate-400">STATUS:</span> ACTIVE_STABLE</p>
             </div>
           </div>
         </div>
 
         {errorMessage ? (
-          <div className="mt-6 rounded-2xl border border-rose-950 bg-rose-950/20 px-4 py-3 text-xs font-mono text-rose-400">
+          <div className="mt-6 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-xs font-mono text-rose-600">
             [FATAL] {errorMessage}
           </div>
         ) : null}
 
         {statusMessage ? (
-          <div className="mt-6 rounded-2xl border border-emerald-950 bg-emerald-950/20 px-4 py-3 text-xs font-mono text-emerald-400">
+          <div className="mt-6 rounded-2xl border border-emerald-250 bg-emerald-50 px-4 py-3 text-xs font-mono text-emerald-600">
             [OK] {statusMessage}
           </div>
         ) : null}
@@ -302,26 +302,26 @@ export default function BillingPage() {
         {purchaseOptions.map((option) => (
           <article
             key={option.id}
-            className={`rounded-[2rem] border p-6 backdrop-blur sm:p-8 flex flex-col justify-between ${
+            className={`rounded-[2rem] border p-6 sm:p-8 flex flex-col justify-between ${
               option.id === "power-plan"
-                ? "border-teal-500/30 bg-[#0D1527]/80 shadow-[0_0_20px_rgba(20,184,166,0.08)]"
-                : "bg-[#0D1527]/40 border-[#1C2C55]/50 shadow-md"
+                ? "border-teal-400 bg-white shadow-[0_8px_30px_rgba(20,184,166,0.04)]"
+                : "bg-white border-slate-200 shadow-[0_8px_30px_rgba(0,0,0,0.02)]"
             }`}
           >
             <div>
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h3 className="text-lg font-bold font-mono text-slate-100 uppercase tracking-tight">{option.title.split(" ")[1] || option.title}</h3>
-                  <p className="mt-2 text-xs leading-relaxed text-slate-400 font-sans">{option.description}</p>
+                  <h3 className="text-lg font-bold font-mono text-slate-900 uppercase tracking-tight">{option.title.split(" ")[1] || option.title}</h3>
+                  <p className="mt-2 text-xs leading-relaxed text-slate-500 font-sans">{option.description}</p>
                 </div>
                 <div className={`rounded-xl border p-2.5 ${
                   option.id === "starter-plan"
-                    ? "border-teal-500/20 bg-teal-950/20 text-teal-400"
+                    ? "border-teal-500/10 bg-teal-50/70 text-teal-600"
                     : option.id === "power-plan"
-                      ? "border-purple-500/20 bg-purple-950/20 text-purple-400"
+                      ? "border-purple-500/10 bg-purple-50/70 text-purple-600"
                       : option.id === "agency-suite"
-                        ? "border-rose-500/20 bg-rose-950/20 text-rose-400"
-                        : "border-[#1C2C55] bg-[#080C14] text-slate-400"
+                        ? "border-rose-500/10 bg-rose-50/70 text-rose-600"
+                        : "border-slate-200 bg-slate-50 text-slate-500"
                 }`}>
                   {option.id === "credit-topup" ? (
                     <Wallet className="h-4.5 w-4.5" />
@@ -331,9 +331,9 @@ export default function BillingPage() {
                 </div>
               </div>
 
-              <div className="mt-6 rounded-xl border border-[#1C2C55]/60 bg-[#080C14] p-4 font-mono">
-                <p className="text-2xl font-bold text-slate-100">{option.price}</p>
-                <p className="mt-1 text-[10px] text-slate-500 uppercase tracking-wider">
+              <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50/50 p-4 font-mono">
+                <p className="text-2xl font-bold text-slate-900">{option.price}</p>
+                <p className="mt-1 text-[10px] text-slate-400 uppercase tracking-wider">
                   {option.id === "starter-plan"
                     ? "100 runs / month"
                     : `+ ${option.credits.toLocaleString()} credits`}
@@ -342,8 +342,8 @@ export default function BillingPage() {
 
               <div className="mt-6 space-y-2.5">
                 {option.features.map((feature) => (
-                  <div key={feature} className="flex items-start gap-2.5 text-xs text-slate-400 font-sans">
-                    <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" />
+                  <div key={feature} className="flex items-start gap-2.5 text-xs text-slate-600 font-sans">
+                    <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-500" />
                     <span>{feature}</span>
                   </div>
                 ))}
@@ -356,8 +356,8 @@ export default function BillingPage() {
               disabled={isLoadingProfile || activePurchaseId === option.id}
               className={`mt-8 inline-flex w-full items-center justify-center gap-2 rounded-xl py-3 px-4 text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                 option.id === "power-plan"
-                  ? "bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white shadow-lg shadow-teal-500/15"
-                  : "bg-[#080C14] border border-[#1C2C55] text-slate-300 hover:text-slate-100 hover:bg-[#0D1527]"
+                  ? "bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white shadow-md shadow-teal-500/10"
+                  : "bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:bg-slate-50/50 hover:border-slate-300 shadow-sm"
               } disabled:cursor-not-allowed disabled:opacity-50`}
             >
               {activePurchaseId === option.id ? (
