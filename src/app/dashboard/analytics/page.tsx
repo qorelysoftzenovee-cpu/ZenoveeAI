@@ -231,11 +231,11 @@ export default function AnalyticsPage() {
               <BarChart3 className="h-5 w-5" />
             </div>
             <div>
-              <h2 className="text-lg font-bold font-mono text-slate-900 uppercase tracking-tight">
-                Analytics Console
+              <h2 className="text-lg font-bold text-slate-900 uppercase tracking-tight">
+                Workspace Analytics
               </h2>
               <p className="text-xs text-slate-500">
-                Workspace performance metrics, execution loads, and asset utilization
+                Performance statistics, template usage, and credit balances
               </p>
             </div>
           </div>
@@ -248,10 +248,10 @@ export default function AnalyticsPage() {
                   key={range}
                   type="button"
                   onClick={() => setTimeRange(range)}
-                  className={`rounded-lg px-3 py-1.5 text-[10px] font-bold font-mono uppercase tracking-wider transition-all cursor-pointer ${
+                  className={`rounded-lg px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer ${
                     timeRange === range
                       ? "bg-white text-slate-800 shadow-sm border border-slate-200/40"
-                      : "text-slate-400 hover:text-slate-650"
+                      : "text-slate-405 hover:text-slate-650"
                   }`}
                 >
                   {range === "7d" ? "7 Days" : range === "30d" ? "30 Days" : "All Time"}
@@ -267,7 +267,7 @@ export default function AnalyticsPage() {
               className="rounded-xl border border-slate-200 bg-white p-2.5 text-slate-500 hover:text-slate-900 transition-all cursor-pointer shadow-sm relative"
               title="Sync Statistics"
             >
-              <RefreshCw className={`h-4 w-4 ${refreshing ? "animate-spin text-indigo-650" : ""}`} />
+              <RefreshCw className={`h-4 w-4 ${refreshing ? "animate-spin text-indigo-655" : ""}`} />
             </button>
           </div>
         </div>
@@ -276,24 +276,24 @@ export default function AnalyticsPage() {
       {loading ? (
         <div className="flex flex-col items-center justify-center py-24 text-slate-400 gap-3">
           <RefreshCw className="h-6 w-6 animate-spin text-indigo-600" />
-          <p className="text-xs font-mono uppercase tracking-wider">Aggregating workspace logs...</p>
+          <p className="text-xs uppercase tracking-wider">Loading dashboard stats...</p>
         </div>
       ) : (
         <>
           {/* KPI Dashboard */}
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 sm:grid-cols-2 max-w-4xl">
             {/* Runs card */}
             <div className="rounded-2xl border border-slate-150/85 bg-white p-6 shadow-sm">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold font-mono tracking-wider text-slate-400 uppercase">// Execution Load</span>
+                <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">Total Generations</span>
                 <div className="rounded-lg bg-indigo-50 p-1.5 text-indigo-600">
                   <Activity className="h-4 w-4" />
                 </div>
               </div>
-              <p className="mt-4 text-3xl font-bold font-mono text-slate-900 tracking-tight">
+              <p className="mt-4 text-3xl font-bold text-slate-900 tracking-tight">
                 {stats.totalRuns}
               </p>
-              <div className="mt-2 flex items-center gap-1.5 text-[10px] font-mono text-slate-400">
+              <div className="mt-2 flex items-center gap-1.5 text-[10px] text-slate-400">
                 <span className="font-bold text-emerald-500 flex items-center gap-0.5">
                   <TrendingUp className="h-3 w-3" />
                   +12.4%
@@ -305,50 +305,18 @@ export default function AnalyticsPage() {
             {/* Credits Remaining */}
             <div className="rounded-2xl border border-slate-150/85 bg-white p-6 shadow-sm">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold font-mono tracking-wider text-slate-400 uppercase">// Credits Reserve</span>
+                <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">Credit Balance</span>
                 <div className="rounded-lg bg-emerald-50 p-1.5 text-emerald-600">
                   <Zap className="h-4 w-4" />
                 </div>
               </div>
-              <p className="mt-4 text-3xl font-bold font-mono text-slate-900 tracking-tight">
+              <p className="mt-4 text-3xl font-bold text-slate-900 tracking-tight">
                 {profile?.credits ?? 0}
               </p>
-              <div className="mt-2 flex items-center gap-1.5 text-[10px] font-mono text-slate-400">
+              <div className="mt-2 flex items-center gap-1.5 text-[10px] text-slate-400">
                 <span className="inline-flex rounded-full border border-indigo-100 bg-indigo-50 px-2 py-0.5 text-[8px] font-bold text-indigo-600 uppercase tracking-wider">
                   Tier: {profile?.tier ? profile.tier.toUpperCase() : "TRIAL"}
                 </span>
-              </div>
-            </div>
-
-            {/* Unique Tools */}
-            <div className="rounded-2xl border border-slate-150/85 bg-white p-6 shadow-sm">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold font-mono tracking-wider text-slate-400 uppercase">// Scope Range</span>
-                <div className="rounded-lg bg-amber-50 p-1.5 text-amber-700">
-                  <Terminal className="h-4 w-4" />
-                </div>
-              </div>
-              <p className="mt-4 text-3xl font-bold font-mono text-slate-900 tracking-tight">
-                {stats.uniqueTools}
-              </p>
-              <div className="mt-2 flex items-center gap-1.5 text-[10px] font-mono text-slate-400">
-                active system tools
-              </div>
-            </div>
-
-            {/* Equivalent Value Saved */}
-            <div className="rounded-2xl border border-slate-150/85 bg-white p-6 shadow-sm">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold font-mono tracking-wider text-slate-400 uppercase">// Value Generated</span>
-                <div className="rounded-lg bg-purple-50 p-1.5 text-purple-600">
-                  <Award className="h-4 w-4" />
-                </div>
-              </div>
-              <p className="mt-4 text-3xl font-bold font-mono text-slate-900 tracking-tight">
-                ${stats.creditsSaved}
-              </p>
-              <div className="mt-2 flex items-center gap-1.5 text-[10px] font-mono text-slate-400">
-                computed asset efficiency
               </div>
             </div>
           </div>
@@ -358,14 +326,14 @@ export default function AnalyticsPage() {
             {/* SVGs Daily Run timeline */}
             <div className="rounded-[1.75rem] border border-slate-150/85 bg-white p-6 shadow-sm lg:col-span-2">
               <div className="mb-6 flex items-center justify-between">
-                <span className="text-xs font-bold font-mono text-slate-800 uppercase tracking-wide">// Daily Run Statistics</span>
-                <span className="text-[10px] font-mono text-slate-400">Past {timeRange === "7d" ? "7 Days" : timeRange === "30d" ? "30 Days" : "Log Length"}</span>
+                <span className="text-xs font-bold text-slate-800 uppercase tracking-wide">Activity History</span>
+                <span className="text-[10px] text-slate-400">Past {timeRange === "7d" ? "7 Days" : timeRange === "30d" ? "30 Days" : "Log Length"}</span>
               </div>
 
               {stats.totalRuns === 0 ? (
                 <div className="flex h-[180px] flex-col items-center justify-center text-slate-350">
                   <Activity className="h-8 w-8 stroke-1" />
-                  <span className="text-[10px] font-mono mt-2">NO TIMELINE LOGS AVAILABLE</span>
+                  <span className="text-[10px] mt-2">NO TIMELINE LOGS AVAILABLE</span>
                 </div>
               ) : (
                 <div className="relative">
@@ -410,7 +378,7 @@ export default function AnalyticsPage() {
                   </svg>
 
                   {/* Horizontal Labels */}
-                  <div className="mt-3 flex justify-between px-1 text-[9px] font-mono text-slate-400">
+                  <div className="mt-3 flex justify-between px-1 text-[9px] text-slate-400">
                     <span>{stats.chartData[0]?.date}</span>
                     <span>{stats.chartData[Math.floor(stats.chartData.length / 2)]?.date}</span>
                     <span>{stats.chartData[stats.chartData.length - 1]?.date}</span>
@@ -419,14 +387,14 @@ export default function AnalyticsPage() {
               )}
             </div>
 
-            {/* Category breakdown pie / radial list */}
+            {/* Category breakdown list */}
             <div className="rounded-[1.75rem] border border-slate-150/85 bg-white p-6 shadow-sm">
-              <span className="text-xs font-bold font-mono text-slate-800 uppercase tracking-wide">// Category Ratios</span>
+              <span className="text-xs font-bold text-slate-800 uppercase tracking-wide">Template Distribution</span>
 
               {stats.categories.length === 0 ? (
-                <div className="flex h-[180px] flex-col items-center justify-center text-slate-350">
+                <div className="flex h-[180px] flex-col items-center justify-center text-slate-355">
                   <BarChart3 className="h-8 w-8 stroke-1" />
-                  <span className="text-[10px] font-mono mt-2">NO CATEGORIES RECORDED</span>
+                  <span className="text-[10px] mt-2">NO CATEGORIES RECORDED</span>
                 </div>
               ) : (
                 <div className="mt-6 space-y-4">
@@ -434,7 +402,7 @@ export default function AnalyticsPage() {
                     const color = getCategoryColor(c.name);
                     return (
                       <div key={c.name} className="space-y-1.5">
-                        <div className="flex justify-between items-center text-[10px] font-mono">
+                        <div className="flex justify-between items-center text-[10px]">
                           <span className="text-slate-655 font-bold uppercase">{c.name.split(" & ")[0]}</span>
                           <span className={`${color.text} font-bold`}>{c.count} ({c.percentage}%)</span>
                         </div>
@@ -456,18 +424,18 @@ export default function AnalyticsPage() {
             </div>
           </div>
 
-          {/* Popular tools and raw exports */}
+          {/* Popular tools and exports */}
           <div className="grid gap-6 md:grid-cols-2">
             {/* Top performing tools */}
             <div className="rounded-[1.75rem] border border-slate-150/85 bg-white p-6 shadow-sm">
               <div className="mb-4">
-                <span className="text-xs font-bold font-mono text-slate-800 uppercase tracking-wide">// Top Performing Tools</span>
+                <span className="text-xs font-bold text-slate-800 uppercase tracking-wide">Popular Templates</span>
               </div>
 
               {stats.popularTools.length === 0 ? (
                 <div className="flex py-12 flex-col items-center justify-center text-slate-350">
                   <Terminal className="h-8 w-8 stroke-1" />
-                  <span className="text-[10px] font-mono mt-2">NO EXECUTION SAMPLES</span>
+                  <span className="text-[10px] mt-2">NO DATA AVAILABLE</span>
                 </div>
               ) : (
                 <div className="space-y-3.5">
@@ -476,15 +444,15 @@ export default function AnalyticsPage() {
                     return (
                       <div key={t.id} className="flex items-center justify-between border-b border-slate-100 pb-3 last:border-0 last:pb-0">
                         <div className="flex items-center gap-3">
-                          <span className="text-xs font-bold font-mono text-slate-400">#0{idx + 1}</span>
+                          <span className="text-xs font-bold text-slate-400">#0{idx + 1}</span>
                           <div>
-                            <p className="text-xs font-bold text-slate-850 font-mono uppercase tracking-tight">{t.name}</p>
-                            <span className={`inline-block rounded px-1.5 py-0.5 text-[8px] font-bold font-mono uppercase tracking-wider ${colors.bg} ${colors.text} mt-0.5`}>
+                            <p className="text-xs font-bold text-slate-800 uppercase tracking-tight">{t.name}</p>
+                            <span className={`inline-block rounded px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider ${colors.bg} ${colors.text} mt-0.5`}>
                               {t.category.split(" & ")[0]}
                             </span>
                           </div>
                         </div>
-                        <span className="text-xs font-bold font-mono text-slate-700 bg-slate-50 border border-slate-150/70 px-2.5 py-1 rounded-xl">
+                        <span className="text-xs font-bold bg-slate-50 border border-slate-150 px-2.5 py-1 rounded-xl text-slate-700">
                           {t.count} runs
                         </span>
                       </div>
@@ -497,14 +465,14 @@ export default function AnalyticsPage() {
             {/* Export data widget */}
             <div className="rounded-[1.75rem] border border-slate-150/85 bg-white p-6 shadow-sm flex flex-col justify-between">
               <div>
-                <span className="text-xs font-bold font-mono text-slate-800 uppercase tracking-wide">// Data Export Node</span>
-                <p className="text-xs text-slate-500 mt-2 leading-relaxed">
-                  Export complete execution registers, telemetry parameters, and historical outputs for auditing.
+                <span className="text-xs font-bold text-slate-800 uppercase tracking-wide">Export Workspace Data</span>
+                <p className="text-xs text-slate-500 mt-2 leading-relaxed font-sans">
+                  Export complete execution history, parameters, and historical outputs for auditing.
                 </p>
-                <div className="mt-4 rounded-xl border border-slate-150 bg-slate-50 p-4 font-mono text-[9px] text-slate-400 space-y-1">
-                  <div>REGISTRY_POSTURE: ENCRYPTED</div>
-                  <div>LAST_SYNCED: {new Date().toLocaleTimeString()}</div>
-                  <div>COUNT: {history.length} OBJECTS</div>
+                <div className="mt-4 rounded-xl border border-slate-150 bg-slate-50 p-4 text-[10px] text-slate-500 space-y-1">
+                  <div>Status: Verified</div>
+                  <div>Last Updated: {new Date().toLocaleTimeString()}</div>
+                  <div>Logs Captured: {history.length} Entries</div>
                 </div>
               </div>
 
@@ -513,7 +481,7 @@ export default function AnalyticsPage() {
                   type="button"
                   onClick={handleExportJSON}
                   disabled={history.length === 0}
-                  className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-4 py-3 text-xs font-bold font-mono text-slate-650 uppercase tracking-wider transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                  className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-4 py-3 text-xs font-bold text-slate-600 uppercase tracking-wider transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
                 >
                   <Download className="h-3.5 w-3.5" />
                   JSON
@@ -522,7 +490,7 @@ export default function AnalyticsPage() {
                   type="button"
                   onClick={handleExportCSV}
                   disabled={history.length === 0}
-                  className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-4 py-3 text-xs font-bold font-mono text-slate-655 uppercase tracking-wider transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                  className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-4 py-3 text-xs font-bold text-slate-655 uppercase tracking-wider transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
                 >
                   <Download className="h-3.5 w-3.5" />
                   CSV

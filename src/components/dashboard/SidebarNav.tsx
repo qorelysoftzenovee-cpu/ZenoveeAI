@@ -54,15 +54,15 @@ export function SidebarNav({ isAdmin }: SidebarNavProps) {
   ];
 
   const allLinks = [
-    { category: "// Core Operations", links: operationsLinks },
-    { category: "// Insights & Updates", links: insightsLinks },
+    { category: "Workspace", links: operationsLinks },
+    { category: "Insights", links: insightsLinks },
   ];
 
   return (
     <div className="mx-6 mt-6 space-y-6">
       {allLinks.map((section) => (
         <div key={section.category} className="space-y-2">
-          <p className="px-3.5 text-[9px] font-bold font-mono text-slate-400 uppercase tracking-[0.2em]">
+          <p className="px-3.5 text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em]">
             {section.category}
           </p>
           <div className="space-y-1">
@@ -97,9 +97,10 @@ export function SidebarNav({ isAdmin }: SidebarNavProps) {
       {/* Category: Governance */}
       {isAdmin && (
         <div className="space-y-2">
-          <p className="px-3.5 text-[9px] font-bold font-mono text-slate-400 uppercase tracking-[0.2em]">
-            // Security Node
+          <p className="px-3.5 text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+            Settings & Security
           </p>
+
           <div>
             <Link
               href="/dashboard/admin"

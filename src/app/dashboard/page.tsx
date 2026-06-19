@@ -8,17 +8,17 @@ import { toolsConfig } from "@/utils/toolsConfig";
 import { TiltCard } from "@/components/ui/TiltCard";
 
 const tabs = [
-  { id: "all", label: "ALL COMMANDS" },
-  { id: "marketing", label: "MARKETING" },
-  { id: "dev", label: "DEV UTILITIES" },
-  { id: "analytics", label: "ANALYTICS" },
-  { id: "legal", label: "LEGAL" },
-  { id: "sales", label: "SALES" },
+  { id: "all", label: "All Templates" },
+  { id: "marketing", label: "Marketing" },
+  { id: "dev", label: "Utilities" },
+  { id: "analytics", label: "Analytics" },
+  { id: "legal", label: "Legal" },
+  { id: "sales", label: "Sales" },
 ] as const;
 
 function getTabClass(tabId: string, isActive: boolean) {
   if (!isActive) {
-    return "border-slate-200 bg-white text-slate-500 hover:bg-slate-50 hover:text-slate-800";
+    return "border-slate-200 bg-white text-slate-500 hover:bg-slate-50 hover:text-slate-850";
   }
   switch (tabId) {
     case "marketing":
@@ -32,9 +32,10 @@ function getTabClass(tabId: string, isActive: boolean) {
     case "sales":
       return "border-orange-300 bg-orange-50/70 text-orange-655 shadow-[0_2px_8px_rgba(249,115,22,0.03)]";
     default:
-      return "border-slate-300 bg-slate-50 text-slate-700 shadow-sm";
+      return "border-slate-350 bg-slate-50 text-slate-700 shadow-sm";
   }
 }
+
 
 function getCategoryTheme(category: string) {
   const cat = category.toLowerCase();
@@ -134,12 +135,12 @@ export default function DashboardPage() {
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Query system registry: enter keywords, categories, or tool IDs..."
-            className="w-full rounded-2xl border border-slate-200 bg-[#F8FAFC] pl-12 pr-20 py-4 text-sm text-slate-800 outline-none placeholder:text-slate-400 focus:border-teal-400 focus:ring-1 focus:ring-teal-400/25 transition-all font-mono shadow-inner"
+            placeholder="Search templates, writing tools, or economic estimators..."
+            className="w-full rounded-2xl border border-slate-200 bg-[#F8FAFC] pl-12 pr-20 py-4 text-sm text-slate-800 outline-none placeholder:text-slate-450 focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400/25 transition-all shadow-inner"
           />
           <div className="absolute right-4 hidden items-center gap-1 sm:flex">
-            <kbd className="rounded-md border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[10px] font-mono text-slate-400">Ctrl</kbd>
-            <kbd className="rounded-md border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[10px] font-mono text-slate-400">K</kbd>
+            <kbd className="rounded-md border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[10px] text-slate-450">Ctrl</kbd>
+            <kbd className="rounded-md border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[10px] text-slate-450">K</kbd>
           </div>
         </div>
 
@@ -151,7 +152,7 @@ export default function DashboardPage() {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id)}
-                className={`rounded-xl border px-4 py-2 text-xs font-bold font-mono tracking-wider transition-all duration-200 cursor-pointer ${getTabClass(tab.id, isActive)}`}
+                className={`rounded-xl border px-4 py-2 text-xs font-bold tracking-wider transition-all duration-200 cursor-pointer ${getTabClass(tab.id, isActive)}`}
               >
                 {tab.label}
               </button>
@@ -175,13 +176,13 @@ export default function DashboardPage() {
                 className="block p-6 text-slate-800 group"
               >
                 <div className="flex items-center justify-between">
-                  <span className={`inline-flex rounded-lg border px-2.5 py-1 text-[9px] font-bold font-mono tracking-widest uppercase ${theme.badge}`}>
+                  <span className={`inline-flex rounded-lg border px-2.5 py-1 text-[9px] font-bold tracking-widest uppercase ${theme.badge}`}>
                     {tool.category.split(" & ")[0]}
                   </span>
                   <Terminal className={`h-3.5 w-3.5 text-slate-400 transition-colors duration-200 ${theme.hoverIcon}`} />
                 </div>
 
-                <h3 className={`mt-4 text-base font-bold font-mono text-slate-900 transition-colors duration-200 uppercase tracking-tight flex items-center gap-1.5 ${theme.hoverText}`}>
+                <h3 className={`mt-4 text-base font-bold text-slate-900 transition-colors duration-200 tracking-tight flex items-center gap-1.5 ${theme.hoverText}`}>
                   {tool.name}
                   <ChevronRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-x-0 group-hover:translate-x-0.5" />
                 </h3>
