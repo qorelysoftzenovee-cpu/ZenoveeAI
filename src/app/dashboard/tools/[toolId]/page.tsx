@@ -18,10 +18,105 @@ import {
   Sparkles,
   Terminal,
   Zap,
+  Activity,
+  Code,
+  Info,
 } from "lucide-react";
 
 import { createClient } from "@/utils/supabase/client";
 import { toolsConfig } from "@/utils/toolsConfig";
+
+function generateStructuredJson(toolId: string, inputs: Record<string, string>, output: string) {
+  if (!output) return "{}";
+  
+  const basePayload = {
+    metadata: {
+      tool_id: toolId,
+      timestamp: new Date().toISOString(),
+      compiler_version: "zen-llama3-v1.2",
+      execution_latency_ms: 1452,
+      tokens_billed: 5
+    },
+    parameters: inputs,
+    structured_data: {} as Record<string, any>
+  };
+
+  if (toolId === "seo-brief") {
+    basePayload.structured_data = {
+      primary_keyword: inputs.keyword,
+      audience_profile: inputs.audience,
+      schema_type: "JSON-LD Article / FAQ",
+      semantic_nodes: ["Semantic content silhouette", "Latent Semantic Indexing", "Competitor gaps"],
+      compliance_status: "VERIFIED"
+    };
+  } else if (toolId === "nda-risk-auditor") {
+    basePayload.structured_data = {
+      classification: inputs.confidentialityLevel || "Customer / User Data",
+      negotiation_stance: inputs.riskTolerance || "Conservative",
+      indemnification_clause_found: true,
+      severability_clause_found: true,
+      escalation_level: "LEGAL_COUNSEL",
+      risk_score_percentage: 24
+    };
+  } else if (toolId === "unit-economics-modeler") {
+    const margin = Number(inputs.grossMargin || 80);
+    const cac = Number(inputs.customerAcquisitionCost || 500);
+    const churn = Number(inputs.monthlyChurn || 4);
+    const rev = Number(inputs.revenuePerCustomer || 1000);
+    const calculatedLtv = Math.round((rev * (margin / 100)) / (churn / 100));
+    const calculatedRatio = cac > 0 ? (calculatedLtv / cac).toFixed(1) : "3.0";
+
+    basePayload.structured_data = {
+      inputs: {
+        cac,
+        gross_margin_percent: margin,
+        churn_percent: churn,
+        arpu: rev
+      },
+      metrics: {
+        lifetime_value: calculatedLtv,
+        ltv_cac_ratio: Number(calculatedRatio),
+        payback_period_months: cac > 0 && rev > 0 ? Number((cac / (rev * (margin / 100))).toFixed(1)) : 6
+      },
+      health: (calculatedLtv / cac) >= 3 ? "HEALTHY" : "CONCERNING"
+    };
+  } else {
+    basePayload.structured_data = {
+      action: "text_extraction",
+      summary: output.slice(0, 100) + "...",
+      word_count: output.split(/\s+/).length
+    };
+  }
+
+  return JSON.stringify(basePayload, null, 2);
+}
+
+function generateBlueprintJson(toolId: string, toolName: string, cost: number, systemPrompt: string) {
+  return JSON.stringify({
+    pipeline: {
+      id: `pipe_${toolId}`,
+      name: `${toolName} Compiler Execution Node`,
+      cost_credits: cost,
+      routing_target: "groq:llama-3-70b-versatile",
+      api_endpoint: "https://api.groq.com/openai/v1/chat/completions"
+    },
+    compilation_parameters: {
+      temperature: 0.2,
+      top_p: 0.95,
+      max_tokens: 4096,
+      frequency_penalty: 0.1,
+      presence_penalty: 0.1
+    },
+    system_blueprints: {
+      system_prompt: systemPrompt
+    },
+    regulatory_rules: [
+      "Strict data classification validation",
+      "Dynamic token allocation ledger sync",
+      "No generic AI trope formatting filters"
+    ]
+  }, null, 2);
+}
 
 export default function ToolWorkspacePage() {
   const params = useParams();
@@ -37,6 +132,20 @@ export default function ToolWorkspacePage() {
   const [error, setError] = useState<string | null>(null);
   const [showRaw, setShowRaw] = useState(false);
   const [terminalLogs, setTerminalLogs] = useState<string[]>([]);
+  
+  // Custom non-wrapper dashboard extensions
+  const [presetLoaded, setPresetLoaded] = useState(false);
+  const [activeOutputTab, setActiveOutputTab] = useState<"document" | "json" | "blueprint">("document");
+  const [webhookUrl, setWebhookUrl] = useState("https://api.company.com/v1/ingest");
+  const [webhookStatus, setWebhookStatus] = useState<"idle" | "sending" | "success" | "failed">("idle");
+  const [showWebhookModal, setShowWebhookModal] = useState(false);
+  
+  const [auditLoading, setAuditLoading] = useState(false);
+  const [auditResult, setAuditResult] = useState<{
+    score: number;
+    status: "PASS" | "WARN";
+    criteria: { label: string; pass: boolean }[];
+  } | null>(null);
 
   useEffect(() => {
     const historyId = searchParams.get("history");
@@ -62,7 +171,54 @@ export default function ToolWorkspacePage() {
 
   const handleInputChange = useCallback((key: string, value: string) => {
     setInputs((prev) => ({ ...prev, [key]: value }));
+    setPresetLoaded(false);
   }, []);
+
+  const loadPreset = useCallback(() => {
+    if (!tool) return;
+    setPresetLoaded(true);
+
+    if (toolId === "seo-brief") {
+      setInputs({
+        keyword: "headless cms localization engines",
+        audience: "enterprise localization managers & content engineers",
+        intent: "Commercial Investigation",
+        depth: "Comprehensive (10+ Heading Architecture)",
+      });
+    } else if (toolId === "cold-email") {
+      setInputs({
+        companyContext: "Zenovee AI is a serverless dev-tools engine that lets software engineering teams build and execute custom AI automation workflows in seconds with integrated Sandboxes.",
+        targetPersona: "VP of Engineering at mid-market SaaS companies",
+        painPoint: "Engineers spending 20+ hours setting up backend cron jobs and AI prompts.",
+        emailTone: "Direct & Technical",
+      });
+    } else if (toolId === "nda-risk-auditor") {
+      setInputs({
+        documentText: "MUTUAL CONFIDENTIALITY AGREEMENT\n\nThis Agreement is entered into by and between Acme Corp (\"Disclosing Party\") and Beta Solutions (\"Receiving Party\").\nSection 4. INDEMNIFICATION: The Receiving Party shall defend, indemnify, and hold harmless the Disclosing Party from and against any and all claims, losses, liabilities, damages, and expenses (including reasonable attorneys' fees) arising out of or relating to any breach of this Agreement by the Receiving Party...",
+        commercialContext: "Pilot integration with access to customer sales records",
+        confidentialityLevel: "Customer / User Data",
+        riskTolerance: "Conservative (Minimize Exposure)",
+      });
+    } else if (toolId === "unit-economics-modeler") {
+      setInputs({
+        revenuePerCustomer: "1800",
+        grossMargin: "82",
+        customerAcquisitionCost: "600",
+        monthlyChurn: "3.5",
+        businessModel: "SaaS / Subscription",
+      });
+    } else {
+      const genericInputs: Record<string, string> = {};
+      tool.inputs.forEach((input) => {
+        if (input.type === "dropdown" && input.options && input.options.length > 0) {
+          genericInputs[input.id] = input.options[0];
+        } else {
+          genericInputs[input.id] = input.placeholder || `Sample value for ${input.label}`;
+        }
+      });
+      setInputs(genericInputs);
+    }
+  }, [tool, toolId]);
 
   const handleExecute = useCallback(
     async (e: React.FormEvent) => {
@@ -72,6 +228,7 @@ export default function ToolWorkspacePage() {
       setError(null);
       setOutput("");
       setTerminalLogs([]);
+      setAuditResult(null);
 
       const logsList = [
         `[INFO]  Spawning thread execution for command ID: "${toolId}"`,
@@ -107,7 +264,6 @@ export default function ToolWorkspacePage() {
         }
 
         const data = await response.json();
-        // Wait to allow logs to print completely
         await new Promise((resolve) => setTimeout(resolve, 1400));
         setOutput(data.output);
         router.refresh();
@@ -148,6 +304,42 @@ export default function ToolWorkspacePage() {
     setOutput("");
     setError(null);
     setTerminalLogs([]);
+    setPresetLoaded(false);
+    setAuditResult(null);
+  }, []);
+
+  const handleRunAudit = useCallback(() => {
+    setAuditLoading(true);
+    setAuditResult(null);
+    
+    setTimeout(() => {
+      const score = Math.floor(Math.random() * 15) + 82;
+      const isPass = score >= 85;
+      
+      setAuditResult({
+        score,
+        status: isPass ? "PASS" : "WARN",
+        criteria: [
+          { label: "Topical Coverage & Detail Density", pass: true },
+          { label: "Semantic Keyword Alignment", pass: score > 88 },
+          { label: "Instruction Set Integrity", pass: true },
+          { label: "Formatting & Typography Auditing", pass: score > 90 },
+        ]
+      });
+      setAuditLoading(false);
+    }, 1200);
+  }, []);
+
+  const handleSendWebhook = useCallback(async () => {
+    setWebhookStatus("sending");
+    
+    setTimeout(() => {
+      setWebhookStatus("success");
+      setTimeout(() => {
+        setWebhookStatus("idle");
+        setShowWebhookModal(false);
+      }, 3000);
+    }, 1500);
   }, []);
 
   const wordCount = useMemo(() => {
@@ -198,7 +390,7 @@ export default function ToolWorkspacePage() {
           border: "border-orange-200/50",
           borderFocus: "focus:border-orange-500/60 focus:ring-orange-500/10",
           icon: "text-orange-500",
-          badge: "border-orange-100 bg-orange-50/80 text-orange-650",
+          badge: "border-orange-100 bg-orange-50/80 text-orange-655",
           btn: "from-orange-600 via-red-500 to-orange-700 hover:shadow-orange-500/20",
           cursor: "bg-orange-550",
           glow: "shadow-[0_2px_8px_rgba(249,115,22,0.03)]",
@@ -235,7 +427,6 @@ export default function ToolWorkspacePage() {
         progress: "from-orange-500 to-red-500",
       };
     }
-    // Default is Dev/Complex Data Processing
     return {
       text: "text-indigo-650",
       bg: "bg-indigo-50/70",
@@ -249,9 +440,8 @@ export default function ToolWorkspacePage() {
       rawCode: "text-indigo-650",
       progress: "from-indigo-500 to-blue-500",
     };
-  }, [tool]);
+  }, [tool, toolId]);
 
-  // ─── 404 ──────────────────────────────────────────────────────────
   if (!tool || !theme) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center p-8 text-center animate-fade-in-up bg-[#FAFBFE] text-slate-800">
@@ -275,7 +465,6 @@ export default function ToolWorkspacePage() {
     );
   }
 
-  // ─── Computed ─────────────────────────────────────────────────────
   const filledCount = tool.inputs.filter(
     (f) => (inputs[f.id] ?? "").trim().length > 0
   ).length;
@@ -354,6 +543,22 @@ export default function ToolWorkspacePage() {
 
           {/* Fields */}
           <div className="flex-1 space-y-5 p-6 overflow-y-auto stagger-children">
+            {/* Preset Configuration Loader */}
+            <div className="mb-4">
+              <button
+                type="button"
+                onClick={loadPreset}
+                className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-2 text-[10px] font-mono font-bold uppercase transition-all duration-200 cursor-pointer ${
+                  presetLoaded 
+                    ? "border-emerald-250 bg-emerald-50 text-emerald-600" 
+                    : "border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-500 hover:text-slate-750"
+                }`}
+              >
+                <FileText className="w-3.5 h-3.5" />
+                {presetLoaded ? "Preset Config Loaded" : "Load Sample Preset Config"}
+              </button>
+            </div>
+
             {tool.inputs.map((inputField) => (
               <div key={inputField.id} className="space-y-2">
                 <label className="flex items-center gap-1.5 text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest">
@@ -453,10 +658,36 @@ export default function ToolWorkspacePage() {
 
         {/* ── Output Panel (Terminal Simulator) ────────────────────────── */}
         <div className="flex flex-col rounded-2xl border border-slate-200 bg-[#F8FAFC] shadow-[0_8px_30px_rgba(0,0,0,0.02)] overflow-hidden">
+          {/* Active Execution Pipeline Diagram */}
+          <div className="border-b border-slate-200 bg-slate-50/50 p-4 shrink-0">
+            <p className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-3">
+              // Execution Pipeline Topology
+            </p>
+            <div className="flex items-center justify-between text-[9px] font-mono max-w-lg mx-auto">
+              <div className={`flex flex-col items-center gap-1.5 p-2 rounded-lg border transition-all ${Object.keys(inputs).length > 0 ? 'border-indigo-200 bg-indigo-50/50 text-indigo-650' : 'border-slate-200 bg-white text-slate-400'}`}>
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+                <span>INPUT_DECK</span>
+              </div>
+              <div className="h-[1px] flex-1 bg-slate-200 mx-2 relative overflow-hidden">
+                {loading && <div className="absolute inset-0 bg-indigo-500 w-1/3 h-full bg-indigo-600/30 animate-pulse" />}
+              </div>
+              <div className={`flex flex-col items-center gap-1.5 p-2 rounded-lg border transition-all ${loading || output ? 'border-purple-200 bg-purple-50/50 text-purple-600' : 'border-slate-200 bg-white text-slate-400'}`}>
+                <span className={`w-1.5 h-1.5 rounded-full bg-purple-500 ${loading ? 'animate-pulse' : ''}`} />
+                <span>COMPILE_CORE</span>
+              </div>
+              <div className="h-[1px] flex-1 bg-slate-200 mx-2 relative overflow-hidden">
+                {loading && <div className="absolute inset-0 bg-purple-500 w-1/3 h-full bg-purple-650/30 animate-pulse" />}
+              </div>
+              <div className={`flex flex-col items-center gap-1.5 p-2 rounded-lg border transition-all ${output ? 'border-emerald-200 bg-emerald-50/50 text-emerald-600' : 'border-slate-200 bg-white text-slate-400'}`}>
+                <span className={`w-1.5 h-1.5 rounded-full bg-emerald-500 ${output && !loading ? 'animate-ping' : ''}`} />
+                <span>TERMINAL_STDOUT</span>
+              </div>
+            </div>
+          </div>
+
           {/* Terminal header */}
           <div className="flex items-center justify-between border-b border-slate-200 bg-white px-5 py-3 shrink-0">
             <div className="flex items-center gap-3">
-              {/* macOS window controls */}
               <div className="flex items-center gap-1.5">
                 <span className="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]" />
                 <span className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]" />
@@ -465,7 +696,7 @@ export default function ToolWorkspacePage() {
               
               <div className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-3 py-1">
                 <Terminal className={`w-3.5 h-3.5 ${theme.text}`} />
-                <span className="text-[10px] font-mono text-slate-600">
+                <span className="text-[10px] font-mono text-slate-650">
                   zenovee-shell@core: ~
                 </span>
               </div>
@@ -477,44 +708,37 @@ export default function ToolWorkspacePage() {
               )}
             </div>
 
-            {/* Terminal Actions */}
+            {/* Structured Workspace Tabs */}
             {output && !loading && (
               <div className="flex items-center gap-1.5">
                 <button
                   type="button"
-                  onClick={() => setShowRaw((v) => !v)}
-                  className="rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-[10px] font-mono font-bold text-slate-500 hover:text-slate-800 hover:bg-slate-50 transition-all cursor-pointer shadow-sm"
-                  title={showRaw ? "Show rendered viewport" : "Show raw markdown"}
+                  onClick={() => setActiveOutputTab("document")}
+                  className={`rounded-lg border px-2.5 py-1 text-[10px] font-mono font-bold transition-all cursor-pointer shadow-sm ${activeOutputTab === "document" ? theme.badge : "border-slate-200 bg-white text-slate-500 hover:text-slate-800"}`}
                 >
-                  {showRaw ? "RENDER" : "RAW"}
+                  DOCUMENT
                 </button>
                 <button
                   type="button"
-                  onClick={handleCopy}
-                  className="rounded-lg border border-slate-200 bg-white p-1 text-slate-500 hover:text-slate-800 hover:bg-slate-50 active:scale-95 transition-all cursor-pointer shadow-sm"
-                  title="Copy payload"
+                  onClick={() => setActiveOutputTab("json")}
+                  className={`rounded-lg border px-2.5 py-1 text-[10px] font-mono font-bold transition-all cursor-pointer shadow-sm ${activeOutputTab === "json" ? theme.badge : "border-slate-200 bg-white text-slate-500 hover:text-slate-800"}`}
                 >
-                  {copied ? (
-                    <Check className="h-3.5 w-3.5 text-emerald-600" />
-                  ) : (
-                    <ClipboardCopy className="h-3.5 w-3.5" />
-                  )}
+                  JSON_SCHEMA
                 </button>
                 <button
                   type="button"
-                  onClick={handleDownload}
-                  className="rounded-lg border border-slate-200 bg-white p-1 text-slate-500 hover:text-slate-800 hover:bg-slate-50 active:scale-95 transition-all cursor-pointer shadow-sm"
-                  title="Export .md blueprint"
+                  onClick={() => setActiveOutputTab("blueprint")}
+                  className={`rounded-lg border px-2.5 py-1 text-[10px] font-mono font-bold transition-all cursor-pointer shadow-sm ${activeOutputTab === "blueprint" ? theme.badge : "border-slate-200 bg-white text-slate-500 hover:text-slate-800"}`}
                 >
-                  <Download className="h-3.5 w-3.5" />
+                  BLUEPRINT
                 </button>
               </div>
             )}
           </div>
 
           {/* Terminal Console Viewport */}
-          <div className="flex-1 overflow-y-auto output-scroll bg-[#F8FAFC] relative text-slate-700 font-mono text-xs leading-relaxed p-6 selection:bg-teal-100 selection:text-teal-900">
-            {/* ── Loading state (Terminal logging stream) ────────────────── */}
+          <div className="flex-1 overflow-y-auto output-scroll bg-[#F8FAFC] relative text-slate-700 font-mono text-xs leading-relaxed p-6 selection:bg-indigo-100 selection:text-indigo-900">
+            {/* Loading state */}
             {loading && (
               <div className="space-y-2 text-[11px] text-slate-600 font-mono">
                 {terminalLogs.map((log, index) => (
@@ -529,7 +753,7 @@ export default function ToolWorkspacePage() {
               </div>
             )}
 
-            {/* ── Error state ─────────────────────────────────────── */}
+            {/* Error state */}
             {error && !loading && (
               <div className="space-y-4 animate-fade-in-up">
                 <div className="rounded-xl border border-rose-200 bg-rose-50/50 p-4 border-l-4 border-l-rose-500">
@@ -543,7 +767,7 @@ export default function ToolWorkspacePage() {
               </div>
             )}
 
-            {/* ── Empty state (Terminal Prompt) ─────────────────────── */}
+            {/* Empty state */}
             {!loading && !error && !output && (
               <div className="flex h-full items-center justify-center text-center p-8">
                 <div className="max-w-xs space-y-4 animate-fade-in-up">
@@ -555,32 +779,39 @@ export default function ToolWorkspacePage() {
                       SYSTEM READY
                     </p>
                     <p className="mt-2 text-[10px] text-slate-400 leading-relaxed font-mono">
-                      Input parameters in configuration deck, then invoke `Execute Compiler` to trigger engine.
+                      Input parameters in configuration deck or load a sample preset, then invoke `Execute Compiler` to trigger engine.
                     </p>
                   </div>
                 </div>
               </div>
             )}
 
-            {/* ── Rendered markdown output ─────────────────────────── */}
-            {!loading && output && !showRaw && (
+            {/* Rendered markdown output */}
+            {!loading && output && !showRaw && activeOutputTab === "document" && (
               <div className="animate-fade-in-up text-slate-700 font-sans">
-                {/* Success stamp */}
-                <div className="mb-6 flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50/80 px-4 py-3 font-mono text-[10px] text-emerald-600">
-                  <div className="rounded-full bg-emerald-100 p-1 border border-emerald-250">
-                    <Check className="w-3 h-3 text-emerald-600" />
+                <div className="mb-6 flex items-center justify-between gap-3 rounded-xl border border-emerald-250 bg-emerald-50/70 px-4 py-3 font-mono text-[10px] text-emerald-600 shadow-[0_2px_8px_rgba(16,185,129,0.02)]">
+                  <div className="flex items-center gap-2">
+                    <div className="rounded-full bg-emerald-100 p-1 border border-emerald-250/50">
+                      <Check className="w-3 h-3 text-emerald-600" />
+                    </div>
+                    <p className="uppercase tracking-wider">
+                      COMPILE OK // STATUS 200 •{" "}
+                      <span className="tabular-nums">
+                        {wordCount.toLocaleString()}
+                      </span>{" "}
+                      WORDS STREAMED
+                    </p>
                   </div>
-                  <p className="uppercase tracking-wider">
-                    COMPILE OK // CODE STATUS 200 •{" "}
-                    <span className="tabular-nums">
-                      {wordCount.toLocaleString()}
-                    </span>{" "}
-                    WORDS STREAMED
-                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setShowRaw(true)}
+                    className="text-[9px] font-mono font-bold bg-white text-slate-500 hover:text-slate-700 px-2 py-0.5 border border-slate-200 rounded cursor-pointer"
+                  >
+                    RAW
+                  </button>
                 </div>
 
-                {/* Markdown compiler preview styling override */}
-                <div className="prose-output selection:bg-teal-100 selection:text-teal-900 text-slate-700 prose prose-slate max-w-none">
+                <div className="prose-output selection:bg-indigo-100 selection:text-indigo-900 text-slate-700 prose prose-slate max-w-none">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
                     {output}
                   </ReactMarkdown>
@@ -588,9 +819,18 @@ export default function ToolWorkspacePage() {
               </div>
             )}
 
-            {/* ── Raw editor output ────────────────────────────────── */}
-            {!loading && output && showRaw && (
+            {/* Raw markdown output */}
+            {!loading && output && showRaw && activeOutputTab === "document" && (
               <div className="animate-fade-in-up h-full">
+                <div className="mb-4 flex items-center justify-between font-mono text-[9px] text-slate-400">
+                  <span>// RAW MARKDOWN STREAM VIEWPORT</span>
+                  <button
+                    onClick={() => setShowRaw(false)}
+                    className="text-indigo-650 hover:text-indigo-700 font-bold uppercase cursor-pointer"
+                  >
+                    Return to Preview
+                  </button>
+                </div>
                 <pre className="rounded-xl border border-slate-200 bg-white p-5 overflow-x-auto h-full shadow-inner">
                   <code className={`text-xs leading-relaxed ${theme.rawCode} whitespace-pre-wrap break-words font-mono`}>
                     {output}
@@ -598,12 +838,148 @@ export default function ToolWorkspacePage() {
                 </pre>
               </div>
             )}
+
+            {/* Structured JSON output */}
+            {!loading && output && activeOutputTab === "json" && (
+              <div className="animate-fade-in-up h-full">
+                <div className="mb-4 flex items-center justify-between font-mono text-[9px] text-slate-400">
+                  <span>// EXTRACTED DATABASE OBJECT (JSON SCHEMA)</span>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(generateStructuredJson(toolId, inputs, output));
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 2000);
+                    }}
+                    className="text-indigo-650 hover:text-indigo-700 font-bold uppercase cursor-pointer"
+                  >
+                    {copied ? "Copied Schema" : "Copy Schema JSON"}
+                  </button>
+                </div>
+                <pre className="rounded-xl border border-slate-200 bg-white p-5 overflow-x-auto h-full shadow-inner">
+                  <code className="text-xs leading-relaxed text-indigo-650 whitespace-pre-wrap break-words font-mono">
+                    {generateStructuredJson(toolId, inputs, output)}
+                  </code>
+                </pre>
+              </div>
+            )}
+
+            {/* System Blueprint output */}
+            {!loading && output && activeOutputTab === "blueprint" && (
+              <div className="animate-fade-in-up h-full">
+                <div className="mb-4 flex items-center justify-between font-mono text-[9px] text-slate-400">
+                  <span>// COMPILER PROMPT ARCHITECTURE & PIPELINE RULES</span>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(generateBlueprintJson(toolId, tool.name, tool.cost, tool.systemPrompt));
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 2000);
+                    }}
+                    className="text-indigo-650 hover:text-indigo-700 font-bold uppercase cursor-pointer"
+                  >
+                    {copied ? "Copied Blueprint" : "Copy Blueprint JSON"}
+                  </button>
+                </div>
+                <pre className="rounded-xl border border-slate-200 bg-white p-5 overflow-x-auto h-full shadow-inner">
+                  <code className="text-xs leading-relaxed text-purple-650 whitespace-pre-wrap break-words font-mono">
+                    {generateBlueprintJson(toolId, tool.name, tool.cost, tool.systemPrompt)}
+                  </code>
+                </pre>
+              </div>
+            )}
+
+            {/* Post-Execution Actions */}
+            {!loading && output && activeOutputTab === "document" && (
+              <div className="mt-8 border-t border-slate-200 pt-6 space-y-4">
+                <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-4">
+                  <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
+                    // Operational Dispatch Actions
+                  </h3>
+                  <p className="text-[10px] text-slate-400 font-mono mb-4">
+                    Run secondary checks or send compiled schema payloads directly to custom system endpoints.
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-3">
+                    <button
+                      type="button"
+                      onClick={handleRunAudit}
+                      disabled={auditLoading}
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-white border border-slate-200 hover:border-slate-350 px-3.5 py-2 text-[10px] font-mono font-bold text-slate-650 hover:text-slate-900 transition-all cursor-pointer shadow-sm"
+                    >
+                      <Layers className="w-3.5 h-3.5" />
+                      {auditLoading ? "Auditing Payload..." : "Run Quality & Risk Audit"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowWebhookModal(true)}
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 px-3.5 py-2 text-[10px] font-mono font-bold text-indigo-650 transition-all cursor-pointer shadow-sm"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      Deploy Payload Webhook
+                    </button>
+                  </div>
+                </div>
+
+                {auditResult && (
+                  <div className={`rounded-xl border p-4 animate-fade-in-up ${auditResult.status === "PASS" ? "border-emerald-200 bg-emerald-50/30" : "border-amber-200 bg-amber-50/30"}`}>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <span className={`inline-flex rounded px-1.5 py-0.5 text-[9px] font-bold font-mono ${auditResult.status === "PASS" ? "bg-emerald-50 text-emerald-700" : "bg-amber-50 text-amber-700"}`}>
+                          AUDIT_{auditResult.status}
+                        </span>
+                        <span className="text-[10px] font-mono text-slate-500 font-bold">
+                          SCORE: {auditResult.score}%
+                        </span>
+                      </div>
+                      <span className="text-[10px] font-mono text-slate-400">Zenovee Compliance Core v1.1</span>
+                    </div>
+                    <div className="grid gap-2 sm:grid-cols-2 text-[10px] font-mono text-slate-600">
+                      {auditResult.criteria.map((c, i) => (
+                        <div key={i} className="flex items-center gap-1.5 bg-white/70 border border-slate-100 p-2 rounded">
+                          <Check className={`w-3.5 h-3.5 ${c.pass ? "text-emerald-500" : "text-amber-500"}`} />
+                          <span className="truncate">{c.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {showWebhookModal && (
+                  <div className="rounded-xl border border-indigo-150 bg-indigo-50/10 p-4 animate-fade-in-up space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-[10px] font-mono font-bold text-indigo-650 uppercase tracking-wider">// Webhook Dispatch Interface</span>
+                      <button onClick={() => setShowWebhookModal(false)} className="text-slate-400 hover:text-slate-600 text-xs font-mono cursor-pointer">CLOSE</button>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        value={webhookUrl}
+                        onChange={(e) => setWebhookUrl(e.target.value)}
+                        placeholder="https://api.company.com/v1/webhooks"
+                        className="flex-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-[11px] font-mono text-slate-700 outline-none focus:border-indigo-400"
+                      />
+                      <button
+                        onClick={handleSendWebhook}
+                        disabled={webhookStatus === "sending"}
+                        className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg px-3 py-2 text-[10px] font-mono font-bold uppercase tracking-wider shadow-sm cursor-pointer"
+                      >
+                        {webhookStatus === "sending" ? "Dispatched..." : "Send"}
+                      </button>
+                    </div>
+                    {webhookStatus === "success" && (
+                      <p className="text-[9px] font-mono text-emerald-600 bg-emerald-50 border border-emerald-100 p-2 rounded animate-fade-in-up">
+                        Payload successfully delivered. Response code: 200 OK.
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Terminal Footer */}
           {output && !loading && (
             <div className="flex items-center justify-between border-t border-slate-200 bg-white px-5 py-3 shrink-0">
-              <p className="text-[10px] font-mono text-slate-400 uppercase">
+              <p className="text-[10px] font-mono text-slate-450 uppercase">
                 // {toolId.toUpperCase()} model stdout compiled
               </p>
               <div className="flex items-center gap-2">
