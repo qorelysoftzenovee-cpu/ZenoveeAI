@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Clock, CreditCard, LayoutGrid, Megaphone, Shield } from "lucide-react";
+import { Clock, CreditCard, LayoutGrid, BarChart3, Shield } from "lucide-react";
 
 interface SidebarNavProps {
   isAdmin: boolean;
@@ -43,10 +43,10 @@ export function SidebarNav({ isAdmin }: SidebarNavProps) {
       iconColor: "text-teal-500",
     },
     {
-      href: "/dashboard/changelog",
-      label: "Changelog",
-      icon: Megaphone,
-      active: pathname === "/dashboard/changelog",
+      href: "/dashboard/analytics",
+      label: "Workspace Analytics",
+      icon: BarChart3,
+      active: pathname === "/dashboard/analytics",
       activeClass: "bg-violet-50/70 text-violet-600 border-violet-200/40 shadow-[0_4px_12px_rgba(139,92,246,0.03)]",
       indicatorClass: "bg-violet-500 shadow-[0_0_8px_rgba(139,92,246,0.3)]",
       iconColor: "text-violet-500",
