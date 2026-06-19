@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CreditCard, FileJson, LayoutGrid, Shield, Terminal } from "lucide-react";
+import { Clock, CreditCard, LayoutGrid, Megaphone, Shield } from "lucide-react";
 
 interface SidebarNavProps {
   isAdmin: boolean;
@@ -32,90 +32,67 @@ export function SidebarNav({ isAdmin }: SidebarNavProps) {
     },
   ];
 
-  const devLinks = [
+  const insightsLinks = [
     {
-      href: "#",
-      label: "API Reference",
-      icon: FileJson,
-      active: false,
-      activeClass: "",
-      indicatorClass: "",
-      iconColor: "",
+      href: "/dashboard/history",
+      label: "Usage History",
+      icon: Clock,
+      active: pathname === "/dashboard/history",
+      activeClass: "bg-teal-50/70 text-teal-600 border-teal-200/40 shadow-[0_4px_12px_rgba(20,184,166,0.03)]",
+      indicatorClass: "bg-teal-500 shadow-[0_0_8px_rgba(20,184,166,0.3)]",
+      iconColor: "text-teal-500",
     },
     {
-      href: "#",
-      label: "System Logs",
-      icon: Terminal,
-      active: false,
-      activeClass: "",
-      indicatorClass: "",
-      iconColor: "",
+      href: "/dashboard/changelog",
+      label: "Changelog",
+      icon: Megaphone,
+      active: pathname === "/dashboard/changelog",
+      activeClass: "bg-violet-50/70 text-violet-600 border-violet-200/40 shadow-[0_4px_12px_rgba(139,92,246,0.03)]",
+      indicatorClass: "bg-violet-500 shadow-[0_0_8px_rgba(139,92,246,0.3)]",
+      iconColor: "text-violet-500",
     },
+  ];
+
+  const allLinks = [
+    { category: "// Core Operations", links: operationsLinks },
+    { category: "// Insights & Updates", links: insightsLinks },
   ];
 
   return (
     <div className="mx-6 mt-6 space-y-6">
-      {/* Category: General Operations */}
-      <div className="space-y-2">
-        <p className="px-3.5 text-[9px] font-bold font-mono text-slate-400 uppercase tracking-[0.2em]">
-          // Core Operations
-        </p>
-        <div className="space-y-1">
-          {operationsLinks.map((link) => {
-            const Icon = link.icon;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-xs font-semibold transition-all duration-200 border relative overflow-hidden group ${
-                  link.active
-                    ? link.activeClass
-                    : "text-slate-500 border-transparent hover:bg-slate-50 hover:text-slate-900 hover:border-slate-100"
-                }`}
-              >
-                {link.active && (
-                  <span className={`absolute left-0 top-0 bottom-0 w-1 rounded-r ${link.indicatorClass}`} />
-                )}
-                <Icon
-                  className={`h-4 w-4 transition-colors duration-200 ${
-                    link.active ? link.iconColor : "text-slate-400 group-hover:text-slate-650"
+      {allLinks.map((section) => (
+        <div key={section.category} className="space-y-2">
+          <p className="px-3.5 text-[9px] font-bold font-mono text-slate-400 uppercase tracking-[0.2em]">
+            {section.category}
+          </p>
+          <div className="space-y-1">
+            {section.links.map((link) => {
+              const Icon = link.icon;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-xs font-semibold transition-all duration-200 border relative overflow-hidden group ${
+                    link.active
+                      ? link.activeClass
+                      : "text-slate-500 border-transparent hover:bg-slate-50 hover:text-slate-900 hover:border-slate-100"
                   }`}
-                />
-                <span className="font-mono uppercase tracking-wider">{link.label}</span>
-              </Link>
-            );
-          })}
+                >
+                  {link.active && (
+                    <span className={`absolute left-0 top-0 bottom-0 w-1 rounded-r ${link.indicatorClass}`} />
+                  )}
+                  <Icon
+                    className={`h-4 w-4 transition-colors duration-200 ${
+                      link.active ? link.iconColor : "text-slate-400 group-hover:text-slate-650"
+                    }`}
+                  />
+                  <span className="font-mono uppercase tracking-wider">{link.label}</span>
+                </Link>
+              );
+            })}
+          </div>
         </div>
-      </div>
-
-      {/* Category: Developer Tools */}
-      <div className="space-y-2">
-        <p className="px-3.5 text-[9px] font-bold font-mono text-slate-400 uppercase tracking-[0.2em]">
-          // Developer Kits
-        </p>
-        <div className="space-y-1">
-          {devLinks.map((link) => {
-            const Icon = link.icon;
-            return (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={(e) => {
-                  if (link.href === "#") {
-                    e.preventDefault();
-                    alert("This dashboard node is locked to sandbox environment.");
-                  }
-                }}
-                className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-slate-400 border border-transparent hover:bg-slate-50/50 hover:text-slate-700 hover:border-slate-100/50 transition-all duration-200 group relative cursor-pointer"
-              >
-                <Icon className="h-4 w-4 text-slate-350 group-hover:text-slate-500" />
-                <span className="font-mono uppercase tracking-wider">{link.label}</span>
-                <span className="ml-auto text-[8px] font-mono bg-slate-100 text-slate-400 px-1 py-0.5 rounded border border-slate-200/40">MOCK</span>
-              </a>
-            );
-          })}
-        </div>
-      </div>
+      ))}
 
       {/* Category: Governance */}
       {isAdmin && (
@@ -148,3 +125,4 @@ export function SidebarNav({ isAdmin }: SidebarNavProps) {
     </div>
   );
 }
+
