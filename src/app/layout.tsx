@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -13,25 +14,25 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Zenovee AI | The Ultimate AI Operating System",
-    template: "%s | Zenovee AI",
+    default: "Zenovee Free Suite | 50+ Free Client-Side Developer & Growth Utilities",
+    template: "%s | Zenovee Free Suite",
   },
-  description: "Premium B2B multi-tool operating system for marketing, legal, finance, sales, and technical execution.",
-  keywords: ["AI Tools", "B2B SaaS", "Marketing AI", "Legal AI", "Finance AI"],
+  description: "100% free client-side utility platform running high-volume calculations, image conversions, and text processing locally in your browser.",
+  keywords: ["Free Tools", "Client Side Utilities", "WebP Converter", "UTM Builder", "TikTok Duration Estimator", "Base64 Encoder", "Developer Tools"],
   authors: [{ name: "Zenovee" }],
   creator: "Zenovee AI",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://zenovee.ai",
-    title: "Zenovee AI | The Ultimate AI Operating System",
-    description: "Premium B2B multi-tool operating system.",
-    siteName: "Zenovee AI",
+    title: "Zenovee Free Suite | 50+ Free Client-Side Utilities",
+    description: "100% free client-side utility platform hosted on Cloudflare Pages.",
+    siteName: "Zenovee Free Suite",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Zenovee AI | The Ultimate AI Operating System",
-    description: "Premium B2B multi-tool operating system.",
+    title: "Zenovee Free Suite | 50+ Free Client-Side Utilities",
+    description: "100% free client-side utility platform.",
   },
   robots: {
     index: true,
@@ -55,6 +56,13 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} font-sans h-full antialiased`}>
       <body className="min-h-full">
         {children}
+
+        {/* Lightweight Asynchronous Cloudflare / Privacy Analytics Script Hook */}
+        <Script
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          strategy="afterInteractive"
+          data-cf-beacon='{"token": "zenovee-free-suite-analytics"}'
+        />
       </body>
     </html>
   );

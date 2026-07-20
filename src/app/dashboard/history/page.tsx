@@ -5,14 +5,11 @@ import { useEffect, useState, useMemo } from "react";
 import {
   Clock,
   Terminal,
-  ChevronRight,
-  Loader2,
   SearchX,
   Sparkles,
   ArrowUpRight,
 } from "lucide-react";
 
-import { createClient } from "@/utils/supabase/client";
 import { toolsConfig } from "@/utils/toolsConfig";
 
 interface HistoryEntry {
@@ -39,12 +36,12 @@ function getCategoryColor(category: string) {
       text: "text-rose-600",
       dot: "bg-rose-400",
     };
-  if (cat.includes("legal"))
+  if (cat.includes("legal") || cat.includes("financial"))
     return {
-      bg: "bg-violet-50",
-      border: "border-violet-200/60",
-      text: "text-violet-600",
-      dot: "bg-violet-400",
+      bg: "bg-purple-50",
+      border: "border-purple-200/60",
+      text: "text-purple-600",
+      dot: "bg-purple-400",
     };
   if (cat.includes("sales"))
     return {
@@ -52,13 +49,6 @@ function getCategoryColor(category: string) {
       border: "border-orange-200/60",
       text: "text-orange-600",
       dot: "bg-orange-400",
-    };
-  if (cat.includes("financial"))
-    return {
-      bg: "bg-amber-50",
-      border: "border-amber-200/60",
-      text: "text-amber-700",
-      dot: "bg-amber-400",
     };
   return {
     bg: "bg-indigo-50",
@@ -92,18 +82,15 @@ export default function HistoryPage() {
   const [filterTool, setFilterTool] = useState<string>("all");
 
   useEffect(() => {
-    async function load() {
-      const supabase = createClient();
-      const { data } = await supabase
-        .from("generation_history")
-        .select("id, tool_id, input_data, output_text, created_at")
-        .order("created_at", { ascending: false })
-        .limit(100);
-
-      setEntries((data as HistoryEntry[] | null) ?? []);
-      setLoading(false);
+    try {
+      const stored = localStorage.getItem("zenovee_tool_history");
+      if (stored) {
+        setEntries(JSON.parse(stored));
+      }
+    } catch {
+      setEntries([]);
     }
-    void load();
+    setLoading(false);
   }, []);
 
   const usedTools = useMemo(() => {
@@ -131,11 +118,11 @@ export default function HistoryPage() {
             <Clock className="h-5 w-5" />
           </div>
           <div>
-            <h2 className="text-lg font-bold font-mono text-slate-900 uppercase tracking-tight">
+            <h2 className="text-lg font-bold text-slate-900 uppercase tracking-tight">
               Usage History
             </h2>
             <p className="text-xs text-slate-500">
-              Timeline of all past AI tool executions across your workspace
+              Local timeline of your tool calculations & content generations (Stored in browser)
             </p>
           </div>
         </div>
@@ -146,7 +133,7 @@ export default function HistoryPage() {
             <button
               type="button"
               onClick={() => setFilterTool("all")}
-              className={`rounded-xl border px-3.5 py-1.5 text-[10px] font-bold font-mono uppercase tracking-wider transition-all cursor-pointer ${
+              className={`rounded-xl border px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 filterTool === "all"
                   ? "border-slate-300 bg-slate-50 text-slate-700 shadow-sm"
                   : "border-slate-200 bg-white text-slate-400 hover:text-slate-600 hover:bg-slate-50"
@@ -155,15 +142,13 @@ export default function HistoryPage() {
               All ({entries.length})
             </button>
             {usedTools.map((t) => {
-              const count = entries.filter(
-                (e) => e.tool_id === t.id
-              ).length;
+              const count = entries.filter((e) => e.tool_id === t.id).length;
               return (
                 <button
                   key={t.id}
                   type="button"
                   onClick={() => setFilterTool(t.id)}
-                  className={`rounded-xl border px-3.5 py-1.5 text-[10px] font-bold font-mono uppercase tracking-wider transition-all cursor-pointer ${
+                  className={`rounded-xl border px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer ${
                     filterTool === t.id
                       ? "border-teal-300 bg-teal-50/70 text-teal-600 shadow-sm"
                       : "border-slate-200 bg-white text-slate-400 hover:text-slate-600 hover:bg-slate-50"
@@ -180,9 +165,8 @@ export default function HistoryPage() {
       {/* Content */}
       {loading ? (
         <div className="flex flex-col items-center justify-center py-24 text-slate-400 gap-3">
-          <Loader2 className="h-6 w-6 animate-spin" />
           <p className="text-xs font-mono uppercase tracking-wider">
-            Loading execution log...
+            Loading local history...
           </p>
         </div>
       ) : filtered.length === 0 ? (
@@ -192,18 +176,18 @@ export default function HistoryPage() {
           </div>
           <div className="text-center">
             <p className="text-sm font-semibold text-slate-500">
-              No executions found
+              No recent utility history
             </p>
             <p className="text-xs text-slate-400 mt-1">
-              Run an AI tool to see your history here
+              Run any free tool to see your client-side history saved here
             </p>
           </div>
           <Link
             href="/dashboard"
-            className="mt-2 inline-flex items-center gap-2 rounded-xl border border-indigo-200 bg-indigo-50/70 px-4 py-2 text-xs font-bold font-mono text-indigo-600 uppercase tracking-wider hover:bg-indigo-100/80 transition-all"
+            className="mt-2 inline-flex items-center gap-2 rounded-xl border border-indigo-200 bg-indigo-50/70 px-4 py-2 text-xs font-bold text-indigo-600 uppercase tracking-wider hover:bg-indigo-100/80 transition-all"
           >
             <Sparkles className="h-3.5 w-3.5" />
-            Browse Tools
+            Explore Free Tools
           </Link>
         </div>
       ) : (
@@ -221,34 +205,26 @@ export default function HistoryPage() {
             return (
               <Link
                 key={entry.id}
-                href={`/dashboard/tools/${entry.tool_id}?history=${entry.id}`}
+                href={`/dashboard/tools/${entry.tool_id}`}
                 className="group block rounded-2xl border border-slate-150/85 bg-white p-5 shadow-sm hover:border-teal-300/60 hover:shadow-[0_8px_30px_rgba(20,184,166,0.04)] transition-all duration-300"
-                style={{
-                  animationDelay: `${idx * 40}ms`,
-                  animationFillMode: "both",
-                }}
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex items-start gap-3.5 min-w-0">
-                    {/* Timeline dot */}
                     <div className="mt-1.5 flex flex-col items-center gap-1">
                       <div
                         className={`w-2.5 h-2.5 rounded-full ${colors.dot} ring-4 ring-white shadow-sm`}
                       />
-                      {idx < filtered.length - 1 && (
-                        <div className="w-px h-6 bg-slate-100" />
-                      )}
                     </div>
 
                     <div className="min-w-0">
                       <div className="flex items-center gap-2.5 flex-wrap">
                         <span
-                          className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-[9px] font-bold font-mono tracking-widest uppercase ${colors.bg} ${colors.border} ${colors.text}`}
+                          className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-[9px] font-bold tracking-widest uppercase ${colors.bg} ${colors.border} ${colors.text}`}
                         >
                           <Terminal className="h-3 w-3" />
                           {meta.name}
                         </span>
-                        <span className="text-[10px] font-mono text-slate-400">
+                        <span className="text-[10px] text-slate-400">
                           {timeAgo(entry.created_at)}
                         </span>
                       </div>

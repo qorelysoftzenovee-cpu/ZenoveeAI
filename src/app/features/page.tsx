@@ -50,8 +50,8 @@ export default function FeaturesPage() {
                   <div key={tool.id} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex justify-between items-start mb-3">
                       <h3 className="font-semibold text-slate-900">{tool.name}</h3>
-                      <span className="inline-flex items-center rounded-full bg-slate-50 px-2.5 py-0.5 text-xs font-medium text-slate-500 border border-slate-100">
-                        {tool.cost} credits
+                      <span className="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-600 border border-emerald-100">
+                        100% Free
                       </span>
                     </div>
                     <p className="text-sm text-slate-500 leading-relaxed mb-4">{tool.description}</p>

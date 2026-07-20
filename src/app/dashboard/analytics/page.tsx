@@ -1,21 +1,16 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import Link from "next/link";
 import {
   Activity,
   BarChart3,
-  Clock,
   Download,
   RefreshCw,
-  Sparkles,
   Terminal,
   TrendingUp,
-  Award,
   Zap,
 } from "lucide-react";
 
-import { createClient } from "@/utils/supabase/client";
 import { toolsConfig } from "@/utils/toolsConfig";
 
 interface HistoryEntry {
@@ -24,14 +19,9 @@ interface HistoryEntry {
   created_at: string;
 }
 
-interface ProfileData {
-  credits: number;
-  tier: string;
-}
-
 function getToolCategory(toolId: string): string {
   const tool = toolsConfig.find((t) => t.id === toolId);
-  return tool ? tool.category : "Dev Utilities";
+  return tool ? tool.category : "Utilities";
 }
 
 function getCategoryColor(category: string) {
@@ -39,59 +29,36 @@ function getCategoryColor(category: string) {
   if (cat.includes("marketing")) {
     return { text: "text-rose-600", bg: "bg-rose-50", border: "border-rose-100", stroke: "#f43f5e" };
   }
-  if (cat.includes("legal")) {
+  if (cat.includes("legal") || cat.includes("financial")) {
     return { text: "text-purple-600", bg: "bg-purple-50", border: "border-purple-100", stroke: "#a855f7" };
   }
   if (cat.includes("sales")) {
     return { text: "text-orange-600", bg: "bg-orange-50", border: "border-orange-100", stroke: "#f97316" };
-  }
-  if (cat.includes("financial")) {
-    return { text: "text-amber-700", bg: "bg-amber-50", border: "border-amber-100", stroke: "#d97706" };
   }
   return { text: "text-indigo-600", bg: "bg-indigo-50", border: "border-indigo-100", stroke: "#6366f1" };
 }
 
 export default function AnalyticsPage() {
   const [history, setHistory] = useState<HistoryEntry[]>([]);
-  const [profile, setProfile] = useState<ProfileData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [refreshing, setRefreshing] = useState(false);
   const [timeRange, setTimeRange] = useState<"7d" | "30d" | "all">("30d");
 
-  async function loadData() {
-    setRefreshing(true);
-    const supabase = createClient();
-
-    // Fetch history
-    const { data: historyData } = await supabase
-      .from("generation_history")
-      .select("id, tool_id, created_at")
-      .order("created_at", { ascending: false });
-
-    // Fetch user profile
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
-      const { data: profileData } = await supabase
-        .from("profiles")
-        .select("credits, tier")
-        .eq("id", user.id)
-        .maybeSingle();
-
-      if (profileData) {
-        setProfile(profileData as ProfileData);
+  function loadData() {
+    try {
+      const stored = localStorage.getItem("zenovee_tool_history");
+      if (stored) {
+        setHistory(JSON.parse(stored));
       }
+    } catch {
+      setHistory([]);
     }
-
-    setHistory((historyData as HistoryEntry[] | null) ?? []);
     setLoading(false);
-    setRefreshing(false);
   }
 
   useEffect(() => {
-    void loadData();
+    loadData();
   }, []);
 
-  // Filter history by selected time range
   const filteredHistory = useMemo(() => {
     if (timeRange === "all") return history;
     const now = new Date();
@@ -104,43 +71,43 @@ export default function AnalyticsPage() {
     return history.filter((h) => new Date(h.created_at) >= cutoff);
   }, [history, timeRange]);
 
-  // Compute overall statistics
   const stats = useMemo(() => {
     const totalRuns = filteredHistory.length;
     const uniqueTools = new Set(filteredHistory.map((h) => h.tool_id)).size;
 
-    // Category distribution
     const categoryCounts: Record<string, number> = {};
     filteredHistory.forEach((h) => {
       const cat = getToolCategory(h.tool_id);
       categoryCounts[cat] = (categoryCounts[cat] ?? 0) + 1;
     });
 
-    const categories = Object.entries(categoryCounts).map(([name, count]) => ({
-      name,
-      count,
-      percentage: totalRuns > 0 ? Math.round((count / totalRuns) * 100) : 0,
-    })).sort((a, b) => b.count - a.count);
+    const categories = Object.entries(categoryCounts)
+      .map(([name, count]) => ({
+        name,
+        count,
+        percentage: totalRuns > 0 ? Math.round((count / totalRuns) * 100) : 0,
+      }))
+      .sort((a, b) => b.count - a.count);
 
-    // Most used tools
     const toolCounts: Record<string, number> = {};
     filteredHistory.forEach((h) => {
       toolCounts[h.tool_id] = (toolCounts[h.tool_id] ?? 0) + 1;
     });
 
-    const popularTools = Object.entries(toolCounts).map(([toolId, count]) => {
-      const tool = toolsConfig.find((t) => t.id === toolId);
-      return {
-        id: toolId,
-        name: tool ? tool.name : toolId,
-        category: getToolCategory(toolId),
-        count,
-      };
-    }).sort((a, b) => b.count - a.count).slice(0, 5);
+    const popularTools = Object.entries(toolCounts)
+      .map(([toolId, count]) => {
+        const tool = toolsConfig.find((t) => t.id === toolId);
+        return {
+          id: toolId,
+          name: tool ? tool.name : toolId,
+          category: getToolCategory(toolId),
+          count,
+        };
+      })
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 5);
 
-    // Daily run counts for the line chart
     const dailyCounts: Record<string, number> = {};
-    // Seed the last 7 or 30 days
     const dayCount = timeRange === "7d" ? 7 : timeRange === "30d" ? 30 : 14;
     for (let i = dayCount - 1; i >= 0; i--) {
       const d = new Date();
@@ -167,11 +134,9 @@ export default function AnalyticsPage() {
       categories,
       popularTools,
       chartData,
-      creditsSaved: totalRuns * 12, // assuming equivalent value
     };
   }, [filteredHistory, timeRange]);
 
-  // Export logs to JSON
   const handleExportJSON = () => {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(history, null, 2));
     const downloadAnchor = document.createElement("a");
@@ -182,7 +147,6 @@ export default function AnalyticsPage() {
     downloadAnchor.remove();
   };
 
-  // Export logs to CSV
   const handleExportCSV = () => {
     const headers = "id,tool_id,created_at,category\n";
     const rows = history
@@ -197,7 +161,6 @@ export default function AnalyticsPage() {
     downloadAnchor.remove();
   };
 
-  // SVG Chart path calculation helpers
   const svgLinePath = useMemo(() => {
     if (stats.chartData.length < 2) return "";
     const width = 500;
@@ -223,7 +186,6 @@ export default function AnalyticsPage() {
 
   return (
     <div className="space-y-8 animate-fade-in-up">
-      {/* Upper Control Bar */}
       <section className="rounded-[2rem] border border-slate-200/80 bg-white p-6 sm:p-8 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex items-center gap-3">
@@ -235,13 +197,12 @@ export default function AnalyticsPage() {
                 Workspace Analytics
               </h2>
               <p className="text-xs text-slate-500">
-                Performance statistics, template usage, and credit balances
+                Client-side usage insights and execution statistics
               </p>
             </div>
           </div>
 
           <div className="flex items-center flex-wrap gap-2.5">
-            {/* Range Selectors */}
             <div className="flex bg-slate-100/80 border border-slate-200/40 p-1 rounded-xl">
               {(["7d", "30d", "all"] as const).map((range) => (
                 <button
@@ -251,7 +212,7 @@ export default function AnalyticsPage() {
                   className={`rounded-lg px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer ${
                     timeRange === range
                       ? "bg-white text-slate-800 shadow-sm border border-slate-200/40"
-                      : "text-slate-405 hover:text-slate-650"
+                      : "text-slate-400 hover:text-slate-600"
                   }`}
                 >
                   {range === "7d" ? "7 Days" : range === "30d" ? "30 Days" : "All Time"}
@@ -259,15 +220,13 @@ export default function AnalyticsPage() {
               ))}
             </div>
 
-            {/* Sync Button */}
             <button
               type="button"
               onClick={loadData}
-              disabled={refreshing}
               className="rounded-xl border border-slate-200 bg-white p-2.5 text-slate-500 hover:text-slate-900 transition-all cursor-pointer shadow-sm relative"
               title="Sync Statistics"
             >
-              <RefreshCw className={`h-4 w-4 ${refreshing ? "animate-spin text-indigo-655" : ""}`} />
+              <RefreshCw className="h-4 w-4" />
             </button>
           </div>
         </div>
@@ -276,16 +235,16 @@ export default function AnalyticsPage() {
       {loading ? (
         <div className="flex flex-col items-center justify-center py-24 text-slate-400 gap-3">
           <RefreshCw className="h-6 w-6 animate-spin text-indigo-600" />
-          <p className="text-xs uppercase tracking-wider">Loading dashboard stats...</p>
+          <p className="text-xs uppercase tracking-wider">Loading local statistics...</p>
         </div>
       ) : (
         <>
-          {/* KPI Dashboard */}
           <div className="grid gap-6 sm:grid-cols-2 max-w-4xl">
-            {/* Runs card */}
             <div className="rounded-2xl border border-slate-150/85 bg-white p-6 shadow-sm">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">Total Generations</span>
+                <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+                  Total Utility Calculations
+                </span>
                 <div className="rounded-lg bg-indigo-50 p-1.5 text-indigo-600">
                   <Activity className="h-4 w-4" />
                 </div>
@@ -296,44 +255,46 @@ export default function AnalyticsPage() {
               <div className="mt-2 flex items-center gap-1.5 text-[10px] text-slate-400">
                 <span className="font-bold text-emerald-500 flex items-center gap-0.5">
                   <TrendingUp className="h-3 w-3" />
-                  +12.4%
+                  100% Client-Side
                 </span>
-                vs last period
               </div>
             </div>
 
-            {/* Credits Remaining */}
             <div className="rounded-2xl border border-slate-150/85 bg-white p-6 shadow-sm">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">Credit Balance</span>
+                <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+                  Access Model
+                </span>
                 <div className="rounded-lg bg-emerald-50 p-1.5 text-emerald-600">
                   <Zap className="h-4 w-4" />
                 </div>
               </div>
               <p className="mt-4 text-3xl font-bold text-slate-900 tracking-tight">
-                {profile?.credits ?? 0}
+                UNLIMITED
               </p>
               <div className="mt-2 flex items-center gap-1.5 text-[10px] text-slate-400">
-                <span className="inline-flex rounded-full border border-indigo-100 bg-indigo-50 px-2 py-0.5 text-[8px] font-bold text-indigo-600 uppercase tracking-wider">
-                  Tier: {profile?.tier ? profile.tier.toUpperCase() : "TRIAL"}
+                <span className="inline-flex rounded-full border border-emerald-100 bg-emerald-50 px-2 py-0.5 text-[8px] font-bold text-emerald-600 uppercase tracking-wider">
+                  No Login Required
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Graphics and Charts */}
           <div className="grid gap-6 lg:grid-cols-3">
-            {/* SVGs Daily Run timeline */}
             <div className="rounded-[1.75rem] border border-slate-150/85 bg-white p-6 shadow-sm lg:col-span-2">
               <div className="mb-6 flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-800 uppercase tracking-wide">Activity History</span>
-                <span className="text-[10px] text-slate-400">Past {timeRange === "7d" ? "7 Days" : timeRange === "30d" ? "30 Days" : "Log Length"}</span>
+                <span className="text-xs font-bold text-slate-800 uppercase tracking-wide">
+                  Activity History
+                </span>
+                <span className="text-[10px] text-slate-400">
+                  Past {timeRange === "7d" ? "7 Days" : timeRange === "30d" ? "30 Days" : "Log Length"}
+                </span>
               </div>
 
               {stats.totalRuns === 0 ? (
                 <div className="flex h-[180px] flex-col items-center justify-center text-slate-350">
                   <Activity className="h-8 w-8 stroke-1" />
-                  <span className="text-[10px] mt-2">NO TIMELINE LOGS AVAILABLE</span>
+                  <span className="text-[10px] mt-2">NO RECENT UTILITY RUNS</span>
                 </div>
               ) : (
                 <div className="relative">
@@ -344,9 +305,7 @@ export default function AnalyticsPage() {
                         <stop offset="100%" stopColor="#6366f1" stopOpacity="0.0" />
                       </linearGradient>
                     </defs>
-                    {/* Area fill */}
                     <path d={svgAreaPath} fill="url(#areaGrad)" />
-                    {/* Line path */}
                     <path
                       d={svgLinePath}
                       fill="none"
@@ -355,8 +314,6 @@ export default function AnalyticsPage() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
-
-                    {/* Target points */}
                     {stats.chartData.map((d, i) => {
                       const maxVal = Math.max(...stats.chartData.map((x) => x.count), 4);
                       const stepX = 500 / (stats.chartData.length - 1);
@@ -376,8 +333,6 @@ export default function AnalyticsPage() {
                       );
                     })}
                   </svg>
-
-                  {/* Horizontal Labels */}
                   <div className="mt-3 flex justify-between px-1 text-[9px] text-slate-400">
                     <span>{stats.chartData[0]?.date}</span>
                     <span>{stats.chartData[Math.floor(stats.chartData.length / 2)]?.date}</span>
@@ -387,14 +342,15 @@ export default function AnalyticsPage() {
               )}
             </div>
 
-            {/* Category breakdown list */}
             <div className="rounded-[1.75rem] border border-slate-150/85 bg-white p-6 shadow-sm">
-              <span className="text-xs font-bold text-slate-800 uppercase tracking-wide">Template Distribution</span>
+              <span className="text-xs font-bold text-slate-800 uppercase tracking-wide">
+                Domain Ratios
+              </span>
 
               {stats.categories.length === 0 ? (
-                <div className="flex h-[180px] flex-col items-center justify-center text-slate-355">
+                <div className="flex h-[180px] flex-col items-center justify-center text-slate-350">
                   <BarChart3 className="h-8 w-8 stroke-1" />
-                  <span className="text-[10px] mt-2">NO CATEGORIES RECORDED</span>
+                  <span className="text-[10px] mt-2">NO DATA YET</span>
                 </div>
               ) : (
                 <div className="mt-6 space-y-4">
@@ -403,10 +359,13 @@ export default function AnalyticsPage() {
                     return (
                       <div key={c.name} className="space-y-1.5">
                         <div className="flex justify-between items-center text-[10px]">
-                          <span className="text-slate-655 font-bold uppercase">{c.name.split(" & ")[0]}</span>
-                          <span className={`${color.text} font-bold`}>{c.count} ({c.percentage}%)</span>
+                          <span className="text-slate-600 font-bold uppercase">
+                            {c.name.split(" & ")[0]}
+                          </span>
+                          <span className={`${color.text} font-bold`}>
+                            {c.count} ({c.percentage}%)
+                          </span>
                         </div>
-                        {/* Progress Bar */}
                         <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden border border-slate-200/25">
                           <div
                             className="h-full rounded-full transition-all duration-500"
@@ -424,18 +383,18 @@ export default function AnalyticsPage() {
             </div>
           </div>
 
-          {/* Popular tools and exports */}
           <div className="grid gap-6 md:grid-cols-2">
-            {/* Top performing tools */}
             <div className="rounded-[1.75rem] border border-slate-150/85 bg-white p-6 shadow-sm">
               <div className="mb-4">
-                <span className="text-xs font-bold text-slate-800 uppercase tracking-wide">Popular Templates</span>
+                <span className="text-xs font-bold text-slate-800 uppercase tracking-wide">
+                  Most Used Utilities
+                </span>
               </div>
 
               {stats.popularTools.length === 0 ? (
                 <div className="flex py-12 flex-col items-center justify-center text-slate-350">
                   <Terminal className="h-8 w-8 stroke-1" />
-                  <span className="text-[10px] mt-2">NO DATA AVAILABLE</span>
+                  <span className="text-[10px] mt-2">NO RUN DATA</span>
                 </div>
               ) : (
                 <div className="space-y-3.5">
@@ -462,18 +421,14 @@ export default function AnalyticsPage() {
               )}
             </div>
 
-            {/* Export data widget */}
             <div className="rounded-[1.75rem] border border-slate-150/85 bg-white p-6 shadow-sm flex flex-col justify-between">
               <div>
-                <span className="text-xs font-bold text-slate-800 uppercase tracking-wide">Export Workspace Data</span>
+                <span className="text-xs font-bold text-slate-800 uppercase tracking-wide">
+                  Export Local Logs
+                </span>
                 <p className="text-xs text-slate-500 mt-2 leading-relaxed font-sans">
-                  Export complete execution history, parameters, and historical outputs for auditing.
+                  Export your browser calculation logs and utility history for offline recordkeeping.
                 </p>
-                <div className="mt-4 rounded-xl border border-slate-150 bg-slate-50 p-4 text-[10px] text-slate-500 space-y-1">
-                  <div>Status: Verified</div>
-                  <div>Last Updated: {new Date().toLocaleTimeString()}</div>
-                  <div>Logs Captured: {history.length} Entries</div>
-                </div>
               </div>
 
               <div className="mt-6 grid grid-cols-2 gap-3">
@@ -481,7 +436,7 @@ export default function AnalyticsPage() {
                   type="button"
                   onClick={handleExportJSON}
                   disabled={history.length === 0}
-                  className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-4 py-3 text-xs font-bold text-slate-600 uppercase tracking-wider transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                  className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-4 py-3 text-xs font-bold text-slate-600 uppercase tracking-wider transition-all cursor-pointer disabled:opacity-50 shadow-sm"
                 >
                   <Download className="h-3.5 w-3.5" />
                   JSON
@@ -490,7 +445,7 @@ export default function AnalyticsPage() {
                   type="button"
                   onClick={handleExportCSV}
                   disabled={history.length === 0}
-                  className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-4 py-3 text-xs font-bold text-slate-655 uppercase tracking-wider transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                  className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-4 py-3 text-xs font-bold text-slate-600 uppercase tracking-wider transition-all cursor-pointer disabled:opacity-50 shadow-sm"
                 >
                   <Download className="h-3.5 w-3.5" />
                   CSV
