@@ -50,7 +50,7 @@ export default function AboutPage() {
             </div>
             <h3 className="text-xl font-bold text-slate-900 mb-3">Instant Execution</h3>
             <p className="text-slate-600 leading-relaxed">
-              No API calls, no token limitations, and zero network latency. Run file converters, slug creators, and dynamic calculators in microseconds.
+              Enjoy immediate results without server roundtrips, queues, or backend execution delays.
             </p>
           </div>
         </div>

@@ -87,14 +87,14 @@ export function SidebarNav() {
     <div className="space-y-6">
       {/* Primary Directory Link */}
       <div className="space-y-1">
-        <p className="px-3.5 text-[9.5px] font-bold text-slate-400 uppercase tracking-widest">
+        <p className="px-3.5 text-[11px] font-extrabold text-slate-450 uppercase tracking-widest">
           Suite Directory
         </p>
         <Link
           href="/dashboard"
-          className={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-xs font-semibold transition-all border ${
+          className={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-bold transition-all border ${
             pathname === "/dashboard" && !pathname.includes("category=")
-              ? "bg-indigo-50/80 text-indigo-600 border-indigo-200/50 shadow-sm"
+              ? "bg-indigo-50/80 text-indigo-605 border-indigo-200/50 shadow-sm animate-pulse-slow"
               : "text-slate-600 border-transparent hover:bg-slate-50 hover:text-slate-900"
           }`}
         >
@@ -105,7 +105,7 @@ export function SidebarNav() {
 
       {/* 5 Core Domains */}
       <div className="space-y-1">
-        <p className="px-3.5 text-[9.5px] font-bold text-slate-400 uppercase tracking-widest">
+        <p className="px-3.5 text-[11px] font-extrabold text-slate-450 uppercase tracking-widest">
           Core Domains
         </p>
         <div className="space-y-1">
@@ -115,7 +115,7 @@ export function SidebarNav() {
               <Link
                 key={link.label}
                 href={link.href}
-                className={`flex items-center justify-between rounded-xl px-3.5 py-2.5 text-xs font-semibold transition-all border group ${
+                className={`flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-bold transition-all border group ${
                   link.active
                     ? link.activeClass
                     : "text-slate-600 border-transparent hover:bg-slate-50 hover:text-slate-900"
@@ -136,7 +136,7 @@ export function SidebarNav() {
 
       {/* Local Insights */}
       <div className="space-y-1">
-        <p className="px-3.5 text-[9.5px] font-bold text-slate-400 uppercase tracking-widest">
+        <p className="px-3.5 text-[11px] font-extrabold text-slate-450 uppercase tracking-widest">
           Local Insights
         </p>
         <div className="space-y-1">
@@ -146,7 +146,7 @@ export function SidebarNav() {
               <Link
                 key={link.label}
                 href={link.href}
-                className={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-xs font-semibold transition-all border ${
+                className={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-bold transition-all border ${
                   link.active
                     ? link.activeClass
                     : "text-slate-600 border-transparent hover:bg-slate-50 hover:text-slate-900"

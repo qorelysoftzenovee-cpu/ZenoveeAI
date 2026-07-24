@@ -239,7 +239,7 @@ export default function AnalyticsPage() {
         </div>
       ) : (
         <>
-          <div className="grid gap-6 sm:grid-cols-2 max-w-4xl">
+          <div className="max-w-md">
             <div className="rounded-2xl border border-slate-150/85 bg-white p-6 shadow-sm">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
@@ -256,25 +256,6 @@ export default function AnalyticsPage() {
                 <span className="font-bold text-emerald-500 flex items-center gap-0.5">
                   <TrendingUp className="h-3 w-3" />
                   100% Client-Side
-                </span>
-              </div>
-            </div>
-
-            <div className="rounded-2xl border border-slate-150/85 bg-white p-6 shadow-sm">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
-                  Access Model
-                </span>
-                <div className="rounded-lg bg-emerald-50 p-1.5 text-emerald-600">
-                  <Zap className="h-4 w-4" />
-                </div>
-              </div>
-              <p className="mt-4 text-3xl font-bold text-slate-900 tracking-tight">
-                UNLIMITED
-              </p>
-              <div className="mt-2 flex items-center gap-1.5 text-[10px] text-slate-400">
-                <span className="inline-flex rounded-full border border-emerald-100 bg-emerald-50 px-2 py-0.5 text-[8px] font-bold text-emerald-600 uppercase tracking-wider">
-                  No Login Required
                 </span>
               </div>
             </div>

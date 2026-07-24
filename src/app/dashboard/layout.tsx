@@ -65,26 +65,6 @@ export default function DashboardLayout({
           <div className="flex-1 overflow-y-auto px-6 py-4">
             <SidebarNav />
           </div>
-
-          {/* Dedicated Display Ad Container Slot (Pinned to Sidebar Bottom) */}
-          <div className="mx-6 my-3 mt-auto">
-            <div className="p-4 bg-slate-100/60 border border-slate-200/40 rounded-lg text-center text-xs text-slate-400 tracking-wider uppercase font-mono">
-              ADVERTISEMENT
-            </div>
-          </div>
-
-          {/* Footer Badge / Privacy Slot */}
-          <div className="p-6 pt-2 border-t border-slate-100">
-            <div className="rounded-xl border border-slate-200/60 bg-slate-50/60 p-3.5 text-center">
-              <div className="flex items-center justify-center gap-1.5 text-xs font-semibold text-slate-700">
-                <Zap className="h-3.5 w-3.5 text-amber-500" />
-                <span>Zero Server APIs</span>
-              </div>
-              <p className="text-[10px] text-slate-400 mt-1 leading-relaxed">
-                Hosted on Cloudflare Pages. No signup or credit card required.
-              </p>
-            </div>
-          </div>
         </aside>
 
         {/* Master Canvas Wrapper */}
@@ -95,7 +75,7 @@ export default function DashboardLayout({
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
                   <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl tracking-tight">
-                    Zenovee <span className="text-indigo-600">Client-Side Utilities</span>
+                    Zenovee <span className="text-indigo-650">Free Suite</span>
                   </h1>
                   <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-slate-500">
                     High-volume, instant calculations and content generators running 100% in your browser.
