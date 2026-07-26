@@ -14,8 +14,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Zenovee Free Suite | 50+ Free Client-Side Developer & Growth Utilities",
-    template: "%s | Zenovee Free Suite",
+    default: "Zenovee Suite | 50+ Free Client-Side Developer & Growth Utilities",
+    template: "%s | Zenovee Suite",
   },
   description: "100% free client-side utility platform running high-volume calculations, image conversions, and text processing locally in your browser.",
   keywords: ["Free Tools", "Client Side Utilities", "WebP Converter", "UTM Builder", "TikTok Duration Estimator", "Base64 Encoder", "Developer Tools"],
@@ -25,13 +25,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://zenovee.ai",
-    title: "Zenovee Free Suite | 50+ Free Client-Side Utilities",
+    title: "Zenovee Suite | 50+ Free Client-Side Utilities",
     description: "100% free client-side utility platform hosted on Cloudflare Pages.",
-    siteName: "Zenovee Free Suite",
+    siteName: "Zenovee Suite",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Zenovee Free Suite | 50+ Free Client-Side Utilities",
+    title: "Zenovee Suite | 50+ Free Client-Side Utilities",
     description: "100% free client-side utility platform.",
   },
   robots: {

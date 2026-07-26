@@ -3,13 +3,12 @@
 import Link from "next/link";
 import { useMemo, useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { Search, Terminal, ChevronRight, Zap } from "lucide-react";
+import { Search, ChevronRight, Sparkles } from "lucide-react";
 
 import { toolsConfig } from "@/utils/toolsConfig";
-import { TiltCard } from "@/components/ui/TiltCard";
 
 const tabs = [
-  { id: "all", label: "All Free Tools" },
+  { id: "all", label: "All Utilities" },
   { id: "content", label: "Content Creation" },
   { id: "marketing", label: "Growth Marketing" },
   { id: "productivity", label: "Productivity Solvers" },
@@ -19,21 +18,21 @@ const tabs = [
 
 function getTabClass(tabId: string, isActive: boolean) {
   if (!isActive) {
-    return "border-slate-200 bg-white text-slate-500 hover:bg-slate-50 hover:text-slate-900";
+    return "border-slate-200 bg-white text-slate-650 hover:bg-slate-50 hover:text-slate-900";
   }
   switch (tabId) {
     case "content":
-      return "border-rose-300 bg-rose-50/80 text-rose-600 shadow-sm font-bold";
+      return "border-rose-350 bg-rose-50/90 text-rose-600 shadow-sm font-extrabold";
     case "marketing":
-      return "border-amber-300 bg-amber-50/80 text-amber-600 shadow-sm font-bold";
+      return "border-amber-350 bg-amber-50/90 text-amber-700 shadow-sm font-extrabold";
     case "productivity":
-      return "border-emerald-300 bg-emerald-50/80 text-emerald-600 shadow-sm font-bold";
+      return "border-emerald-350 bg-emerald-50/90 text-emerald-650 shadow-sm font-extrabold";
     case "financial":
-      return "border-purple-300 bg-purple-50/80 text-purple-600 shadow-sm font-bold";
+      return "border-purple-350 bg-purple-50/90 text-purple-650 shadow-sm font-extrabold";
     case "tech":
-      return "border-indigo-300 bg-indigo-50/80 text-indigo-600 shadow-sm font-bold";
+      return "border-indigo-350 bg-indigo-50/90 text-indigo-650 shadow-sm font-extrabold";
     default:
-      return "border-slate-300 bg-slate-100 text-slate-800 shadow-sm font-bold";
+      return "border-slate-400 bg-slate-100 text-slate-900 shadow-sm font-extrabold";
   }
 }
 
@@ -42,50 +41,35 @@ function getCategoryTheme(category: string) {
   if (cat.includes("content")) {
     return {
       badge: "border-rose-100 bg-rose-50 text-rose-600",
-      glow: "rgba(244, 63, 94, 0.02)",
-      hoverBorder: "hover:border-rose-300/80",
-      hoverText: "group-hover:text-rose-600",
-      hoverShadow: "hover:shadow-[0_8px_30px_rgba(244,63,94,0.04)]",
-      hoverIcon: "group-hover:text-rose-500",
+      borderHover: "hover:border-rose-300 hover:shadow-rose-500/5",
+      textHover: "group-hover:text-rose-650",
     };
   }
   if (cat.includes("marketing")) {
     return {
       badge: "border-amber-100 bg-amber-50 text-amber-700",
-      glow: "rgba(245, 158, 11, 0.02)",
-      hoverBorder: "hover:border-amber-300/80",
-      hoverText: "group-hover:text-amber-700",
-      hoverShadow: "hover:shadow-[0_8px_30px_rgba(245,158,11,0.04)]",
-      hoverIcon: "group-hover:text-amber-600",
+      borderHover: "hover:border-amber-300 hover:shadow-amber-500/5",
+      textHover: "group-hover:text-amber-750",
     };
   }
   if (cat.includes("productivity")) {
     return {
-      badge: "border-emerald-100 bg-emerald-50 text-emerald-600",
-      glow: "rgba(16, 185, 129, 0.02)",
-      hoverBorder: "hover:border-emerald-300/80",
-      hoverText: "group-hover:text-emerald-600",
-      hoverShadow: "hover:shadow-[0_8px_30px_rgba(16,185,129,0.04)]",
-      hoverIcon: "group-hover:text-emerald-500",
+      badge: "border-emerald-100 bg-emerald-50 text-emerald-650",
+      borderHover: "hover:border-emerald-300 hover:shadow-emerald-500/5",
+      textHover: "group-hover:text-emerald-700",
     };
   }
   if (cat.includes("financial")) {
     return {
       badge: "border-purple-100 bg-purple-50 text-purple-650",
-      glow: "rgba(168, 85, 247, 0.02)",
-      hoverBorder: "hover:border-purple-300/80",
-      hoverText: "group-hover:text-purple-600",
-      hoverShadow: "hover:shadow-[0_8px_30px_rgba(168,85,247,0.04)]",
-      hoverIcon: "group-hover:text-purple-500",
+      borderHover: "hover:border-purple-300 hover:shadow-purple-500/5",
+      textHover: "group-hover:text-purple-700",
     };
   }
   return {
     badge: "border-indigo-100 bg-indigo-50 text-indigo-650",
-    glow: "rgba(99, 102, 241, 0.02)",
-    hoverBorder: "hover:border-indigo-300/80",
-    hoverText: "group-hover:text-indigo-600",
-    hoverShadow: "hover:shadow-[0_8px_30px_rgba(99,102,241,0.04)]",
-    hoverIcon: "group-hover:text-indigo-500",
+    borderHover: "hover:border-indigo-300 hover:shadow-indigo-500/5",
+    textHover: "group-hover:text-indigo-700",
   };
 }
 
@@ -126,28 +110,28 @@ function DashboardContent() {
   }, [activeTab, query]);
 
   return (
-    <div className="space-y-8 animate-fade-in-up">
+    <div className="space-y-8 animate-fade-in-up font-sans">
       {/* Search Bar & Category Navigation */}
       <section className="rounded-[2rem] border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8">
         <div className="relative flex items-center">
-          <Search className="absolute left-4 h-4.5 w-4.5 text-slate-400" />
+          <Search className="absolute left-4.5 h-5 w-5 text-slate-400" />
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search 50+ free client-side tools (e.g. WebP, TikTok script, UTM builder, Base64)..."
-            className="w-full rounded-2xl border border-slate-200 bg-[#F8FAFC] pl-12 pr-20 py-4 text-sm text-slate-800 outline-none placeholder:text-slate-400 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/20 transition-all shadow-inner"
+            placeholder="Search calculations, scripts, dynamic formatters, or file converters..."
+            className="w-full rounded-2xl border border-slate-250 bg-[#F8FAFC] pl-14 pr-20 py-4.5 text-base text-slate-900 outline-none placeholder:text-slate-400 font-semibold focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/20 transition-all shadow-inner"
           />
           {query && (
             <button
               onClick={() => setQuery("")}
-              className="absolute right-4 text-xs font-bold text-slate-400 hover:text-slate-700 bg-slate-100 px-2 py-1 rounded-md"
+              className="absolute right-4 text-xs font-bold text-slate-400 hover:text-slate-700 bg-slate-100 px-3 py-1.5 rounded-lg"
             >
               Clear
             </button>
           )}
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-5 flex flex-wrap gap-2.5">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
             return (
@@ -155,7 +139,7 @@ function DashboardContent() {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id)}
-                className={`rounded-xl border px-3.5 py-2 text-xs font-semibold tracking-wide transition-all duration-200 cursor-pointer ${getTabClass(tab.id, isActive)}`}
+                className={`rounded-xl border px-4 py-2.5 text-sm font-bold tracking-wide transition-all duration-200 cursor-pointer ${getTabClass(tab.id, isActive)}`}
               >
                 {tab.label}
               </button>
@@ -164,38 +148,35 @@ function DashboardContent() {
         </div>
       </section>
 
-      {/* Grid of 50 Free Utilities */}
-      <section className="grid gap-6 md:grid-cols-2 2xl:grid-cols-3">
+      {/* Grid of 50 Utilities with Premium Card Design */}
+      <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {filteredTools.map((tool) => {
           const theme = getCategoryTheme(tool.category);
           return (
-            <TiltCard
+            <div
               key={tool.id}
-              glowColor={theme.glow}
-              className={`rounded-[1.75rem] border border-slate-150/85 bg-white shadow-sm transition-all duration-300 ${theme.hoverBorder} ${theme.hoverShadow}`}
+              className={`group relative rounded-[2rem] border border-slate-200/80 bg-white p-6.5 shadow-sm hover:shadow-md hover:-translate-y-1 hover:bg-slate-50/30 transition-all duration-300 cursor-pointer flex flex-col justify-between ${theme.borderHover}`}
             >
-              <Link
-                href={"/dashboard/tools/" + tool.id}
-                className="block p-6 text-slate-800 group"
-              >
+              <Link href={"/dashboard/tools/" + tool.id} className="block flex-1">
                 <div className="flex items-center justify-between">
-                  <span className={`inline-flex rounded-lg border px-2.5 py-1 text-[9px] font-bold tracking-widest uppercase ${theme.badge}`}>
+                  <span className={`inline-flex rounded-xl border px-3 py-1 text-[10px] font-extrabold tracking-widest uppercase ${theme.badge}`}>
                     {tool.category}
                   </span>
-                  <span className="inline-flex items-center gap-1 text-[9px] font-bold bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded border border-emerald-100">
-                    <Zap className="h-2.5 w-2.5" />
-                    Free
-                  </span>
+                  <div className="rounded-xl bg-slate-50/80 border border-slate-100 p-2 text-slate-400 group-hover:text-indigo-650 group-hover:bg-indigo-50 group-hover:border-indigo-100 transition-all shadow-sm">
+                    <Sparkles className="h-4 w-4 text-indigo-500 animate-pulse" />
+                  </div>
                 </div>
 
-                <h3 className={`mt-4 text-base font-bold text-slate-900 transition-colors duration-200 tracking-tight flex items-center gap-1.5 ${theme.hoverText}`}>
-                  {tool.title || tool.name}
-                  <ChevronRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-x-0 group-hover:translate-x-0.5" />
+                <h3 className={`mt-5 text-lg font-extrabold text-slate-905 transition-colors duration-200 tracking-tight flex items-center gap-1.5 ${theme.textHover}`}>
+                  <span>{tool.title || tool.name}</span>
+                  <ChevronRight className="h-4.5 w-4.5 opacity-0 group-hover:opacity-100 transition-all duration-350 transform translate-x-[-4px] group-hover:translate-x-0" />
                 </h3>
 
-                <p className="mt-2 text-xs leading-relaxed text-slate-500 font-sans">{tool.description}</p>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600 font-medium font-sans">
+                  {tool.description}
+                </p>
               </Link>
-            </TiltCard>
+            </div>
           );
         })}
       </section>
@@ -205,7 +186,7 @@ function DashboardContent() {
 
 export default function DashboardPage() {
   return (
-    <Suspense fallback={<div className="p-8 text-slate-400 text-xs uppercase tracking-wider font-mono">Loading tools...</div>}>
+    <Suspense fallback={<div className="p-8 text-slate-450 text-sm uppercase tracking-wider font-bold">Loading Zenovee Suite...</div>}>
       <DashboardContent />
     </Suspense>
   );

@@ -34,13 +34,13 @@ export default function DashboardLayout({
                 <Sparkles className="h-5 w-5 animate-pulse text-indigo-500" />
               </div>
               <div>
-                <h1 className="text-base font-bold tracking-tight text-slate-900 leading-tight">
-                  Zenovee Free Suite
+                <h1 className="text-base font-extrabold tracking-tight text-slate-900 leading-tight">
+                  Zenovee Suite
                 </h1>
                 <div className="flex items-center gap-1.5 mt-0.5">
-                  <span className="inline-flex items-center gap-1 text-[9px] font-bold bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded border border-emerald-100/60 uppercase">
-                    <ShieldCheck className="h-2.5 w-2.5" />
-                    100% Free & Local
+                  <span className="inline-flex items-center gap-1 text-[9.5px] font-extrabold bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded-lg border border-indigo-100/60 uppercase tracking-wide">
+                    <ShieldCheck className="h-3 w-3" />
+                    Suite v1.0
                   </span>
                 </div>
               </div>
@@ -74,8 +74,8 @@ export default function DashboardLayout({
             <header className="rounded-2xl border border-slate-200/60 bg-white/80 backdrop-blur-md p-6 shadow-sm">
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
-                  <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl tracking-tight">
-                    Zenovee <span className="text-indigo-650">Free Suite</span>
+                  <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl tracking-tight animate-fade-in">
+                    Zenovee <span className="text-indigo-650">Suite</span>
                   </h1>
                   <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-slate-500">
                     High-volume, instant calculations and content generators running 100% in your browser.

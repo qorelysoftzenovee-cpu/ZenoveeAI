@@ -57,7 +57,7 @@ export default function LandingPage() {
             <div className="rounded-xl border border-indigo-100 bg-indigo-50/70 p-2 text-indigo-650 shadow-sm transition-transform group-hover:scale-105">
               <Sparkles className="h-4.5 w-4.5 text-indigo-605" />
             </div>
-            <span className="font-bold tracking-tight text-slate-900 text-lg">Zenovee Free Suite</span>
+            <span className="font-bold tracking-tight text-slate-900 text-lg">Zenovee Suite</span>
           </Link>
           <nav className="flex items-center gap-6">
             <Link href="/features" className="text-sm font-bold text-slate-700 hover:text-indigo-650 transition-colors uppercase tracking-wider">Features</Link>
@@ -220,7 +220,7 @@ export default function LandingPage() {
       <footer className="border-t border-slate-200/80 bg-white/50 py-8 text-center text-xs text-slate-400">
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-1.5">
-            <span>© {new Date().getFullYear()} Zenovee Free Suite. Built with</span>
+            <span>© {new Date().getFullYear()} Zenovee Suite. Built with</span>
             <Heart className="w-3.5 h-3.5 text-rose-500 fill-current" />
             <span>for a subscription-free web.</span>
           </div>

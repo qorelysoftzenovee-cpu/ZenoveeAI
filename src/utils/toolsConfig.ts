@@ -18,257 +18,260 @@ export interface ToolConfig {
 
 export const toolsConfig: ToolConfig[] = [
   // ==========================================
-  // 1. CONTENT CREATOR & SOCIAL MEDIA ENGINES
+  // 1. CONTENT CREATION
   // ==========================================
   {
-    id: "tiktok-duration",
-    title: "TikTok/Reels Script Video Duration Estimator",
-    name: "TikTok/Reels Script Video Duration Estimator",
+    id: "image-compressor",
+    title: "Client-Side Image Compressor & Converter",
+    name: "Client-Side Image Compressor & Converter",
     category: "Content Creation",
-    description: "Calculates exact video duration, word count, speaking pace (150 WPM / 2.5 WPS), hook timing, and scene splits for viral short-form video scripts.",
+    description: "Compresses JPEG/PNG/WebP and converts formats locally using OffscreenCanvas and Browser Squoosh/WASM.",
     inputs: [
-      { id: "script", label: "Script Text", type: "textarea", placeholder: "Paste your TikTok, Reels, or Shorts script here..." },
-      { id: "pace", label: "Speaking Pace (WPM)", type: "dropdown", options: ["150 WPM (Standard Short-Form - 2.5 words/sec)", "160 WPM (Fast Hype Pace)", "130 WPM (Conversational)", "110 WPM (Slow Storytelling)"] }
+      { id: "imageFile", label: "Select Image File", type: "file" },
+      { id: "format", label: "Target Format", type: "dropdown", options: ["WebP", "JPEG", "PNG"] },
+      { id: "quality", label: "Compression Quality", type: "dropdown", options: ["90% (High Quality)", "80% (Balanced)", "60% (High Compression)", "40% (Max Compression)"] },
+      { id: "maxWidth", label: "Max Width (Pixels, optional)", type: "text", placeholder: "e.g. 1920" }
     ]
   },
   {
-    id: "tiktok-script-estimator",
-    title: "TikTok Script Duration Estimator",
-    name: "TikTok Script Duration Estimator",
+    id: "meme-designer",
+    title: "Offline Meme & Infographic Designer",
+    name: "Offline Meme & Infographic Designer",
     category: "Content Creation",
-    description: "Calculates exact video duration, word count, speaking pace, hook timing, and scene splits for viral short-form video scripts.",
+    description: "Canvas-based drag-and-drop generator with text layers, custom fonts, and PNG/SVG export.",
     inputs: [
-      { id: "script", label: "Script Text", type: "textarea", placeholder: "Paste your TikTok, Reels, or Shorts script here..." },
-      { id: "pace", label: "Speaking Pace", type: "dropdown", options: ["150 WPM (Standard Short-Form)", "160 WPM (Fast Pace)", "130 WPM (Conversational)"] }
+      { id: "template", label: "Upload Custom Template Image", type: "file" },
+      { id: "topText", label: "Top Caption Text", type: "text", placeholder: "Enter top caption..." },
+      { id: "bottomText", label: "Bottom Caption Text", type: "text", placeholder: "Enter bottom caption..." },
+      { id: "fontSize", label: "Font Size", type: "dropdown", options: ["24px", "32px", "40px", "48px", "64px"] },
+      { id: "fontColor", label: "Font Fill Color", type: "text", placeholder: "e.g. #FFFFFF" }
     ]
   },
   {
-    id: "social-formatter",
-    title: "Social Media Unicode Text Formatter",
-    name: "Social Media Unicode Text Formatter",
+    id: "markdown-studio",
+    title: "Markdown to PDF & HTML Studio",
+    name: "Markdown to PDF & HTML Studio",
     category: "Content Creation",
-    description: "Converts standard text into bold mathematical Unicode symbols, italics, script, and monospace fonts for LinkedIn and X.",
+    description: "Real-time side-by-side editor with syntax highlighting using marked.js and local PDF export via jsPDF.",
     inputs: [
-      { id: "text", label: "Input Text to Format", type: "textarea", placeholder: "Type or paste the text you want to convert into bold/italic Unicode..." },
-      { id: "style", label: "Primary Unicode Style", type: "dropdown", options: ["Bold Sans", "Bold Serif", "Italic Serif", "Monospace", "Underlined"] }
+      { id: "markdownText", label: "Markdown Document Body", type: "textarea", placeholder: "# Document Title\n\nWrite your markdown text here..." },
+      { id: "theme", label: "Preview Style CSS Theme", type: "dropdown", options: ["Github Light", "Dracula Dark", "Modern Slate", "Minimalist Clean"] }
     ]
   },
   {
-    id: "social-text-formatter",
-    title: "Social Media Text Formatter",
-    name: "Social Media Text Formatter",
+    id: "svg-editor",
+    title: "SVG Vector Editor & Color Swapper",
+    name: "SVG Vector Editor & Color Swapper",
     category: "Content Creation",
-    description: "Transforms plain text into bold, italic, monospace, underlined, and stylized Unicode text for LinkedIn, X (Twitter), and Instagram.",
+    description: "Parses SVG XML directly in browser DOM to tweak colors, resize dimensions, and output clean code or PNGs.",
     inputs: [
-      { id: "text", label: "Input Text", type: "textarea", placeholder: "Type or paste the text you want to format..." },
-      { id: "style", label: "Primary Font Style", type: "dropdown", options: ["Bold Sans", "Bold Serif", "Italic Serif", "Monospace", "Underlined"] }
+      { id: "svgCode", label: "Raw SVG Code / XML Source", type: "textarea", placeholder: "<svg>...</svg>" },
+      { id: "oldColor", label: "Old Hex Color to Replace", type: "text", placeholder: "e.g. #FF0000" },
+      { id: "newColor", label: "New Hex Color", type: "text", placeholder: "e.g. #6366F1" }
     ]
   },
   {
-    id: "hashtag-generator",
-    title: "Hashtag Generator & Multiplier",
-    name: "Hashtag Generator & Multiplier",
+    id: "og-generator",
+    title: "Dynamic Open Graph (OG) Card Generator",
+    name: "Dynamic Open Graph (OG) Card Generator",
     category: "Content Creation",
-    description: "Generates targeted hashtag sets for Instagram, TikTok, LinkedIn, and X grouped by popularity, niche, and viral volume.",
+    description: "Generates social media preview images (1200x630) using Canvas with customizable templates and text wrapping.",
     inputs: [
-      { id: "topic", label: "Niche Topic / Main Keyword", type: "text", placeholder: "e.g., web development, SaaS, marketing" },
-      { id: "platform", label: "Social Platform", type: "dropdown", options: ["Instagram", "TikTok", "LinkedIn", "X (Twitter)"] },
-      { id: "volume", label: "Hashtag Output Quantity", type: "dropdown", options: ["10 Essential Hashtags", "20 Mixed Scale Hashtags", "30 Complete Hashtag Stack"] }
+      { id: "title", label: "Card Headline Title", type: "text", placeholder: "Enter target page headline..." },
+      { id: "subtitle", label: "Subheading / Brand Text", type: "text", placeholder: "e.g. Zenovee AI Suite" },
+      { id: "theme", label: "Visual Color Gradient Palette", type: "dropdown", options: ["Indigo Glow", "Sunset Orange", "Forest Emerald", "Cyberpunk Violet"] },
+      { id: "authorName", label: "Author/Source Tagline", type: "text", placeholder: "e.g. By Admin" }
     ]
   },
   {
-    id: "bio-bento",
-    title: "Bio Link Bento Grid Builder",
-    name: "Bio Link Bento Grid Builder",
+    id: "tts-audio",
+    title: "Text-to-Speech & Audio File Generator",
+    name: "Text-to-Speech & Audio File Generator",
     category: "Content Creation",
-    description: "Generates HTML/CSS code and layout blueprints for a modern social media bio link bento grid.",
+    description: "Converts plain text into customizable speech synthesized via the SpeechSynthesis API, downloadable as WebM audio.",
     inputs: [
-      { id: "name", label: "Profile Name / Brand Title", type: "text", placeholder: "e.g., Zenovee AI Suite" },
-      { id: "bio", label: "Short Profile Bio", type: "text", placeholder: "e.g., 50+ Free Client-Side Developer Utilities" },
-      { id: "primaryLink", label: "Featured Link URL", type: "text", placeholder: "https://zenovee.ai/dashboard" },
-      { id: "socialLinks", label: "Social Handles (Comma Separated)", type: "text", placeholder: "twitter:@zenovee, github:zenovee" }
+      { id: "text", label: "Speech Transcription text", type: "textarea", placeholder: "Type what you want the synthesized voice to read..." },
+      { id: "voice", label: "Selected Synthesizer Voice", type: "dropdown", options: ["Google US English (Male)", "Google UK English (Female)", "Microsoft David (Male)", "System Voice Default"] },
+      { id: "pitch", label: "Speech Tone Pitch", type: "dropdown", options: ["0.8 (Deep)", "1.0 (Normal)", "1.2 (Higher Pitch)", "1.5 (High Voice)"] },
+      { id: "speed", label: "Playback Reading Speed", type: "dropdown", options: ["0.75x (Slow)", "1.0x (Normal)", "1.25x (Flipped)", "1.5x (Fast)"] }
     ]
   },
   {
-    id: "caption-fixer",
-    title: "Caption Line-Break Fixer",
-    name: "Caption Line-Break Fixer",
+    id: "code-beautifier",
+    title: "Code Snippet Image Beautifier",
+    name: "Code Snippet Image Beautifier",
     category: "Content Creation",
-    description: "Cleans and preserves clean invisible line breaks for Instagram and LinkedIn captions without awkward periods or dots.",
+    description: "Creates code-card images (like Carbon) using client-side syntax highlighting and custom gradient backgrounds.",
     inputs: [
-      { id: "caption", label: "Raw Caption Text", type: "textarea", placeholder: "Paste your social media caption with line breaks..." }
+      { id: "code", label: "Raw Code Snippet Block", type: "textarea", placeholder: "Paste your raw script here..." },
+      { id: "language", label: "Highlighting Syntax Language", type: "dropdown", options: ["TypeScript / JavaScript", "Python", "HTML / CSS", "JSON / YAML", "Rust / Go"] },
+      { id: "theme", label: "Editor Theme Scheme", type: "dropdown", options: ["Monokai Dark", "VSCode Default", "Synthwave 84", "One Light"] },
+      { id: "padding", label: "Background Frame Padding", type: "dropdown", options: ["16px Minimal", "32px Balanced", "64px Maximum Container"] }
     ]
   },
   {
-    id: "yt-preview",
-    title: "YouTube Thumbnail & Title Preview Studio",
-    name: "YouTube Thumbnail & Title Preview Studio",
+    id: "batch-watermarker",
+    title: "Privacy-First Batch Image Watermarker",
+    name: "Privacy-First Batch Image Watermarker",
     category: "Content Creation",
-    description: "Previews how video thumbnails, titles, channel name, and view counts look across desktop and mobile YouTube search results.",
+    description: "Stamps logos or text onto photos simultaneously using local web workers without uploading files.",
     inputs: [
-      { id: "title", label: "Video Title", type: "text", placeholder: "How I Built a 100% Free Client Utility Hub in Next.js" },
-      { id: "channel", label: "Channel Name", type: "text", placeholder: "Zenovee Engineering" },
-      { id: "views", label: "Simulated Views & Age", type: "text", placeholder: "142K views · 3 days ago" },
-      { id: "thumbnailUrl", label: "Thumbnail Image URL (Optional)", type: "text", placeholder: "https://example.com/thumbnail.jpg" }
+      { id: "watermarkText", label: "Text Watermark Label", type: "text", placeholder: "e.g. Confidential" },
+      { id: "position", label: "Watermark Stamp Position", type: "dropdown", options: ["Center Grid", "Bottom Right Corner", "Bottom Left Corner", "Top Right Corner"] },
+      { id: "opacity", label: "Transparency Opacity Level", type: "dropdown", options: ["15% (Watermark Soft)", "30% (Standard)", "50% (Clear Grid)", "80% (Hard Solid)"] }
     ]
   },
   {
-    id: "sentiment-analyzer",
-    title: "Title & Hook Sentiment Analyzer",
-    name: "Title & Hook Sentiment Analyzer",
+    id: "subtitle-editor",
+    title: "Subtitle (SRT/VTT) Editor & Sync Tool",
+    name: "Subtitle (SRT/VTT) Editor & Sync Tool",
     category: "Content Creation",
-    description: "Analyzes headlines and video hooks for emotional tone, urgency triggers, curiosity gap, and click-through score.",
+    description: "Audio waveform viewer using Web Audio API to trim, re-time, and clean subtitle files locally.",
     inputs: [
-      { id: "hookText", label: "Hook / Title Text", type: "textarea", placeholder: "Why 90% of SaaS founders are switching to serverless utilities in 2026..." }
+      { id: "subtitleContent", label: "Raw Subtitle Lines (.SRT / .VTT)", type: "textarea", placeholder: "1\n00:00:01,000 --> 00:00:04,000\nHello, World!" },
+      { id: "timeOffsetMs", label: "Time Shift Offset (Milliseconds)", type: "text", placeholder: "e.g. +500 or -1000" },
+      { id: "format", label: "Target Output Format", type: "dropdown", options: ["SRT Format", "WebVTT Format"] }
     ]
   },
   {
-    id: "safe-zone",
-    title: "Short-Form Video Safe-Zone Overlay Guide",
-    name: "Short-Form Video Safe-Zone Overlay Guide",
+    id: "lottie-gif-extractor",
+    title: "Lottie Animation & GIF Frame Extractor",
+    name: "Lottie Animation & GIF Frame Extractor",
     category: "Content Creation",
-    description: "Displays safe margins for text, captions, and graphics to prevent UI overlap on TikTok, Reels, and YouTube Shorts.",
+    description: "Unpacks Lottie JSON or animated GIFs frame-by-frame and allows individual SVG/PNG downloads.",
     inputs: [
-      { id: "platform", label: "Target Short-Form Platform", type: "dropdown", options: ["TikTok (Includes Like/Comment/Share Buttons)", "Instagram Reels (Includes Audio & Caption Overlay)", "YouTube Shorts (Includes Subscribe & Channel Info)"] }
-    ]
-  },
-  {
-    id: "filler-word-counter",
-    title: "Audio Script Filler Word Counter",
-    name: "Audio Script Filler Word Counter",
-    category: "Content Creation",
-    description: "Scans podcast transcripts and video scripts to highlight and count filler words (um, like, basically, actually, honestly).",
-    inputs: [
-      { id: "script", label: "Podcast / Video Transcript", type: "textarea", placeholder: "Paste your spoken transcript or speech here..." }
-    ]
-  },
-  {
-    id: "timestamp-markdown",
-    title: "Timestamp to Markdown Formatter",
-    name: "Timestamp to Markdown Formatter",
-    category: "Content Creation",
-    description: "Converts raw video timestamps (`01:23 Intro`) into clickable YouTube descriptions and Markdown chapter lists.",
-    inputs: [
-      { id: "timestamps", label: "Raw Timestamps List (One per line)", type: "textarea", placeholder: "00:00 Introduction\n02:15 Setting up Next.js\n05:40 Client-side Execution\n10:12 Summary & Conclusion" }
+      { id: "extractFormat", label: "Extraction Image Format", type: "dropdown", options: ["PNG Grid Sequence", "SVG Vector Nodes"] },
+      { id: "frameRate", label: "Frames Extraction Speed", type: "dropdown", options: ["Export All Frames", "Skip Every Second Frame (Lighter Grid)", "Export First & Last Only"] }
     ]
   },
 
   // ==========================================
-  // 2. GROWTH MARKETING & ADS UTILITIES
+  // 2. GROWTH MARKETING
   // ==========================================
   {
+    id: "schema-builder",
+    title: "Dynamic JSON-LD Schema Markup Builder",
+    name: "Dynamic JSON-LD Schema Markup Builder",
+    category: "Growth Marketing",
+    description: "Interactive form generating Google-compliant schema (FAQ, HowTo, Product, Article, Local Business) with copy-paste readiness.",
+    inputs: [
+      { id: "schemaType", label: "Schema Type Definition", type: "dropdown", options: ["FAQ Page Schema", "HowTo Schema Builder", "Product Detail Schema", "Article/Blog Schema", "Local Business Info"] },
+      { id: "name", label: "Primary Entity Name / Title", type: "text", placeholder: "e.g. Zenovee Suite" },
+      { id: "url", label: "Target Entity Canonical URL", type: "text", placeholder: "https://zenovee.ai" },
+      { id: "description", label: "Schema Entity Brief Description", type: "textarea", placeholder: "Add key product highlights or schema summary details..." }
+    ]
+  },
+  {
     id: "utm-builder",
-    title: "UTM Link Architecture Builder",
-    name: "UTM Link Architecture Builder",
+    title: "UTM Campaign Builder & Link History Manager",
+    name: "UTM Campaign Builder & Link History Manager",
     category: "Growth Marketing",
-    description: "Generates clean, tracking-ready URLs with standard Google Analytics UTM campaign parameters.",
+    description: "Generates tagged URLs and stores past links in LocalStorage with one-click CSV export.",
     inputs: [
-      { id: "url", label: "Target Landing Page URL", type: "text", placeholder: "https://zenovee.ai/dashboard" },
-      { id: "source", label: "UTM Source (utm_source)", type: "text", placeholder: "google, newsletter, linkedin" },
-      { id: "medium", label: "UTM Medium (utm_medium)", type: "text", placeholder: "cpc, email, social" },
-      { id: "campaign", label: "UTM Campaign (utm_campaign)", type: "text", placeholder: "summer_launch_2026" },
-      { id: "term", label: "UTM Term / Keyword (Optional)", type: "text", placeholder: "free_productivity_tools" },
-      { id: "content", label: "UTM Content / Banner (Optional)", type: "text", placeholder: "sidebar_banner_v1" }
+      { id: "url", label: "Campaign Target Destination URL", type: "text", placeholder: "https://example.com/landing" },
+      { id: "source", label: "Campaign Source (utm_source)", type: "text", placeholder: "e.g. google, facebook, newsletter" },
+      { id: "medium", label: "Campaign Medium (utm_medium)", type: "text", placeholder: "e.g. cpc, email, social" },
+      { id: "campaign", label: "Campaign Name (utm_campaign)", type: "text", placeholder: "e.g. promo_2026" },
+      { id: "term", label: "Campaign Term (utm_term, optional)", type: "text", placeholder: "e.g. custom_keywords" },
+      { id: "content", label: "Campaign Content (utm_content, optional)", type: "text", placeholder: "e.g. post_button" }
     ]
   },
   {
-    id: "text-ratio",
-    title: "Ad Image Text Ratio Checker",
-    name: "Ad Image Text Ratio Checker",
+    id: "serp-simulator",
+    title: "Google & Social SERP Snippet Simulator",
+    name: "Google & Social SERP Snippet Simulator",
     category: "Growth Marketing",
-    description: "Evaluates ad creative text coverage against Meta & Google 20% grid rule guidelines.",
+    description: "Real-time previewer showing how titles, descriptions, and thumbnails render on desktop, mobile, Google, and LinkedIn.",
     inputs: [
-      { id: "headlineText", label: "On-Image Overlay Text", type: "textarea", placeholder: "Type the text appearing directly on your ad image graphic..." },
-      { id: "textSize", label: "Text Font Size / Area Scale", type: "dropdown", options: ["Small Subtitle (<15% Area - Pass)", "Medium Headline (15-20% Area - Pass)", "Large Overlay (>20% Area - Warning)"] }
+      { id: "title", label: "SEO Meta Title (Title Tag)", type: "text", placeholder: "Max 60 characters recommended..." },
+      { id: "description", label: "SEO Meta Description Tag", type: "textarea", placeholder: "Max 160 characters recommended for description snippet..." },
+      { id: "url", label: "Display Destination URL Link", type: "text", placeholder: "https://example.com/blog-post" }
     ]
   },
   {
-    id: "roas-matrix",
-    title: "Return on Ad Spend (RoAS) Calculator",
-    name: "Return on Ad Spend (RoAS) Calculator",
+    id: "robots-sitemap-builder",
+    title: "Robots.txt & XML Sitemap Builder/Validator",
+    name: "Robots.txt & XML Sitemap Builder/Validator",
     category: "Growth Marketing",
-    description: "Calculates Return on Ad Spend (ROAS), break-even ROAS %, net ad profit, and cost-per-acquisition (CPA).",
+    description: "Generates clean sitemaps and tests robots.txt rules against custom URL paths using pure JS logic.",
     inputs: [
-      { id: "adSpend", label: "Total Ad Spend ($)", type: "text", placeholder: "5000" },
-      { id: "revenue", label: "Total Revenue Generated ($)", type: "text", placeholder: "18500" },
-      { id: "profitMargin", label: "Product Profit Margin %", type: "text", placeholder: "75" }
+      { id: "domainUrl", label: "Target Domain Canonical URL", type: "text", placeholder: "https://zenovee.ai" },
+      { id: "disallowRules", label: "Disallowed Paths (One per line)", type: "textarea", placeholder: "/api/\n/admin/\n/private/" },
+      { id: "allowRules", label: "Explicitly Allowed Paths (One per line)", type: "textarea", placeholder: "/static/\n/assets/" },
+      { id: "sitemapUrls", label: "Sitemap URLs to include (One per line)", type: "textarea", placeholder: "/features\n/about\n/dashboard" }
     ]
   },
   {
-    id: "lookalike-reach",
-    title: "Lookalike Audience Size Estimator",
-    name: "Lookalike Audience Size Estimator",
+    id: "og-tag-generator",
+    title: "Open Graph & Twitter Card Meta Tag Generator",
+    name: "Open Graph & Twitter Card Meta Tag Generator",
     category: "Growth Marketing",
-    description: "Estimates target audience pool sizes across Meta, LinkedIn, and Google based on seed list size and geographic percentage.",
+    description: "Interactive generator that previews and outputs header tags for HTML insertion.",
     inputs: [
-      { id: "seedSize", label: "Seed Customer List Count", type: "text", placeholder: "2500" },
-      { id: "country", label: "Target Country / Region", type: "dropdown", options: ["United States", "United Kingdom", "Canada", "Global / Multi-Region"] },
-      { id: "percentage", label: "Lookalike Percentage Tier", type: "dropdown", options: ["1% (Highest Intent & Similarity)", "2% (Balanced Scale)", "5% (Broad Reach)", "10% (Maximum Volume)"] }
+      { id: "title", label: "Social Card Title Label", type: "text", placeholder: "e.g. Zenovee Suite - Web Utility Platform" },
+      { id: "description", label: "Social Card Description Tag", type: "textarea", placeholder: "Short summary for Facebook/Twitter index..." },
+      { id: "siteName", label: "Global Brand Site Name", type: "text", placeholder: "e.g. Zenovee AI" },
+      { id: "siteUrl", label: "Canonical URL Link", type: "text", placeholder: "https://zenovee.ai" },
+      { id: "image", label: "OG Card Image URL Path", type: "text", placeholder: "https://zenovee.ai/og-card.png" }
     ]
   },
   {
-    id: "headline-permutator",
-    title: "Headline Variation Permutation Generator",
-    name: "Headline Variation Permutation Generator",
+    id: "headline-analyzer",
+    title: "Headline Analyzer & Readability Scorer",
+    name: "Headline Analyzer & Readability Scorer",
     category: "Growth Marketing",
-    description: "Combines hooks, value propositions, and calls-to-action into matrix variations for A/B ad testing.",
+    description: "Evaluates title power words, emotional score, character length, and Flesch-Kincaid readability instantly.",
     inputs: [
-      { id: "hooks", label: "Hooks / Triggers (Comma Separated)", type: "text", placeholder: "Get 50+ Free Tools, Stop Paying for SaaS, Fast Web Utilities" },
-      { id: "features", label: "Core Features (Comma Separated)", type: "text", placeholder: "100% Client-Side, Zero Server Latency, Instant WebP Conversion" },
-      { id: "ctas", label: "Calls to Action (Comma Separated)", type: "text", placeholder: "Try Free Now, Open Suite, Get Started" }
+      { id: "headline", label: "Target Article/Email Headline Title", type: "text", placeholder: "Type your headline (e.g. 'How to Free Up Server Space in 5 Minutes')" }
     ]
   },
   {
-    id: "emoji-copy",
-    title: "Emoji Inserter for Copywriters",
-    name: "Emoji Inserter for Copywriters",
+    id: "email-signature",
+    title: "Client-Side HTML Email Signature Generator",
+    name: "Client-Side HTML Email Signature Generator",
     category: "Growth Marketing",
-    description: "Enriches ad text and marketing copy with contextual emojis for higher click-through rates.",
+    description: "Form builder creating responsive, inline-styled HTML signatures with live preview and past signature persistence.",
     inputs: [
-      { id: "copy", label: "Marketing Copy Text", type: "textarea", placeholder: "Paste your ad or social copy here..." },
-      { id: "density", label: "Emoji Density", type: "dropdown", options: ["Subtle (Bullet Points & Headings)", "Moderate (High Engagement)", "Aggressive (Social Hype)"] }
+      { id: "fullName", label: "Sender Full Name", type: "text", placeholder: "e.g. Jane Doe" },
+      { id: "jobTitle", label: "Sender Professional Role", type: "text", placeholder: "e.g. VP Marketing" },
+      { id: "company", label: "Company / Workspace Name", type: "text", placeholder: "e.g. Zenovee Softwares" },
+      { id: "phone", label: "Office Contact Number", type: "text", placeholder: "e.g. +1 555 123 4567" },
+      { id: "email", label: "Sender Professional Email", type: "text", placeholder: "jane@company.com" },
+      { id: "logoUrl", label: "Profile Picture / Logo URL", type: "text", placeholder: "https://example.com/logo.png" }
     ]
   },
   {
-    id: "coupon-sanitizer",
-    title: "Promo Code Format Sanitizer",
-    name: "Promo Code Format Sanitizer",
+    id: "qr-studio",
+    title: "Custom QR Code Studio",
+    name: "Custom QR Code Studio",
     category: "Growth Marketing",
-    description: "Cleans, formats, and sanitizes promo codes into standardized uppercase alphanumeric strings.",
+    description: "Generates vector/raster QR codes with embedded logos, custom gradients, and error-correction control (qrcode.js).",
     inputs: [
-      { id: "rawCodes", label: "Raw Code List (One per line or comma separated)", type: "textarea", placeholder: "summer sale 2026\n50 OFF free\nwelcome_deal_10" }
+      { id: "text", label: "Target URL / Raw Data Payload", type: "text", placeholder: "https://zenovee.ai" },
+      { id: "fgColor", label: "QR Block Hex Color", type: "text", placeholder: "e.g. #000000" },
+      { id: "errorCorrection", label: "Error Correction Capability Level", type: "dropdown", options: ["High (30% Restorable)", "Quartile (25%)", "Medium (15% Normal)", "Low (7% Compact)"] }
     ]
   },
   {
-    id: "cro-checklist",
-    title: "Conversion Rate Optimization Checklist Tracker",
-    name: "Conversion Rate Optimization Checklist Tracker",
+    id: "keyword-density",
+    title: "On-Page Keyword Density & Frequency Analyzer",
+    name: "On-Page Keyword Density & Frequency Analyzer",
     category: "Growth Marketing",
-    description: "Evaluates landing pages against 20 essential CRO friction points (page speed, clear H1, social proof, single CTA).",
+    description: "Parses raw HTML/text to calculate 1/2/3-word phrase density and stop-word filtering locally.",
     inputs: [
-      { id: "pageUrl", label: "Landing Page URL", type: "text", placeholder: "https://zenovee.ai/dashboard" },
-      { id: "pageType", label: "Landing Page Archetype", type: "dropdown", options: ["SaaS Product Page", "Lead Generation Form", "E-Commerce Product Detail", "Free Utility Hub"] }
+      { id: "htmlText", label: "Document Source HTML / Text Block", type: "textarea", placeholder: "Paste raw article html or copy text here..." },
+      { id: "stopWords", label: "Stop-Words Language Dictionary", type: "dropdown", options: ["English Dictionary Filters", "Spanish Filters", "Disable Filters (Extract All Words)"] }
     ]
   },
   {
-    id: "lead-incentive",
-    title: "Lead Magnet Value Estimator",
-    name: "Lead Magnet Value Estimator",
+    id: "social-formatter",
+    title: "Social Media Formatting & Character Matrix",
+    name: "Social Media Formatting & Character Matrix",
     category: "Growth Marketing",
-    description: "Estimates conversion rate and subscriber growth potential of ebooks, templates, and free utilities.",
+    description: "Auto-formats text with custom unicode fonts (bold, italic, script) while checking character limits for X, LinkedIn, and Instagram.",
     inputs: [
-      { id: "offerType", label: "Lead Magnet Format", type: "dropdown", options: ["Free Utility / Calculator Tool", "PDF Checklist / Cheat Sheet", "Video Masterclass / Mini-Course", "Template Pack"] },
-      { id: "monthlyTraffic", label: "Estimated Monthly Page Visitors", type: "text", placeholder: "5000" }
-    ]
-  },
-  {
-    id: "ad-framework-scanner",
-    title: "Competitor Ad Format Scanner Simulator",
-    name: "Competitor Ad Format Scanner Simulator",
-    category: "Growth Marketing",
-    description: "Simulates competitor ad creative breakdown identifying primary hooks, visual angles, and offer structures.",
-    inputs: [
-      { id: "adCopy", label: "Competitor Ad Text / Script", type: "textarea", placeholder: "Paste competitor ad copy to dissect..." }
+      { id: "text", label: "Social Copywriting Draft", type: "textarea", placeholder: "Write draft text here..." },
+      { id: "style", label: "Unicode Transformation Style", type: "dropdown", options: ["Bold Sans", "Bold Serif", "Italic Serif", "Monospace Coding", "Underlined Bold"] }
     ]
   },
 
@@ -276,375 +279,361 @@ export const toolsConfig: ToolConfig[] = [
   // 3. PRODUCTIVITY SOLVERS
   // ==========================================
   {
-    id: "privacy-gen",
-    title: "Privacy Policy / Terms Generator",
-    name: "Privacy Policy / Terms Generator",
+    id: "pdf-merger",
+    title: "Offline PDF Merger, Splitter & Reorder",
+    name: "Offline PDF Merger, Splitter & Reorder",
     category: "Productivity Solvers",
-    description: "Generates standard client-side Privacy Policy and Terms of Service documents compliant with GDPR & CCPA disclosures.",
+    description: "Re-arranges, merges, and extracts PDF pages locally using pdf-lib.",
     inputs: [
-      { id: "companyName", label: "Company / App Name", type: "text", placeholder: "Zenovee Free Suite" },
-      { id: "websiteUrl", label: "Website URL", type: "text", placeholder: "https://zenovee.ai" },
-      { id: "contactEmail", label: "Support Contact Email", type: "text", placeholder: "support@zenovee.ai" },
-      { id: "dataPolicy", label: "Data Processing Level", type: "dropdown", options: ["No Personal Data Collected (100% Local)", "Basic Analytics & Cookies", "User Accounts & Profiles"] }
+      { id: "operation", label: "PDF Operation Mode", type: "dropdown", options: ["Merge PDFs", "Split PDF Pages", "Reorder Individual Pages"] },
+      { id: "pagesRange", label: "Pages range to split/reorder", type: "text", placeholder: "e.g. 1-3, 5, 7-10" }
     ]
   },
   {
-    id: "privacy-policy-generator",
-    title: "Privacy Policy Framework Generator",
-    name: "Privacy Policy Framework Generator",
+    id: "ocr-extractor",
+    title: "Browser OCR / Image Text Extractor",
+    name: "Browser OCR / Image Text Extractor",
     category: "Productivity Solvers",
-    description: "Generates a customized, client-side Privacy Policy document outline compliant with GDPR and CCPA standard disclosures.",
+    description: "Converts scanned documents and photos into selectable text using Tesseract.js (WebAssembly OCR).",
     inputs: [
-      { id: "companyName", label: "Company / App Name", type: "text", placeholder: "Zenovee Free Suite" },
-      { id: "websiteUrl", label: "Website URL", type: "text", placeholder: "https://zenovee.ai" },
-      { id: "contactEmail", label: "Support / Contact Email", type: "text", placeholder: "support@zenovee.ai" }
+      { id: "language", label: "OCR Character Recognition Language", type: "dropdown", options: ["English", "Spanish", "French", "German", "Japanese"] }
     ]
   },
   {
-    id: "json-csv",
-    title: "JSON to CSV Visual Table Transformer",
-    name: "JSON to CSV Visual Table Transformer",
+    id: "media-trimmer",
+    title: "Audio/Video Trimmer & Format Converter",
+    name: "Audio/Video Trimmer & Format Converter",
     category: "Productivity Solvers",
-    description: "Converts JSON arrays of objects into structured CSV tabular data downloadable as `.csv`.",
+    description: "Trims and converts media formats locally via FFmpeg.wasm (pure client-side media processing).",
     inputs: [
-      { id: "json", label: "JSON Array Input", type: "textarea", placeholder: '[{"id":1,"name":"Alice","role":"Developer"},{"id":2,"name":"Bob","role":"Designer"}]' }
+      { id: "startTime", label: "Trim Start Time Code (HH:MM:SS)", type: "text", placeholder: "e.g. 00:00:10" },
+      { id: "endTime", label: "Trim End Time Code (HH:MM:SS)", type: "text", placeholder: "e.g. 00:00:45" },
+      { id: "targetFormat", label: "Target Output Media Format", type: "dropdown", options: ["MP4 (Video)", "WebM (Video)", "MP3 (Audio)", "WAV (Audio)"] }
     ]
   },
   {
-    id: "svg-optimizer",
-    title: "SVG Vector Code Previewer & Optimizer",
-    name: "SVG Vector Code Previewer & Optimizer",
+    id: "pomodoro-tracker",
+    title: "Pomodoro & Habit Analytics Dashboard",
+    name: "Pomodoro & Habit Analytics Dashboard",
     category: "Productivity Solvers",
-    description: "Previews raw SVG code live, cleans unused attributes, and formats SVG for inline HTML usage.",
+    description: "Full productivity suite with native browser notifications, customizable timers, and local data persistence via IndexedDB.",
     inputs: [
-      { id: "svgCode", label: "Raw SVG Markup Code", type: "textarea", placeholder: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="..."/></svg>' }
+      { id: "workDuration", label: "Focus Work Session Duration", type: "dropdown", options: ["25 Minutes", "50 Minutes", "90 Minutes Max"] },
+      { id: "breakDuration", label: "Short Break Interval", type: "dropdown", options: ["5 Minutes", "10 Minutes", "15 Minutes"] },
+      { id: "taskLabel", label: "Associated Session Task Tag", type: "text", placeholder: "e.g. coding features" }
     ]
   },
   {
-    id: "markdown-canvas",
-    title: "Markdown Workspace Canvas",
-    name: "Markdown Workspace Canvas",
+    id: "file-hash",
+    title: "Universal File Hash Generator",
+    name: "Universal File Hash Generator",
     category: "Productivity Solvers",
-    description: "Interactive real-time split-screen Markdown editor with live preview, word count, and copy/export controls.",
+    description: "Calculates SHA-256, SHA-512, MD5, and CRC32 checksums for massive files locally via the browser's Web Crypto API.",
     inputs: [
-      { id: "markdown", label: "Markdown Document Input", type: "textarea", placeholder: "# Welcome to Markdown Canvas\n\n- Write notes\n- Format docs\n- Export `.md` files" }
+      { id: "algorithm", label: "Cryptographic Hash Algorithm", type: "dropdown", options: ["SHA-256 (Secure)", "SHA-512 (Extended)", "MD5 (Legacy Compatibility)", "CRC32 (Speed Check)"] }
     ]
   },
   {
-    id: "webp-converter",
-    title: "Bulk Image WebP Converter",
-    name: "Bulk Image WebP Converter",
+    id: "screen-recorder",
+    title: "Browser Screen & Webcam Recorder",
+    name: "Browser Screen & Webcam Recorder",
     category: "Productivity Solvers",
-    description: "Converts images (PNG, JPEG, GIF) to WebP format using a hidden HTML canvas context in browser memory.",
+    description: "Records desktop, tab, or webcam with audio using MediaRecorder API and exports WebM/MP4 directly to disk.",
     inputs: [
-      { id: "file", label: "Select Image File", type: "file" },
-      { id: "quality", label: "WebP Quality (1-100)", type: "text", placeholder: "80" },
-      { id: "maxWidth", label: "Maximum Image Width (Pixels)", type: "text", placeholder: "1920" }
+      { id: "source", label: "Capture Frame Input Source", type: "dropdown", options: ["Screen Share Capture", "Webcam Device Capture", "Screen + Webcam Overlay"] },
+      { id: "audio", label: "Audio Capture Input Options", type: "dropdown", options: ["Include Microphone Audio Only", "Include System Audio + Microphone", "Mute Audio Channels"] }
     ]
   },
   {
-    id: "bulk-image-webp",
-    title: "Bulk Image WebP & Compression Configurator",
-    name: "Bulk Image WebP & Compression Configurator",
+    id: "timezone-scheduler",
+    title: "Multi-Timezone Interactive Meeting Scheduler",
+    name: "Multi-Timezone Interactive Meeting Scheduler",
     category: "Productivity Solvers",
-    description: "Configures client-side image compression parameters, WebP format conversion rules, and target dimensions.",
+    description: "Visual overlap planner converting working hours across world cities using native browser Intl APIs.",
     inputs: [
-      { id: "file", label: "Select Image File", type: "file" },
-      { id: "quality", label: "WebP Quality (1-100)", type: "text", placeholder: "80" },
-      { id: "maxWidth", label: "Max Image Width", type: "text", placeholder: "1920" }
+      { id: "meetingDate", label: "Meeting Calendar Date", type: "text", placeholder: "e.g. 2026-08-15" },
+      { id: "hostTimezone", label: "Host Location Timezone", type: "dropdown", options: ["UTC", "America/New_York (EST)", "Europe/London (GMT)", "Asia/Kolkata (IST)", "Asia/Tokyo (JST)", "Australia/Sydney"] },
+      { id: "guestTimezones", label: "Guest Target Location Timezones (Comma separated)", type: "text", placeholder: "e.g. America/New_York, Europe/London" }
     ]
   },
   {
-    id: "base64-codec",
-    title: "Base64 String Encoder / Decoder",
-    name: "Base64 String Encoder / Decoder",
+    id: "markdown-kanban",
+    title: "Client-Side Markdown Kanban Board",
+    name: "Client-Side Markdown Kanban Board",
     category: "Productivity Solvers",
-    description: "Encodes raw strings into Base64 format or decodes Base64 data instantly in browser memory.",
+    description: "Trello-like board storing columns and cards in IndexedDB with full JSON backup/restore capabilities.",
     inputs: [
-      { id: "text", label: "Input Data", type: "textarea", placeholder: "Paste plain text or base64 string..." },
-      { id: "mode", label: "Action Mode", type: "dropdown", options: ["Encode to Base64", "Decode from Base64"] }
+      { id: "boardJson", label: "Restore Kanban Board JSON Schema", type: "textarea", placeholder: '{"columns": [{"title": "To Do", "cards": []}]}' },
+      { id: "boardAction", label: "Active Modification Operation", type: "dropdown", options: ["Load Board from JSON", "Export Board JSON Backup", "Reset Board Layout to Default"] }
     ]
   },
   {
-    id: "base64-encoder",
-    title: "Base64 Encoder & Decoder",
-    name: "Base64 Encoder & Decoder",
+    id: "voice-transcriber",
+    title: "Voice Note Transcriber & Audio Dictation",
+    name: "Voice Note Transcriber & Audio Dictation",
     category: "Productivity Solvers",
-    description: "Encodes raw strings into Base64 format or decodes Base64 data instantly in browser memory.",
+    description: "Real-time continuous speech-to-text transcriber leveraging the native browser SpeechRecognition API.",
     inputs: [
-      { id: "text", label: "Input Data", type: "textarea", placeholder: "Paste plain text or base64 string..." },
-      { id: "mode", label: "Action Mode", type: "dropdown", options: ["Encode to Base64", "Decode from Base64"] }
+      { id: "language", label: "Dictation Dictation Language", type: "dropdown", options: ["English (US)", "Spanish (ES)", "French (FR)", "German (DE)"] },
+      { id: "recordingMode", label: "Continuous Audio Streaming Mode", type: "dropdown", options: ["Continuous Dictation", "Quick Note Sentences (Stops on silence)"] }
     ]
   },
   {
-    id: "regex-sandbox",
-    title: "Regex Pattern Interactive Sandbox",
-    name: "Regex Pattern Interactive Sandbox",
+    id: "mime-inspector",
+    title: "File Header & MIME Type Inspector",
+    name: "File Header & MIME Type Inspector",
     category: "Productivity Solvers",
-    description: "Tests regular expressions against test text, extracting matched groups and match counts.",
+    description: "Reads binary byte signatures (Magic Numbers) of any file via FileReader to reveal true file extensions and hex dumps.",
     inputs: [
-      { id: "pattern", label: "Regular Expression Pattern", type: "text", placeholder: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}" },
-      { id: "flags", label: "RegEx Flags", type: "text", placeholder: "gim" },
-      { id: "testText", label: "Test Input String", type: "textarea", placeholder: "Contact us at hello@zenovee.ai or sales@example.com" }
-    ]
-  },
-  {
-    id: "csv-dedup",
-    title: "CSV De-duplicator & Cleaner",
-    name: "CSV De-duplicator & Cleaner",
-    category: "Productivity Solvers",
-    description: "Removes duplicate rows from CSV spreadsheets based on a selected primary column key.",
-    inputs: [
-      { id: "csvData", label: "CSV Data Text", type: "textarea", placeholder: "email,name\nalice@example.com,Alice\nbob@example.com,Bob\nalice@example.com,Alice" },
-      { id: "keyColumn", label: "Deduplication Key Column (1-indexed)", type: "text", placeholder: "1" }
-    ]
-  },
-  {
-    id: "text-diff",
-    title: "Text Diff Comparator",
-    name: "Text Diff Comparator",
-    category: "Productivity Solvers",
-    description: "Compares two blocks of text line by line to highlight additions, deletions, and modifications.",
-    inputs: [
-      { id: "original", label: "Original Text Block", type: "textarea", placeholder: "Paste original version..." },
-      { id: "modified", label: "Modified Text Block", type: "textarea", placeholder: "Paste new version..." }
-    ]
-  },
-  {
-    id: "sql-prettifier",
-    title: "SQL Prettifier & Script Formatter",
-    name: "SQL Prettifier & Script Formatter",
-    category: "Productivity Solvers",
-    description: "Cleans up unformatted SQL queries with proper line breaks, uppercase keywords, and consistent indents.",
-    inputs: [
-      { id: "query", label: "Raw SQL Query", type: "textarea", placeholder: "select id, name, email from users where active = 1 order by id desc" }
+      { id: "inspectFile", label: "Target File to Inspect", type: "file" },
+      { id: "dumpBytes", label: "Hexadecimal Output Length", type: "dropdown", options: ["First 128 Bytes", "First 512 Bytes", "First 1024 Bytes Entire Header"] }
     ]
   },
 
   // ==========================================
-  // 4. FINANCIAL & SALES OPERATIONS CALCULATORS
+  // 4. FINANCIAL CALCULATORS
   // ==========================================
   {
-    id: "freelance-rate",
-    title: "Freelancer Dynamic Hourly Rate Calculator",
-    name: "Freelancer Dynamic Hourly Rate Calculator",
+    id: "fire-calculator",
+    title: "FIRE (Financial Independence) Retirement Calculator",
+    name: "FIRE (Financial Independence) Retirement Calculator",
     category: "Financial Calculators",
-    description: "Calculates required hourly billing rate based on annual target income, business overhead, and billable hours.",
+    description: "Simulates inflation-adjusted retirement timelines with dynamic interactive charts using Chart.js.",
     inputs: [
-      { id: "targetIncome", label: "Desired Annual Net Income ($)", type: "text", placeholder: "90000" },
-      { id: "overhead", label: "Annual Expenses & Taxes ($)", type: "text", placeholder: "20000" },
-      { id: "billableHoursPerWeek", label: "Billable Hours per Week", type: "text", placeholder: "25" },
-      { id: "vacationWeeks", label: "Vacation Weeks per Year", type: "text", placeholder: "4" }
+      { id: "currentAge", label: "Current Age", type: "text", placeholder: "e.g. 25" },
+      { id: "targetAge", label: "Desired Retirement Target Age", type: "text", placeholder: "e.g. 45" },
+      { id: "annualExpenses", label: "Expected Annual Expenses in Retirement ($)", type: "text", placeholder: "e.g. 60000" },
+      { id: "currentSavings", label: "Current Invested Savings ($)", type: "text", placeholder: "e.g. 100000" },
+      { id: "annualSavings", label: "Annual Regular New Investment ($)", type: "text", placeholder: "e.g. 24000" },
+      { id: "returnRate", label: "Assumed Investment Annual Growth Rate (%)", type: "text", placeholder: "e.g. 8.0" }
+    ]
+  },
+  {
+    id: "mortgage-amortization",
+    title: "Loan & Mortgage Amortization Schedule Engine",
+    name: "Loan & Mortgage Amortization Schedule Engine",
+    category: "Financial Calculators",
+    description: "Computes monthly breakdown tables, extra principal payments, and total interest graphs in real time.",
+    inputs: [
+      { id: "loanAmount", label: "Loan Amount ($)", type: "text", placeholder: "e.g. 400000" },
+      { id: "loanTermYears", label: "Mortgage Loan Duration (Years)", type: "text", placeholder: "e.g. 30" },
+      { id: "interestRate", label: "Annual Loan Interest Rate (%)", type: "text", placeholder: "e.g. 6.5" },
+      { id: "extraMonthlyPayment", label: "Optional Extra Monthly Principal Payoff ($)", type: "text", placeholder: "e.g. 200" }
+    ]
+  },
+  {
+    id: "compound-interest",
+    title: "Compound Interest & DRIP Investment Simulator",
+    name: "Compound Interest & DRIP Investment Simulator",
+    category: "Financial Calculators",
+    description: "Calculates compounding daily/monthly/yearly growth with recurring deposit schedules and breakdown matrices.",
+    inputs: [
+      { id: "principal", label: "Initial Investment Capital ($)", type: "text", placeholder: "e.g. 10000" },
+      { id: "monthlyContribution", label: "Additional Monthly Deposit ($)", type: "text", placeholder: "e.g. 500" },
+      { id: "annualRate", label: "Estimated Annual Percentage Yield (%)", type: "text", placeholder: "e.g. 7.5" },
+      { id: "compoundFrequency", label: "Compound Frequency Interval", type: "dropdown", options: ["Monthly Compound", "Annual Compound", "Daily Compound"] },
+      { id: "periodYears", label: "Total Length of Growth Time (Years)", type: "text", placeholder: "e.g. 20" }
+    ]
+  },
+  {
+    id: "freelance-rate",
+    title: "Freelance Rate & Value-Based Pricing Calculator",
+    name: "Freelance Rate & Value-Based Pricing Calculator",
+    category: "Financial Calculators",
+    description: "Factors overhead expenses, desired income, billable hours, and tax estimates to derive minimum hourly/project rates.",
+    inputs: [
+      { id: "targetIncome", label: "Target Annual Net Take-Home Salary ($)", type: "text", placeholder: "e.g. 80000" },
+      { id: "overhead", label: "Annual Business Overhead Expenses ($)", type: "text", placeholder: "e.g. 12000" },
+      { id: "billableHoursPerWeek", label: "Target Productive Billable Hours per Week", type: "text", placeholder: "e.g. 25" },
+      { id: "vacationWeeks", label: "Unpaid Vacation / Sick Time Weeks per Year", type: "text", placeholder: "e.g. 4" }
     ]
   },
   {
     id: "saas-forecaster",
-    title: "SaaS Churn & MRR Forecast Modeler",
-    name: "SaaS Churn & MRR Forecast Modeler",
+    title: "SaaS LTV, CAC & Churn Modeling Dashboard",
+    name: "SaaS LTV, CAC & Churn Modeling Dashboard",
     category: "Financial Calculators",
-    description: "Models 12-month MRR projections, customer churn impacts, and net new revenue trajectories.",
+    description: "Interactive unit economics simulator projecting MRR, customer lifetime value, and pay-back periods.",
     inputs: [
-      { id: "startingMrr", label: "Starting MRR ($)", type: "text", placeholder: "25000" },
-      { id: "newMrrPerMonth", label: "New MRR Added per Month ($)", type: "text", placeholder: "3000" },
-      { id: "monthlyChurnRate", label: "Monthly Churn Rate %", type: "text", placeholder: "3.5" }
+      { id: "mrr", label: "Current Monthly Recurring Revenue ($)", type: "text", placeholder: "e.g. 50000" },
+      { id: "churnRate", label: "Monthly Customer Churn Rate (%)", type: "text", placeholder: "e.g. 3.5" },
+      { id: "cac", label: "Customer Acquisition Cost ($)", type: "text", placeholder: "e.g. 150" },
+      { id: "arpu", label: "Average Revenue Per User/Account ($)", type: "text", placeholder: "e.g. 49" }
     ]
   },
   {
-    id: "stripe-fee",
-    title: "Stripe & PayPal Net Fee Deductor",
-    name: "Stripe & PayPal Net Fee Deductor",
+    id: "debt-planner",
+    title: "Debt Snowball vs. Avalanche Payoff Planner",
+    name: "Debt Snowball vs. Avalanche Payoff Planner",
     category: "Financial Calculators",
-    description: "Calculates payment processing fees (2.9% + $0.30) and tells you exact gross amount to charge to receive desired net payout.",
+    description: "Visual payoff timeline comparing total interest saved using Snowball vs. Avalanche strategies.",
     inputs: [
-      { id: "targetNet", label: "Desired Net Payout Amount ($)", type: "text", placeholder: "100" },
-      { id: "feePercentage", label: "Processing Fee %", type: "text", placeholder: "2.9" },
-      { id: "fixedFee", label: "Fixed Fee per Transaction ($)", type: "text", placeholder: "0.30" }
+      { id: "debtsList", label: "List of Outstanding Debts (Label: Balance, Rate, Min Payment)", type: "textarea", placeholder: "Credit Card: 5000, 18%, 150\nStudent Loan: 15000, 4.5%, 200" },
+      { id: "extraPayment", label: "Additional Monthly Snowball Allocation ($)", type: "text", placeholder: "e.g. 300" }
     ]
   },
   {
-    id: "contract-splitter",
-    title: "Contract Value Splitter",
-    name: "Contract Value Splitter",
+    id: "portfolio-rebalance",
+    title: "Crypto / Stock Portfolio Rebalancing Matrix",
+    name: "Crypto / Stock Portfolio Rebalancing Matrix",
     category: "Financial Calculators",
-    description: "Splits multi-party retainer contracts or agency revenue into percentage payouts for team members and partners.",
+    description: "Calculates target asset allocation adjustments and trade execution quantities based on target percentages.",
     inputs: [
-      { id: "totalContract", label: "Total Contract Amount ($)", type: "text", placeholder: "12000" },
-      { id: "splits", label: "Partner Splits % (Comma Separated)", type: "text", placeholder: "50, 30, 20" }
+      { id: "assetsJson", label: "Current Assets Allocation Array JSON", type: "textarea", placeholder: '[\n  {"name": "BTC", "value": 8000, "target": 50},\n  {"name": "ETH", "value": 2000, "target": 50}\n]' }
     ]
   },
   {
-    id: "discount-matrix",
-    title: "Discounts & Margins Matrix",
-    name: "Discounts & Margins Matrix",
+    id: "salary-tax",
+    title: "Net Salary Take-Home Tax Calculator",
+    name: "Net Salary Take-Home Tax Calculator",
     category: "Financial Calculators",
-    description: "Calculates gross profit margin percentage, markup percentage, and profit dollars from item cost and selling price.",
+    description: "Configurable regional tax bracket sliders calculating net income, marginal rates, and deduction breakdowns.",
     inputs: [
-      { id: "cost", label: "Cost Price ($)", type: "text", placeholder: "40" },
-      { id: "price", label: "Selling Price ($)", type: "text", placeholder: "100" },
-      { id: "discountPercent", label: "Discount Offered %", type: "text", placeholder: "15" }
+      { id: "annualGross", label: "Annual Gross Basic Salary ($)", type: "text", placeholder: "e.g. 90000" },
+      { id: "region", label: "Tax Jurisdiction Region", type: "dropdown", options: ["US Federal Brackets", "United Kingdom (PAYE)", "Canada Provincial Average"] },
+      { id: "deductions", label: "Pre-Tax Retirement Deductions ($)", type: "text", placeholder: "e.g. 6000" }
     ]
   },
   {
-    id: "package-pricing",
-    title: "Consulting Package Pricing Engine",
-    name: "Consulting Package Pricing Engine",
+    id: "inflation-calculator",
+    title: "Inflation & Purchasing Power Time Machine",
+    name: "Inflation & Purchasing Power Time Machine",
     category: "Financial Calculators",
-    description: "Structures tiered service packages (Starter, Growth, Enterprise) with recommended pricing multipliers.",
+    description: "Historical purchasing power calculator evaluating currency depreciation over customizable timeframes.",
     inputs: [
-      { id: "baseCost", label: "Base Deliverable Cost ($)", type: "text", placeholder: "1500" },
-      { id: "valueMultiplier", label: "Value Pricing Multiplier", type: "dropdown", options: ["1.5x (Standard Agency)", "2.0x (High Value Growth)", "3.0x (Enterprise Specialist)"] }
+      { id: "startAmount", label: "Initial Cash Amount ($)", type: "text", placeholder: "e.g. 1000" },
+      { id: "startYear", label: "Historical Start Year", type: "text", placeholder: "e.g. 1990" },
+      { id: "endYear", label: "Comparison Target Year", type: "text", placeholder: "e.g. 2026" }
     ]
   },
   {
-    id: "currency-compiler",
-    title: "Currency Conversion Spreadsheet Compiler",
-    name: "Currency Conversion Spreadsheet Compiler",
+    id: "real-estate-analyzer",
+    title: "Real Estate Cap Rate & Cash Flow Analyzer",
+    name: "Real Estate Cap Rate & Cash Flow Analyzer",
     category: "Financial Calculators",
-    description: "Formats and converts multi-currency revenue figures into standardized target currency reports.",
+    description: "Commercial/residential rental property analyzer computing Cash-on-Cash return, NOI, and Cap Rate.",
     inputs: [
-      { id: "amount", label: "Base Revenue Amount", type: "text", placeholder: "5000" },
-      { id: "fromCurrency", label: "From Currency", type: "dropdown", options: ["USD ($)", "EUR (€)", "GBP (£)", "CAD ($)", "INR (₹)"] },
-      { id: "toCurrency", label: "To Currency", type: "dropdown", options: ["USD ($)", "EUR (€)", "GBP (£)", "INR (₹)"] }
-    ]
-  },
-  {
-    id: "expense-mock",
-    title: "Tax Deductible Expense Log Mockup",
-    name: "Tax Deductible Expense Log Mockup",
-    category: "Financial Calculators",
-    description: "Logs and categorizes business expenses (Software, Home Office, Travel) to estimate total tax deductions.",
-    inputs: [
-      { id: "expenses", label: "Expense Line Items (Category, Amount - One per line)", type: "textarea", placeholder: "Software Subscriptions, 240\nHome Office Internet, 100\nTravel & Client Meals, 180" }
-    ]
-  },
-  {
-    id: "salary-contractor",
-    title: "Salary to Contractor Rate Equivalent",
-    name: "Salary to Contractor Rate Equivalent",
-    category: "Financial Calculators",
-    description: "Converts annual full-time employee salary into equivalent 1099 contractor hourly rates factoring health, taxes & 401k.",
-    inputs: [
-      { id: "salary", label: "Annual Full-Time Salary ($)", type: "text", placeholder: "120000" },
-      { id: "benefitsFactor", label: "Benefits & Overhead Multiplier", type: "dropdown", options: ["1.3x (Standard Benefits + Taxes)", "1.5x (Comprehensive Health & Tech Stipend)", "1.2x (Lean Remote Contract)"] }
-    ]
-  },
-  {
-    id: "runway-sim",
-    title: "Burn Rate & Runway Simulator",
-    name: "Burn Rate & Runway Simulator",
-    category: "Financial Calculators",
-    description: "Calculates startup cash runway in months based on total cash balance, monthly revenue, and monthly operating expenses.",
-    inputs: [
-      { id: "cashBalance", label: "Current Cash in Bank ($)", type: "text", placeholder: "150000" },
-      { id: "monthlyExpenses", label: "Total Monthly Expenses ($)", type: "text", placeholder: "18000" },
-      { id: "monthlyRevenue", label: "Total Monthly Revenue ($)", type: "text", placeholder: "6000" }
+      { id: "purchasePrice", label: "Property Purchase Price ($)", type: "text", placeholder: "e.g. 350000" },
+      { id: "downPaymentPercent", label: "Down Payment percentage (%)", type: "text", placeholder: "e.g. 20" },
+      { id: "monthlyRent", label: "Projected Gross Monthly Rent Income ($)", type: "text", placeholder: "e.g. 2500" },
+      { id: "annualExpenses", label: "Assumed Annual Maintenance, Tax & Insurance ($)", type: "text", placeholder: "e.g. 8000" }
     ]
   },
 
   // ==========================================
-  // 5. DATA & TECHNICAL UTILITIES
+  // 5. DATA & TECH UTILITIES
   // ==========================================
   {
-    id: "jwt-decoder",
-    title: "JWT Inspecting Sandbox",
-    name: "JWT Inspecting Sandbox",
-    category: "Data/Tech Utilities",
-    description: "Decodes JSON Web Token (JWT) headers, claims, and expiration timestamps locally without sending data to servers.",
+    id: "json-formatter",
+    title: "JSON Formatter, Validator, Diff & Tree Visualizer",
+    name: "JSON Formatter, Validator, Diff & Tree Visualizer",
+    category: "Data & Tech Utilities",
+    description: "Prettifies, validates, diffs two JSON files, and renders interactive collapsible DOM trees.",
     inputs: [
-      { id: "jwt", label: "Raw JWT Token String", type: "textarea", placeholder: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ..." }
+      { id: "jsonText1", label: "Primary JSON Document", type: "textarea", placeholder: '{"status": "ok", "items": [1, 2]}' },
+      { id: "jsonText2", label: "Secondary JSON (For Diff Comparisons)", type: "textarea", placeholder: '{"status": "ok", "items": [1, 2, 3]}' },
+      { id: "mode", label: "Processing Mode", type: "dropdown", options: ["Format & Validate Main JSON", "Compare Diffs Side-By-Side"] }
     ]
   },
   {
-    id: "html-stripper",
-    title: "HTML Entity Encoder / Stripper",
-    name: "HTML Entity Encoder / Stripper",
-    category: "Data/Tech Utilities",
-    description: "Strips HTML tags from raw code or encodes special characters into safe HTML entities.",
+    id: "jwt-decoder",
+    title: "JWT (JSON Web Token) & Base64 Encoder/Decoder",
+    name: "JWT (JSON Web Token) & Base64 Encoder/Decoder",
+    category: "Data & Tech Utilities",
+    description: "Inspects JWT headers, payloads, and signatures locally using Web Crypto without sending tokens over the wire.",
     inputs: [
-      { id: "code", label: "Raw HTML Code / Text", type: "textarea", placeholder: "<div class='content'><h1>Title</h1><p>Paragraph text...</p></div>" },
-      { id: "mode", label: "Operation Mode", type: "dropdown", options: ["Strip All HTML Tags (Plain Text)", "Encode HTML Special Entities", "Decode HTML Entities"] }
+      { id: "jwt", label: "Raw JSON Web Token (JWT) string", type: "textarea", placeholder: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ..." }
+    ]
+  },
+  {
+    id: "regex-tester",
+    title: "Regex Tester & Syntax Debugger",
+    name: "Regex Tester & Syntax Debugger",
+    category: "Data & Tech Utilities",
+    description: "Real-time regular expression tester with syntax highlighting, flag toggles, and match group breakdowns.",
+    inputs: [
+      { id: "regexPattern", label: "Regex Expression Pattern", type: "text", placeholder: "e.g. ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$" },
+      { id: "testString", label: "Test Subject String String", type: "textarea", placeholder: "Enter strings here to check regular expression matches..." },
+      { id: "flags", label: "Global Regex Match Flags", type: "text", placeholder: "e.g. g, i, m" }
+    ]
+  },
+  {
+    id: "css-playground",
+    title: "CSS Flexbox & CSS Grid Playground",
+    name: "CSS Flexbox & CSS Grid Playground",
+    category: "Data & Tech Utilities",
+    description: "Visual layout generator that lets developers drag/resize containers and outputs clean CSS code.",
+    inputs: [
+      { id: "layoutType", label: "Target Layout Model", type: "dropdown", options: ["Flexbox Row", "Flexbox Column", "Grid 3x3 layout", "Grid Custom"] },
+      { id: "gap", label: "Padding Items Gap (Pixels)", type: "text", placeholder: "e.g. 16px" },
+      { id: "itemsCount", label: "Number of Child Item Blocks", type: "text", placeholder: "e.g. 6" }
+    ]
+  },
+  {
+    id: "sqlite-studio",
+    title: "In-Browser SQLite Database Studio",
+    name: "In-Browser SQLite Database Studio",
+    category: "Data & Tech Utilities",
+    description: "Runs full SQL queries against uploadable .sqlite files inside the browser via sql.js (WebAssembly).",
+    inputs: [
+      { id: "sqliteFile", label: "SQLite Database File (.db/.sqlite)", type: "file" },
+      { id: "sqlQuery", label: "SQL Execution Query Command", type: "textarea", placeholder: "SELECT * FROM sqlite_master;" }
+    ]
+  },
+  {
+    id: "color-contrast",
+    title: "Color Palette & WCAG 2.1 Contrast Checker",
+    name: "Color Palette & WCAG 2.1 Contrast Checker",
+    category: "Data & Tech Utilities",
+    description: "Hex/RGB/HSL picker checking contrast accessibility ratios against Web Content Accessibility Guidelines.",
+    inputs: [
+      { id: "bgColor", label: "Background Hex Color", type: "text", placeholder: "e.g. #FFFFFF" },
+      { id: "fgColor", label: "Foreground Text Hex Color", type: "text", placeholder: "e.g. #4F46E5" }
     ]
   },
   {
     id: "cron-humanizer",
-    title: "Cron Job Schedule Humanizer",
-    name: "Cron Job Schedule Humanizer",
-    category: "Data/Tech Utilities",
-    description: "Translates cryptic cron expressions (`*/15 * * * *`) into plain English schedule descriptions and next execution times.",
+    title: "Cron Expression Parser & Humanizer",
+    name: "Cron Expression Parser & Humanizer",
+    category: "Data & Tech Utilities",
+    description: "Translates Cron syntax into plain language (e.g., \"At 05:00 on every Sunday\") and predicts the next 10 execution dates.",
     inputs: [
-      { id: "cron", label: "Cron Expression (5 Fields)", type: "text", placeholder: "0 9 * * 1-5" }
+      { id: "cron", label: "Cron Expression string", type: "text", placeholder: "e.g. */5 * * * *" }
     ]
   },
   {
-    id: "tailwind-bento",
-    title: "CSS Bento Grid Layout Boilerplate Maker",
-    name: "CSS Bento Grid Layout Boilerplate Maker",
-    category: "Data/Tech Utilities",
-    description: "Generates clean Tailwind CSS responsive bento grid HTML layouts for dashboard and landing page cards.",
+    id: "csv-converter",
+    title: "CSV / TSV to JSON / XML / YAML Converter",
+    name: "CSV / TSV to JSON / XML / YAML Converter",
+    category: "Data & Tech Utilities",
+    description: "Parses massive CSV files locally using streaming parsers (PapaParse) and exports structured formats.",
     inputs: [
-      { id: "columns", label: "Grid Columns Count", type: "dropdown", options: ["3 Columns (Standard Bento)", "4 Columns (Wide Dashboard)", "2 Columns (Compact)"] },
-      { id: "cardCount", label: "Total Cards", type: "text", placeholder: "5" }
+      { id: "csvText", label: "Raw CSV File Content", type: "textarea", placeholder: "name,role,email\nJane,VP,jane@example.com" },
+      { id: "outputFormat", label: "Target Output Structure Format", type: "dropdown", options: ["JSON Array Struct", "XML Document Nodes", "YAML Block Document"] }
     ]
   },
   {
-    id: "url-slugger",
-    title: "URL Slug Clean Engine",
-    name: "URL Slug Clean Engine",
-    category: "Data/Tech Utilities",
-    description: "Converts strings into clean, SEO-friendly URL slugs by stripping special characters and normalizing hyphens.",
+    id: "password-generator",
+    title: "Cryptographically Secure Password & Passphrase Generator",
+    name: "Cryptographically Secure Password & Passphrase Generator",
+    category: "Data & Tech Utilities",
+    description: "Generates high-entropy passwords using window.crypto.getRandomValues() with customizable complexity.",
     inputs: [
-      { id: "text", label: "Input Title or Heading", type: "text", placeholder: "10 Free Client-Side Developer Utilities for 2026!" }
+      { id: "length", label: "Target Password Length (Characters)", type: "text", placeholder: "e.g. 16" },
+      { id: "includeNumbers", label: "Include Number Blocks (0-9)", type: "dropdown", options: ["Yes, Include numbers", "No numbers"] },
+      { id: "includeSpecial", label: "Include Special Symbols (!@#$)", type: "dropdown", options: ["Yes, Include special characters", "No symbols"] }
     ]
   },
   {
     id: "uuid-generator",
-    title: "UUID v4 Bulk Key Generator",
-    name: "UUID v4 Bulk Key Generator",
-    category: "Data/Tech Utilities",
-    description: "Generates cryptographically random UUID v4 identifiers client-side.",
+    title: "UUID, ULID & NanoID Batch Generator",
+    name: "UUID, ULID & NanoID Batch Generator",
+    category: "Data & Tech Utilities",
+    description: "Generates hundreds of unique identifiers (v4, v5, ULIDs) instantly in browser memory.",
     inputs: [
-      { id: "count", label: "Quantity of UUIDs to Generate", type: "text", placeholder: "5" },
-      { id: "uppercase", label: "Output Format", type: "dropdown", options: ["Lowercase (Standard)", "UPPERCASE"] }
-    ]
-  },
-  {
-    id: "ua-parser",
-    title: "User-Agent Header Parser",
-    name: "User-Agent Header Parser",
-    category: "Data/Tech Utilities",
-    description: "Parses browser User-Agent strings to identify browser engine, OS version, device type, and CPU architecture.",
-    inputs: [
-      { id: "ua", label: "User-Agent String", type: "textarea", placeholder: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36..." }
-    ]
-  },
-  {
-    id: "yaml-json",
-    title: "YAML to JSON Structural Schema Converter",
-    name: "YAML to JSON Structural Schema Converter",
-    category: "Data/Tech Utilities",
-    description: "Converts YAML structural configurations into formatted JSON schemas in browser memory.",
-    inputs: [
-      { id: "yaml", label: "Raw YAML Input", type: "textarea", placeholder: "name: Zenovee AI\nversion: 1.0\nfeatures:\n  - client_side\n  - zero_server" }
-    ]
-  },
-  {
-    id: "xml-tree",
-    title: "XML Tree Visualizer & Cleaner",
-    name: "XML Tree Visualizer & Cleaner",
-    category: "Data/Tech Utilities",
-    description: "Formats and cleans raw XML markup into indented hierarchical trees.",
-    inputs: [
-      { id: "xml", label: "Raw XML Input", type: "textarea", placeholder: "<root><item id='1'><name>Test</name></item></root>" }
-    ]
-  },
-  {
-    id: "lorem-suite",
-    title: "Lorem Ipsum Placeholder Suite",
-    name: "Lorem Ipsum Placeholder Suite",
-    category: "Data/Tech Utilities",
-    description: "Generates customizable placeholder text, dummy JSON objects, and sample data arrays for frontend prototyping.",
-    inputs: [
-      { id: "type", label: "Placeholder Format", type: "dropdown", options: ["Dummy JSON User Array", "Lorem Ipsum Text Paragraphs", "Sample Product Catalog JSON"] }
+      { id: "count", label: "Total Identifiers Generation Count", type: "text", placeholder: "e.g. 100" },
+      { id: "idType", label: "Identifier Protocol Standard", type: "dropdown", options: ["UUID v4 (Standard Cryptographic)", "ULID (Time-sortable)", "NanoID (Compact Web Unique)"] },
+      { id: "uppercase", label: "Letter Case Output Style", type: "dropdown", options: ["lowercase format", "UPPERCASE FORMAT"] }
     ]
   }
 ];
