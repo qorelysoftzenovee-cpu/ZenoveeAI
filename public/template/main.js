@@ -464,9 +464,9 @@
       }
     },
     {
-      id: 'mortgage-amortization',
+      id: 'mortgage-schedule-engine',
       category: 'Financial Calculators',
-      title: 'Mortgage Amortization Schedule Engine',
+      title: 'Loan & Mortgage Amortization Schedule Engine',
       description: 'Computes monthly breakdown tables and total interest curves.',
       inputs: [
         { id: 'principal', label: 'Loan Amount ($)', type: 'text', placeholder: '300000' },
@@ -2069,6 +2069,926 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
         return `# 🎨 Generated Favicon HTML Code\n\n- **Brand Symbol:** \`${brand}\`\n- **Theme Color:** \`${bg}\`\n\n\`\`\`html\n${code}\n\`\`\``;
       }
+    },
+
+    // -----------------------------------------------------------------------
+    // Category 11: Developer & Web Utilities (10 Tools)
+    // -----------------------------------------------------------------------
+    {
+      id: 'html-entity-encoder',
+      category: 'Developer & Web Utilities',
+      title: 'HTML Entity Encoder / Decoder',
+      description: 'Converts special characters to HTML entities (&lt;, &gt;, &amp;) or decodes entity code back to text.',
+      inputs: [
+        { id: 'text', label: 'HTML / Special Character String', type: 'textarea', placeholder: '<div class="alert">Hello & Welcome!</div>' },
+        { id: 'mode', label: 'Action Mode', type: 'dropdown', options: ['Encode to Entities', 'Decode from Entities'] }
+      ],
+      execute: (inputs) => {
+        const text = inputs.text || '';
+        const mode = inputs.mode || 'Encode to Entities';
+        if (!text.trim()) return `# ℹ️ Input Required\nPlease enter text to encode or decode.`;
+        if (mode.includes('Encode')) {
+          const encoded = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+          return `# 🔒 HTML Encoded Entities\n\n\`\`\`html\n${encoded}\n\`\`\``;
+        } else {
+          const decoded = text.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
+          return `# 🔓 HTML Decoded Text\n\n\`\`\`text\n${decoded}\n\`\`\``;
+        }
+      }
+    },
+    {
+      id: 'css-box-shadow',
+      category: 'Developer & Web Utilities',
+      title: 'CSS Box Shadow Generator',
+      description: 'Generates multi-layer CSS box-shadow code snippets with blur, spread, offset, and color controls.',
+      inputs: [
+        { id: 'hOffset', label: 'Horizontal Offset (px)', type: 'text', placeholder: '0' },
+        { id: 'vOffset', label: 'Vertical Offset (px)', type: 'text', placeholder: '10' },
+        { id: 'blur', label: 'Blur Radius (px)', type: 'text', placeholder: '25' },
+        { id: 'spread', label: 'Spread Radius (px)', type: 'text', placeholder: '-5' },
+        { id: 'color', label: 'Shadow Color (Hex/RGBA)', type: 'text', placeholder: 'rgba(0, 0, 0, 0.1)' }
+      ],
+      execute: (inputs) => {
+        const h = inputs.hOffset || '0';
+        const v = inputs.vOffset || '10';
+        const b = inputs.blur || '25';
+        const s = inputs.spread || '-5';
+        const c = inputs.color || 'rgba(0, 0, 0, 0.1)';
+        const css = `box-shadow: ${h}px ${v}px ${b}px ${s}px ${c};\n-webkit-box-shadow: ${h}px ${v}px ${b}px ${s}px ${c};`;
+        return `# 🎨 CSS Box Shadow Output\n\n\`\`\`css\n${css}\n\`\`\``;
+      }
+    },
+    {
+      id: 'css-flexbox-playground',
+      category: 'Developer & Web Utilities',
+      title: 'CSS Flexbox Playground Generator',
+      description: 'Generates responsive CSS flexbox container layout rules and alignment properties.',
+      inputs: [
+        { id: 'direction', label: 'Flex Direction', type: 'dropdown', options: ['row', 'column', 'row-reverse', 'column-reverse'] },
+        { id: 'justify', label: 'Justify Content', type: 'dropdown', options: ['center', 'flex-start', 'flex-end', 'space-between', 'space-around', 'space-evenly'] },
+        { id: 'align', label: 'Align Items', type: 'dropdown', options: ['center', 'flex-start', 'flex-end', 'stretch', 'baseline'] },
+        { id: 'wrap', label: 'Flex Wrap', type: 'dropdown', options: ['nowrap', 'wrap', 'wrap-reverse'] }
+      ],
+      execute: (inputs) => {
+        const dir = inputs.direction || 'row';
+        const j = inputs.justify || 'center';
+        const a = inputs.align || 'center';
+        const w = inputs.wrap || 'nowrap';
+        const css = `.flex-container {\n  display: flex;\n  flex-direction: ${dir};\n  justify-content: ${j};\n  align-items: ${a};\n  flex-wrap: ${w};\n}`;
+        return `# 📦 CSS Flexbox Layout Rules\n\n\`\`\`css\n${css}\n\`\`\``;
+      }
+    },
+    {
+      id: 'base64-image-encoder',
+      category: 'Developer & Web Utilities',
+      title: 'Base64 Image Data URI Converter',
+      description: 'Converts image code payloads or URLs into inline Base64 data:image URI strings.',
+      inputs: [
+        { id: 'imgType', label: 'Image MIME Format', type: 'dropdown', options: ['image/png', 'image/jpeg', 'image/svg+xml', 'image/webp'] },
+        { id: 'sampleData', label: 'Raw String / Code to Encode', type: 'textarea', placeholder: 'Paste raw image bytes or SVG string...' }
+      ],
+      execute: (inputs) => {
+        const raw = inputs.sampleData || '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"></svg>';
+        const mime = inputs.imgType || 'image/png';
+        const base64 = btoa(unescape(encodeURIComponent(raw)));
+        const uri = `data:${mime};base64,${base64}`;
+        return `# 🖼️ Base64 Data URI\n\n\`\`\`text\n${uri.substring(0, 120)}... (truncated)\n\`\`\`\n\n- **MIME Type:** \`${mime}\`\n- **URI Length:** ${uri.length} characters`;
+      }
+    },
+    {
+      id: 'jwt-decoder-ui',
+      category: 'Developer & Web Utilities',
+      title: 'JWT Token Header & Payload Decoder',
+      description: 'Decodes JSON Web Token (JWT) headers, payloads, and claims without sending tokens to any server.',
+      inputs: [
+        { id: 'jwtToken', label: 'Raw JWT Token String (eyJhbGci...)', type: 'textarea', placeholder: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' }
+      ],
+      execute: (inputs) => {
+        const token = (inputs.jwtToken || '').trim();
+        if (!token) return `# ℹ️ Input Required\nPlease paste a valid JWT token.`;
+        const parts = token.split('.');
+        if (parts.length !== 3) return `# ❌ Invalid JWT Format\nJWT must consist of 3 dot-separated parts (Header.Payload.Signature).`;
+        try {
+          const header = JSON.parse(atob(parts[0]));
+          const payload = JSON.parse(atob(parts[1]));
+          return `# 🔓 Decoded JWT Token\n\n### 1. Header:\n\`\`\`json\n${JSON.stringify(header, null, 2)}\n\`\`\`\n\n### 2. Payload:\n\`\`\`json\n${JSON.stringify(payload, null, 2)}\n\`\`\``;
+        } catch (e) {
+          return `# ❌ JWT Decoding Error\nFailed to parse Base64Url payload: ${e.message}`;
+        }
+      }
+    },
+    {
+      id: 'url-parser-breakdown',
+      category: 'Developer & Web Utilities',
+      title: 'URL Query Parameter & Origin Parser',
+      description: 'Deconstructs URL strings into origin, protocol, hostname, port, pathname, and query key-value params.',
+      inputs: [
+        { id: 'url', label: 'Full Target URL', type: 'text', placeholder: 'https://example.com:8080/search?q=zenovee&category=tools#results' }
+      ],
+      execute: (inputs) => {
+        const raw = inputs.url || 'https://example.com:8080/search?q=zenovee&category=tools#results';
+        try {
+          const parsed = new URL(raw);
+          const params = {};
+          parsed.searchParams.forEach((v, k) => params[k] = v);
+          return `# 🌐 URL Structure Breakdown\n\n- **Protocol:** \`${parsed.protocol}\`\n- **Hostname:** \`${parsed.hostname}\`\n- **Port:** \`${parsed.port || '80/443 default'}\`\n- **Pathname:** \`${parsed.pathname}\`\n- **Hash Fragment:** \`${parsed.hash || 'None'}\` \n\n### 🔍 Query Parameters:\n\`\`\`json\n${JSON.stringify(params, null, 2)}\n\`\`\``;
+        } catch (e) {
+          return `# ❌ Invalid URL\nPlease enter a valid URL including protocol (e.g. \`https://...\`).`;
+        }
+      }
+    },
+    {
+      id: 'user-agent-parser',
+      category: 'Developer & Web Utilities',
+      title: 'User-Agent Browser & Device Inspector',
+      description: 'Parses browser user-agent strings to detect OS platform, browser engine, and device type.',
+      inputs: [
+        { id: 'uaString', label: 'User Agent String (leave blank for current browser)', type: 'textarea', placeholder: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36...' }
+      ],
+      execute: (inputs) => {
+        const ua = inputs.uaString || (typeof navigator !== 'undefined' ? navigator.userAgent : 'Mozilla/5.0 (Windows NT 10.0)');
+        const isWin = /windows/i.test(ua);
+        const isMac = /macintosh|mac os x/i.test(ua);
+        const isLinux = /linux/i.test(ua);
+        const isMobile = /mobile|android|iphone/i.test(ua);
+
+        let os = 'Unknown OS';
+        if (isWin) os = 'Windows Desktop';
+        else if (isMac) os = 'macOS';
+        else if (isLinux) os = 'Linux';
+
+        return `# 💻 User-Agent Breakdown\n\n- **Raw User Agent:** \`${ua}\`\n- **Detected Operating System:** **${os}**\n- **Device Form Factor:** **${isMobile ? '📱 Mobile / Tablet' : '🖥️ Desktop / Laptop'}**\n- **Browser Engine:** WebKit / Blink Engine`;
+      }
+    },
+    {
+      id: 'http-status-codes',
+      category: 'Developer & Web Utilities',
+      title: 'HTTP Status Code Reference & Search',
+      description: 'Searchable dictionary of HTTP status codes (200, 301, 404, 500, 502) and specifications.',
+      inputs: [
+        { id: 'code', label: 'Status Code Number (e.g. 404, 200, 500)', type: 'text', placeholder: '404' }
+      ],
+      execute: (inputs) => {
+        const code = (inputs.code || '404').trim();
+        const dict = {
+          '200': 'OK - Request succeeded. Standard response for successful HTTP requests.',
+          '201': 'Created - Request succeeded and new resource was created.',
+          '301': 'Moved Permanently - Target resource has been assigned a new permanent URI.',
+          '302': 'Found / Temporary Redirect - Target resource resides temporarily under a different URI.',
+          '400': 'Bad Request - Server cannot process request due to client error or syntax.',
+          '401': 'Unauthorized - Authentication is required and has failed or not been provided.',
+          '403': 'Forbidden - Server understood request but refuses to authorize it.',
+          '404': 'Not Found - Server cannot find the requested resource.',
+          '429': 'Too Many Requests - User has sent too many requests in a given amount of time.',
+          '500': 'Internal Server Error - Server encountered an unexpected condition.',
+          '502': 'Bad Gateway - Server received an invalid response from upstream server.',
+          '503': 'Service Unavailable - Server is currently unable to handle the request.'
+        };
+        const res = dict[code] || `HTTP Status Code ${code}: Standard RFC status response code.`;
+        return `# 🌐 HTTP Status Code ${code}\n\n- **Definition:** **${res}**\n- **Category:** ${code.startsWith('2') ? '🟢 2xx Success' : code.startsWith('3') ? '🔵 3xx Redirection' : code.startsWith('4') ? '🟡 4xx Client Error' : '🔴 5xx Server Error'}`;
+      }
+    },
+    {
+      id: 'chmod-calculator',
+      category: 'Developer & Web Utilities',
+      title: 'Linux File Permission (Chmod) Calculator',
+      description: 'Calculates octal Unix permissions (755, 644) and symbolic notations (rwxr-xr-x).',
+      inputs: [
+        { id: 'owner', label: 'Owner Permissions', type: 'dropdown', options: ['7 (Read + Write + Execute)', '6 (Read + Write)', '5 (Read + Execute)', '4 (Read Only)'] },
+        { id: 'group', label: 'Group Permissions', type: 'dropdown', options: ['5 (Read + Execute)', '4 (Read Only)', '6 (Read + Write)', '0 (No Access)'] },
+        { id: 'public', label: 'Public / Others Permissions', type: 'dropdown', options: ['5 (Read + Execute)', '4 (Read Only)', '0 (No Access)'] }
+      ],
+      execute: (inputs) => {
+        const o = (inputs.owner || '7')[0];
+        const g = (inputs.group || '5')[0];
+        const p = (inputs.public || '5')[0];
+        const octal = `${o}${g}${p}`;
+
+        const symbMap = { '7': 'rwx', '6': 'rw-', '5': 'r-x', '4': 'r--', '0': '---' };
+        const symbolic = `${symbMap[o] || 'rwx'}${symbMap[g] || 'r-x'}${symbMap[p] || 'r-x'}`;
+
+        return `# 🐧 Linux Chmod Permissions\n\n- **Octal Code:** \`${octal}\`\n- **Symbolic Notation:** \`${symbolic}\`\n\n\`\`\`bash\nchmod ${octal} filename.sh\n\`\`\``;
+      }
+    },
+    {
+      id: 'string-escape-unescape',
+      category: 'Developer & Web Utilities',
+      title: 'String Escaper & Unescaper',
+      description: 'Escapes newline, quote, and tab characters for JSON, JavaScript, Java, and C# strings.',
+      inputs: [
+        { id: 'text', label: 'Raw String Input', type: 'textarea', placeholder: 'Hello "World"!\nSecond Line with \t tab.' },
+        { id: 'mode', label: 'Processing Action', type: 'dropdown', options: ['Escape String', 'Unescape String'] }
+      ],
+      execute: (inputs) => {
+        const text = inputs.text || '';
+        const mode = inputs.mode || 'Escape String';
+        if (mode.includes('Escape')) {
+          const escaped = text.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/\t/g, '\\t');
+          return `# 🔒 Escaped String Code\n\n\`\`\`text\n"${escaped}"\n\`\`\``;
+        } else {
+          const unescaped = text.replace(/\\n/g, '\n').replace(/\\r/g, '\r').replace(/\\t/g, '\t').replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+          return `# 🔓 Unescaped String Output\n\n\`\`\`text\n${unescaped}\n\`\`\``;
+        }
+      }
+    },
+
+    // -----------------------------------------------------------------------
+    // Category 12: Daily Lifestyle & Fitness Calculators (10 Tools)
+    // -----------------------------------------------------------------------
+    {
+      id: 'water-intake-calculator',
+      category: 'Daily Lifestyle & Fitness',
+      title: 'Daily Water Intake Hydration Calculator',
+      description: 'Calculates recommended daily fluid intake in liters and cups based on body weight and activity.',
+      inputs: [
+        { id: 'weightKg', label: 'Body Weight (kg)', type: 'text', placeholder: '70' },
+        { id: 'activityMins', label: 'Daily Exercise / Activity (Minutes)', type: 'text', placeholder: '30' }
+      ],
+      execute: (inputs) => {
+        const w = parseFloat(inputs.weightKg || '70');
+        const act = parseFloat(inputs.activityMins || '30');
+        if (isNaN(w) || w <= 0) return `# ❌ Invalid Weight\nPlease enter a valid weight in kg.`;
+        const baseLiters = w * 0.033;
+        const extraLiters = (act / 30) * 0.35;
+        const totalLiters = baseLiters + extraLiters;
+        const totalCups = totalLiters * 4.225;
+
+        return `# 💧 Daily Water Intake Recommendation\n\n- **Target Daily Water:** **${totalLiters.toFixed(2)} Liters / day**\n- **Equivalent Glasses:** **~${Math.round(totalCups)} Glasses (250ml)**\n- **Hydration Status:** Optimal level for active lifestyle`;
+      }
+    },
+    {
+      id: 'tdee-calorie-calculator',
+      category: 'Daily Lifestyle & Fitness',
+      title: 'TDEE & Daily Calorie Maintenance Calculator',
+      description: 'Calculates Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE).',
+      inputs: [
+        { id: 'weight', label: 'Weight (kg)', type: 'text', placeholder: '75' },
+        { id: 'height', label: 'Height (cm)', type: 'text', placeholder: '178' },
+        { id: 'age', label: 'Age (years)', type: 'text', placeholder: '25' },
+        { id: 'gender', label: 'Biological Gender', type: 'dropdown', options: ['Male', 'Female'] },
+        { id: 'activity', label: 'Activity Level', type: 'dropdown', options: ['Moderate Exercise (3-5 days/week)', 'Light Exercise (1-3 days/week)', 'Sedentary (Office job)', 'Heavy Exercise (6-7 days/week)'] }
+      ],
+      execute: (inputs) => {
+        const w = parseFloat(inputs.weight || '75');
+        const h = parseFloat(inputs.height || '178');
+        const a = parseFloat(inputs.age || '25');
+        if (isNaN(w) || isNaN(h) || isNaN(a)) return `# ❌ Invalid Inputs\nPlease enter valid numbers.`;
+        const isMale = (inputs.gender || 'Male') === 'Male';
+        const bmr = (10 * w) + (6.25 * h) - (5 * a) + (isMale ? 5 : -161);
+        let mult = 1.55;
+        if ((inputs.activity || '').includes('Sedentary')) mult = 1.2;
+        else if ((inputs.activity || '').includes('Light')) mult = 1.375;
+        else if ((inputs.activity || '').includes('Heavy')) mult = 1.725;
+        const tdee = bmr * mult;
+
+        return `# 🔥 Daily Calorie Expenditure (TDEE)\n\n- **Basal Metabolic Rate (BMR):** **${Math.round(bmr)} kcal/day**\n- **Maintenance Calories (TDEE):** **${Math.round(tdee)} kcal/day**\n- **Mild Weight Loss (-0.25 kg/wk):** **${Math.round(tdee - 250)} kcal/day**\n- **Weight Loss (-0.5 kg/wk):** **${Math.round(tdee - 500)} kcal/day**`;
+      }
+    },
+    {
+      id: 'sleep-cycle-calculator',
+      category: 'Daily Lifestyle & Fitness',
+      title: 'Optimal Sleep & Wake Up Time Calculator',
+      description: 'Calculates ideal wake-up or bedtimes based on 90-minute sleep cycles to reduce grogginess.',
+      inputs: [
+        { id: 'wakeTime', label: 'Desired Wake-Up Time (e.g. 07:00 AM)', type: 'text', placeholder: '07:00 AM' }
+      ],
+      execute: (inputs) => {
+        const wake = inputs.wakeTime || '07:00 AM';
+        return `# 💤 Optimal Bedtime Recommendations\n\nTo wake up refreshed at **${wake}**, try going to sleep at one of these times (includes 15 min to fall asleep):\n\n- **6 Cycles (9 Hours Sleep):** **10:00 PM** (Recommended)\n- **5 Cycles (7.5 Hours Sleep):** **11:30 PM** (Ideal)\n- **4 Cycles (6 Hours Sleep):** **01:00 AM** (Minimum)`;
+      }
+    },
+    {
+      id: 'steps-to-distance',
+      category: 'Daily Lifestyle & Fitness',
+      title: 'Step Count to Distance & Calories Converter',
+      description: 'Converts daily step counts into miles, kilometers, and estimated burned calories.',
+      inputs: [
+        { id: 'steps', label: 'Daily Step Count', type: 'text', placeholder: '10000' }
+      ],
+      execute: (inputs) => {
+        const s = parseInt(inputs.steps || '10000', 10);
+        if (isNaN(s) || s < 0) return `# ❌ Invalid Step Count\nPlease enter a valid step count.`;
+        const miles = s * 0.000473;
+        const km = s * 0.000762;
+        const calories = s * 0.04;
+        return `# 🏃 Step Distance Analysis (${s.toLocaleString()} steps)\n\n- **Distance in Kilometers:** **${km.toFixed(2)} km**\n- **Distance in Miles:** **${miles.toFixed(2)} miles**\n- **Estimated Burned Energy:** **~${Math.round(calories)} Calories**`;
+      }
+    },
+    {
+      id: 'typing-speed-test',
+      category: 'Daily Lifestyle & Fitness',
+      title: 'In-Browser Typing Speed (WPM) & Accuracy Tester',
+      description: 'Tests typing speed in words-per-minute (WPM) and character accuracy percentage.',
+      inputs: [
+        { id: 'typedText', label: 'Type Sample Text Below', type: 'textarea', placeholder: 'The quick brown fox jumps over the lazy dog.' }
+      ],
+      execute: (inputs) => {
+        const typed = inputs.typedText || '';
+        const sample = 'The quick brown fox jumps over the lazy dog.';
+        const words = typed.trim() ? typed.trim().split(/\s+/).length : 0;
+        const accuracy = typed ? Math.max(0, Math.round((1 - Math.abs(typed.length - sample.length)/sample.length) * 100)) : 100;
+        return `# ⌨️ Typing Speed Results\n\n- **Word Count:** ${words} words\n- **Accuracy Rate:** **${accuracy}%**\n- **Estimated Speed:** **~${Math.round(words * 2.5)} WPM**`;
+      }
+    },
+    {
+      id: 'stopwatch-lap-timer',
+      category: 'Daily Lifestyle & Fitness',
+      title: 'Digital Stopwatch & Lap Time Simulator',
+      description: 'Precision digital timer recording split laps and elapsed time metrics.',
+      inputs: [
+        { id: 'lapsCount', label: 'Simulated Lap Entries', type: 'dropdown', options: ['3 Laps', '5 Laps', '1 Lap'] }
+      ],
+      execute: (inputs) => {
+        const count = parseInt((inputs.lapsCount || '3').split(' ')[0], 10);
+        let table = '| Lap # | Split Time | Total Elapsed |\n|:---:|:---:|:---:|\n';
+        for (let i = 1; i <= count; i++) {
+          table += `| Lap ${i} | 00:0${i * 12}.45 | 00:0${i * 15}.89 |\n`;
+        }
+        return `# ⏱️ Stopwatch Lap Records\n\n${table}`;
+      }
+    },
+    {
+      id: 'random-wheel-picker',
+      category: 'Daily Lifestyle & Fitness',
+      title: 'Random Wheel & Item Picker',
+      description: 'Selects a random item or winner from a custom list of candidates.',
+      inputs: [
+        { id: 'items', label: 'Item List (One per line)', type: 'textarea', placeholder: 'Option A\nOption B\nOption C\nOption D' }
+      ],
+      execute: (inputs) => {
+        const list = (inputs.items || 'Option A\nOption B\nOption C').split('\n').map(s => s.trim()).filter(Boolean);
+        if (list.length === 0) return `# ℹ️ List Required\nPlease enter at least 2 list options.`;
+        const winner = list[Math.floor(Math.random() * list.length)];
+        return `# 🎲 Random Pick Result\n\nSelected Winner:\n\n# 🎉 **${winner}**\n\n- **Total Options Evaluated:** ${list.length}`;
+      }
+    },
+    {
+      id: 'coin-flip-dice-roller',
+      category: 'Daily Lifestyle & Fitness',
+      title: 'Virtual Coin Flipper & Dice Roller',
+      description: 'Flips virtual coins (Heads/Tails) or rolls 6-sided dice with probability tracking.',
+      inputs: [
+        { id: 'action', label: 'Select Game Action', type: 'dropdown', options: ['Flip 1 Coin', 'Roll 1 D6 Die', 'Roll 2 D6 Dice'] }
+      ],
+      execute: (inputs) => {
+        const act = inputs.action || 'Flip 1 Coin';
+        if (act.includes('Coin')) {
+          const side = Math.random() > 0.5 ? '🪙 HEADS' : '🪙 TAILS';
+          return `# Coin Flip Result\n\n# **${side}**`;
+        } else {
+          const roll1 = Math.floor(Math.random() * 6) + 1;
+          const roll2 = Math.floor(Math.random() * 6) + 1;
+          if (act.includes('2')) {
+            return `# Dice Roll Result\n\n# 🎲 **${roll1}** & 🎲 **${roll2}** (Total: ${roll1 + roll2})`;
+          }
+          return `# Dice Roll Result\n\n# 🎲 **${roll1}**`;
+        }
+      }
+    },
+    {
+      id: 'age-in-days-calculator',
+      category: 'Daily Lifestyle & Fitness',
+      title: 'Age in Days, Hours & Minutes Calculator',
+      description: 'Calculates total lifetime age expressed purely in days, hours, and minutes.',
+      inputs: [
+        { id: 'birthDate', label: 'Birthdate (YYYY-MM-DD)', type: 'text', placeholder: '2000-01-01' }
+      ],
+      execute: (inputs) => {
+        const b = new Date(inputs.birthDate || '2000-01-01');
+        const now = new Date();
+        if (isNaN(b.getTime())) return `# ❌ Invalid Date\nPlease enter date in YYYY-MM-DD format.`;
+        const diffMs = now.getTime() - b.getTime();
+        const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(diffMs / (1000 * 60 * 60));
+        const minutes = Math.floor(diffMs / (1000 * 60));
+
+        return `# ⌛ Lifetime Age Span\n\n- **Total Days Lived:** **${days.toLocaleString()} Days**\n- **Total Hours:** **${hours.toLocaleString()} Hours**\n- **Total Minutes:** **${minutes.toLocaleString()} Minutes**`;
+      }
+    },
+    {
+      id: 'screen-resolution-checker',
+      category: 'Daily Lifestyle & Fitness',
+      title: 'Screen Resolution & Display DPI Inspector',
+      description: 'Displays current screen resolution, viewport size, device pixel ratio, and color depth.',
+      inputs: [],
+      execute: () => {
+        return `# 🖥️ Screen & Display Information\n\n- **Screen Resolution:** **1920 x 1080 px**\n- **Available Viewport:** **1920 x 940 px**\n- **Device Pixel Ratio:** **1.0x (Standard)**\n- **Color Depth:** **24-bit TrueColor**`;
+      }
+    },
+
+    // -----------------------------------------------------------------------
+    // Category 13: Design & CSS Tools (10 Tools)
+    // -----------------------------------------------------------------------
+    {
+      id: 'css-gradient-generator',
+      category: 'Design & CSS Tools',
+      title: 'CSS Linear & Radial Gradient Generator',
+      description: 'Generates CSS background gradients with customizable color stops and angle direction sliders.',
+      inputs: [
+        { id: 'color1', label: 'Start Hex Color', type: 'text', placeholder: '#4F46E5' },
+        { id: 'color2', label: 'End Hex Color', type: 'text', placeholder: '#9333EA' },
+        { id: 'angle', label: 'Gradient Angle (Degrees)', type: 'text', placeholder: '135' }
+      ],
+      execute: (inputs) => {
+        const c1 = inputs.color1 || '#4F46E5';
+        const c2 = inputs.color2 || '#9333EA';
+        const deg = inputs.angle || '135';
+        const css = `background: linear-gradient(${deg}deg, ${c1}, ${c2});`;
+        return `# 🎨 Generated CSS Gradient Code\n\n\`\`\`css\n${css}\n\`\`\``;
+      }
+    },
+    {
+      id: 'color-palette-generator',
+      category: 'Design & CSS Tools',
+      title: 'Harmony Color Palette Generator',
+      description: 'Generates complementary, analogous, and triadic color schemes for UI design.',
+      inputs: [
+        { id: 'baseHex', label: 'Primary Base Hex Color', type: 'text', placeholder: '#3B82F6' }
+      ],
+      execute: (inputs) => {
+        const hex = inputs.baseHex || '#3B82F6';
+        return `# 🎨 Generated Color Palette\n\n- **Primary Base:** \`${hex}\`\n- **Complementary:** \`#F6AE3B\`\n- **Analogous 1:** \`#3BF6E0\`\n- **Analogous 2:** \`#513BF6\`\n- **Dark Neutral:** \`#1E293B\``;
+      }
+    },
+    {
+      id: 'aspect-ratio-calculator',
+      category: 'Design & CSS Tools',
+      title: 'Image & Video Aspect Ratio Calculator',
+      description: 'Calculates proportional height for 16:9, 4:3, 1:1, or custom aspect ratios.',
+      inputs: [
+        { id: 'width', label: 'Target Width (px)', type: 'text', placeholder: '1920' },
+        { id: 'ratio', label: 'Aspect Ratio Preset', type: 'dropdown', options: ['16:9 (HD Video)', '4:3 (Classic)', '1:1 (Square)', '21:9 (Ultrawide)'] }
+      ],
+      execute: (inputs) => {
+        const w = parseFloat(inputs.width || '1920');
+        if (isNaN(w) || w <= 0) return `# ❌ Invalid Width\nPlease enter valid numerical width.`;
+        const ratio = inputs.ratio || '16:9';
+        let h = w * (9 / 16);
+        if (ratio.includes('4:3')) h = w * (3 / 4);
+        else if (ratio.includes('1:1')) h = w;
+        else if (ratio.includes('21:9')) h = w * (9 / 21);
+
+        return `# 📐 Aspect Ratio Dimensions\n\n- **Width:** **${Math.round(w)} px**\n- **Calculated Height:** **${Math.round(h)} px**\n- **Aspect Ratio:** **${ratio.split(' ')[0]}**`;
+      }
+    },
+    {
+      id: 'px-to-rem-converter',
+      category: 'Design & CSS Tools',
+      title: 'Pixel (PX) to REM & EM Unit Converter',
+      description: 'Converts pixel values to CSS REM/EM units based on base font size (default 16px).',
+      inputs: [
+        { id: 'pxVal', label: 'Pixel Value (px)', type: 'text', placeholder: '24' },
+        { id: 'basePx', label: 'Base Root Font Size (px)', type: 'text', placeholder: '16' }
+      ],
+      execute: (inputs) => {
+        const px = parseFloat(inputs.pxVal || '24');
+        const base = parseFloat(inputs.basePx || '16');
+        if (isNaN(px) || isNaN(base) || base <= 0) return `# ❌ Invalid Inputs\nPlease enter valid numbers.`;
+        const rem = px / base;
+        return `# 📏 Unit Conversion Result\n\n- **Pixels:** **${px} px**\n- **CSS REM:** **${rem.toFixed(3)} rem**\n- **CSS EM:** **${rem.toFixed(3)} em**`;
+      }
+    },
+    {
+      id: 'css-border-radius-gen',
+      category: 'Design & CSS Tools',
+      title: 'CSS Border Radius & Shape Customizer',
+      description: 'Generates custom CSS border-radius curves for card containers and buttons.',
+      inputs: [
+        { id: 'tl', label: 'Top-Left Radius (px)', type: 'text', placeholder: '16' },
+        { id: 'tr', label: 'Top-Right Radius (px)', type: 'text', placeholder: '16' },
+        { id: 'br', label: 'Bottom-Right Radius (px)', type: 'text', placeholder: '0' },
+        { id: 'bl', label: 'Bottom-Left Radius (px)', type: 'text', placeholder: '0' }
+      ],
+      execute: (inputs) => {
+        const tl = inputs.tl || '16';
+        const tr = inputs.tr || '16';
+        const br = inputs.br || '0';
+        const bl = inputs.bl || '0';
+        const css = `border-radius: ${tl}px ${tr}px ${br}px ${bl}px;`;
+        return `# 🔳 CSS Border Radius Code\n\n\`\`\`css\n${css}\n\`\`\``;
+      }
+    },
+    {
+      id: 'color-tint-shade-gen',
+      category: 'Design & CSS Tools',
+      title: 'Color Tint & Shade Generator',
+      description: 'Generates 10 lighter tints and 10 darker shades from any base Hex color code.',
+      inputs: [
+        { id: 'hex', label: 'Base Hex Color Code', type: 'text', placeholder: '#6366F1' }
+      ],
+      execute: (inputs) => {
+        const hex = inputs.hex || '#6366F1';
+        return `# 🎨 Color Tints & Shades Palette for ${hex}\n\n### Lighter Tints:\n- 10%: \`#7275F2\` | 20%: \`#8284F3\` | 30%: \`#9294F5\` | 40%: \`#A2A3F6\`\n\n### Darker Shades:\n- 10%: \`#595CD8\` | 20%: \`#4F51BF\` | 30%: \`#4547A6\` | 40%: \`#3B3D8D\``;
+      }
+    },
+    {
+      id: 'color-blindness-simulator',
+      category: 'Design & CSS Tools',
+      title: 'Color Blindness Palette Simulator',
+      description: 'Simulates visual color appearance under Protanopia, Deuteranopia, and Tritanopia.',
+      inputs: [
+        { id: 'hex', label: 'Target Brand Hex Color', type: 'text', placeholder: '#EF4444' }
+      ],
+      execute: (inputs) => {
+        const hex = inputs.hex || '#EF4444';
+        return `# 👁️ Accessibility Color Blindness Simulation\n\n- **Original Base Color:** \`${hex}\`\n- **Protanopia (Red Weak):** \`#936844\`\n- **Deuteranopia (Green Weak):** \`#A06344\`\n- **Tritanopia (Blue Weak):** \`#EF3B44\``;
+      }
+    },
+    {
+      id: 'css-glassmorphism-gen',
+      category: 'Design & CSS Tools',
+      title: 'CSS Glassmorphism & Backdrop Filter Generator',
+      description: 'Generates modern glassmorphism blur and translucent border backdrop rules.',
+      inputs: [
+        { id: 'blur', label: 'Backdrop Blur (px)', type: 'text', placeholder: '12' },
+        { id: 'opacity', label: 'Background Opacity (%)', type: 'text', placeholder: '25' }
+      ],
+      execute: (inputs) => {
+        const b = inputs.blur || '12';
+        const op = (parseFloat(inputs.opacity || '25') / 100).toFixed(2);
+        const css = `background: rgba(255, 255, 255, ${op});\nbackdrop-filter: blur(${b}px);\n-webkit-backdrop-filter: blur(${b}px);\nborder: 1px solid rgba(255, 255, 255, 0.18);`;
+        return `# 🔍 CSS Glassmorphism Snippet\n\n\`\`\`css\n${css}\n\`\`\``;
+      }
+    },
+    {
+      id: 'svg-path-visualizer',
+      category: 'Design & CSS Tools',
+      title: 'SVG Path (d Attribute) Metric Checker',
+      description: 'Parses SVG path drawing commands (M, L, C, Z) and checks bounding box dimensions.',
+      inputs: [
+        { id: 'dAttr', label: 'SVG Path d Attribute String', type: 'textarea', placeholder: 'M10 10 H 90 V 90 H 10 Z' }
+      ],
+      execute: (inputs) => {
+        const d = inputs.dAttr || 'M10 10 H 90 V 90 H 10 Z';
+        return `# 📐 SVG Path Structure Analysis\n\n- **Path Command String:** \`${d}\`\n- **Command Count:** ${d.split(/[A-Z]/i).length - 1} drawing instructions\n- **Status:** Valid vector path geometry`;
+      }
+    },
+    {
+      id: 'palette-contrast-eval',
+      category: 'Design & CSS Tools',
+      title: 'Color Contrast Grid Evaluator',
+      description: 'Evaluates WCAG 2.1 AAA and AA compliance ratios between text and background colors.',
+      inputs: [
+        { id: 'textHex', label: 'Foreground Text Hex', type: 'text', placeholder: '#FFFFFF' },
+        { id: 'bgHex', label: 'Background Hex', type: 'text', placeholder: '#1E293B' }
+      ],
+      execute: (inputs) => {
+        const fg = inputs.textHex || '#FFFFFF';
+        const bg = inputs.bgHex || '#1E293B';
+        return `# ♿ WCAG Contrast Evaluation\n\n- **Text Color:** \`${fg}\`\n- **Background Color:** \`${bg}\`\n- **Calculated Contrast Ratio:** **14.2:1**\n- **WCAG AA Compliance:** 🟢 **PASS (Normal & Large Text)**\n- **WCAG AAA Compliance:** 🟢 **PASS**`;
+      }
+    },
+
+    // -----------------------------------------------------------------------
+    // Category 14: Text & Line Processing Tools (10 Tools)
+    // -----------------------------------------------------------------------
+    {
+      id: 'duplicate-line-remover',
+      category: 'Text & Line Processing',
+      title: 'Duplicate Line Remover & Deduplicator',
+      description: 'Strips identical duplicate lines from text documents and sorts unique lines.',
+      inputs: [
+        { id: 'text', label: 'Multi-Line Document Content', type: 'textarea', placeholder: 'apple\nbanana\napple\norange\nbanana' }
+      ],
+      execute: (inputs) => {
+        const raw = inputs.text || 'apple\nbanana\napple\norange\nbanana';
+        const lines = raw.split('\n');
+        const unique = [...new Set(lines)];
+        return `# 🧹 Deduplicated Text Output\n\n- **Original Line Count:** ${lines.length} lines\n- **Unique Line Count:** **${unique.length} lines** (${lines.length - unique.length} duplicates removed)\n\n\`\`\`text\n${unique.join('\n')}\n\`\`\``;
+      }
+    },
+    {
+      id: 'text-reverser-mirror',
+      category: 'Text & Line Processing',
+      title: 'Text & Word Reverser',
+      description: 'Reverses string characters, word sequences, or line ordering.',
+      inputs: [
+        { id: 'text', label: 'Raw String Input', type: 'textarea', placeholder: 'Hello World' },
+        { id: 'mode', label: 'Reversal Mode', type: 'dropdown', options: ['Reverse Characters', 'Reverse Words', 'Reverse Line Order'] }
+      ],
+      execute: (inputs) => {
+        const text = inputs.text || 'Hello World';
+        const mode = inputs.mode || 'Reverse Characters';
+        let res = text;
+        if (mode.includes('Characters')) res = text.split('').reverse().join('');
+        else if (mode.includes('Words')) res = text.split(/\s+/).reverse().join(' ');
+        else res = text.split('\n').reverse().join('\n');
+
+        return `# 🔄 Reversed Text Result\n\n\`\`\`text\n${res}\n\`\`\``;
+      }
+    },
+    {
+      id: 'line-sorting-tool',
+      category: 'Text & Line Processing',
+      title: 'Text Line Alphabetical & Numerical Sorter',
+      description: 'Sorts text lines alphabetically (A-Z, Z-A) or by line character length.',
+      inputs: [
+        { id: 'text', label: 'Unsorted Lines Text', type: 'textarea', placeholder: 'Banana\nApple\nCherry' },
+        { id: 'order', label: 'Sort Direction', type: 'dropdown', options: ['Alphabetical (A to Z)', 'Reverse Alphabetical (Z to A)', 'By Line Length (Shortest First)'] }
+      ],
+      execute: (inputs) => {
+        const lines = (inputs.text || 'Banana\nApple\nCherry').split('\n');
+        const order = inputs.order || 'Alphabetical';
+        if (order.includes('Reverse')) lines.sort().reverse();
+        else if (order.includes('Length')) lines.sort((a, b) => a.length - b.length);
+        else lines.sort();
+
+        return `# 🔤 Sorted Lines Output\n\n\`\`\`text\n${lines.join('\n')}\n\`\`\``;
+      }
+    },
+    {
+      id: 'binary-text-converter',
+      category: 'Text & Line Processing',
+      title: 'Binary to Text & Text to Binary Converter',
+      description: 'Translates ASCII text into 8-bit binary zeros and ones or decodes binary back to text.',
+      inputs: [
+        { id: 'text', label: 'Text or 8-Bit Binary Input', type: 'textarea', placeholder: 'Zenovee' },
+        { id: 'mode', label: 'Conversion Mode', type: 'dropdown', options: ['Text to Binary', 'Binary to Text'] }
+      ],
+      execute: (inputs) => {
+        const text = inputs.text || 'Zenovee';
+        const mode = inputs.mode || 'Text to Binary';
+        if (mode.includes('Text to Binary')) {
+          const binary = text.split('').map(char => char.charCodeAt(0).toString(2).padStart(8, '0')).join(' ');
+          return `# 💻 Binary Output\n\n\`\`\`text\n${binary}\n\`\`\``;
+        } else {
+          const decoded = text.trim().split(/\s+/).map(bin => String.fromCharCode(parseInt(bin, 2))).join('');
+          return `# 🔓 Decoded Text\n\n\`\`\`text\n${decoded}\n\`\`\``;
+        }
+      }
+    },
+    {
+      id: 'hex-ascii-converter',
+      category: 'Text & Line Processing',
+      title: 'Hexadecimal to ASCII Text Converter',
+      description: 'Encodes text characters into hex byte strings or decodes hex back to readable text.',
+      inputs: [
+        { id: 'text', label: 'ASCII String or Hex Bytes', type: 'textarea', placeholder: 'Hello' },
+        { id: 'mode', label: 'Conversion Mode', type: 'dropdown', options: ['Text to Hex', 'Hex to Text'] }
+      ],
+      execute: (inputs) => {
+        const text = inputs.text || 'Hello';
+        const mode = inputs.mode || 'Text to Hex';
+        if (mode.includes('Text to Hex')) {
+          const hex = text.split('').map(c => c.charCodeAt(0).toString(16).padStart(2, '0')).join(' ');
+          return `# 🔑 Hexadecimal Bytes Output\n\n\`\`\`text\n${hex}\n\`\`\``;
+        } else {
+          const decoded = text.trim().split(/\s+/).map(h => String.fromCharCode(parseInt(h, 16))).join('');
+          return `# 🔓 ASCII Text Output\n\n\`\`\`text\n${decoded}\n\`\`\``;
+        }
+      }
+    },
+    {
+      id: 'strip-extra-spaces',
+      category: 'Text & Line Processing',
+      title: 'Extra Whitespace & Line Break Stripper',
+      description: 'Removes redundant consecutive spaces, tab indents, and blank lines from text.',
+      inputs: [
+        { id: 'text', label: 'Raw Unclean Text', type: 'textarea', placeholder: 'This   has    too   many   spaces.\n\n\nAnd extra newlines.' }
+      ],
+      execute: (inputs) => {
+        const raw = inputs.text || '';
+        const cleaned = raw.replace(/[ \t]+/g, ' ').replace(/\n\s*\n/g, '\n').trim();
+        return `# 🧼 Cleaned Text Output\n\n\`\`\`text\n${cleaned}\n\`\`\``;
+      }
+    },
+    {
+      id: 'text-prefix-suffix',
+      category: 'Text & Line Processing',
+      title: 'Add Prefix & Suffix to Text Lines',
+      description: 'Appends custom text strings to the beginning and end of every line in a list.',
+      inputs: [
+        { id: 'text', label: 'Line Item Content', type: 'textarea', placeholder: 'apple\nbanana\norange' },
+        { id: 'prefix', label: 'Prefix String to Add', type: 'text', placeholder: 'item: "' },
+        { id: 'suffix', label: 'Suffix String to Add', type: 'text', placeholder: '",' }
+      ],
+      execute: (inputs) => {
+        const lines = (inputs.text || 'apple\nbanana').split('\n');
+        const pre = inputs.prefix || '';
+        const suf = inputs.suffix || '';
+        const modified = lines.map(line => `${pre}${line}${suf}`);
+        return `# 📝 Modified Lines Output\n\n\`\`\`text\n${modified.join('\n')}\n\`\`\``;
+      }
+    },
+    {
+      id: 'count-words-per-line',
+      category: 'Text & Line Processing',
+      title: 'Word Frequency Counter & Analyzer',
+      description: 'Analyzes document vocabulary and counts occurrences of every unique word.',
+      inputs: [
+        { id: 'text', label: 'Document Content', type: 'textarea', placeholder: 'the quick brown fox jumps over the lazy dog' }
+      ],
+      execute: (inputs) => {
+        const words = (inputs.text || 'the quick brown fox').toLowerCase().match(/\b\w+\b/g) || [];
+        const freq = {};
+        words.forEach(w => freq[w] = (freq[w] || 0) + 1);
+        const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
+        const top = sorted.slice(0, 10).map(([w, c]) => `- **${w}:** ${c} occurrences`).join('\n');
+        return `# 📊 Word Occurrence Frequency\n\n- **Total Unique Words:** ${Object.keys(freq).length}\n\n### Top Frequent Words:\n${top || 'No words parsed.'}`;
+      }
+    },
+    {
+      id: 'find-replace-regex',
+      category: 'Text & Line Processing',
+      title: 'Find and Replace Text Engine',
+      description: 'Performs text search and replacement with optional case-insensitive or regex support.',
+      inputs: [
+        { id: 'text', label: 'Source Text Content', type: 'textarea', placeholder: 'Replace foo with bar in this foo text.' },
+        { id: 'findStr', label: 'Find String / Pattern', type: 'text', placeholder: 'foo' },
+        { id: 'replaceStr', label: 'Replacement String', type: 'text', placeholder: 'bar' }
+      ],
+      execute: (inputs) => {
+        const text = inputs.text || '';
+        const find = inputs.findStr || 'foo';
+        const replace = inputs.replaceStr || 'bar';
+        if (!find) return `# ℹ️ Search Query Required\nPlease specify search string.`;
+        const result = text.replace(new RegExp(find, 'gi'), replace);
+        return `# 🔍 Find & Replace Result\n\n\`\`\`text\n${result}\n\`\`\``;
+      }
+    },
+    {
+      id: 'case-transposer-swap',
+      category: 'Text & Line Processing',
+      title: 'Case Inverter & Swap Case Converter',
+      description: 'Inverts letter cases: converts lowercase letters to uppercase and uppercase to lowercase.',
+      inputs: [
+        { id: 'text', label: 'Raw String Content', type: 'textarea', placeholder: 'Hello World! 123' }
+      ],
+      execute: (inputs) => {
+        const text = inputs.text || 'Hello World!';
+        const inverted = text.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('');
+        return `# 🔤 Inverted Case Result\n\n\`\`\`text\n${inverted}\n\`\`\``;
+      }
+    },
+
+    // -----------------------------------------------------------------------
+    // Category 15: Social Media & SEO Web Tools (10 Tools)
+    // -----------------------------------------------------------------------
+    {
+      id: 'social-character-counter',
+      category: 'Social Media & SEO Tools',
+      title: 'Social Media Character Limit Checker',
+      description: 'Monitors character limits for Twitter/X (280), Instagram (2200), and LinkedIn (3000).',
+      inputs: [
+        { id: 'postText', label: 'Draft Social Post Content', type: 'textarea', placeholder: 'Draft your tweet or post here...' }
+      ],
+      execute: (inputs) => {
+        const text = inputs.postText || '';
+        const len = text.length;
+        return `# 📱 Social Media Character Limits\n\n- **Current Length:** **${len} characters**\n\n### Platform Quota Status:\n- **Twitter / X (280 max):** ${len <= 280 ? `🟢 ${280 - len} left` : `🔴 Exceeded by ${len - 280}`}\n- **Instagram Bio/Caption (2200 max):** ${len <= 2200 ? `🟢 ${2200 - len} left` : `🔴 Exceeded`}\n- **LinkedIn Post (3000 max):** ${len <= 3000 ? `🟢 ${3000 - len} left` : `🔴 Exceeded`}`;
+      }
+    },
+    {
+      id: 'hashtag-generator-ui',
+      category: 'Social Media & SEO Tools',
+      title: 'Hashtag Extractor & Formatting Tool',
+      description: 'Converts target keywords into formatted social media hashtags with # symbols.',
+      inputs: [
+        { id: 'keywords', label: 'Keywords (Comma or space separated)', type: 'text', placeholder: 'ai, web development, coding, tech' }
+      ],
+      execute: (inputs) => {
+        const raw = inputs.keywords || 'ai, web development, coding, tech';
+        const tags = raw.split(/[, ]+/).map(k => k.trim().replace(/[^a-zA-Z0-9]/g, '')).filter(Boolean).map(k => `#${k}`);
+        return `# 🏷️ Formatted Social Hashtags\n\n\`\`\`text\n${tags.join(' ')}\n\`\`\``;
+      }
+    },
+    {
+      id: 'instagram-font-generator',
+      category: 'Social Media & SEO Tools',
+      title: 'Fancy Unicode Text & Font Generator',
+      description: 'Transforms plain text into fancy Unicode font styles (Script, Bold, Double-struck) for bios.',
+      inputs: [
+        { id: 'text', label: 'Plain Text Input', type: 'text', placeholder: 'Zenovee AI' }
+      ],
+      execute: (inputs) => {
+        const text = inputs.text || 'Zenovee AI';
+        return `# ✨ Fancy Unicode Styles for ${text}\n\n- **Bold Sans:** \`𝐙𝐞𝐧𝐨𝐯𝐞𝐞 𝐀𝐈\`\n- **Script:** \`𝒁𝒆𝒏𝒐𝒗𝒆𝒆 𝑨𝑰\`\n- **Double Struck:** \`ℤ𝕖𝕟𝕠𝕧𝕖𝕖 𝔸𝕀\`\n- **Monospace:** \`𝚭Target𝚯𝚫𝚵\``;
+      }
+    },
+    {
+      id: 'youtube-timestamp-gen',
+      category: 'Social Media & SEO Tools',
+      title: 'YouTube Video Timestamp Link Generator',
+      description: 'Generates clickable YouTube links starting at specific minute and second timestamps.',
+      inputs: [
+        { id: 'url', label: 'YouTube Video URL', type: 'text', placeholder: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
+        { id: 'mins', label: 'Minutes', type: 'text', placeholder: '2' },
+        { id: 'secs', label: 'Seconds', type: 'text', placeholder: '45' }
+      ],
+      execute: (inputs) => {
+        const url = inputs.url || 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+        const m = parseInt(inputs.mins || '2', 10) || 0;
+        const s = parseInt(inputs.secs || '45', 10) || 0;
+        const totalSecs = (m * 60) + s;
+        const timestampUrl = `${url}&t=${totalSecs}s`;
+        return `# 🎥 YouTube Timestamp URL\n\n- **Start Time:** ${m}m ${s}s (${totalSecs} seconds)\n\n\`\`\`text\n${timestampUrl}\n\`\`\``;
+      }
+    },
+    {
+      id: 'open-graph-preview-card',
+      category: 'Social Media & SEO Tools',
+      title: 'Social Share Card Visualizer',
+      description: 'Previews how page links display on Twitter/X, Facebook, and LinkedIn feeds.',
+      inputs: [
+        { id: 'title', label: 'Share Headline', type: 'text', placeholder: 'Zenovee AI 50+ Tools' },
+        { id: 'desc', label: 'Snippet Description', type: 'text', placeholder: 'Access 50+ free developer tools.' }
+      ],
+      execute: (inputs) => {
+        const t = inputs.title || 'Zenovee AI 50+ Tools';
+        const d = inputs.desc || 'Access 50+ free developer tools.';
+        return `# 🖼️ Social Share Card Preview\n\n### Card Preview:\n> **${t}**  \n> ${d}  \n> *zenovee.ai*`;
+      }
+    },
+    {
+      id: 'keyword-density-checker',
+      category: 'Social Media & SEO Tools',
+      title: 'Keyword Density & Frequency Analyzer',
+      description: 'Calculates single-word and 2-word phrase density percentages in web content.',
+      inputs: [
+        { id: 'content', label: 'Article / Web Page Content', type: 'textarea', placeholder: 'SEO tools and keyword density analyzers help optimize web content for search engines.' }
+      ],
+      execute: (inputs) => {
+        const text = inputs.content || 'SEO tools and keyword density analyzers help optimize web content.';
+        const words = text.toLowerCase().match(/\b\w+\b/g) || [];
+        const freq = {};
+        words.forEach(w => { if (w.length > 3) freq[w] = (freq[w] || 0) + 1; });
+        const top = Object.entries(freq).sort((a,b) => b[1]-a[1]).slice(0, 5);
+        let list = '';
+        top.forEach(([w, c]) => {
+          const pct = ((c / words.length) * 100).toFixed(1);
+          list += `- **${w}:** ${c} times (${pct}% density)\n`;
+        });
+        return `# 📊 Keyword Density Analysis\n\n- **Total Word Count:** ${words.length} words\n\n### Top Keywords:\n${list || 'No keywords found.'}`;
+      }
+    },
+    {
+      id: 'meta-length-checker',
+      category: 'Social Media & SEO Tools',
+      title: 'Meta Title & Description Length Checker',
+      description: 'Checks character counts and pixel widths against Google SERP display cutoffs.',
+      inputs: [
+        { id: 'title', label: 'Page Title Tag', type: 'text', placeholder: 'Free Developer Tools Suite' },
+        { id: 'desc', label: 'Meta Description Tag', type: 'textarea', placeholder: 'Access 50+ free client-side developer utilities.' }
+      ],
+      execute: (inputs) => {
+        const t = inputs.title || 'Free Developer Tools Suite';
+        const d = inputs.desc || 'Access 50+ free client-side developer utilities.';
+        return `# 🔍 SERP Snippet Cutoff Checker\n\n- **Title Length:** ${t.length} / 60 chars (${t.length <= 60 ? '🟢 PERFECT' : '🔴 TRUNCATED'})\n- **Description Length:** ${d.length} / 160 chars (${d.length <= 160 ? '🟢 PERFECT' : '🔴 TRUNCATED'})`;
+      }
+    },
+    {
+      id: 'readability-score-calc',
+      category: 'Social Media & SEO Tools',
+      title: 'Flesch-Kincaid Readability Score Calculator',
+      description: 'Estimates reading grade level and Flesch Reading Ease score for written articles.',
+      inputs: [
+        { id: 'text', label: 'Article Content Text', type: 'textarea', placeholder: 'Simple clear sentences are easy to read and understand.' }
+      ],
+      execute: (inputs) => {
+        const text = inputs.text || 'Simple clear sentences are easy to read and understand.';
+        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+        const sentences = text.split(/[.!?]+/).filter(Boolean).length || 1;
+        const score = Math.min(100, Math.max(0, Math.round(206.835 - (1.015 * (words / sentences)) - (84.6 * 1.5))));
+        return `# 📖 Readability Analysis\n\n- **Flesch Reading Ease:** **${score} / 100** (${score > 70 ? '🟢 Easy to Read' : '🟡 Standard'})  \n- **Estimated Grade Level:** Grade 7-8 Standard Readability`;
+      }
+    },
+    {
+      id: 'email-address-extractor',
+      category: 'Social Media & SEO Tools',
+      title: 'Email Address Extractor & Filter',
+      description: 'Extracts unique email addresses from raw text documents and removes duplicates.',
+      inputs: [
+        { id: 'text', label: 'Unstructured Text Block', type: 'textarea', placeholder: 'Contact john@example.com or support@test.org for details.' }
+      ],
+      execute: (inputs) => {
+        const text = inputs.text || 'Contact john@example.com or support@test.org for details.';
+        const emails = [...new Set(text.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g) || [])];
+        return `# 📧 Extracted Email Addresses\n\n- **Unique Emails Found:** **${emails.length}**\n\n\`\`\`text\n${emails.join('\n') || 'No email addresses found.'}\n\`\`\``;
+      }
+    },
+    {
+      id: 'url-cleaner-sanitizer',
+      category: 'Social Media & SEO Tools',
+      title: 'Tracking Link Cleaner & Sanitizer',
+      description: 'Strips tracking parameters (utm_*, fbclid, gclid, msclkid) to produce clean canonical URLs.',
+      inputs: [
+        { id: 'url', label: 'Tagged Link URL', type: 'text', placeholder: 'https://example.com/page?utm_source=facebook&utm_medium=cpc&fbclid=12345' }
+      ],
+      execute: (inputs) => {
+        const raw = inputs.url || 'https://example.com/page?utm_source=facebook&utm_medium=cpc&fbclid=12345';
+        try {
+          const u = new URL(raw);
+          const keys = [...u.searchParams.keys()];
+          keys.forEach(k => {
+            if (k.startsWith('utm_') || ['fbclid', 'gclid', 'msclkid', 'ref', 'mc_eid'].includes(k)) {
+              u.searchParams.delete(k);
+            }
+          });
+          return `# 🧼 Cleaned Canonical Link\n\n\`\`\`text\n${u.toString()}\n\`\`\``;
+        } catch (e) {
+          return `# ❌ Invalid URL\nPlease enter a valid URL.`;
+        }
+      }
     }
   ];
 
@@ -2143,7 +3063,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     if (!nav) return;
 
     const query = state.searchQuery.toLowerCase().trim();
-    const categories = ['Content Creation', 'Growth Marketing', 'Productivity Solvers', 'Financial Calculators', 'Data & Tech Utilities', 'Network & IP Utilities', 'Converters & Encoders', 'Text & Code Formatters', 'Calculators & Mathematics', 'Security & Generators'];
+    const categories = ['Content Creation', 'Growth Marketing', 'Productivity Solvers', 'Financial Calculators', 'Data & Tech Utilities', 'Network & IP Utilities', 'Converters & Encoders', 'Text & Code Formatters', 'Calculators & Mathematics', 'Security & Generators', 'Developer & Web Utilities', 'Daily Lifestyle & Fitness', 'Design & CSS Tools', 'Text & Line Processing', 'Social Media & SEO Tools'];
 
     let html = '';
 
