@@ -409,7 +409,7 @@ export const toolsConfig: ToolConfig[] = [
     ]
   },
   {
-    id: "mortgage-schedule-engine",
+    id: "mortgage-amortization",
     title: "Loan & Mortgage Amortization Schedule Engine",
     name: "Loan & Mortgage Amortization Schedule Engine",
     category: "Financial Calculators",
@@ -966,18 +966,6 @@ export const toolsConfig: ToolConfig[] = [
     ]
   },
   {
-    id: "mortgage-amortization",
-    title: "Loan & Mortgage Amortization Calculator",
-    name: "Loan & Mortgage Amortization Calculator",
-    category: "Calculators & Mathematics",
-    description: "Calculates monthly mortgage payments and renders a year-by-year amortization breakdown schedule table.",
-    inputs: [
-      { id: "principal", label: "Loan Principal Amount ($)", type: "text", placeholder: "300000" },
-      { id: "rate", label: "Annual Interest Rate (%)", type: "text", placeholder: "6.5" },
-      { id: "term", label: "Loan Term", type: "dropdown", options: ["30 Years", "15 Years", "10 Years", "20 Years"] }
-    ]
-  },
-  {
     id: "compound-interest-calculator",
     title: "Compound Interest Growth Calculator",
     name: "Compound Interest Growth Calculator",
@@ -1184,559 +1172,1260 @@ export const toolsConfig: ToolConfig[] = [
       { id: "bgColor", label: "Background Hex Color", type: "text", placeholder: "#4F46E5" }
     ]
   },
-  // ==========================================
-  // 11. DEVELOPER & WEB UTILITIES
-  // ==========================================
   {
     id: "html-entity-encoder",
     title: "HTML Entity Encoder / Decoder",
     name: "HTML Entity Encoder / Decoder",
-    category: "Developer & Web Utilities",
-    description: "Converts special characters to HTML entities (&lt;, &gt;, &amp;) or decodes entity code back to text.",
+    category: "Developer & Web Tools",
+    description: "Converts special characters to HTML entities (&lt;, &gt;, &amp;, &quot;) and decodes entity strings.",
     inputs: [
-      { id: "text", label: "HTML / Special Character String", type: "textarea", placeholder: '<div class="alert">Hello & Welcome!</div>' },
-      { id: "mode", label: "Action Mode", type: "dropdown", options: ["Encode to Entities", "Decode from Entities"] }
-    ]
+      {
+            "id": "text",
+            "label": "Input HTML / Code Text",
+            "type": "textarea",
+            "placeholder": "<h1>Hello \"World\" & \"Developers\"</h1>"
+    },
+      {
+            "id": "mode",
+            "label": "Action Mode",
+            "type": "dropdown",
+            "options": [
+                  "Encode to HTML Entities",
+                  "Decode HTML Entities"
+            ]
+    }
+]
   },
   {
-    id: "css-box-shadow",
-    title: "CSS Box Shadow Generator",
-    name: "CSS Box Shadow Generator",
-    category: "Developer & Web Utilities",
-    description: "Generates multi-layer CSS box-shadow code snippets with blur, spread, offset, and color controls.",
+    id: "js-minifier",
+    title: "JavaScript Code Minifier & Formatter",
+    name: "JavaScript Code Minifier & Formatter",
+    category: "Developer & Web Tools",
+    description: "Compresses JavaScript code by removing comments, redundant spaces, and line breaks.",
     inputs: [
-      { id: "hOffset", label: "Horizontal Offset (px)", type: "text", placeholder: "0" },
-      { id: "vOffset", label: "Vertical Offset (px)", type: "text", placeholder: "10" },
-      { id: "blur", label: "Blur Radius (px)", type: "text", placeholder: "25" },
-      { id: "spread", label: "Spread Radius (px)", type: "text", placeholder: "-5" },
-      { id: "color", label: "Shadow Color (Hex/RGBA)", type: "text", placeholder: "rgba(0, 0, 0, 0.1)" }
-    ]
+      {
+            "id": "code",
+            "label": "JavaScript Source Code",
+            "type": "textarea",
+            "placeholder": "// Calculate sum\nfunction add(a, b) {\n  return a + b;\n}"
+    }
+]
   },
   {
-    id: "css-flexbox-playground",
-    title: "CSS Flexbox Playground Generator",
-    name: "CSS Flexbox Playground Generator",
-    category: "Developer & Web Utilities",
-    description: "Generates responsive CSS flexbox container layout rules and alignment properties.",
+    id: "css-minifier",
+    title: "CSS Stylesheet Minifier & Beautifier",
+    name: "CSS Stylesheet Minifier & Beautifier",
+    category: "Developer & Web Tools",
+    description: "Minifies CSS stylesheets for production or beautifies compressed CSS into readable format.",
     inputs: [
-      { id: "direction", label: "Flex Direction", type: "dropdown", options: ["row", "column", "row-reverse", "column-reverse"] },
-      { id: "justify", label: "Justify Content", type: "dropdown", options: ["center", "flex-start", "flex-end", "space-between", "space-around", "space-evenly"] },
-      { id: "align", label: "Align Items", type: "dropdown", options: ["center", "flex-start", "flex-end", "stretch", "baseline"] },
-      { id: "wrap", label: "Flex Wrap", type: "dropdown", options: ["nowrap", "wrap", "wrap-reverse"] }
-    ]
+      {
+            "id": "cssCode",
+            "label": "CSS Source Code",
+            "type": "textarea",
+            "placeholder": "/* Header Styles */\n.header {\n  color: #4F46E5;\n  font-size: 16px;\n}"
+    },
+      {
+            "id": "mode",
+            "label": "Format Mode",
+            "type": "dropdown",
+            "options": [
+                  "Minify CSS",
+                  "Beautify CSS (2 Spaces)"
+            ]
+    }
+]
   },
   {
-    id: "base64-image-encoder",
-    title: "Base64 Image Data URI Converter",
-    name: "Base64 Image Data URI Converter",
-    category: "Developer & Web Utilities",
-    description: "Converts image code payloads or URLs into inline Base64 data:image URI strings.",
+    id: "xml-formatter",
+    title: "XML Code Formatter & Validator",
+    name: "XML Code Formatter & Validator",
+    category: "Developer & Web Tools",
+    description: "Pretty-prints XML documents with customizable indent spacing and validates XML tag closure.",
     inputs: [
-      { id: "imgType", label: "Image MIME Format", type: "dropdown", options: ["image/png", "image/jpeg", "image/svg+xml", "image/webp"] },
-      { id: "sampleData", label: "Raw String / Code to Encode", type: "textarea", placeholder: "Paste raw image bytes or SVG string..." }
-    ]
+      {
+            "id": "xmlCode",
+            "label": "Raw XML Code",
+            "type": "textarea",
+            "placeholder": "<root><user id=\"1\"><name>Alice</name></user></root>"
+    }
+]
   },
   {
-    id: "jwt-decoder-ui",
-    title: "JWT Token Header & Payload Decoder",
-    name: "JWT Token Header & Payload Decoder",
-    category: "Developer & Web Utilities",
-    description: "Decodes JSON Web Token (JWT) headers, payloads, and claims without sending tokens to any server.",
+    id: "json-validator",
+    title: "JSON Validator & Syntax Fixer",
+    name: "JSON Validator & Syntax Fixer",
+    category: "Developer & Web Tools",
+    description: "Validates JSON strings, locates syntax errors with line numbers, and fixes common JSON mistakes.",
     inputs: [
-      { id: "jwtToken", label: "Raw JWT Token String (eyJhbGci...)", type: "textarea", placeholder: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." }
-    ]
+      {
+            "id": "jsonText",
+            "label": "JSON Code to Validate",
+            "type": "textarea",
+            "placeholder": "{\n  \"name\": \"Zenovee\",\n  \"tools\": 100\n}"
+    }
+]
   },
   {
-    id: "url-parser-breakdown",
-    title: "URL Query Parameter & Origin Parser",
-    name: "URL Query Parameter & Origin Parser",
-    category: "Developer & Web Utilities",
-    description: "Deconstructs URL strings into origin, protocol, hostname, port, pathname, and query key-value params.",
+    id: "htaccess-tester",
+    title: ".htaccess Redirect & Rewrite Tester",
+    name: ".htaccess Redirect & Rewrite Tester",
+    category: "Developer & Web Tools",
+    description: "Tests Apache .htaccess RewriteRule patterns against incoming test URLs.",
     inputs: [
-      { id: "url", label: "Full Target URL", type: "text", placeholder: "https://example.com:8080/search?q=zenovee&category=tools#results" }
-    ]
+      {
+            "id": "rule",
+            "label": "RewriteRule Pattern",
+            "type": "text",
+            "placeholder": "^old-page/(.*)$ https://example.com/new-page/$1 [R=301,L]"
+    },
+      {
+            "id": "testUrl",
+            "label": "Test Request URL",
+            "type": "text",
+            "placeholder": "https://example.com/old-page/article-123"
+    }
+]
+  },
+  {
+    id: "curl-to-fetch",
+    title: "cURL to JavaScript fetch() Converter",
+    name: "cURL to JavaScript fetch() Converter",
+    category: "Developer & Web Tools",
+    description: "Converts command-line cURL requests into clean JavaScript fetch() or Async/Await snippets.",
+    inputs: [
+      {
+            "id": "curlCmd",
+            "label": "cURL Command String",
+            "type": "textarea",
+            "placeholder": "curl -X POST https://api.example.com/data -H \"Content-Type: application/json\" -d '{\"key\":\"value\"}'"
+    }
+]
   },
   {
     id: "user-agent-parser",
-    title: "User-Agent Browser & Device Inspector",
-    name: "User-Agent Browser & Device Inspector",
-    category: "Developer & Web Utilities",
-    description: "Parses browser user-agent strings to detect OS platform, browser engine, and device type.",
+    title: "User-Agent String Parser",
+    name: "User-Agent String Parser",
+    category: "Developer & Web Tools",
+    description: "Parses User-Agent strings to identify Browser Name, OS Version, Engine, and Device Type.",
     inputs: [
-      { id: "uaString", label: "User Agent String (leave blank for current browser)", type: "textarea", placeholder: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)..." }
-    ]
+      {
+            "id": "uaString",
+            "label": "User-Agent String (leave blank for your browser)",
+            "type": "textarea",
+            "placeholder": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36..."
+    }
+]
   },
   {
-    id: "http-status-codes",
-    title: "HTTP Status Code Reference & Search",
-    name: "HTTP Status Code Reference & Search",
-    category: "Developer & Web Utilities",
-    description: "Searchable dictionary of HTTP status codes (200, 301, 404, 500, 502) and specifications.",
+    id: "markdown-table-generator",
+    title: "Markdown Table Builder",
+    name: "Markdown Table Builder",
+    category: "Developer & Web Tools",
+    description: "Generates clean Markdown data tables with customizable columns, alignment, and CSV import.",
     inputs: [
-      { id: "code", label: "Status Code Number (e.g. 404, 200, 500)", type: "text", placeholder: "404" }
-    ]
+      {
+            "id": "cols",
+            "label": "Columns Count",
+            "type": "text",
+            "placeholder": "3"
+    },
+      {
+            "id": "rows",
+            "label": "Rows Count",
+            "type": "text",
+            "placeholder": "3"
+    },
+      {
+            "id": "headers",
+            "label": "Header Titles (comma separated)",
+            "type": "text",
+            "placeholder": "ID, Product Name, Price"
+    }
+]
   },
   {
     id: "chmod-calculator",
-    title: "Linux File Permission (Chmod) Calculator",
-    name: "Linux File Permission (Chmod) Calculator",
-    category: "Developer & Web Utilities",
-    description: "Calculates octal Unix permissions (755, 644) and symbolic notations (rwxr-xr-x).",
+    title: "Linux Chmod Permissions Calculator",
+    name: "Linux Chmod Permissions Calculator",
+    category: "Developer & Web Tools",
+    description: "Calculates octal numerical permissions (755, 644) and symbolic notations (rwxr-xr-x).",
     inputs: [
-      { id: "owner", label: "Owner Permissions", type: "dropdown", options: ["7 (Read + Write + Execute)", "6 (Read + Write)", "5 (Read + Execute)", "4 (Read Only)"] },
-      { id: "group", label: "Group Permissions", type: "dropdown", options: ["5 (Read + Execute)", "4 (Read Only)", "6 (Read + Write)", "0 (No Access)"] },
-      { id: "public", label: "Public / Others Permissions", type: "dropdown", options: ["5 (Read + Execute)", "4 (Read Only)", "0 (No Access)"] }
-    ]
+      {
+            "id": "owner",
+            "label": "Owner Permissions",
+            "type": "dropdown",
+            "options": [
+                  "Read + Write + Execute (7)",
+                  "Read + Write (6)",
+                  "Read + Execute (5)",
+                  "Read Only (4)"
+            ]
+    },
+      {
+            "id": "group",
+            "label": "Group Permissions",
+            "type": "dropdown",
+            "options": [
+                  "Read + Execute (5)",
+                  "Read Only (4)",
+                  "Read + Write (6)",
+                  "No Access (0)"
+            ]
+    },
+      {
+            "id": "publicAcc",
+            "label": "Public/Others Permissions",
+            "type": "dropdown",
+            "options": [
+                  "Read + Execute (5)",
+                  "Read Only (4)",
+                  "No Access (0)",
+                  "Read + Write + Execute (7)"
+            ]
+    }
+]
   },
   {
-    id: "string-escape-unescape",
-    title: "String Escaper & Unescaper",
-    name: "String Escaper & Unescaper",
-    category: "Developer & Web Utilities",
-    description: "Escapes newline, quote, and tab characters for JSON, JavaScript, Java, and C# strings.",
+    id: "color-picker-palette",
+    title: "Interactive Color Picker & Palette Generator",
+    name: "Interactive Color Picker & Palette Generator",
+    category: "Design, Image & Color Utilities",
+    description: "Generates complementary, triadic, and monochromatic color palettes from any base Hex color.",
     inputs: [
-      { id: "text", label: "Raw String Input", type: "textarea", placeholder: 'Hello "World"!\nSecond Line.' },
-      { id: "mode", label: "Processing Action", type: "dropdown", options: ["Escape String", "Unescape String"] }
-    ]
-  },
-
-  // ==========================================
-  // 12. DAILY LIFESTYLE & FITNESS
-  // ==========================================
-  {
-    id: "water-intake-calculator",
-    title: "Daily Water Intake Hydration Calculator",
-    name: "Daily Water Intake Hydration Calculator",
-    category: "Daily Lifestyle & Fitness",
-    description: "Calculates recommended daily fluid intake in liters and cups based on body weight and activity.",
-    inputs: [
-      { id: "weightKg", label: "Body Weight (kg)", type: "text", placeholder: "70" },
-      { id: "activityMins", label: "Daily Exercise / Activity (Minutes)", type: "text", placeholder: "30" }
-    ]
-  },
-  {
-    id: "tdee-calorie-calculator",
-    title: "TDEE & Daily Calorie Maintenance Calculator",
-    name: "TDEE & Daily Calorie Maintenance Calculator",
-    category: "Daily Lifestyle & Fitness",
-    description: "Calculates Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE).",
-    inputs: [
-      { id: "weight", label: "Weight (kg)", type: "text", placeholder: "75" },
-      { id: "height", label: "Height (cm)", type: "text", placeholder: "178" },
-      { id: "age", label: "Age (years)", type: "text", placeholder: "25" },
-      { id: "gender", label: "Biological Gender", type: "dropdown", options: ["Male", "Female"] },
-      { id: "activity", label: "Activity Level", type: "dropdown", options: ["Moderate Exercise (3-5 days/week)", "Light Exercise (1-3 days/week)", "Sedentary (Office job)", "Heavy Exercise (6-7 days/week)"] }
-    ]
+      {
+            "id": "baseHex",
+            "label": "Base Hex Color Code",
+            "type": "text",
+            "placeholder": "#4F46E5"
+    },
+      {
+            "id": "paletteType",
+            "label": "Palette Harmony Type",
+            "type": "dropdown",
+            "options": [
+                  "Monochromatic",
+                  "Complementary",
+                  "Triadic",
+                  "Analogous"
+            ]
+    }
+]
   },
   {
-    id: "sleep-cycle-calculator",
-    title: "Optimal Sleep & Wake Up Time Calculator",
-    name: "Optimal Sleep & Wake Up Time Calculator",
-    category: "Daily Lifestyle & Fitness",
-    description: "Calculates ideal wake-up or bedtimes based on 90-minute sleep cycles to reduce grogginess.",
+    id: "aspect-ratio-calc",
+    title: "Aspect Ratio Calculator",
+    name: "Aspect Ratio Calculator",
+    category: "Design, Image & Color Utilities",
+    description: "Calculates missing dimensions for 16:9, 4:3, 1:1, 21:9, and custom image aspect ratios.",
     inputs: [
-      { id: "wakeTime", label: "Desired Wake-Up Time (e.g. 07:00 AM)", type: "text", placeholder: "07:00 AM" }
-    ]
-  },
-  {
-    id: "steps-to-distance",
-    title: "Step Count to Distance & Calories Converter",
-    name: "Step Count to Distance & Calories Converter",
-    category: "Daily Lifestyle & Fitness",
-    description: "Converts daily step counts into miles, kilometers, and estimated burned calories.",
-    inputs: [
-      { id: "steps", label: "Daily Step Count", type: "text", placeholder: "10000" }
-    ]
-  },
-  {
-    id: "typing-speed-test",
-    title: "In-Browser Typing Speed (WPM) & Accuracy Tester",
-    name: "In-Browser Typing Speed (WPM) & Accuracy Tester",
-    category: "Daily Lifestyle & Fitness",
-    description: "Tests typing speed in words-per-minute (WPM) and character accuracy percentage.",
-    inputs: [
-      { id: "typedText", label: "Type Sample Text Below", type: "textarea", placeholder: "The quick brown fox jumps over the lazy dog." }
-    ]
-  },
-  {
-    id: "stopwatch-lap-timer",
-    title: "Digital Stopwatch & Lap Time Simulator",
-    name: "Digital Stopwatch & Lap Time Simulator",
-    category: "Daily Lifestyle & Fitness",
-    description: "Precision digital timer recording split laps and elapsed time metrics.",
-    inputs: [
-      { id: "lapsCount", label: "Simulated Lap Entries", type: "dropdown", options: ["3 Laps", "5 Laps", "1 Lap"] }
-    ]
-  },
-  {
-    id: "random-wheel-picker",
-    title: "Random Wheel & Item Picker",
-    name: "Random Wheel & Item Picker",
-    category: "Daily Lifestyle & Fitness",
-    description: "Selects a random item or winner from a custom list of candidates.",
-    inputs: [
-      { id: "items", label: "Item List (One per line)", type: "textarea", placeholder: "Option A\nOption B\nOption C" }
-    ]
-  },
-  {
-    id: "coin-flip-dice-roller",
-    title: "Virtual Coin Flipper & Dice Roller",
-    name: "Virtual Coin Flipper & Dice Roller",
-    category: "Daily Lifestyle & Fitness",
-    description: "Flips virtual coins (Heads/Tails) or rolls 6-sided dice with probability tracking.",
-    inputs: [
-      { id: "action", label: "Select Game Action", type: "dropdown", options: ["Flip 1 Coin", "Roll 1 D6 Die", "Roll 2 D6 Dice"] }
-    ]
-  },
-  {
-    id: "age-in-days-calculator",
-    title: "Age in Days, Hours & Minutes Calculator",
-    name: "Age in Days, Hours & Minutes Calculator",
-    category: "Daily Lifestyle & Fitness",
-    description: "Calculates total lifetime age expressed purely in days, hours, and minutes.",
-    inputs: [
-      { id: "birthDate", label: "Birthdate (YYYY-MM-DD)", type: "text", placeholder: "2000-01-01" }
-    ]
-  },
-  {
-    id: "screen-resolution-checker",
-    title: "Screen Resolution & Display DPI Inspector",
-    name: "Screen Resolution & Display DPI Inspector",
-    category: "Daily Lifestyle & Fitness",
-    description: "Displays current screen resolution, viewport size, device pixel ratio, and color depth.",
-    inputs: []
-  },
-
-  // ==========================================
-  // 13. DESIGN & CSS TOOLS
-  // ==========================================
-  {
-    id: "css-gradient-generator",
-    title: "CSS Linear & Radial Gradient Generator",
-    name: "CSS Linear & Radial Gradient Generator",
-    category: "Design & CSS Tools",
-    description: "Generates CSS background gradients with customizable color stops and angle direction sliders.",
-    inputs: [
-      { id: "color1", label: "Start Hex Color", type: "text", placeholder: "#4F46E5" },
-      { id: "color2", label: "End Hex Color", type: "text", placeholder: "#9333EA" },
-      { id: "angle", label: "Gradient Angle (Degrees)", type: "text", placeholder: "135" }
-    ]
-  },
-  {
-    id: "color-palette-generator",
-    title: "Harmony Color Palette Generator",
-    name: "Harmony Color Palette Generator",
-    category: "Design & CSS Tools",
-    description: "Generates complementary, analogous, and triadic color schemes for UI design.",
-    inputs: [
-      { id: "baseHex", label: "Primary Base Hex Color", type: "text", placeholder: "#3B82F6" }
-    ]
-  },
-  {
-    id: "aspect-ratio-calculator",
-    title: "Image & Video Aspect Ratio Calculator",
-    name: "Image & Video Aspect Ratio Calculator",
-    category: "Design & CSS Tools",
-    description: "Calculates proportional height for 16:9, 4:3, 1:1, or custom aspect ratios.",
-    inputs: [
-      { id: "width", label: "Target Width (px)", type: "text", placeholder: "1920" },
-      { id: "ratio", label: "Aspect Ratio Preset", type: "dropdown", options: ["16:9 (HD Video)", "4:3 (Classic)", "1:1 (Square)", "21:9 (Ultrawide)"] }
-    ]
+      {
+            "id": "ratio",
+            "label": "Aspect Ratio Preset",
+            "type": "dropdown",
+            "options": [
+                  "16:9 (Widescreen)",
+                  "4:3 (Standard)",
+                  "1:1 (Square / Instagram)",
+                  "21:9 (Ultrawide)"
+            ]
+    },
+      {
+            "id": "knownDim",
+            "label": "Known Dimension (Width or Height in px)",
+            "type": "text",
+            "placeholder": "1920"
+    },
+      {
+            "id": "dimType",
+            "label": "Known Dimension Type",
+            "type": "dropdown",
+            "options": [
+                  "Width",
+                  "Height"
+            ]
+    }
+]
   },
   {
     id: "px-to-rem-converter",
-    title: "Pixel (PX) to REM & EM Unit Converter",
-    name: "Pixel (PX) to REM & EM Unit Converter",
-    category: "Design & CSS Tools",
-    description: "Converts pixel values to CSS REM/EM units based on base font size (default 16px).",
+    title: "Pixels to REM / EM / VW Converter",
+    name: "Pixels to REM / EM / VW Converter",
+    category: "Design, Image & Color Utilities",
+    description: "Converts pixel values to CSS rem, em, and vw units based on a configurable root font size.",
     inputs: [
-      { id: "pxVal", label: "Pixel Value (px)", type: "text", placeholder: "24" },
-      { id: "basePx", label: "Base Root Font Size (px)", type: "text", placeholder: "16" }
-    ]
+      {
+            "id": "pxVal",
+            "label": "Pixel Value (px)",
+            "type": "text",
+            "placeholder": "16"
+    },
+      {
+            "id": "rootSize",
+            "label": "Root Font Size (default 16px)",
+            "type": "text",
+            "placeholder": "16"
+    }
+]
   },
   {
-    id: "css-border-radius-gen",
-    title: "CSS Border Radius & Shape Customizer",
-    name: "CSS Border Radius & Shape Customizer",
-    category: "Design & CSS Tools",
-    description: "Generates custom CSS border-radius curves for card containers and buttons.",
+    id: "box-shadow-generator",
+    title: "CSS Box Shadow & Drop Shadow Generator",
+    name: "CSS Box Shadow & Drop Shadow Generator",
+    category: "Design, Image & Color Utilities",
+    description: "Generates custom CSS box-shadow code with blur, spread, offset, opacity, and inset options.",
     inputs: [
-      { id: "tl", label: "Top-Left Radius (px)", type: "text", placeholder: "16" },
-      { id: "tr", label: "Top-Right Radius (px)", type: "text", placeholder: "16" },
-      { id: "br", label: "Bottom-Right Radius (px)", type: "text", placeholder: "0" },
-      { id: "bl", label: "Bottom-Left Radius (px)", type: "text", placeholder: "0" }
-    ]
+      {
+            "id": "offsetX",
+            "label": "Horizontal Offset (px)",
+            "type": "text",
+            "placeholder": "0"
+    },
+      {
+            "id": "offsetY",
+            "label": "Vertical Offset (px)",
+            "type": "text",
+            "placeholder": "10"
+    },
+      {
+            "id": "blur",
+            "label": "Blur Radius (px)",
+            "type": "text",
+            "placeholder": "25"
+    },
+      {
+            "id": "spread",
+            "label": "Spread Radius (px)",
+            "type": "text",
+            "placeholder": "-5"
+    },
+      {
+            "id": "shadowColor",
+            "label": "Shadow Color Hex",
+            "type": "text",
+            "placeholder": "#000000"
+    }
+]
   },
   {
-    id: "color-tint-shade-gen",
-    title: "Color Tint & Shade Generator",
-    name: "Color Tint & Shade Generator",
-    category: "Design & CSS Tools",
-    description: "Generates 10 lighter tints and 10 darker shades from any base Hex color code.",
+    id: "gradient-generator",
+    title: "CSS Linear & Radial Gradient Generator",
+    name: "CSS Linear & Radial Gradient Generator",
+    category: "Design, Image & Color Utilities",
+    description: "Generates CSS linear and radial background gradient codes with customizable angle and color stops.",
     inputs: [
-      { id: "hex", label: "Base Hex Color Code", type: "text", placeholder: "#6366F1" }
-    ]
+      {
+            "id": "color1",
+            "label": "First Color Hex",
+            "type": "text",
+            "placeholder": "#4F46E5"
+    },
+      {
+            "id": "color2",
+            "label": "Second Color Hex",
+            "type": "text",
+            "placeholder": "#9333EA"
+    },
+      {
+            "id": "angle",
+            "label": "Gradient Angle (Degrees)",
+            "type": "dropdown",
+            "options": [
+                  "90deg (Left to Right)",
+                  "135deg (Diagonal)",
+                  "180deg (Top to Bottom)",
+                  "45deg (Bottom-Left to Top-Right)"
+            ]
+    }
+]
   },
   {
-    id: "color-blindness-simulator",
-    title: "Color Blindness Palette Simulator",
-    name: "Color Blindness Palette Simulator",
-    category: "Design & CSS Tools",
-    description: "Simulates visual color appearance under Protanopia, Deuteranopia, and Tritanopia.",
+    id: "image-resizer",
+    title: "Quick Client-Side Image Resizer & Scaler",
+    name: "Quick Client-Side Image Resizer & Scaler",
+    category: "Design, Image & Color Utilities",
+    description: "Resizes images by specific pixel dimensions or percentage scale directly in browser memory.",
     inputs: [
-      { id: "hex", label: "Target Brand Hex Color", type: "text", placeholder: "#EF4444" }
-    ]
+      {
+            "id": "imageFile",
+            "label": "Select Image File",
+            "type": "file"
+    },
+      {
+            "id": "targetWidth",
+            "label": "Target Width (px)",
+            "type": "text",
+            "placeholder": "800"
+    },
+      {
+            "id": "targetHeight",
+            "label": "Target Height (px, optional)",
+            "type": "text",
+            "placeholder": "600"
+    }
+]
   },
   {
-    id: "css-glassmorphism-gen",
-    title: "CSS Glassmorphism & Backdrop Filter Generator",
-    name: "CSS Glassmorphism & Backdrop Filter Generator",
-    category: "Design & CSS Tools",
-    description: "Generates modern glassmorphism blur and translucent border backdrop rules.",
+    id: "png-to-jpg",
+    title: "PNG to JPG / WEBP Converter",
+    name: "PNG to JPG / WEBP Converter",
+    category: "Design, Image & Color Utilities",
+    description: "Converts transparent PNG images to JPG or WebP format with custom background fill.",
     inputs: [
-      { id: "blur", label: "Backdrop Blur (px)", type: "text", placeholder: "12" },
-      { id: "opacity", label: "Background Opacity (%)", type: "text", placeholder: "25" }
-    ]
+      {
+            "id": "imageFile",
+            "label": "Select PNG File",
+            "type": "file"
+    },
+      {
+            "id": "outputFormat",
+            "label": "Target Format",
+            "type": "dropdown",
+            "options": [
+                  "JPEG (.jpg)",
+                  "WebP (.webp)"
+            ]
+    },
+      {
+            "id": "bgFill",
+            "label": "Background Fill Color for Transparency",
+            "type": "text",
+            "placeholder": "#FFFFFF"
+    }
+]
   },
   {
-    id: "svg-path-visualizer",
-    title: "SVG Path (d Attribute) Metric Checker",
-    name: "SVG Path (d Attribute) Metric Checker",
-    category: "Design & CSS Tools",
-    description: "Parses SVG path drawing commands (M, L, C, Z) and checks bounding box dimensions.",
+    id: "palette-from-image",
+    title: "Image Color Palette Extractor",
+    name: "Image Color Palette Extractor",
+    category: "Design, Image & Color Utilities",
+    description: "Extracts dominant hex color palettes from uploaded photos using HTML5 Canvas pixel analysis.",
     inputs: [
-      { id: "dAttr", label: "SVG Path d Attribute String", type: "textarea", placeholder: "M10 10 H 90 V 90 H 10 Z" }
-    ]
+      {
+            "id": "imageFile",
+            "label": "Select Photo to Extract Colors",
+            "type": "file"
+    },
+      {
+            "id": "colorCount",
+            "label": "Palette Color Count",
+            "type": "dropdown",
+            "options": [
+                  "5 Dominant Colors",
+                  "8 Color Palette",
+                  "10 Color Palette"
+            ]
+    }
+]
   },
   {
-    id: "palette-contrast-eval",
-    title: "Color Contrast Grid Evaluator",
-    name: "Color Contrast Grid Evaluator",
-    category: "Design & CSS Tools",
-    description: "Evaluates WCAG 2.1 AAA and AA compliance ratios between text and background colors.",
+    id: "border-radius-generator",
+    title: "CSS Border Radius & Blob Generator",
+    name: "CSS Border Radius & Blob Generator",
+    category: "Design, Image & Color Utilities",
+    description: "Generates CSS border-radius and organic blob shapes for web components.",
     inputs: [
-      { id: "textHex", label: "Foreground Text Hex", type: "text", placeholder: "#FFFFFF" },
-      { id: "bgHex", label: "Background Hex", type: "text", placeholder: "#1E293B" }
-    ]
+      {
+            "id": "topLeft",
+            "label": "Top-Left Radius (px)",
+            "type": "text",
+            "placeholder": "16"
+    },
+      {
+            "id": "topRight",
+            "label": "Top-Right Radius (px)",
+            "type": "text",
+            "placeholder": "16"
+    },
+      {
+            "id": "bottomRight",
+            "label": "Bottom-Right Radius (px)",
+            "type": "text",
+            "placeholder": "0"
+    },
+      {
+            "id": "bottomLeft",
+            "label": "Bottom-Left Radius (px)",
+            "type": "text",
+            "placeholder": "0"
+    }
+]
   },
-
-  // ==========================================
-  // 14. TEXT & LINE PROCESSING
-  // ==========================================
+  {
+    id: "svg-to-png-converter",
+    title: "SVG Vector to High-Res PNG Renderer",
+    name: "SVG Vector to High-Res PNG Renderer",
+    category: "Design, Image & Color Utilities",
+    description: "Renders vector SVG code or files into high-resolution PNG images at 1x, 2x, or 4x scale.",
+    inputs: [
+      {
+            "id": "svgInput",
+            "label": "SVG Code / XML Markup",
+            "type": "textarea",
+            "placeholder": "<svg width=\"100\" height=\"100\">...</svg>"
+    },
+      {
+            "id": "scale",
+            "label": "Export Resolution Scale",
+            "type": "dropdown",
+            "options": [
+                  "2x High-DPI (Retina)",
+                  "1x Standard",
+                  "4x Ultra High-Res"
+            ]
+    }
+]
+  },
+  {
+    id: "text-repeater",
+    title: "Text & String Repeater",
+    name: "Text & String Repeater",
+    category: "Text Processing & Writing Utilities",
+    description: "Repeats a text string N times with optional newlines, spaces, or custom delimiters.",
+    inputs: [
+      {
+            "id": "text",
+            "label": "Text to Repeat",
+            "type": "text",
+            "placeholder": "Hello World!"
+    },
+      {
+            "id": "repeatCount",
+            "label": "Repeat Count",
+            "type": "text",
+            "placeholder": "10"
+    },
+      {
+            "id": "delimiter",
+            "label": "Separator Style",
+            "type": "dropdown",
+            "options": [
+                  "Newline",
+                  "Space",
+                  "Comma (,)",
+                  "Hyphen (-)"
+            ]
+    }
+]
+  },
+  {
+    id: "reverse-text-generator",
+    title: "Reverse Text & Backwards String Generator",
+    name: "Reverse Text & Backwards String Generator",
+    category: "Text Processing & Writing Utilities",
+    description: "Flips text characters backwards, reverses word order, or reverses line order.",
+    inputs: [
+      {
+            "id": "text",
+            "label": "Input Text to Reverse",
+            "type": "textarea",
+            "placeholder": "Zenovee AI Tools"
+    },
+      {
+            "id": "mode",
+            "label": "Reverse Mode",
+            "type": "dropdown",
+            "options": [
+                  "Reverse Characters (slooT IA eevoneZ)",
+                  "Reverse Words (Tools AI Zenovee)",
+                  "Reverse Lines"
+            ]
+    }
+]
+  },
   {
     id: "duplicate-line-remover",
-    title: "Duplicate Line Remover & Deduplicator",
-    name: "Duplicate Line Remover & Deduplicator",
-    category: "Text & Line Processing",
-    description: "Strips identical duplicate lines from text documents and sorts unique lines.",
+    title: "Duplicate Line & Word Remover",
+    name: "Duplicate Line & Word Remover",
+    category: "Text Processing & Writing Utilities",
+    description: "Strips duplicate lines or words from list data and sorts the output alphabetically.",
     inputs: [
-      { id: "text", label: "Multi-Line Document Content", type: "textarea", placeholder: "apple\nbanana\napple\norange\nbanana" }
-    ]
+      {
+            "id": "listText",
+            "label": "Raw List Data",
+            "type": "textarea",
+            "placeholder": "apple\nbanana\napple\norange\nbanana"
+    },
+      {
+            "id": "caseSensitive",
+            "label": "Case Sensitivity",
+            "type": "dropdown",
+            "options": [
+                  "Ignore Case (A=a)",
+                  "Case Sensitive (A!=a)"
+            ]
+    }
+]
   },
   {
-    id: "text-reverser-mirror",
-    title: "Text & Word Reverser",
-    name: "Text & Word Reverser",
-    category: "Text & Line Processing",
-    description: "Reverses string characters, word sequences, or line ordering.",
+    id: "text-to-binary",
+    title: "Text to Binary & Binary to Text Converter",
+    name: "Text to Binary & Binary to Text Converter",
+    category: "Text Processing & Writing Utilities",
+    description: "Converts ASCII text to binary 8-bit byte strings (01001000...) and vice-versa.",
     inputs: [
-      { id: "text", label: "Raw String Input", type: "textarea", placeholder: "Hello World" },
-      { id: "mode", label: "Reversal Mode", type: "dropdown", options: ["Reverse Characters", "Reverse Words", "Reverse Line Order"] }
-    ]
+      {
+            "id": "text",
+            "label": "Text or Binary Input",
+            "type": "textarea",
+            "placeholder": "Hello"
+    },
+      {
+            "id": "mode",
+            "label": "Conversion Mode",
+            "type": "dropdown",
+            "options": [
+                  "Text to Binary",
+                  "Binary to Text"
+            ]
+    }
+]
   },
   {
-    id: "line-sorting-tool",
-    title: "Text Line Alphabetical & Numerical Sorter",
-    name: "Text Line Alphabetical & Numerical Sorter",
-    category: "Text & Line Processing",
-    description: "Sorts text lines alphabetically (A-Z, Z-A) or by line character length.",
+    id: "hex-to-text-converter",
+    title: "Hex to Text & Text to Hex Converter",
+    name: "Hex to Text & Text to Hex Converter",
+    category: "Text Processing & Writing Utilities",
+    description: "Translates hexadecimal byte sequences into plain readable text strings.",
     inputs: [
-      { id: "text", label: "Unsorted Lines Text", type: "textarea", placeholder: "Banana\nApple\nCherry" },
-      { id: "order", label: "Sort Direction", type: "dropdown", options: ["Alphabetical (A to Z)", "Reverse Alphabetical (Z to A)", "By Line Length (Shortest First)"] }
-    ]
+      {
+            "id": "inputStr",
+            "label": "Text or Hex String",
+            "type": "textarea",
+            "placeholder": "48 65 6c 6c 6f"
+    },
+      {
+            "id": "mode",
+            "label": "Conversion Mode",
+            "type": "dropdown",
+            "options": [
+                  "Hex to Text",
+                  "Text to Hex"
+            ]
+    }
+]
   },
   {
-    id: "binary-text-converter",
-    title: "Binary to Text & Text to Binary Converter",
-    name: "Binary to Text & Text to Binary Converter",
-    category: "Text & Line Processing",
-    description: "Translates ASCII text into 8-bit binary zeros and ones or decodes binary back to text.",
+    id: "morse-code-translator",
+    title: "Morse Code Translator & Audio Player",
+    name: "Morse Code Translator & Audio Player",
+    category: "Text Processing & Writing Utilities",
+    description: "Translates text into Morse code (. and -) and plays audio beeps via Web Audio API.",
     inputs: [
-      { id: "text", label: "Text or 8-Bit Binary Input", type: "textarea", placeholder: "Zenovee" },
-      { id: "mode", label: "Conversion Mode", type: "dropdown", options: ["Text to Binary", "Binary to Text"] }
-    ]
+      {
+            "id": "text",
+            "label": "Plain Text or Morse Code",
+            "type": "textarea",
+            "placeholder": "SOS"
+    },
+      {
+            "id": "mode",
+            "label": "Translation Mode",
+            "type": "dropdown",
+            "options": [
+                  "Text to Morse Code",
+                  "Morse Code to Text"
+            ]
+    }
+]
   },
   {
-    id: "hex-ascii-converter",
-    title: "Hexadecimal to ASCII Text Converter",
-    name: "Hexadecimal to ASCII Text Converter",
-    category: "Text & Line Processing",
-    description: "Encodes text characters into hex byte strings or decodes hex back to readable text.",
+    id: "binary-to-decimal",
+    title: "Binary to Decimal / Hex / Octal Converter",
+    name: "Binary to Decimal / Hex / Octal Converter",
+    category: "Text Processing & Writing Utilities",
+    description: "Converts numbers between Binary (Base-2), Octal (Base-8), Decimal (Base-10), and Hex (Base-16).",
     inputs: [
-      { id: "text", label: "ASCII String or Hex Bytes", type: "textarea", placeholder: "Hello" },
-      { id: "mode", label: "Conversion Mode", type: "dropdown", options: ["Text to Hex", "Hex to Text"] }
-    ]
+      {
+            "id": "numStr",
+            "label": "Number Input String",
+            "type": "text",
+            "placeholder": "101010"
+    },
+      {
+            "id": "fromBase",
+            "label": "From Number Base",
+            "type": "dropdown",
+            "options": [
+                  "Binary (Base 2)",
+                  "Decimal (Base 10)",
+                  "Hexadecimal (Base 16)",
+                  "Octal (Base 8)"
+            ]
+    }
+]
   },
   {
-    id: "strip-extra-spaces",
-    title: "Extra Whitespace & Line Break Stripper",
-    name: "Extra Whitespace & Line Break Stripper",
-    category: "Text & Line Processing",
-    description: "Removes redundant consecutive spaces, tab indents, and blank lines from text.",
+    id: "whitespace-remover",
+    title: "Extra Whitespace & Newline Stripper",
+    name: "Extra Whitespace & Newline Stripper",
+    category: "Text Processing & Writing Utilities",
+    description: "Removes consecutive space characters, leading/trailing whitespace, and empty lines.",
     inputs: [
-      { id: "text", label: "Raw Unclean Text", type: "textarea", placeholder: "This   has    too   many   spaces." }
-    ]
+      {
+            "id": "text",
+            "label": "Raw Unformatted Text",
+            "type": "textarea",
+            "placeholder": "  Hello     World!   \n\n  This is   a test.  "
+    }
+]
   },
   {
-    id: "text-prefix-suffix",
-    title: "Add Prefix & Suffix to Text Lines",
-    name: "Add Prefix & Suffix to Text Lines",
-    category: "Text & Line Processing",
-    description: "Appends custom text strings to the beginning and end of every line in a list.",
+    id: "word-scrambler",
+    title: "Anagram & Word Scrambler",
+    name: "Anagram & Word Scrambler",
+    category: "Text Processing & Writing Utilities",
+    description: "Randomly scrambles letters in words or generates anagram combinations for puzzles.",
     inputs: [
-      { id: "text", label: "Line Item Content", type: "textarea", placeholder: "apple\nbanana" },
-      { id: "prefix", label: "Prefix String to Add", type: "text", placeholder: 'item: "' },
-      { id: "suffix", label: "Suffix String to Add", type: "text", placeholder: '",' }
-    ]
+      {
+            "id": "word",
+            "label": "Input Word / Phrase",
+            "type": "text",
+            "placeholder": "LISTEN"
+    }
+]
   },
   {
-    id: "count-words-per-line",
-    title: "Word Frequency Counter & Analyzer",
-    name: "Word Frequency Counter & Analyzer",
-    category: "Text & Line Processing",
-    description: "Analyzes document vocabulary and counts occurrences of every unique word.",
+    id: "text-sorter",
+    title: "Alphabetical Text & List Sorter",
+    name: "Alphabetical Text & List Sorter",
+    category: "Text Processing & Writing Utilities",
+    description: "Sorts lists alphabetically (A-Z, Z-A), numerically, or by line character length.",
     inputs: [
-      { id: "text", label: "Document Content", type: "textarea", placeholder: "the quick brown fox jumps over the lazy dog" }
-    ]
+      {
+            "id": "lines",
+            "label": "Raw List Lines",
+            "type": "textarea",
+            "placeholder": "Zebra\nApple\nMonkey\nCat"
+    },
+      {
+            "id": "sortOrder",
+            "label": "Sort Ordering",
+            "type": "dropdown",
+            "options": [
+                  "Alphabetical A-Z",
+                  "Alphabetical Z-A",
+                  "By Line Length (Short to Long)",
+                  "Numeric Sort"
+            ]
+    }
+]
   },
   {
-    id: "find-replace-regex",
-    title: "Find and Replace Text Engine",
-    name: "Find and Replace Text Engine",
-    category: "Text & Line Processing",
-    description: "Performs text search and replacement with optional case-insensitive or regex support.",
+    id: "simple-calculator",
+    title: "Basic Standard & Scientific Calculator",
+    name: "Basic Standard & Scientific Calculator",
+    category: "Daily Math & Student Tools",
+    description: "Performs standard arithmetic (+, -, *, /) and scientific operations (sqrt, square, pow, sin, cos).",
     inputs: [
-      { id: "text", label: "Source Text Content", type: "textarea", placeholder: "Replace foo with bar." },
-      { id: "findStr", label: "Find String / Pattern", type: "text", placeholder: "foo" },
-      { id: "replaceStr", label: "Replacement String", type: "text", placeholder: "bar" }
-    ]
+      {
+            "id": "expression",
+            "label": "Mathematical Expression",
+            "type": "text",
+            "placeholder": "25 * (4 + 6) / 2"
+    }
+]
   },
   {
-    id: "case-transposer-swap",
-    title: "Case Inverter & Swap Case Converter",
-    name: "Case Inverter & Swap Case Converter",
-    category: "Text & Line Processing",
-    description: "Inverts letter cases: converts lowercase letters to uppercase and uppercase to lowercase.",
+    id: "fraction-calculator",
+    title: "Fraction Calculator & Simplifier",
+    name: "Fraction Calculator & Simplifier",
+    category: "Daily Math & Student Tools",
+    description: "Adds, subtracts, multiplies, and divides fractions and reduces answers to simplest form.",
     inputs: [
-      { id: "text", label: "Raw String Content", type: "textarea", placeholder: "Hello World!" }
-    ]
-  },
-
-  // ==========================================
-  // 15. SOCIAL MEDIA & SEO TOOLS
-  // ==========================================
-  {
-    id: "social-character-counter",
-    title: "Social Media Character Limit Checker",
-    name: "Social Media Character Limit Checker",
-    category: "Social Media & SEO Tools",
-    description: "Monitors character limits for Twitter/X (280), Instagram (2200), and LinkedIn (3000).",
-    inputs: [
-      { id: "postText", label: "Draft Social Post Content", type: "textarea", placeholder: "Draft your tweet or post here..." }
-    ]
-  },
-  {
-    id: "hashtag-generator-ui",
-    title: "Hashtag Extractor & Formatting Tool",
-    name: "Hashtag Extractor & Formatting Tool",
-    category: "Social Media & SEO Tools",
-    description: "Converts target keywords into formatted social media hashtags with # symbols.",
-    inputs: [
-      { id: "keywords", label: "Keywords (Comma or space separated)", type: "text", placeholder: "ai, web development, coding" }
-    ]
-  },
-  {
-    id: "instagram-font-generator",
-    title: "Fancy Unicode Text & Font Generator",
-    name: "Fancy Unicode Text & Font Generator",
-    category: "Social Media & SEO Tools",
-    description: "Transforms plain text into fancy Unicode font styles (Script, Bold, Double-struck) for bios.",
-    inputs: [
-      { id: "text", label: "Plain Text Input", type: "text", placeholder: "Zenovee AI" }
-    ]
-  },
-  {
-    id: "youtube-timestamp-gen",
-    title: "YouTube Video Timestamp Link Generator",
-    name: "YouTube Video Timestamp Link Generator",
-    category: "Social Media & SEO Tools",
-    description: "Generates clickable YouTube links starting at specific minute and second timestamps.",
-    inputs: [
-      { id: "url", label: "YouTube Video URL", type: "text", placeholder: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-      { id: "mins", label: "Minutes", type: "text", placeholder: "2" },
-      { id: "secs", label: "Seconds", type: "text", placeholder: "45" }
-    ]
+      {
+            "id": "f1Num",
+            "label": "Fraction 1 Numerator",
+            "type": "text",
+            "placeholder": "1"
+    },
+      {
+            "id": "f1Den",
+            "label": "Fraction 1 Denominator",
+            "type": "text",
+            "placeholder": "2"
+    },
+      {
+            "id": "op",
+            "label": "Operator",
+            "type": "dropdown",
+            "options": [
+                  "+ (Add)",
+                  "- (Subtract)",
+                  "* (Multiply)",
+                  "/ (Divide)"
+            ]
+    },
+      {
+            "id": "f2Num",
+            "label": "Fraction 2 Numerator",
+            "type": "text",
+            "placeholder": "3"
+    },
+      {
+            "id": "f2Den",
+            "label": "Fraction 2 Denominator",
+            "type": "text",
+            "placeholder": "4"
+    }
+]
   },
   {
-    id: "open-graph-preview-card",
-    title: "Social Share Card Visualizer",
-    name: "Social Share Card Visualizer",
-    category: "Social Media & SEO Tools",
-    description: "Previews how page links display on Twitter/X, Facebook, and LinkedIn feeds.",
+    id: "roman-numeral-converter",
+    title: "Roman Numeral Converter",
+    name: "Roman Numeral Converter",
+    category: "Daily Math & Student Tools",
+    description: "Converts integer numbers to Roman Numerals (2026 -> MMXXVI) and vice-versa.",
     inputs: [
-      { id: "title", label: "Share Headline", type: "text", placeholder: "Zenovee AI 50+ Tools" },
-      { id: "desc", label: "Snippet Description", type: "text", placeholder: "Access 50+ free developer tools." }
-    ]
+      {
+            "id": "val",
+            "label": "Number or Roman Numeral Input",
+            "type": "text",
+            "placeholder": "2026 or MMXXVI"
+    },
+      {
+            "id": "mode",
+            "label": "Conversion Direction",
+            "type": "dropdown",
+            "options": [
+                  "Number to Roman Numeral",
+                  "Roman Numeral to Number"
+            ]
+    }
+]
   },
   {
-    id: "keyword-density-checker",
-    title: "Keyword Density & Frequency Analyzer",
-    name: "Keyword Density & Frequency Analyzer",
-    category: "Social Media & SEO Tools",
-    description: "Calculates single-word and 2-word phrase density percentages in web content.",
+    id: "binary-calculator",
+    title: "Binary Arithmetic Calculator",
+    name: "Binary Arithmetic Calculator",
+    category: "Daily Math & Student Tools",
+    description: "Performs binary addition, subtraction, AND, OR, XOR operations on binary numbers.",
     inputs: [
-      { id: "content", label: "Article / Web Page Content", type: "textarea", placeholder: "SEO tools and keyword density analyzers help optimize web content." }
-    ]
+      {
+            "id": "b1",
+            "label": "First Binary Number",
+            "type": "text",
+            "placeholder": "1010"
+    },
+      {
+            "id": "op",
+            "label": "Binary Operation",
+            "type": "dropdown",
+            "options": [
+                  "+ (Addition)",
+                  "- (Subtraction)",
+                  "AND Bitwise",
+                  "OR Bitwise",
+                  "XOR Bitwise"
+            ]
+    },
+      {
+            "id": "b2",
+            "label": "Second Binary Number",
+            "type": "text",
+            "placeholder": "1100"
+    }
+]
   },
   {
-    id: "meta-length-checker",
-    title: "Meta Title & Description Length Checker",
-    name: "Meta Title & Description Length Checker",
-    category: "Social Media & SEO Tools",
-    description: "Checks character counts and pixel widths against Google SERP display cutoffs.",
+    id: "average-mean-calculator",
+    title: "Mean, Median, Mode & Range Calculator",
+    name: "Mean, Median, Mode & Range Calculator",
+    category: "Daily Math & Student Tools",
+    description: "Calculates Mean (average), Median, Mode, and Range for a set of numerical data points.",
     inputs: [
-      { id: "title", label: "Page Title Tag", type: "text", placeholder: "Free Developer Tools Suite" },
-      { id: "desc", label: "Meta Description Tag", type: "textarea", placeholder: "Access 50+ free client-side developer utilities." }
-    ]
+      {
+            "id": "numbers",
+            "label": "Numbers List (comma or space separated)",
+            "type": "textarea",
+            "placeholder": "12, 15, 18, 22, 15, 30, 25"
+    }
+]
   },
   {
-    id: "readability-score-calc",
-    title: "Flesch-Kincaid Readability Score Calculator",
-    name: "Flesch-Kincaid Readability Score Calculator",
-    category: "Social Media & SEO Tools",
-    description: "Estimates reading grade level and Flesch Reading Ease score for written articles.",
+    id: "standard-deviation-calc",
+    title: "Standard Deviation & Variance Calculator",
+    name: "Standard Deviation & Variance Calculator",
+    category: "Daily Math & Student Tools",
+    description: "Calculates Sample and Population Standard Deviation, Variance, and Sum of Squares.",
     inputs: [
-      { id: "text", label: "Article Content Text", type: "textarea", placeholder: "Simple clear sentences are easy to read." }
-    ]
+      {
+            "id": "dataPoints",
+            "label": "Dataset Values (comma separated)",
+            "type": "textarea",
+            "placeholder": "10, 12, 23, 23, 16, 23, 21, 16"
+    }
+]
   },
   {
-    id: "email-address-extractor",
-    title: "Email Address Extractor & Filter",
-    name: "Email Address Extractor & Filter",
-    category: "Social Media & SEO Tools",
-    description: "Extracts unique email addresses from raw text documents and removes duplicates.",
+    id: "random-choice-picker",
+    title: "Random Choice & Name Picker",
+    name: "Random Choice & Name Picker",
+    category: "Daily Math & Student Tools",
+    description: "Picks one or more random items/winners from a custom list of choices.",
     inputs: [
-      { id: "text", label: "Unstructured Text Block", type: "textarea", placeholder: "Contact john@example.com or support@test.org for details." }
-    ]
+      {
+            "id": "choices",
+            "label": "List of Options / Names (One per line)",
+            "type": "textarea",
+            "placeholder": "Option A\nOption B\nOption C\nOption D"
+    },
+      {
+            "id": "winnerCount",
+            "label": "Number of Choices to Pick",
+            "type": "dropdown",
+            "options": [
+                  "Pick 1 Winner",
+                  "Pick 2 Winners",
+                  "Pick 3 Winners"
+            ]
+    }
+]
   },
   {
-    id: "url-cleaner-sanitizer",
-    title: "Tracking Link Cleaner & Sanitizer",
-    name: "Tracking Link Cleaner & Sanitizer",
-    category: "Social Media & SEO Tools",
-    description: "Strips tracking parameters (utm_*, fbclid, gclid, msclkid) to produce clean canonical URLs.",
+    id: "time-duration-calc",
+    title: "Time Duration & Hours Between Calculator",
+    name: "Time Duration & Hours Between Calculator",
+    category: "Daily Math & Student Tools",
+    description: "Calculates total hours and minutes between two time entries (e.g. 09:15 AM to 05:45 PM).",
     inputs: [
-      { id: "url", label: "Tagged Link URL", type: "text", placeholder: "https://example.com/page?utm_source=facebook&fbclid=12345" }
-    ]
-  }
+      {
+            "id": "startTime",
+            "label": "Start Time",
+            "type": "text",
+            "placeholder": "09:15 AM"
+    },
+      {
+            "id": "endTime",
+            "label": "End Time",
+            "type": "text",
+            "placeholder": "05:45 PM"
+    }
+]
+  },
+  {
+    id: "speed-distance-time",
+    title: "Speed, Distance & Time Calculator",
+    name: "Speed, Distance & Time Calculator",
+    category: "Daily Math & Student Tools",
+    description: "Calculates missing speed (mph/kph), distance (miles/km), or travel duration.",
+    inputs: [
+      {
+            "id": "calcTarget",
+            "label": "Calculate Target",
+            "type": "dropdown",
+            "options": [
+                  "Speed (Distance / Time)",
+                  "Distance (Speed * Time)",
+                  "Time (Distance / Speed)"
+            ]
+    },
+      {
+            "id": "val1",
+            "label": "First Parameter Value",
+            "type": "text",
+            "placeholder": "60 (mph or miles)"
+    },
+      {
+            "id": "val2",
+            "label": "Second Parameter Value",
+            "type": "text",
+            "placeholder": "2 (hours or mph)"
+    }
+]
+  },
+  {
+    id: "triangle-solver",
+    title: "Right Triangle & Pythagorean Calculator",
+    name: "Right Triangle & Pythagorean Calculator",
+    category: "Daily Math & Student Tools",
+    description: "Solves right triangles calculating Hypotenuse (c = √(a² + b²)), area, and perimeter.",
+    inputs: [
+      {
+            "id": "sideA",
+            "label": "Side A Length",
+            "type": "text",
+            "placeholder": "3"
+    },
+      {
+            "id": "sideB",
+            "label": "Side B Length",
+            "type": "text",
+            "placeholder": "4"
+    }
+]
+  },
+  {
+    id: "water-intake-calculator",
+    title: "Daily Water Intake Calculator",
+    name: "Daily Water Intake Calculator",
+    category: "Health, Fitness & Everyday Life",
+    description: "Calculates daily hydration fluid requirements in liters and cups based on body weight and activity.",
+    inputs: [
+      {
+            "id": "weightLbs",
+            "label": "Body Weight (lbs or kg)",
+            "type": "text",
+            "placeholder": "160"
+    },
+      {
+            "id": "weightUnit",
+            "label": "Weight Unit",
+            "type": "dropdown",
+            "options": [
+                  "Pounds (lbs)",
+                  "Kilograms (kg)"
+            ]
+    },
+      {
+            "id": "activityMin",
+            "label": "Daily Exercise Activity (Minutes)",
+            "type": "text",
+            "placeholder": "30"
+    }
+]
+  },
+  {
+    id: "calorie-tdee-calculator",
+    title: "TDEE & BMR Daily Calorie Calculator",
+    name: "TDEE & BMR Daily Calorie Calculator",
+    category: "Health, Fitness & Everyday Life",
+    description: "Calculates Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE) for weight goals.",
+    inputs: [
+      {
+            "id": "weight",
+            "label": "Weight (kg)",
+            "type": "text",
+            "placeholder": "70"
+    },
+      {
+            "id": "height",
+            "label": "Height (cm)",
+            "type": "text",
+            "placeholder": "175"
+    },
+      {
+            "id": "age",
+            "label": "Age (Years)",
+            "type": "text",
+            "placeholder": "28"
+    },
+      {
+            "id": "gender",
+            "label": "Gender",
+            "type": "dropdown",
+            "options": [
+                  "Male",
+                  "Female"
+            ]
+    },
+      {
+            "id": "activity",
+            "label": "Activity Level",
+            "type": "dropdown",
+            "options": [
+                  "Sedentary (Office Job)",
+                  "Lightly Active (1-3 days/wk)",
+                  "Moderately Active (3-5 days/wk)",
+                  "Very Active (6-7 days/wk)"
+            ]
+    }
+]
+  },
+  {
+    id: "macro-calculator",
+    title: "Macronutrient Ratio Calculator",
+    name: "Macronutrient Ratio Calculator",
+    category: "Health, Fitness & Everyday Life",
+    description: "Calculates target daily grams of Protein, Carbohydrates, and Fats based on calorie intake.",
+    inputs: [
+      {
+            "id": "calories",
+            "label": "Daily Target Calories",
+            "type": "text",
+            "placeholder": "2000"
+    },
+      {
+            "id": "fitnessGoal",
+            "label": "Fitness Goal",
+            "type": "dropdown",
+            "options": [
+                  "Maintenance (40% C / 30% P / 30% F)",
+                  "Fat Loss (30% C / 40% P / 30% F)",
+                  "Muscle Gain (50% C / 30% P / 20% F)"
+            ]
+    }
+]
+  },
+  {
+    id: "sleep-cycle-calculator",
+    title: "Sleep Cycle & Bedtime Alarm Calculator",
+    name: "Sleep Cycle & Bedtime Alarm Calculator",
+    category: "Health, Fitness & Everyday Life",
+    description: "Calculates optimal bedtime schedules based on 90-minute REM sleep cycles.",
+    inputs: [
+      {
+            "id": "wakeTime",
+            "label": "Desired Wake-Up Time",
+            "type": "text",
+            "placeholder": "07:00 AM"
+    }
+]
+  },
+  {
+    id: "ideal-weight-calculator",
+    title: "Ideal Body Weight (IBW) Calculator",
+    name: "Ideal Body Weight (IBW) Calculator",
+    category: "Health, Fitness & Everyday Life",
+    description: "Calculates healthy ideal weight ranges using Devine, Robinson, and Miller medical formulas.",
+    inputs: [
+      {
+            "id": "heightCm",
+            "label": "Height (cm)",
+            "type": "text",
+            "placeholder": "175"
+    },
+      {
+            "id": "gender",
+            "label": "Gender",
+            "type": "dropdown",
+            "options": [
+                  "Male",
+                  "Female"
+            ]
+    }
+]
+  },
+  {
+    id: "step-to-distance-calc",
+    title: "Steps to Distance & Calories Burned Converter",
+    name: "Steps to Distance & Calories Burned Converter",
+    category: "Health, Fitness & Everyday Life",
+    description: "Converts daily step count (e.g. 10,000 steps) into miles, kilometers, and estimated calories burned.",
+    inputs: [
+      {
+            "id": "steps",
+            "label": "Daily Steps Count",
+            "type": "text",
+            "placeholder": "10000"
+    },
+      {
+            "id": "strideLength",
+            "label": "Average Stride Length",
+            "type": "dropdown",
+            "options": [
+                  "Average (2.2 ft / 0.67m)",
+                  "Tall Stride (2.5 ft)",
+                  "Short Stride (2.0 ft)"
+            ]
+    }
+]
+  },
+  {
+    id: "bac-calculator",
+    title: "Blood Alcohol Concentration (BAC) Calculator",
+    name: "Blood Alcohol Concentration (BAC) Calculator",
+    category: "Health, Fitness & Everyday Life",
+    description: "Estimates Blood Alcohol Content percentage over time using Widmark's formula.",
+    inputs: [
+      {
+            "id": "drinks",
+            "label": "Standard Drinks Consumed",
+            "type": "text",
+            "placeholder": "3"
+    },
+      {
+            "id": "weightLbs",
+            "label": "Body Weight (lbs)",
+            "type": "text",
+            "placeholder": "160"
+    },
+      {
+            "id": "hours",
+            "label": "Hours Since First Drink",
+            "type": "text",
+            "placeholder": "2"
+    },
+      {
+            "id": "gender",
+            "label": "Gender",
+            "type": "dropdown",
+            "options": [
+                  "Male",
+                  "Female"
+            ]
+    }
+]
+  },
+  {
+    id: "unit-price-comparator",
+    title: "Grocery Unit Price Comparator",
+    name: "Grocery Unit Price Comparator",
+    category: "Health, Fitness & Everyday Life",
+    description: "Compares cost per ounce, gram, or unit between two competing grocery package deals.",
+    inputs: [
+      {
+            "id": "p1Price",
+            "label": "Item 1 Total Price ($)",
+            "type": "text",
+            "placeholder": "4.99"
+    },
+      {
+            "id": "p1Size",
+            "label": "Item 1 Size/Quantity (oz/g)",
+            "type": "text",
+            "placeholder": "16"
+    },
+      {
+            "id": "p2Price",
+            "label": "Item 2 Total Price ($)",
+            "type": "text",
+            "placeholder": "7.49"
+    },
+      {
+            "id": "p2Size",
+            "label": "Item 2 Size/Quantity (oz/g)",
+            "type": "text",
+            "placeholder": "28"
+    }
+]
+  },
+  {
+    id: "countdown-timer-builder",
+    title: "Online Event Countdown Timer Builder",
+    name: "Online Event Countdown Timer Builder",
+    category: "Health, Fitness & Everyday Life",
+    description: "Calculates remaining days, hours, minutes, and seconds until any upcoming target date.",
+    inputs: [
+      {
+            "id": "eventName",
+            "label": "Event Name / Celebration",
+            "type": "text",
+            "placeholder": "New Year 2027"
+    },
+      {
+            "id": "targetDate",
+            "label": "Target Date & Time (YYYY-MM-DD)",
+            "type": "text",
+            "placeholder": "2027-01-01"
+    }
+]
+  },
+  {
+    id: "stopwatch-lap-timer",
+    title: "Digital Stopwatch & Lap Split Timer",
+    name: "Digital Stopwatch & Lap Split Timer",
+    category: "Health, Fitness & Everyday Life",
+    description: "Precision digital stopwatch with lap split time logging and lap pace analysis.",
+    inputs: [
+      {
+            "id": "action",
+            "label": "Stopwatch Action",
+            "type": "dropdown",
+            "options": [
+                  "Start / Record Split",
+                  "Reset Timer"
+            ]
+    }
+]
+  },
 ];
