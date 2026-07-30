@@ -60,7 +60,6 @@ export default function LandingPage() {
             <span className="font-bold tracking-tight text-slate-900 text-lg">Zenovee Suite</span>
           </Link>
           <nav className="flex items-center gap-6">
-            <Link href="/template" className="text-sm font-bold text-indigo-600 hover:text-indigo-700 transition-colors uppercase tracking-wider">50+ Tools SPA</Link>
             <Link href="/features" className="text-sm font-bold text-slate-700 hover:text-indigo-650 transition-colors uppercase tracking-wider">Features</Link>
             <Link href="/about" className="text-sm font-bold text-slate-700 hover:text-indigo-650 transition-colors uppercase tracking-wider">About</Link>
             <Link 
