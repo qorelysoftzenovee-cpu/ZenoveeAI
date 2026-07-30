@@ -66,6 +66,14 @@ export function SidebarNav() {
 
   const insightLinks = [
     {
+      href: "/template",
+      label: "Standalone SPA",
+      icon: BarChart3,
+      active: pathname === "/template",
+      colorClass: "text-amber-500",
+      activeClass: "bg-amber-50/80 text-amber-600 border-amber-200/50 shadow-sm",
+    },
+    {
       href: "/dashboard/history",
       label: "Recent History",
       icon: Clock,
