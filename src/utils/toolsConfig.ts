@@ -844,5 +844,113 @@ export const toolsConfig: ToolConfig[] = [
       { id: "from", label: "From Currency", type: "dropdown", options: ["USD ($)", "EUR (€)", "GBP (£)", "INR (₹)", "JPY (¥)"] },
       { id: "to", label: "To Currency", type: "dropdown", options: ["EUR (€)", "USD ($)", "GBP (£)", "INR (₹)", "JPY (¥)"] }
     ]
+  },
+  {
+    id: "json-minifier-beautifier",
+    title: "JSON Minifier & Beautifier",
+    name: "JSON Minifier & Beautifier",
+    category: "Text & Code Formatters",
+    description: "Formats JSON documents with 2 or 4 space indentation or minifies into a single compact line.",
+    inputs: [
+      { id: "jsonCode", label: "JSON Code Input", type: "textarea", placeholder: '{"name":"Zenovee","tools":50,"status":"active"}' },
+      { id: "formatMode", label: "Format Mode", type: "dropdown", options: ["Beautify (2 Spaces)", "Beautify (4 Spaces)", "Minify (Compact One-Line)"] }
+    ]
+  },
+  {
+    id: "sql-formatter",
+    title: "SQL Query Formatter / Beautifier",
+    name: "SQL Query Formatter / Beautifier",
+    category: "Text & Code Formatters",
+    description: "Formats raw SQL queries with proper line breaks and capitalized SQL keywords.",
+    inputs: [
+      { id: "sqlText", label: "Raw SQL Query", type: "textarea", placeholder: "select id,name,email from users where status='active' group by id order by id desc limit 10;" }
+    ]
+  },
+  {
+    id: "html-minifier",
+    title: "HTML Minifier & Whitespace Stripper",
+    name: "HTML Minifier & Whitespace Stripper",
+    category: "Text & Code Formatters",
+    description: "Strips HTML comments, redundant whitespace, and newlines for optimized page loading.",
+    inputs: [
+      { id: "htmlCode", label: "HTML Source Code", type: "textarea", placeholder: '<!-- Comment -->\n<div class="card">\n   <h1>  Title  </h1>\n</div>' }
+    ]
+  },
+  {
+    id: "css-js-compressor",
+    title: "CSS / JS Code Compressor",
+    name: "CSS / JS Code Compressor",
+    category: "Text & Code Formatters",
+    description: "Compresses CSS rules and JavaScript code by stripping comments and whitespace.",
+    inputs: [
+      { id: "code", label: "Source Code Snippet", type: "textarea", placeholder: "/* Primary Card Style */\n.card {\n  color: #333;\n  padding: 16px;\n}" },
+      { id: "lang", label: "Code Language", type: "dropdown", options: ["CSS Stylesheet", "JavaScript Code"] }
+    ]
+  },
+  {
+    id: "regex-tester-live",
+    title: "Regex Pattern Matcher & Tester",
+    name: "Regex Pattern Matcher & Tester",
+    category: "Text & Code Formatters",
+    description: "Tests regular expressions against sample text strings with match counts and capture groups.",
+    inputs: [
+      { id: "pattern", label: "Regex Pattern (without slashes)", type: "text", placeholder: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}" },
+      { id: "flags", label: "Regex Flags", type: "dropdown", options: ["g (Global)", "gi (Global + Case-Insensitive)", "gim (Global + Multiline)"] },
+      { id: "testText", label: "Test String Text", type: "textarea", placeholder: "Contact us at support@example.com or sales@test.org for info." }
+    ]
+  },
+  {
+    id: "text-diff-checker",
+    title: "Text Diff Checker & Visual Comparison",
+    name: "Text Diff Checker & Visual Comparison",
+    category: "Text & Code Formatters",
+    description: "Compares two text versions line-by-line and highlights added or removed text.",
+    inputs: [
+      { id: "textA", label: "Original Text (Version A)", type: "textarea", placeholder: "Line 1: Hello World\nLine 2: Fast client side tools" },
+      { id: "textB", label: "Modified Text (Version B)", type: "textarea", placeholder: "Line 1: Hello World!\nLine 2: 50+ Fast client side tools\nLine 3: Added new line" }
+    ]
+  },
+  {
+    id: "lorem-generator",
+    title: "Lorem Ipsum Placeholder Text Generator",
+    name: "Lorem Ipsum Placeholder Text Generator",
+    category: "Text & Code Formatters",
+    description: "Generates classical Lorem Ipsum placeholder text by paragraphs, sentences, or word count.",
+    inputs: [
+      { id: "count", label: "Output Count", type: "text", placeholder: "3" },
+      { id: "unit", label: "Generation Unit", type: "dropdown", options: ["Paragraphs", "Sentences", "Words"] }
+    ]
+  },
+  {
+    id: "case-converter",
+    title: "Text Case Converter",
+    name: "Text Case Converter",
+    category: "Text & Code Formatters",
+    description: "Transforms text into UPPERCASE, lowercase, Title Case, camelCase, snake_case, and kebab-case.",
+    inputs: [
+      { id: "text", label: "Raw Input Text", type: "textarea", placeholder: "Hello world! Build fast client side tools." },
+      { id: "casing", label: "Target Case Style", type: "dropdown", options: ["UPPERCASE", "lowercase", "Title Case", "camelCase", "snake_case", "kebab-case"] }
+    ]
+  },
+  {
+    id: "text-stats-counter",
+    title: "Word, Character, and Paragraph Counter",
+    name: "Word, Character, and Paragraph Counter",
+    category: "Text & Code Formatters",
+    description: "Calculates real-time word count, character count, sentence count, and reading time metrics.",
+    inputs: [
+      { id: "text", label: "Document Content", type: "textarea", placeholder: "Type or paste document text here..." }
+    ]
+  },
+  {
+    id: "url-slug-generator",
+    title: "URL Slug Generator",
+    name: "URL Slug Generator",
+    category: "Text & Code Formatters",
+    description: "Converts article headlines and titles into clean, SEO-friendly URL slugs.",
+    inputs: [
+      { id: "title", label: "Headline / Article Title", type: "text", placeholder: "How to Build 50+ Fast Client-Side Tools in 2026!" },
+      { id: "separator", label: "Word Separator", type: "dropdown", options: ["Hyphen (-)", "Underscore (_)"] }
+    ]
   }
 ];

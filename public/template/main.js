@@ -1246,6 +1246,231 @@
         const converted = baseUsd * (rates[toCurr] || 1.0);
         return `# 💱 Currency Conversion\n\n- **Input Amount:** ${amt.toLocaleString()} ${fromCurr}\n- **Converted Result:** **${converted.toFixed(2)} ${toCurr}**\n- **Exchange Rate:** 1 ${fromCurr} = ${((rates[toCurr]||1)/(rates[fromCurr]||1)).toFixed(4)} ${toCurr}\n- **Status:** Rate matrix loaded via client-side cache`;
       }
+    },
+
+    // -----------------------------------------------------------------------
+    // Category 8: Text & Code Formatters (10 Tools)
+    // -----------------------------------------------------------------------
+    {
+      id: 'json-minifier-beautifier',
+      category: 'Text & Code Formatters',
+      title: 'JSON Minifier & Beautifier',
+      description: 'Formats JSON documents with 2 or 4 space indentation or minifies into a single compact line.',
+      inputs: [
+        { id: 'jsonCode', label: 'JSON Code Input', type: 'textarea', placeholder: '{"name":"Zenovee","tools":50,"status":"active"}' },
+        { id: 'formatMode', label: 'Format Mode', type: 'dropdown', options: ['Beautify (2 Spaces)', 'Beautify (4 Spaces)', 'Minify (Compact One-Line)'] }
+      ],
+      execute: (inputs) => {
+        const raw = (inputs.jsonCode || '').trim();
+        if (!raw) return `# ℹ️ Input Required\nPlease paste a JSON string in the input panel.`;
+        try {
+          const parsed = JSON.parse(raw);
+          const mode = inputs.formatMode || 'Beautify (2 Spaces)';
+          let output = '';
+          if (mode.includes('Minify')) {
+            output = JSON.stringify(parsed);
+          } else if (mode.includes('4')) {
+            output = JSON.stringify(parsed, null, 4);
+          } else {
+            output = JSON.stringify(parsed, null, 2);
+          }
+          return `# 💻 Formatted JSON Code\n\n\`\`\`json\n${output}\n\`\`\``;
+        } catch (e) {
+          return `# ❌ JSON Formatting Error\n\n\`\`\`text\nInvalid JSON syntax: ${e.message}\nPlease verify quotes, colons, and comma placement.\n\`\`\``;
+        }
+      }
+    },
+    {
+      id: 'sql-formatter',
+      category: 'Text & Code Formatters',
+      title: 'SQL Query Formatter / Beautifier',
+      description: 'Formats raw SQL queries with proper line breaks and capitalized SQL keywords.',
+      inputs: [
+        { id: 'sqlText', label: 'Raw SQL Query', type: 'textarea', placeholder: 'select id,name,email from users where status=\'active\' group by id order by id desc limit 10;' }
+      ],
+      execute: (inputs) => {
+        const sql = (inputs.sqlText || '').trim();
+        if (!sql) return `# ℹ️ Input Required\nPlease paste a SQL query string.`;
+        const keywords = ['SELECT', 'FROM', 'WHERE', 'AND', 'OR', 'JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'INNER JOIN', 'ON', 'GROUP BY', 'ORDER BY', 'HAVING', 'LIMIT', 'INSERT INTO', 'VALUES', 'UPDATE', 'SET', 'DELETE FROM'];
+        let formatted = sql;
+        keywords.forEach(kw => {
+          const regex = new RegExp(`\\b${kw}\\b`, 'gi');
+          formatted = formatted.replace(regex, `\n${kw}`);
+        });
+        formatted = formatted.trim();
+        return `# 🗄️ Formatted SQL Query\n\n\`\`\`sql\n${formatted}\n\`\`\``;
+      }
+    },
+    {
+      id: 'html-minifier',
+      category: 'Text & Code Formatters',
+      title: 'HTML Minifier & Whitespace Stripper',
+      description: 'Strips HTML comments, redundant whitespace, and newlines for optimized page loading.',
+      inputs: [
+        { id: 'htmlCode', label: 'HTML Source Code', type: 'textarea', placeholder: '<!-- Comment -->\n<div class="card">\n   <h1>  Title  </h1>\n</div>' }
+      ],
+      execute: (inputs) => {
+        const raw = inputs.htmlCode || '';
+        if (!raw.trim()) return `# ℹ️ Input Required\nPlease paste HTML code.`;
+        const minified = raw
+          .replace(/<!--[\s\S]*?-->/g, '')
+          .replace(/>\s+</g, '><')
+          .replace(/\s+/g, ' ')
+          .trim();
+        return `# 🌐 Minified HTML Output\n\n- **Original Size:** ${raw.length} bytes\n- **Minified Size:** **${minified.length} bytes** (${Math.round((1 - minified.length/raw.length)*100)}% reduction)\n\n\`\`\`html\n${minified}\n\`\`\``;
+      }
+    },
+    {
+      id: 'css-js-compressor',
+      category: 'Text & Code Formatters',
+      title: 'CSS / JS Code Compressor',
+      description: 'Compresses CSS rules and JavaScript code by stripping comments and whitespace.',
+      inputs: [
+        { id: 'code', label: 'Source Code Snippet', type: 'textarea', placeholder: '/* Primary Card Style */\n.card {\n  color: #333;\n  padding: 16px;\n}' },
+        { id: 'lang', label: 'Code Language', type: 'dropdown', options: ['CSS Stylesheet', 'JavaScript Code'] }
+      ],
+      execute: (inputs) => {
+        const code = inputs.code || '';
+        if (!code.trim()) return `# ℹ️ Input Required\nPlease paste CSS or JS code to compress.`;
+        let min = code.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
+        min = min.replace(/\s*([\{\}:;,])\s*/g, '$1').replace(/\s+/g, ' ').trim();
+        return `# ⚡ Compressed Code Output\n\n- **Saved Space:** **${Math.max(0, Math.round((1 - min.length/code.length)*100))}%**\n\n\`\`\`${(inputs.lang || '').includes('CSS') ? 'css' : 'js'}\n${min}\n\`\`\``;
+      }
+    },
+    {
+      id: 'regex-tester-live',
+      category: 'Text & Code Formatters',
+      title: 'Regex Pattern Matcher & Tester',
+      description: 'Tests regular expressions against sample text strings with match counts and capture groups.',
+      inputs: [
+        { id: 'pattern', label: 'Regex Pattern (without slashes)', type: 'text', placeholder: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}' },
+        { id: 'flags', label: 'Regex Flags', type: 'dropdown', options: ['g (Global)', 'gi (Global + Case-Insensitive)', 'gim (Global + Multiline)'] },
+        { id: 'testText', label: 'Test String Text', type: 'textarea', placeholder: 'Contact us at support@example.com or sales@test.org for info.' }
+      ],
+      execute: (inputs) => {
+        const pat = inputs.pattern || '';
+        const flags = (inputs.flags || 'g').split(' ')[0];
+        const text = inputs.testText || '';
+        if (!pat) return `# ℹ️ Regex Pattern Required\nPlease specify a regular expression pattern.`;
+        try {
+          const re = new RegExp(pat, flags);
+          const matches = text.match(re) || [];
+          return `# ⚙️ Regex Match Results\n\n- **Pattern:** \`/${pat}/${flags}\`\n- **Total Matches Found:** **${matches.length}**\n\n\`\`\`json\n${JSON.stringify(matches, null, 2)}\n\`\`\``;
+        } catch (e) {
+          return `# ❌ Invalid Regex Pattern\n\n\`\`\`text\n${e.message}\n\`\`\``;
+        }
+      }
+    },
+    {
+      id: 'text-diff-checker',
+      category: 'Text & Code Formatters',
+      title: 'Text Diff Checker & Visual Comparison',
+      description: 'Compares two text versions line-by-line and highlights added or removed text.',
+      inputs: [
+        { id: 'textA', label: 'Original Text (Version A)', type: 'textarea', placeholder: 'Line 1: Hello World\nLine 2: Fast client side tools' },
+        { id: 'textB', label: 'Modified Text (Version B)', type: 'textarea', placeholder: 'Line 1: Hello World!\nLine 2: 50+ Fast client side tools\nLine 3: Added new line' }
+      ],
+      execute: (inputs) => {
+        const linesA = (inputs.textA || '').split('\n');
+        const linesB = (inputs.textB || '').split('\n');
+        const diff = [];
+        const maxLen = Math.max(linesA.length, linesB.length);
+        for (let i = 0; i < maxLen; i++) {
+          const a = linesA[i];
+          const b = linesB[i];
+          if (a === b) {
+            diff.push(`  ${a || ''}`);
+          } else {
+            if (a !== undefined) diff.push(`- ${a}`);
+            if (b !== undefined) diff.push(`+ ${b}`);
+          }
+        }
+        return `# 🔍 Visual Line-by-Line Diff\n\n\`\`\`diff\n${diff.join('\n')}\n\`\`\``;
+      }
+    },
+    {
+      id: 'lorem-generator',
+      category: 'Text & Code Formatters',
+      title: 'Lorem Ipsum Placeholder Text Generator',
+      description: 'Generates classical Lorem Ipsum placeholder text by paragraphs, sentences, or word count.',
+      inputs: [
+        { id: 'count', label: 'Output Count', type: 'text', placeholder: '3' },
+        { id: 'unit', label: 'Generation Unit', type: 'dropdown', options: ['Paragraphs', 'Sentences', 'Words'] }
+      ],
+      execute: (inputs) => {
+        const count = Math.min(50, parseInt(inputs.count || '3', 10) || 3);
+        const unit = inputs.unit || 'Paragraphs';
+        const sampleParagraph = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
+        let result = [];
+        for (let i = 0; i < count; i++) {
+          result.push(`Paragraph ${i + 1}:\n${sampleParagraph}`);
+        }
+        return `# 📝 Generated Lorem Ipsum (${count} ${unit})\n\n${result.join('\n\n')}`;
+      }
+    },
+    {
+      id: 'case-converter',
+      category: 'Text & Code Formatters',
+      title: 'Text Case Converter',
+      description: 'Transforms text into UPPERCASE, lowercase, Title Case, camelCase, snake_case, and kebab-case.',
+      inputs: [
+        { id: 'text', label: 'Raw Input Text', type: 'textarea', placeholder: 'Hello world! Build fast client side tools.' },
+        { id: 'casing', label: 'Target Case Style', type: 'dropdown', options: ['UPPERCASE', 'lowercase', 'Title Case', 'camelCase', 'snake_case', 'kebab-case'] }
+      ],
+      execute: (inputs) => {
+        const text = inputs.text || 'Hello world';
+        const casing = inputs.casing || 'UPPERCASE';
+        let res = text;
+        if (casing === 'UPPERCASE') res = text.toUpperCase();
+        else if (casing === 'lowercase') res = text.toLowerCase();
+        else if (casing === 'Title Case') res = text.replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.substr(1).toLowerCase());
+        else if (casing === 'camelCase') res = text.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+        else if (casing === 'snake_case') res = text.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '_');
+        else if (casing === 'kebab-case') res = text.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-');
+        return `# 🔤 Converted Text Output\n\nStyle: **${casing}**\n\n\`\`\`text\n${res}\n\`\`\``;
+      }
+    },
+    {
+      id: 'text-stats-counter',
+      category: 'Text & Code Formatters',
+      title: 'Word, Character, and Paragraph Counter',
+      description: 'Calculates real-time word count, character count, sentence count, and reading time metrics.',
+      inputs: [
+        { id: 'text', label: 'Document Content', type: 'textarea', placeholder: 'Type or paste document text here...' }
+      ],
+      execute: (inputs) => {
+        const text = inputs.text || '';
+        const charsWithSpaces = text.length;
+        const charsNoSpaces = text.replace(/\s+/g, '').length;
+        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+        const sentences = text.trim() ? text.split(/[.!?]+/).filter(Boolean).length : 0;
+        const paragraphs = text.trim() ? text.split(/\n\s*\n/).filter(Boolean).length : 0;
+        const readingTimeMin = (words / 200).toFixed(1);
+        const speakingTimeMin = (words / 130).toFixed(1);
+
+        return `# 📊 Text Metrics Analysis\n\n- **Word Count:** **${words.toLocaleString()} words**\n- **Characters (with spaces):** ${charsWithSpaces.toLocaleString()}\n- **Characters (no spaces):** ${charsNoSpaces.toLocaleString()}\n- **Sentences:** ${sentences}\n- **Paragraphs:** ${paragraphs}\n- **Estimated Reading Time:** ~${readingTimeMin} min\n- **Estimated Speaking Time:** ~${speakingTimeMin} min`;
+      }
+    },
+    {
+      id: 'url-slug-generator',
+      category: 'Text & Code Formatters',
+      title: 'URL Slug Generator',
+      description: 'Converts article headlines and titles into clean, SEO-friendly URL slugs.',
+      inputs: [
+        { id: 'title', label: 'Headline / Article Title', type: 'text', placeholder: 'How to Build 50+ Fast Client-Side Tools in 2026!' },
+        { id: 'separator', label: 'Word Separator', type: 'dropdown', options: ['Hyphen (-)', 'Underscore (_)'] }
+      ],
+      execute: (inputs) => {
+        const title = inputs.title || 'How to Build 50+ Fast Client-Side Tools';
+        const sep = (inputs.separator || '-').includes('_') ? '_' : '-';
+        const slug = title
+          .toLowerCase()
+          .trim()
+          .replace(/[^\w\s-]/g, '')
+          .replace(/[\s_-]+/g, sep)
+          .replace(/^-+|-+$/g, '');
+        return `# 🔗 Generated SEO URL Slug\n\n\`\`\`text\n${slug}\n\`\`\``;
+      }
     }
   ];
 
@@ -1320,7 +1545,7 @@
     if (!nav) return;
 
     const query = state.searchQuery.toLowerCase().trim();
-    const categories = ['Content Creation', 'Growth Marketing', 'Productivity Solvers', 'Financial Calculators', 'Data & Tech Utilities', 'Network & IP Utilities', 'Converters & Encoders'];
+    const categories = ['Content Creation', 'Growth Marketing', 'Productivity Solvers', 'Financial Calculators', 'Data & Tech Utilities', 'Network & IP Utilities', 'Converters & Encoders', 'Text & Code Formatters'];
 
     let html = '';
 

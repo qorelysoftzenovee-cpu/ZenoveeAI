@@ -1663,6 +1663,148 @@ Accept-Language: en-US,en;q=0.9
         };
       }
 
+      // ==========================================
+      // 8. TEXT & CODE FORMATTERS
+      // ==========================================
+      case "json-minifier-beautifier": {
+        const raw = (inputs.jsonCode || "").trim();
+        if (!raw) return { markdownOutput: `# ℹ️ Input Required\nPlease paste a JSON string in the input panel.` };
+        try {
+          const parsed = JSON.parse(raw);
+          const mode = inputs.formatMode || "Beautify (2 Spaces)";
+          let output = "";
+          if (mode.includes("Minify")) {
+            output = JSON.stringify(parsed);
+          } else if (mode.includes("4")) {
+            output = JSON.stringify(parsed, null, 4);
+          } else {
+            output = JSON.stringify(parsed, null, 2);
+          }
+          return { markdownOutput: `# 💻 Formatted JSON Code\n\n\`\`\`json\n${output}\n\`\`\`` };
+        } catch (err: any) {
+          return { markdownOutput: `# ❌ JSON Formatting Error\n\n\`\`\`text\nInvalid JSON syntax: ${err.message}\nPlease verify quotes, colons, and comma placement.\n\`\`\`` };
+        }
+      }
+
+      case "sql-formatter": {
+        const sql = (inputs.sqlText || "").trim();
+        if (!sql) return { markdownOutput: `# ℹ️ Input Required\nPlease paste a SQL query string.` };
+        const keywords = ["SELECT", "FROM", "WHERE", "AND", "OR", "JOIN", "LEFT JOIN", "RIGHT JOIN", "INNER JOIN", "ON", "GROUP BY", "ORDER BY", "HAVING", "LIMIT", "INSERT INTO", "VALUES", "UPDATE", "SET", "DELETE FROM"];
+        let formatted = sql;
+        keywords.forEach((kw) => {
+          const regex = new RegExp(`\\b${kw}\\b`, "gi");
+          formatted = formatted.replace(regex, `\n${kw}`);
+        });
+        formatted = formatted.trim();
+        return { markdownOutput: `# 🗄️ Formatted SQL Query\n\n\`\`\`sql\n${formatted}\n\`\`\`` };
+      }
+
+      case "html-minifier": {
+        const raw = inputs.htmlCode || "";
+        if (!raw.trim()) return { markdownOutput: `# ℹ️ Input Required\nPlease paste HTML code.` };
+        const minified = raw
+          .replace(/<!--[\s\S]*?-->/g, "")
+          .replace(/>\s+</g, "><")
+          .replace(/\s+/g, " ")
+          .trim();
+        return {
+          markdownOutput: `# 🌐 Minified HTML Output\n\n- **Original Size**: ${raw.length} bytes\n- **Minified Size**: **${minified.length} bytes** (${Math.round((1 - minified.length / raw.length) * 100)}% reduction)\n\n\`\`\`html\n${minified}\n\`\`\``
+        };
+      }
+
+      case "css-js-compressor": {
+        const code = inputs.code || "";
+        if (!code.trim()) return { markdownOutput: `# ℹ️ Input Required\nPlease paste CSS or JS code to compress.` };
+        let min = code.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, "");
+        min = min.replace(/\s*([\{\}:;,])\s*/g, "$1").replace(/\s+/g, " ").trim();
+        return {
+          markdownOutput: `# ⚡ Compressed Code Output\n\n- **Saved Space**: **${Math.max(0, Math.round((1 - min.length / code.length) * 100))}%**\n\n\`\`\`${(inputs.lang || "").includes("CSS") ? "css" : "js"}\n${min}\n\`\`\``
+        };
+      }
+
+      case "regex-tester-live": {
+        const pat = inputs.pattern || "";
+        const flags = (inputs.flags || "g").split(" ")[0];
+        const text = inputs.testText || "";
+        if (!pat) return { markdownOutput: `# ℹ️ Regex Pattern Required\nPlease specify a regular expression pattern.` };
+        try {
+          const re = new RegExp(pat, flags);
+          const matches = text.match(re) || [];
+          return { markdownOutput: `# ⚙️ Regex Match Results\n\n- **Pattern**: \`/${pat}/${flags}\`\n- **Total Matches Found**: **${matches.length}**\n\n\`\`\`json\n${JSON.stringify(matches, null, 2)}\n\`\`\`` };
+        } catch (err: any) {
+          return { markdownOutput: `# ❌ Invalid Regex Pattern\n\n\`\`\`text\n${err.message}\n\`\`\`` };
+        }
+      }
+
+      case "text-diff-checker": {
+        const linesA = (inputs.textA || "").split("\n");
+        const linesB = (inputs.textB || "").split("\n");
+        const diff = [];
+        const maxLen = Math.max(linesA.length, linesB.length);
+        for (let i = 0; i < maxLen; i++) {
+          const a = linesA[i];
+          const b = linesB[i];
+          if (a === b) {
+            diff.push(`  ${a || ""}`);
+          } else {
+            if (a !== undefined) diff.push(`- ${a}`);
+            if (b !== undefined) diff.push(`+ ${b}`);
+          }
+        }
+        return { markdownOutput: `# 🔍 Visual Line-by-Line Diff\n\n\`\`\`diff\n${diff.join("\n")}\n\`\`\`` };
+      }
+
+      case "lorem-generator": {
+        const count = Math.min(50, parseInt(inputs.count || "3", 10) || 3);
+        const unit = inputs.unit || "Paragraphs";
+        const sampleParagraph = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+        const result = [];
+        for (let i = 0; i < count; i++) {
+          result.push(`Paragraph ${i + 1}:\n${sampleParagraph}`);
+        }
+        return { markdownOutput: `# 📝 Generated Lorem Ipsum (${count} ${unit})\n\n${result.join("\n\n")}` };
+      }
+
+      case "case-converter": {
+        const text = inputs.text || "Hello world";
+        const casing = inputs.casing || "UPPERCASE";
+        let res = text;
+        if (casing === "UPPERCASE") res = text.toUpperCase();
+        else if (casing === "lowercase") res = text.toLowerCase();
+        else if (casing === "Title Case") res = text.replace(/\w\S*/g, (w) => w.charAt(0).toUpperCase() + w.substr(1).toLowerCase());
+        else if (casing === "camelCase") res = text.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+        else if (casing === "snake_case") res = text.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "_");
+        else if (casing === "kebab-case") res = text.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "-");
+        return { markdownOutput: `# 🔤 Converted Text Output\n\nStyle: **${casing}**\n\n\`\`\`text\n${res}\n\`\`\`` };
+      }
+
+      case "text-stats-counter": {
+        const text = inputs.text || "";
+        const charsWithSpaces = text.length;
+        const charsNoSpaces = text.replace(/\s+/g, "").length;
+        const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+        const sentences = text.trim() ? text.split(/[.!?]+/).filter(Boolean).length : 0;
+        const paragraphs = text.trim() ? text.split(/\n\s*\n/).filter(Boolean).length : 0;
+        const readingTimeMin = (words / 200).toFixed(1);
+        const speakingTimeMin = (words / 130).toFixed(1);
+
+        return {
+          markdownOutput: `# 📊 Text Metrics Analysis\n\n- **Word Count**: **${words.toLocaleString()} words**\n- **Characters (with spaces)**: ${charsWithSpaces.toLocaleString()}\n- **Characters (no spaces)**: ${charsNoSpaces.toLocaleString()}\n- **Sentences**: ${sentences}\n- **Paragraphs**: ${paragraphs}\n- **Estimated Reading Time**: ~${readingTimeMin} min\n- **Estimated Speaking Time**: ~${speakingTimeMin} min`
+        };
+      }
+
+      case "url-slug-generator": {
+        const title = inputs.title || "How to Build 50+ Fast Client-Side Tools";
+        const sep = (inputs.separator || "-").includes("_") ? "_" : "-";
+        const slug = title
+          .toLowerCase()
+          .trim()
+          .replace(/[^\w\s-]/g, "")
+          .replace(/[\s_-]+/g, sep)
+          .replace(/^-+|-+$/g, "");
+        return { markdownOutput: `# 🔗 Generated SEO URL Slug\n\n\`\`\`text\n${slug}\n\`\`\`` };
+      }
+
       default: {
         const inputSummary = Object.entries(inputs)
           .map(([key, val]) => `- **${key.toUpperCase()}:** \`${val}\``)
