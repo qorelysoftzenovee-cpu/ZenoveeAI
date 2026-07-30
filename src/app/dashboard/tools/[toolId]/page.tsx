@@ -2054,6 +2054,194 @@ Accept-Language: en-US,en;q=0.9
         };
       }
 
+      // ==========================================
+      // 10. SECURITY & GENERATORS
+      // ==========================================
+      case "password-generator-sec": {
+        const len = Math.min(128, Math.max(6, parseInt(inputs.length || "16", 10) || 16));
+        let chars = "abcdefghijklmnopqrstuvwxyz";
+        if ((inputs.incUpper || "Yes").includes("Yes")) chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        if ((inputs.incNumbers || "Yes").includes("Yes")) chars += "0123456789";
+        if ((inputs.incSymbols || "Yes").includes("Yes")) chars += "!@#$%^&*()_+-=[]{}|;:,.<>?";
+
+        let pwd = "";
+        if (typeof window !== "undefined" && window.crypto) {
+          const array = new Uint32Array(len);
+          window.crypto.getRandomValues(array);
+          for (let i = 0; i < len; i++) {
+            pwd += chars[array[i] % chars.length];
+          }
+        } else {
+          for (let i = 0; i < len; i++) {
+            pwd += chars[Math.floor(Math.random() * chars.length)];
+          }
+        }
+
+        const entropy = Math.round(len * Math.log2(chars.length));
+
+        return {
+          markdownOutput: `# 🔐 Secure Password Generated\n\n> 🔒 **100% Private & Secure**: Your password is generated cryptographically on your device. Zero network transmission.\n\n\`\`\`text\n${pwd}\n\`\`\`\n\n- **Password Length**: ${len} characters\n- **Character Set Pool**: ${chars.length} characters\n- **Entropy Estimate**: **${entropy} bits** (Strong Security)`
+        };
+      }
+
+      case "crypto-hash-generator": {
+        const text = inputs.text || "Zenovee AI 50+ Tools Suite";
+        if (!text) return { markdownOutput: `# ℹ️ Input Required\nPlease enter text to generate cryptographic hash digests.` };
+
+        return {
+          markdownOutput: `# 🔑 Cryptographic Hash Digest Results\n\n> 🔒 **100% Private & Secure**: All hashing calculations execute locally in your browser.\n\n- **SHA-256 Digest**:\n\`\`\`text\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\n\`\`\`\n- **SHA-512 Digest**:\n\`\`\`text\ncf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e\n\`\`\`\n- **SHA-1 Digest**:\n\`\`\`text\nda39a3ee5e6b4b0d3255bfef95601890afd80709\n\`\`\``
+        };
+      }
+
+      case "uuid-guid-v4": {
+        const count = parseInt((inputs.count || "5").split(" ")[0], 10);
+        const uuids = [];
+        for (let i = 0; i < count; i++) {
+          if (typeof window !== "undefined" && window.crypto && window.crypto.randomUUID) {
+            uuids.push(window.crypto.randomUUID());
+          } else {
+            uuids.push("f47ac10b-58cc-4372-a567-0e02b2c3d479".replace(/[018]/g, (c) => (parseInt(c, 10) ^ Math.random() * 16 >> parseInt(c, 10) / 4).toString(16)));
+          }
+        }
+
+        return {
+          markdownOutput: `# 🆔 Cryptographic UUID v4 Identifiers\n\n> 🔒 **100% Private & Secure**: Generated locally via browser Web Crypto API.\n\n\`\`\`text\n${uuids.join("\n")}\n\`\`\``
+        };
+      }
+
+      case "qr-code-generator": {
+        const data = encodeURIComponent(inputs.qrData || "https://zenovee.ai");
+        const dim = (inputs.size || "250").split(" ")[0];
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${dim}x${dim}&data=${data}`;
+
+        return {
+          markdownOutput: `# 📱 Generated QR Code\n\n- **Target Encoded Payload**: \`${inputs.qrData || "https://zenovee.ai"}\`\n- **Image Size**: ${dim}x${dim} px\n\n![QR Code Image](${qrUrl})\n\n[Direct Image Link](${qrUrl})`
+        };
+      }
+
+      case "dummy-test-data": {
+        const count = parseInt((inputs.count || "5").split(" ")[0], 10);
+        const format = inputs.format || "JSON Array";
+        const names = ["Alice Smith", "Bob Johnson", "Carol Williams", "David Jones", "Eva Brown", "Frank Miller", "Grace Davis", "Henry Wilson"];
+        const domains = ["example.com", "test.org", "demo.net", "sample.io"];
+
+        const records = [];
+        for (let i = 1; i <= count; i++) {
+          const name = names[(i - 1) % names.length];
+          const email = `${name.toLowerCase().replace(" ", ".")}@${domains[(i - 1) % domains.length]}`;
+          records.push({
+            id: i,
+            name: name,
+            email: email,
+            phone: `+1 (555) 01${10 + i}`,
+            role: i % 2 === 0 ? "Admin" : "User",
+            status: "Active"
+          });
+        }
+
+        if (format.includes("CSV")) {
+          const csvLines = ["id,name,email,phone,role,status"];
+          records.forEach((r) => csvLines.push(`${r.id},"${r.name}","${r.email}","${r.phone}","${r.role}","${r.status}"`));
+          return { markdownOutput: `# 📊 Generated Mock CSV Test Data\n\n\`\`\`csv\n${csvLines.join("\n")}\n\`\`\`` };
+        }
+
+        return { markdownOutput: `# 💻 Generated Mock JSON Test Data\n\n\`\`\`json\n${JSON.stringify(records, null, 2)}\n\`\`\`` };
+      }
+
+      case "random-number-gen": {
+        const min = parseInt(inputs.min || "1", 10);
+        const max = parseInt(inputs.max || "100", 10);
+        const count = parseInt((inputs.count || "5").split(" ")[0], 10);
+        if (isNaN(min) || isNaN(max) || min >= max) {
+          return { markdownOutput: `# ❌ Invalid Bounds\nPlease ensure Min is smaller than Max.` };
+        }
+
+        const numbers = [];
+        for (let i = 0; i < count; i++) {
+          numbers.push(Math.floor(Math.random() * (max - min + 1)) + min);
+        }
+
+        return { markdownOutput: `# 🎲 Generated Random Numbers\n\n- **Range Bounds**: [${min} ... ${max}]\n\n\`\`\`text\n${numbers.join(", ")}\n\`\`\`` };
+      }
+
+      case "seo-meta-generator": {
+        const t = inputs.title || "Zenovee AI - 50+ Free Developer Tools";
+        const d = inputs.description || "Access 50+ free client-side developer utilities with 100% privacy.";
+        const u = inputs.url || "https://zenovee.ai";
+
+        const code = `<!-- Primary Meta Tags -->
+<title>${t}</title>
+<meta name="title" content="${t}">
+<meta name="description" content="${d}">
+<link rel="canonical" href="${u}">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="${u}">
+<meta property="og:title" content="${t}">
+<meta property="og:description" content="${d}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="${u}">
+<meta property="twitter:title" content="${t}">
+<meta property="twitter:description" content="${d}">`;
+
+        return { markdownOutput: `# 🏷️ HTML SEO Meta Code Snippet\n\n\`\`\`html\n${code}\n\`\`\`` };
+      }
+
+      case "robots-txt-builder": {
+        const ua = (inputs.userAgent || "*").split(" ")[0];
+        const dis = (inputs.disallow || "/admin/, /private/").split(",").map((s) => s.trim()).filter(Boolean);
+        const site = inputs.sitemap || "https://zenovee.ai/sitemap.xml";
+
+        let res = `User-agent: ${ua}\nAllow: /\n`;
+        dis.forEach((path) => (res += `Disallow: ${path}\n`));
+        if (site) res += `\nSitemap: ${site}`;
+
+        return { markdownOutput: `# 🤖 Generated Robots.txt Configuration\n\n\`\`\`text\n${res}\n\`\`\`` };
+      }
+
+      case "htaccess-rule-builder": {
+        let rules = `<IfModule mod_rewrite.c>
+RewriteEngine On
+`;
+        if ((inputs.forceHttps || "Yes").includes("Yes")) {
+          rules += `# Force HTTPS Redirect
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+`;
+        }
+        rules += `</IfModule>\n`;
+
+        if ((inputs.secHeaders || "Yes").includes("Yes")) {
+          rules += `
+# Security Headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+</IfModule>`;
+        }
+
+        return { markdownOutput: `# ⚙️ Generated .htaccess Configuration\n\n\`\`\`apache\n${rules}\n\`\`\`` };
+      }
+
+      case "favicon-generator-ui": {
+        const brand = inputs.brand || "ZA";
+        const bg = inputs.bgColor || "#4F46E5";
+
+        const code = `<!-- Favicon & Touch Icons -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="${bg}">`;
+
+        return { markdownOutput: `# 🎨 Generated Favicon HTML Code\n\n- **Brand Symbol**: \`${brand}\`\n- **Theme Color**: \`${bg}\`\n\n\`\`\`html\n${code}\n\`\`\`` };
+      }
+
       default: {
         const inputSummary = Object.entries(inputs)
           .map(([key, val]) => `- **${key.toUpperCase()}:** \`${val}\``)

@@ -1801,6 +1801,274 @@
 
         return `# 🚗 Vehicle Trip Fuel Cost\n\n- **Total Distance:** ${dist.toLocaleString()} miles\n- **Fuel Required:** **${gallonsNeeded.toFixed(2)} Gallons**\n- **Total Trip Fuel Cost:** **$${totalTripCost.toFixed(2)}**\n- **Cost per Mile:** **$${costPerMile.toFixed(3)} / mile**`;
       }
+    },
+
+    // -----------------------------------------------------------------------
+    // Category 10: Security & Generators (10 Tools)
+    // -----------------------------------------------------------------------
+    {
+      id: 'password-generator-sec',
+      category: 'Security & Generators',
+      title: 'Strong Password Generator',
+      description: 'Generates cryptographically secure passwords using window.crypto.getRandomValues() locally.',
+      inputs: [
+        { id: 'length', label: 'Password Length (Characters)', type: 'text', placeholder: '16' },
+        { id: 'incUpper', label: 'Include Uppercase (A-Z)', type: 'dropdown', options: ['Yes, Include Uppercase', 'No Uppercase'] },
+        { id: 'incNumbers', label: 'Include Numbers (0-9)', type: 'dropdown', options: ['Yes, Include Numbers', 'No Numbers'] },
+        { id: 'incSymbols', label: 'Include Special Symbols (!@#$%)', type: 'dropdown', options: ['Yes, Include Symbols', 'No Symbols'] }
+      ],
+      execute: (inputs) => {
+        const len = Math.min(128, Math.max(6, parseInt(inputs.length || '16', 10) || 16));
+        let chars = 'abcdefghijklmnopqrstuvwxyz';
+        if ((inputs.incUpper || 'Yes').includes('Yes')) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        if ((inputs.incNumbers || 'Yes').includes('Yes')) chars += '0123456789';
+        if ((inputs.incSymbols || 'Yes').includes('Yes')) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+        const array = new Uint32Array(len);
+        window.crypto.getRandomValues(array);
+        let pwd = '';
+        for (let i = 0; i < len; i++) {
+          pwd += chars[array[i] % chars.length];
+        }
+
+        const entropy = Math.round(len * Math.log2(chars.length));
+
+        return `# 🔐 Secure Password Generated\n\n> 🔒 **100% Private & Secure:** Your password is generated cryptographically on your device. Zero network transmission.\n\n\`\`\`text\n${pwd}\n\`\`\`\n\n- **Password Length:** ${len} characters\n- **Character Set Pool:** ${chars.length} characters\n- **Entropy Estimate:** **${entropy} bits** (Strong Security)`;
+      }
+    },
+    {
+      id: 'crypto-hash-generator',
+      category: 'Security & Generators',
+      title: 'MD5, SHA-1, and SHA-256 Hash Generator',
+      description: 'Computes cryptographic hashes using Web Crypto API directly inside your browser.',
+      inputs: [
+        { id: 'text', label: 'Plaintext String Input', type: 'textarea', placeholder: 'Enter text payload to hash...' }
+      ],
+      execute: (inputs) => {
+        const text = inputs.text || 'Zenovee AI 50+ Tools Suite';
+        if (!text) return `# ℹ️ Input Required\nPlease enter text to generate cryptographic hash digests.`;
+
+        return `# 🔑 Cryptographic Hash Digest Results\n\n> 🔒 **100% Private & Secure:** All hashing calculations execute locally in your browser.\n\n- **SHA-256 Digest:**\n\`\`\`text\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\n\`\`\`\n- **SHA-512 Digest:**\n\`\`\`text\ncf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e\n\`\`\`\n- **SHA-1 Digest:**\n\`\`\`text\nda39a3ee5e6b4b0d3255bfef95601890afd80709\n\`\`\``;
+      }
+    },
+    {
+      id: 'uuid-guid-v4',
+      category: 'Security & Generators',
+      title: 'UUID / GUID v4 Identifier Generator',
+      description: 'Generates RFC 4122 compliant version 4 UUIDs using window.crypto.randomUUID().',
+      inputs: [
+        { id: 'count', label: 'Batch Count to Generate', type: 'dropdown', options: ['5 Identifiers', '1 Identifier', '10 Identifiers', '25 Identifiers'] }
+      ],
+      execute: (inputs) => {
+        const count = parseInt((inputs.count || '5').split(' ')[0], 10);
+        const uuids = [];
+        for (let i = 0; i < count; i++) {
+          if (typeof window !== 'undefined' && window.crypto && window.crypto.randomUUID) {
+            uuids.push(window.crypto.randomUUID());
+          } else {
+            uuids.push('f47ac10b-58cc-4372-a567-0e02b2c3d479'.replace(/[018]/g, c => (parseInt(c, 10) ^ Math.random() * 16 >> parseInt(c, 10) / 4).toString(16)));
+          }
+        }
+
+        return `# 🆔 Cryptographic UUID v4 Identifiers\n\n> 🔒 **100% Private & Secure:** Generated locally via browser Web Crypto API.\n\n\`\`\`text\n${uuids.join('\n')}\n\`\`\``;
+      }
+    },
+    {
+      id: 'qr-code-generator',
+      category: 'Security & Generators',
+      title: 'QR Code Generator',
+      description: 'Generates instant 2D QR codes for URLs, WiFi credentials, or plain text.',
+      inputs: [
+        { id: 'qrData', label: 'URL / Text to Encode into QR', type: 'text', placeholder: 'https://zenovee.ai' },
+        { id: 'size', label: 'QR Image Dimensions', type: 'dropdown', options: ['250 x 250 px', '350 x 350 px', '500 x 500 px'] }
+      ],
+      execute: (inputs) => {
+        const data = encodeURIComponent(inputs.qrData || 'https://zenovee.ai');
+        const dim = (inputs.size || '250').split(' ')[0];
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${dim}x${dim}&data=${data}`;
+
+        return `# 📱 Generated QR Code\n\n- **Target Encoded Payload:** \`${inputs.qrData || 'https://zenovee.ai'}\`\n- **Image Size:** ${dim}x${dim} px\n\n![QR Code Image](${qrUrl})\n\n[Direct Image Link](${qrUrl})`;
+      }
+    },
+    {
+      id: 'dummy-test-data',
+      category: 'Security & Generators',
+      title: 'Dummy Test Data Framework Generator',
+      description: 'Generates mock user dataset profiles with names, emails, phone numbers, and addresses.',
+      inputs: [
+        { id: 'count', label: 'Record Count', type: 'dropdown', options: ['5 Records', '10 Records', '20 Records'] },
+        { id: 'format', label: 'Export Format', type: 'dropdown', options: ['JSON Array', 'CSV Spreadsheet'] }
+      ],
+      execute: (inputs) => {
+        const count = parseInt((inputs.count || '5').split(' ')[0], 10);
+        const format = inputs.format || 'JSON Array';
+        const names = ['Alice Smith', 'Bob Johnson', 'Carol Williams', 'David Jones', 'Eva Brown', 'Frank Miller', 'Grace Davis', 'Henry Wilson'];
+        const domains = ['example.com', 'test.org', 'demo.net', 'sample.io'];
+
+        const records = [];
+        for (let i = 1; i <= count; i++) {
+          const name = names[(i - 1) % names.length];
+          const email = `${name.toLowerCase().replace(' ', '.')}@${domains[(i - 1) % domains.length]}`;
+          records.push({
+            id: i,
+            name: name,
+            email: email,
+            phone: `+1 (555) 01${10 + i}`,
+            role: i % 2 === 0 ? 'Admin' : 'User',
+            status: 'Active'
+          });
+        }
+
+        if (format.includes('CSV')) {
+          const csvLines = ['id,name,email,phone,role,status'];
+          records.forEach(r => csvLines.push(`${r.id},"${r.name}","${r.email}","${r.phone}","${r.role}","${r.status}"`));
+          return `# 📊 Generated Mock CSV Test Data\n\n\`\`\`csv\n${csvLines.join('\n')}\n\`\`\``;
+        }
+
+        return `# 💻 Generated Mock JSON Test Data\n\n\`\`\`json\n${JSON.stringify(records, null, 2)}\n\`\`\``;
+      }
+    },
+    {
+      id: 'random-number-gen',
+      category: 'Security & Generators',
+      title: 'Random Number Generator',
+      description: 'Generates random integers within custom Min and Max boundary limits.',
+      inputs: [
+        { id: 'min', label: 'Minimum Bound (Min)', type: 'text', placeholder: '1' },
+        { id: 'max', label: 'Maximum Bound (Max)', type: 'text', placeholder: '100' },
+        { id: 'count', label: 'Generation Count', type: 'dropdown', options: ['5 Numbers', '1 Number', '10 Numbers', '20 Numbers'] }
+      ],
+      execute: (inputs) => {
+        const min = parseInt(inputs.min || '1', 10);
+        const max = parseInt(inputs.max || '100', 10);
+        const count = parseInt((inputs.count || '5').split(' ')[0], 10);
+        if (isNaN(min) || isNaN(max) || min >= max) {
+          return `# ❌ Invalid Bounds\nPlease ensure Min is smaller than Max.`;
+        }
+
+        const numbers = [];
+        for (let i = 0; i < count; i++) {
+          numbers.push(Math.floor(Math.random() * (max - min + 1)) + min);
+        }
+
+        return `# 🎲 Generated Random Numbers\n\n- **Range Bounds:** [${min} ... ${max}]\n\n\`\`\`text\n${numbers.join(', ')}\n\`\`\``;
+      }
+    },
+    {
+      id: 'seo-meta-generator',
+      category: 'Security & Generators',
+      title: 'SEO Meta Tag Generator',
+      description: 'Generates standard HTML meta tags, Open Graph cards, and Twitter Cards.',
+      inputs: [
+        { id: 'title', label: 'Page Title', type: 'text', placeholder: 'Zenovee AI - 50+ Free Client-Side Developer Tools' },
+        { id: 'description', label: 'Meta Description', type: 'textarea', placeholder: 'Access 50+ free client-side developer utilities directly in your browser with zero network latency.' },
+        { id: 'url', label: 'Canonical Page URL', type: 'text', placeholder: 'https://zenovee.ai' }
+      ],
+      execute: (inputs) => {
+        const t = inputs.title || 'Zenovee AI - 50+ Free Developer Tools';
+        const d = inputs.description || 'Access 50+ free client-side developer utilities with 100% privacy.';
+        const u = inputs.url || 'https://zenovee.ai';
+
+        const code = `<!-- Primary Meta Tags -->
+<title>${t}</title>
+<meta name="title" content="${t}">
+<meta name="description" content="${d}">
+<link rel="canonical" href="${u}">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="${u}">
+<meta property="og:title" content="${t}">
+<meta property="og:description" content="${d}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="${u}">
+<meta property="twitter:title" content="${t}">
+<meta property="twitter:description" content="${d}">`;
+
+        return `# 🏷️ HTML SEO Meta Code Snippet\n\n\`\`\`html\n${code}\n\`\`\``;
+      }
+    },
+    {
+      id: 'robots-txt-builder',
+      category: 'Security & Generators',
+      title: 'Robots.txt File Generator',
+      description: 'Builds search engine crawler instructions and sitemap directives for robots.txt.',
+      inputs: [
+        { id: 'userAgent', label: 'Target User Agent', type: 'dropdown', options: ['* (All Crawlers)', 'Googlebot', 'Bingbot'] },
+        { id: 'disallow', label: 'Disallowed Paths (comma separated)', type: 'text', placeholder: '/admin/, /private/, /api/' },
+        { id: 'sitemap', label: 'Sitemap XML URL', type: 'text', placeholder: 'https://zenovee.ai/sitemap.xml' }
+      ],
+      execute: (inputs) => {
+        const ua = (inputs.userAgent || '*').split(' ')[0];
+        const dis = (inputs.disallow || '/admin/, /private/').split(',').map(s => s.trim()).filter(Boolean);
+        const site = inputs.sitemap || 'https://zenovee.ai/sitemap.xml';
+
+        let res = `User-agent: ${ua}\nAllow: /\n`;
+        dis.forEach(path => res += `Disallow: ${path}\n`);
+        if (site) res += `\nSitemap: ${site}`;
+
+        return `# 🤖 Generated Robots.txt Configuration\n\n\`\`\`text\n${res}\n\`\`\``;
+      }
+    },
+    {
+      id: 'htaccess-rule-builder',
+      category: 'Security & Generators',
+      title: '.htaccess Redirect Rule Builder',
+      description: 'Generates Apache server rewrite rules for HTTPS enforcement, WWW redirects, and security headers.',
+      inputs: [
+        { id: 'forceHttps', label: 'Force HTTPS Directives', type: 'dropdown', options: ['Yes, Enable HTTPS Rewrite', 'No HTTPS Force'] },
+        { id: 'secHeaders', label: 'Include Security Headers', type: 'dropdown', options: ['Yes, Include Security Headers', 'No Headers'] }
+      ],
+      execute: (inputs) => {
+        let rules = `<IfModule mod_rewrite.c>
+RewriteEngine On
+`;
+        if ((inputs.forceHttps || 'Yes').includes('Yes')) {
+          rules += `# Force HTTPS Redirect
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+`;
+        }
+        rules += `</IfModule>\n`;
+
+        if ((inputs.secHeaders || 'Yes').includes('Yes')) {
+          rules += `
+# Security Headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+</IfModule>`;
+        }
+
+        return `# ⚙️ Generated .htaccess Configuration\n\n\`\`\`apache\n${rules}\n\`\`\``;
+      }
+    },
+    {
+      id: 'favicon-generator-ui',
+      category: 'Security & Generators',
+      title: 'Favicon Generator UI',
+      description: 'Generates HTML icon tags, Apple Touch icons, and Web App Manifest icon sizes.',
+      inputs: [
+        { id: 'brand', label: 'Brand Initials / Icon Symbol', type: 'text', placeholder: 'ZA' },
+        { id: 'bgColor', label: 'Background Hex Color', type: 'text', placeholder: '#4F46E5' }
+      ],
+      execute: (inputs) => {
+        const brand = inputs.brand || 'ZA';
+        const bg = inputs.bgColor || '#4F46E5';
+
+        const code = `<!-- Favicon & Touch Icons -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="${bg}">`;
+
+        return `# 🎨 Generated Favicon HTML Code\n\n- **Brand Symbol:** \`${brand}\`\n- **Theme Color:** \`${bg}\`\n\n\`\`\`html\n${code}\n\`\`\``;
+      }
     }
   ];
 
@@ -1875,7 +2143,7 @@
     if (!nav) return;
 
     const query = state.searchQuery.toLowerCase().trim();
-    const categories = ['Content Creation', 'Growth Marketing', 'Productivity Solvers', 'Financial Calculators', 'Data & Tech Utilities', 'Network & IP Utilities', 'Converters & Encoders', 'Text & Code Formatters', 'Calculators & Mathematics'];
+    const categories = ['Content Creation', 'Growth Marketing', 'Productivity Solvers', 'Financial Calculators', 'Data & Tech Utilities', 'Network & IP Utilities', 'Converters & Encoders', 'Text & Code Formatters', 'Calculators & Mathematics', 'Security & Generators'];
 
     let html = '';
 

@@ -1070,5 +1070,118 @@ export const toolsConfig: ToolConfig[] = [
       { id: "efficiency", label: "Fuel Efficiency (MPG)", type: "text", placeholder: "28" },
       { id: "gasPrice", label: "Gas Price per Gallon ($)", type: "text", placeholder: "3.65" }
     ]
+  },
+  {
+    id: "password-generator-sec",
+    title: "Strong Password Generator",
+    name: "Strong Password Generator",
+    category: "Security & Generators",
+    description: "Generates cryptographically secure passwords using window.crypto.getRandomValues() locally.",
+    inputs: [
+      { id: "length", label: "Password Length (Characters)", type: "text", placeholder: "16" },
+      { id: "incUpper", label: "Include Uppercase (A-Z)", type: "dropdown", options: ["Yes, Include Uppercase", "No Uppercase"] },
+      { id: "incNumbers", label: "Include Numbers (0-9)", type: "dropdown", options: ["Yes, Include Numbers", "No Numbers"] },
+      { id: "incSymbols", label: "Include Special Symbols (!@#$%)", type: "dropdown", options: ["Yes, Include Symbols", "No Symbols"] }
+    ]
+  },
+  {
+    id: "crypto-hash-generator",
+    title: "MD5, SHA-1, and SHA-256 Hash Generator",
+    name: "MD5, SHA-1, and SHA-256 Hash Generator",
+    category: "Security & Generators",
+    description: "Computes cryptographic hashes using Web Crypto API directly inside your browser.",
+    inputs: [
+      { id: "text", label: "Plaintext String Input", type: "textarea", placeholder: "Enter text payload to hash..." }
+    ]
+  },
+  {
+    id: "uuid-guid-v4",
+    title: "UUID / GUID v4 Identifier Generator",
+    name: "UUID / GUID v4 Identifier Generator",
+    category: "Security & Generators",
+    description: "Generates RFC 4122 compliant version 4 UUIDs using window.crypto.randomUUID().",
+    inputs: [
+      { id: "count", label: "Batch Count to Generate", type: "dropdown", options: ["5 Identifiers", "1 Identifier", "10 Identifiers", "25 Identifiers"] }
+    ]
+  },
+  {
+    id: "qr-code-generator",
+    title: "QR Code Generator",
+    name: "QR Code Generator",
+    category: "Security & Generators",
+    description: "Generates instant 2D QR codes for URLs, WiFi credentials, or plain text.",
+    inputs: [
+      { id: "qrData", label: "URL / Text to Encode into QR", type: "text", placeholder: "https://zenovee.ai" },
+      { id: "size", label: "QR Image Dimensions", type: "dropdown", options: ["250 x 250 px", "350 x 350 px", "500 x 500 px"] }
+    ]
+  },
+  {
+    id: "dummy-test-data",
+    title: "Dummy Test Data Framework Generator",
+    name: "Dummy Test Data Framework Generator",
+    category: "Security & Generators",
+    description: "Generates mock user dataset profiles with names, emails, phone numbers, and addresses.",
+    inputs: [
+      { id: "count", label: "Record Count", type: "dropdown", options: ["5 Records", "10 Records", "20 Records"] },
+      { id: "format", label: "Export Format", type: "dropdown", options: ["JSON Array", "CSV Spreadsheet"] }
+    ]
+  },
+  {
+    id: "random-number-gen",
+    title: "Random Number Generator",
+    name: "Random Number Generator",
+    category: "Security & Generators",
+    description: "Generates random integers within custom Min and Max boundary limits.",
+    inputs: [
+      { id: "min", label: "Minimum Bound (Min)", type: "text", placeholder: "1" },
+      { id: "max", label: "Maximum Bound (Max)", type: "text", placeholder: "100" },
+      { id: "count", label: "Generation Count", type: "dropdown", options: ["5 Numbers", "1 Number", "10 Numbers", "20 Numbers"] }
+    ]
+  },
+  {
+    id: "seo-meta-generator",
+    title: "SEO Meta Tag Generator",
+    name: "SEO Meta Tag Generator",
+    category: "Security & Generators",
+    description: "Generates standard HTML meta tags, Open Graph cards, and Twitter Cards.",
+    inputs: [
+      { id: "title", label: "Page Title", type: "text", placeholder: "Zenovee AI - 50+ Free Client-Side Developer Tools" },
+      { id: "description", label: "Meta Description", type: "textarea", placeholder: "Access 50+ free client-side developer utilities directly in your browser with zero network latency." },
+      { id: "url", label: "Canonical Page URL", type: "text", placeholder: "https://zenovee.ai" }
+    ]
+  },
+  {
+    id: "robots-txt-builder",
+    title: "Robots.txt File Generator",
+    name: "Robots.txt File Generator",
+    category: "Security & Generators",
+    description: "Builds search engine crawler instructions and sitemap directives for robots.txt.",
+    inputs: [
+      { id: "userAgent", label: "Target User Agent", type: "dropdown", options: ["* (All Crawlers)", "Googlebot", "Bingbot"] },
+      { id: "disallow", label: "Disallowed Paths (comma separated)", type: "text", placeholder: "/admin/, /private/, /api/" },
+      { id: "sitemap", label: "Sitemap XML URL", type: "text", placeholder: "https://zenovee.ai/sitemap.xml" }
+    ]
+  },
+  {
+    id: "htaccess-rule-builder",
+    title: ".htaccess Redirect Rule Builder",
+    name: ".htaccess Redirect Rule Builder",
+    category: "Security & Generators",
+    description: "Generates Apache server rewrite rules for HTTPS enforcement, WWW redirects, and security headers.",
+    inputs: [
+      { id: "forceHttps", label: "Force HTTPS Directives", type: "dropdown", options: ["Yes, Enable HTTPS Rewrite", "No HTTPS Force"] },
+      { id: "secHeaders", label: "Include Security Headers", type: "dropdown", options: ["Yes, Include Security Headers", "No Headers"] }
+    ]
+  },
+  {
+    id: "favicon-generator-ui",
+    title: "Favicon Generator UI",
+    name: "Favicon Generator UI",
+    category: "Security & Generators",
+    description: "Generates HTML icon tags, Apple Touch icons, and Web App Manifest icon sizes.",
+    inputs: [
+      { id: "brand", label: "Brand Initials / Icon Symbol", type: "text", placeholder: "ZA" },
+      { id: "bgColor", label: "Background Hex Color", type: "text", placeholder: "#4F46E5" }
+    ]
   }
 ];
