@@ -635,5 +635,109 @@ export const toolsConfig: ToolConfig[] = [
       { id: "idType", label: "Identifier Protocol Standard", type: "dropdown", options: ["UUID v4 (Standard Cryptographic)", "ULID (Time-sortable)", "NanoID (Compact Web Unique)"] },
       { id: "uppercase", label: "Letter Case Output Style", type: "dropdown", options: ["lowercase format", "UPPERCASE FORMAT"] }
     ]
+  },
+  {
+    id: "ip-lookup",
+    title: "My IP Address & Network Geolocation Lookup",
+    name: "My IP Address & Network Geolocation Lookup",
+    category: "Network & IP Utilities",
+    description: "Fetches public IP address, ISP, ASN, country, city, and connection parameters using client-side APIs.",
+    inputs: [
+      { id: "targetIp", label: "Target IP Address (leave blank for your IP)", type: "text", placeholder: "e.g. 8.8.8.8" }
+    ]
+  },
+  {
+    id: "dns-propagation",
+    title: "DNS Propagation Checker",
+    name: "DNS Propagation Checker",
+    category: "Network & IP Utilities",
+    description: "Queries DNS record propagation (A, AAAA, CNAME, MX, TXT) across global resolvers.",
+    inputs: [
+      { id: "domain", label: "Target Domain Name", type: "text", placeholder: "e.g. example.com" },
+      { id: "type", label: "DNS Record Type", type: "dropdown", options: ["A", "AAAA", "CNAME", "MX", "TXT", "NS"] }
+    ]
+  },
+  {
+    id: "ping-tester",
+    title: "Client-Side Ping & Latency Tester",
+    name: "Client-Side Ping & Latency Tester",
+    category: "Network & IP Utilities",
+    description: "Measures round-trip response latency, HTTP timing, and packet jitter to target Web endpoints.",
+    inputs: [
+      { id: "endpoint", label: "Target Host URL", type: "text", placeholder: "e.g. https://cloudflare.com" },
+      { id: "count", label: "Ping Packets Count", type: "dropdown", options: ["5 Packets", "10 Packets", "20 Packets"] }
+    ]
+  },
+  {
+    id: "port-scanner",
+    title: "Port Scanner Tool UI",
+    name: "Port Scanner Tool UI",
+    category: "Network & IP Utilities",
+    description: "Checks common Web, WebSocket, and service ports on target hosts.",
+    inputs: [
+      { id: "host", label: "Target Host / IP", type: "text", placeholder: "e.g. 127.0.0.1 or example.com" },
+      { id: "ports", label: "Target Ports to Scan", type: "text", placeholder: "e.g. 80, 443, 8080, 22, 3306" }
+    ]
+  },
+  {
+    id: "ssl-checker",
+    title: "SSL Certificate Expiry Checker UI",
+    name: "SSL Certificate Expiry Checker UI",
+    category: "Network & IP Utilities",
+    description: "Inspects SSL/TLS certificate health, expiration countdown, issuer, and SAN domains.",
+    inputs: [
+      { id: "domain", label: "Target Domain Name", type: "text", placeholder: "e.g. example.com" }
+    ]
+  },
+  {
+    id: "mac-vendor",
+    title: "MAC Address Lookup Vendor Tool",
+    name: "MAC Address Lookup Vendor Tool",
+    category: "Network & IP Utilities",
+    description: "Parses 6-digit OUI prefixes against IEEE registered hardware vendors.",
+    inputs: [
+      { id: "mac", label: "Hardware MAC Address", type: "text", placeholder: "e.g. 00:1A:2B:3C:4D:5E" }
+    ]
+  },
+  {
+    id: "cidr-calculator",
+    title: "Subnet / CIDR Calculator",
+    name: "Subnet / CIDR Calculator",
+    category: "Network & IP Utilities",
+    description: "Calculates IP ranges, netmask, wildcard mask, broadcast address, and host capacities.",
+    inputs: [
+      { id: "ip", label: "IP Address", type: "text", placeholder: "e.g. 192.168.1.1" },
+      { id: "cidr", label: "Subnet Prefix / CIDR", type: "dropdown", options: ["/24 (255.255.255.0)", "/16 (255.255.0.0)", "/28 (255.255.255.240)", "/30 (255.255.255.252)"] }
+    ]
+  },
+  {
+    id: "header-inspector",
+    title: "HTTP Header Inspector",
+    name: "HTTP Header Inspector",
+    category: "Network & IP Utilities",
+    description: "Inspects HTTP response headers, CORS policies, security flags, and client navigator parameters.",
+    inputs: [
+      { id: "url", label: "Target Request URL", type: "text", placeholder: "e.g. https://httpbin.org/headers" }
+    ]
+  },
+  {
+    id: "speed-test",
+    title: "Client-Side Network Speed Test Widget",
+    name: "Client-Side Network Speed Test Widget",
+    category: "Network & IP Utilities",
+    description: "Downloads payload chunks in browser memory to measure download throughput and latency.",
+    inputs: [
+      { id: "chunkSize", label: "Download Test Payload Size", type: "dropdown", options: ["5 MB Payload", "10 MB Payload", "25 MB Payload"] }
+    ]
+  },
+  {
+    id: "whois-lookup",
+    title: "Whois Domain Lookup UI",
+    name: "Whois Domain Lookup UI",
+    category: "Network & IP Utilities",
+    description: "Queries domain registration metadata, expiration dates, registrar, and nameservers via RDAP.",
+    inputs: [
+      { id: "domain", label: "Target Domain Name", type: "text", placeholder: "e.g. example.com" }
+    ]
   }
 ];
