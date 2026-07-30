@@ -952,5 +952,123 @@ export const toolsConfig: ToolConfig[] = [
       { id: "title", label: "Headline / Article Title", type: "text", placeholder: "How to Build 50+ Fast Client-Side Tools in 2026!" },
       { id: "separator", label: "Word Separator", type: "dropdown", options: ["Hyphen (-)", "Underscore (_)"] }
     ]
+  },
+  {
+    id: "percentage-calculator",
+    title: "Advanced Percentage Calculator",
+    name: "Advanced Percentage Calculator",
+    category: "Calculators & Mathematics",
+    description: "Calculates X% of Y, percentage ratios, and percentage increase or decrease between numbers.",
+    inputs: [
+      { id: "mode", label: "Calculation Mode", type: "dropdown", options: ["What is X% of Y?", "What percentage is X of Y?", "% Increase / Decrease from X to Y"] },
+      { id: "valX", label: "Value X", type: "text", placeholder: "15" },
+      { id: "valY", label: "Value Y", type: "text", placeholder: "250" }
+    ]
+  },
+  {
+    id: "mortgage-amortization",
+    title: "Loan & Mortgage Amortization Calculator",
+    name: "Loan & Mortgage Amortization Calculator",
+    category: "Calculators & Mathematics",
+    description: "Calculates monthly mortgage payments and renders a year-by-year amortization breakdown schedule table.",
+    inputs: [
+      { id: "principal", label: "Loan Principal Amount ($)", type: "text", placeholder: "300000" },
+      { id: "rate", label: "Annual Interest Rate (%)", type: "text", placeholder: "6.5" },
+      { id: "term", label: "Loan Term", type: "dropdown", options: ["30 Years", "15 Years", "10 Years", "20 Years"] }
+    ]
+  },
+  {
+    id: "compound-interest-calculator",
+    title: "Compound Interest Growth Calculator",
+    name: "Compound Interest Growth Calculator",
+    category: "Calculators & Mathematics",
+    description: "Calculates investment growth over time with recurring deposits and compound interest tables.",
+    inputs: [
+      { id: "initial", label: "Initial Principal ($)", type: "text", placeholder: "10000" },
+      { id: "monthly", label: "Monthly Contribution ($)", type: "text", placeholder: "500" },
+      { id: "rate", label: "Annual Return Rate (%)", type: "text", placeholder: "8.0" },
+      { id: "years", label: "Investment Duration (Years)", type: "text", placeholder: "10" }
+    ]
+  },
+  {
+    id: "bmi-body-fat",
+    title: "BMI & Body Fat Metric Calculator",
+    name: "BMI & Body Fat Metric Calculator",
+    category: "Calculators & Mathematics",
+    description: "Calculates Body Mass Index (BMI), WHO weight category, and estimated body fat percentage.",
+    inputs: [
+      { id: "weight", label: "Weight (kg)", type: "text", placeholder: "70" },
+      { id: "height", label: "Height (cm)", type: "text", placeholder: "175" },
+      { id: "age", label: "Age (years)", type: "text", placeholder: "28" },
+      { id: "gender", label: "Biological Gender", type: "dropdown", options: ["Male", "Female"] }
+    ]
+  },
+  {
+    id: "age-date-difference",
+    title: "Age & Exact Date Difference Calculator",
+    name: "Age & Exact Date Difference Calculator",
+    category: "Calculators & Mathematics",
+    description: "Calculates exact age in years, months, days, total weeks, and total days between two dates.",
+    inputs: [
+      { id: "startDate", label: "Start Date / Birthdate (YYYY-MM-DD)", type: "text", placeholder: "1995-06-15" },
+      { id: "endDate", label: "End Date / Target Date (leave blank for today)", type: "text", placeholder: "2026-07-30" }
+    ]
+  },
+  {
+    id: "gpa-calculator",
+    title: "GPA / Grade Point Average Calculator",
+    name: "GPA / Grade Point Average Calculator",
+    category: "Calculators & Mathematics",
+    description: "Calculates cumulative weighted Grade Point Average (GPA) on a 4.0 grading scale.",
+    inputs: [
+      { id: "courses", label: "Course Grades & Credits (e.g., A 3, B+ 4, A- 3, B 3)", type: "textarea", placeholder: "A 3\nB+ 4\nA- 3\nB 3" }
+    ]
+  },
+  {
+    id: "salary-to-hourly",
+    title: "Salary to Hourly Pay Wage Converter",
+    name: "Salary to Hourly Pay Wage Converter",
+    category: "Calculators & Mathematics",
+    description: "Converts annual salary into hourly, weekly, bi-weekly, and monthly wage breakdowns.",
+    inputs: [
+      { id: "salary", label: "Annual Base Salary ($)", type: "text", placeholder: "75000" },
+      { id: "hoursPerWeek", label: "Work Hours per Week", type: "text", placeholder: "40" }
+    ]
+  },
+  {
+    id: "tip-bill-splitter",
+    title: "Restaurant Tip & Bill Split Calculator",
+    name: "Restaurant Tip & Bill Split Calculator",
+    category: "Calculators & Mathematics",
+    description: "Calculates gratuity amount, total bill, and split cost per person in dining groups.",
+    inputs: [
+      { id: "bill", label: "Subtotal Bill Amount ($)", type: "text", placeholder: "120.00" },
+      { id: "tipPct", label: "Tip Percentage", type: "dropdown", options: ["18% (Standard)", "20% (Great Service)", "15% (Fair)", "25% (Exceptional)"] },
+      { id: "people", label: "Number of People Splitting", type: "text", placeholder: "4" }
+    ]
+  },
+  {
+    id: "discount-sales-tax",
+    title: "Retail Discount & Sales Tax Calculator",
+    name: "Retail Discount & Sales Tax Calculator",
+    category: "Calculators & Mathematics",
+    description: "Calculates promotional discount savings, sales tax, and final checkout prices.",
+    inputs: [
+      { id: "price", label: "Original Retail Price ($)", type: "text", placeholder: "199.99" },
+      { id: "discount", label: "Discount Percentage (%)", type: "text", placeholder: "20" },
+      { id: "tax", label: "Sales Tax Rate (%)", type: "text", placeholder: "8.5" }
+    ]
+  },
+  {
+    id: "fuel-cost-calculator",
+    title: "Vehicle Fuel Cost & Trip Distance Calculator",
+    name: "Vehicle Fuel Cost & Trip Distance Calculator",
+    category: "Calculators & Mathematics",
+    description: "Calculates required fuel volume and total trip cost based on fuel efficiency and gas prices.",
+    inputs: [
+      { id: "distance", label: "Total Trip Distance (Miles)", type: "text", placeholder: "350" },
+      { id: "efficiency", label: "Fuel Efficiency (MPG)", type: "text", placeholder: "28" },
+      { id: "gasPrice", label: "Gas Price per Gallon ($)", type: "text", placeholder: "3.65" }
+    ]
   }
 ];

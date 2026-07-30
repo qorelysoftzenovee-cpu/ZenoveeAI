@@ -1471,6 +1471,336 @@
           .replace(/^-+|-+$/g, '');
         return `# 🔗 Generated SEO URL Slug\n\n\`\`\`text\n${slug}\n\`\`\``;
       }
+    },
+
+    // -----------------------------------------------------------------------
+    // Category 9: Calculators & Mathematics (10 Tools)
+    // -----------------------------------------------------------------------
+    {
+      id: 'percentage-calculator',
+      category: 'Calculators & Mathematics',
+      title: 'Advanced Percentage Calculator',
+      description: 'Calculates X% of Y, percentage ratios, and percentage increase or decrease between numbers.',
+      inputs: [
+        { id: 'mode', label: 'Calculation Mode', type: 'dropdown', options: ['What is X% of Y?', 'What percentage is X of Y?', '% Increase / Decrease from X to Y'] },
+        { id: 'valX', label: 'Value X', type: 'text', placeholder: '15' },
+        { id: 'valY', label: 'Value Y', type: 'text', placeholder: '250' }
+      ],
+      execute: (inputs) => {
+        const x = parseFloat(inputs.valX || '15');
+        const y = parseFloat(inputs.valY || '250');
+        if (isNaN(x) || isNaN(y)) {
+          return `# ❌ Invalid Numerical Inputs\nPlease enter valid numbers for Value X and Value Y.`;
+        }
+        const mode = inputs.mode || 'What is X% of Y?';
+        if (mode.includes('X% of Y')) {
+          const res = (x / 100) * y;
+          return `# 🧮 Percentage Calculation Result\n\n**${x}% of ${y}** = **${res.toLocaleString()}**`;
+        } else if (mode.includes('percentage is X of Y')) {
+          if (y === 0) return `# ❌ Division by Zero Error\nValue Y cannot be zero when calculating ratio percentage.`;
+          const pct = (x / y) * 100;
+          return `# 🧮 Ratio Percentage Result\n\n**${x}** is **${pct.toFixed(2)}%** of **${y}**`;
+        } else {
+          if (x === 0) return `# ❌ Division by Zero Error\nInitial Value X cannot be zero.`;
+          const diff = y - x;
+          const pctChange = (diff / Math.abs(x)) * 100;
+          const status = diff >= 0 ? '🟢 INCREASE' : '🔴 DECREASE';
+          return `# 🧮 Percentage Change Result\n\n- **Change Status:** **${status}**\n- **Difference Amount:** ${diff >= 0 ? '+' : ''}${diff.toLocaleString()}\n- **Percentage Delta:** **${pctChange >= 0 ? '+' : ''}${pctChange.toFixed(2)}%**`;
+        }
+      }
+    },
+    {
+      id: 'mortgage-amortization',
+      category: 'Calculators & Mathematics',
+      title: 'Loan & Mortgage Amortization Calculator',
+      description: 'Calculates monthly mortgage payments and renders a year-by-year amortization breakdown schedule table.',
+      inputs: [
+        { id: 'principal', label: 'Loan Principal Amount ($)', type: 'text', placeholder: '300000' },
+        { id: 'rate', label: 'Annual Interest Rate (%)', type: 'text', placeholder: '6.5' },
+        { id: 'term', label: 'Loan Term', type: 'dropdown', options: ['30 Years', '15 Years', '10 Years', '20 Years'] }
+      ],
+      execute: (inputs) => {
+        const p = parseFloat(inputs.principal || '300000');
+        const annualRate = parseFloat(inputs.rate || '6.5');
+        const years = parseInt((inputs.term || '30').split(' ')[0], 10);
+        if (isNaN(p) || isNaN(annualRate) || isNaN(years) || p <= 0) {
+          return `# ❌ Invalid Loan Inputs\nPlease enter valid numerical values for principal, rate, and term.`;
+        }
+
+        const r = (annualRate / 100) / 12;
+        const n = years * 12;
+        const monthlyPayment = (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+        const totalPayment = monthlyPayment * n;
+        const totalInterest = totalPayment - p;
+
+        let balance = p;
+        let yearlyTable = '| Year | Principal Paid | Interest Paid | End Balance |\n|:---:|:---:|:---:|:---:|\n';
+        for (let yr = 1; yr <= years; yr++) {
+          let yrInterest = 0;
+          let yrPrincipal = 0;
+          for (let m = 1; m <= 12; m++) {
+            const intShare = balance * r;
+            const prinShare = monthlyPayment - intShare;
+            yrInterest += intShare;
+            yrPrincipal += prinShare;
+            balance -= prinShare;
+          }
+          yearlyTable += `| Year ${yr} | $${Math.round(yrPrincipal).toLocaleString()} | $${Math.round(yrInterest).toLocaleString()} | $${Math.max(0, Math.round(balance)).toLocaleString()} |\n`;
+        }
+
+        return `# 🏡 Mortgage Amortization Calculation\n\n- **Monthly Payment:** **$${monthlyPayment.toFixed(2)} / month**\n- **Total Interest Paid:** **$${Math.round(totalInterest).toLocaleString()}**\n- **Total Repayment Amount:** **$${Math.round(totalPayment).toLocaleString()}**\n\n### 📅 Yearly Amortization Schedule\n\n${yearlyTable}`;
+      }
+    },
+    {
+      id: 'compound-interest-calculator',
+      category: 'Calculators & Mathematics',
+      title: 'Compound Interest Growth Calculator',
+      description: 'Calculates investment growth over time with recurring deposits and compound interest tables.',
+      inputs: [
+        { id: 'initial', label: 'Initial Principal ($)', type: 'text', placeholder: '10000' },
+        { id: 'monthly', label: 'Monthly Contribution ($)', type: 'text', placeholder: '500' },
+        { id: 'rate', label: 'Annual Return Rate (%)', type: 'text', placeholder: '8.0' },
+        { id: 'years', label: 'Investment Duration (Years)', type: 'text', placeholder: '10' }
+      ],
+      execute: (inputs) => {
+        const initP = parseFloat(inputs.initial || '10000');
+        const pM = parseFloat(inputs.monthly || '500');
+        const rate = parseFloat(inputs.rate || '8.0');
+        const yrs = parseInt(inputs.years || '10', 10);
+        if (isNaN(initP) || isNaN(pM) || isNaN(rate) || isNaN(yrs)) {
+          return `# ❌ Invalid Investment Inputs\nPlease enter valid numerical values.`;
+        }
+
+        const r = rate / 100 / 12;
+        let currentBalance = initP;
+        let totalDeposits = initP;
+
+        let table = '| Year | Total Deposits | Interest Earned | End Balance |\n|:---:|:---:|:---:|:---:|\n';
+        for (let y = 1; y <= yrs; y++) {
+          let yrInterest = 0;
+          for (let m = 1; m <= 12; m++) {
+            const interest = currentBalance * r;
+            yrInterest += interest;
+            currentBalance += interest + pM;
+            totalDeposits += pM;
+          }
+          const totalEarnedInterest = currentBalance - totalDeposits;
+          table += `| Year ${y} | $${Math.round(totalDeposits).toLocaleString()} | $${Math.round(totalEarnedInterest).toLocaleString()} | $${Math.round(currentBalance).toLocaleString()} |\n`;
+        }
+
+        const totalEarned = currentBalance - totalDeposits;
+
+        return `# 📈 Investment Growth Projection\n\n- **End Balance:** **$${Math.round(currentBalance).toLocaleString()}**\n- **Total Contributions:** $${Math.round(totalDeposits).toLocaleString()}\n- **Total Compound Interest Earned:** **$${Math.round(totalEarned).toLocaleString()}**\n\n### 📊 Growth Projection Table\n\n${table}`;
+      }
+    },
+    {
+      id: 'bmi-body-fat',
+      category: 'Calculators & Mathematics',
+      title: 'BMI & Body Fat Metric Calculator',
+      description: 'Calculates Body Mass Index (BMI), WHO weight category, and estimated body fat percentage.',
+      inputs: [
+        { id: 'weight', label: 'Weight (kg)', type: 'text', placeholder: '70' },
+        { id: 'height', label: 'Height (cm)', type: 'text', placeholder: '175' },
+        { id: 'age', label: 'Age (years)', type: 'text', placeholder: '28' },
+        { id: 'gender', label: 'Biological Gender', type: 'dropdown', options: ['Male', 'Female'] }
+      ],
+      execute: (inputs) => {
+        const w = parseFloat(inputs.weight || '70');
+        const hCm = parseFloat(inputs.height || '175');
+        const age = parseInt(inputs.age || '28', 10);
+        if (isNaN(w) || isNaN(hCm) || isNaN(age) || hCm <= 0) {
+          return `# ❌ Invalid Health Inputs\nPlease enter valid height and weight values.`;
+        }
+
+        const hM = hCm / 100;
+        const bmi = w / (hM * hM);
+        let category = 'Normal weight (18.5 - 24.9)';
+        if (bmi < 18.5) category = 'Underweight (< 18.5)';
+        else if (bmi >= 25 && bmi < 29.9) category = 'Overweight (25 - 29.9)';
+        else if (bmi >= 30) category = 'Obese (>= 30)';
+
+        const isMale = (inputs.gender || 'Male') === 'Male';
+        const bodyFat = (1.20 * bmi) + (0.23 * age) - (10.8 * (isMale ? 1 : 0)) - 5.4;
+        const minHealthyW = 18.5 * (hM * hM);
+        const maxHealthyW = 24.9 * (hM * hM);
+
+        return `# ⚖️ Body Metrics Analysis\n\n- **Body Mass Index (BMI):** **${bmi.toFixed(1)}**\n- **WHO Weight Status:** **${category}**\n- **Estimated Body Fat %:** **${Math.max(3, bodyFat).toFixed(1)}%**\n- **Healthy Weight Range:** **${minHealthyW.toFixed(1)} kg - ${maxHealthyW.toFixed(1)} kg**`;
+      }
+    },
+    {
+      id: 'age-date-difference',
+      category: 'Calculators & Mathematics',
+      title: 'Age & Exact Date Difference Calculator',
+      description: 'Calculates exact age in years, months, days, total weeks, and total days between two dates.',
+      inputs: [
+        { id: 'startDate', label: 'Start Date / Birthdate (YYYY-MM-DD)', type: 'text', placeholder: '1995-06-15' },
+        { id: 'endDate', label: 'End Date / Target Date (leave blank for today)', type: 'text', placeholder: '2026-07-30' }
+      ],
+      execute: (inputs) => {
+        const startStr = (inputs.startDate || '1995-06-15').trim();
+        const endStr = (inputs.endDate || new Date().toISOString().split('T')[0]).trim();
+
+        const d1 = new Date(startStr);
+        const d2 = new Date(endStr);
+        if (isNaN(d1.getTime()) || isNaN(d2.getTime())) {
+          return `# ❌ Invalid Date Format\nPlease enter dates in YYYY-MM-DD format (e.g. \`1995-06-15\`).`;
+        }
+
+        const diffTime = Math.abs(d2.getTime() - d1.getTime());
+        const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        const totalWeeks = Math.floor(totalDays / 7);
+        const totalHours = totalDays * 24;
+
+        let years = d2.getFullYear() - d1.getFullYear();
+        let months = d2.getMonth() - d1.getMonth();
+        let days = d2.getDate() - d1.getDate();
+
+        if (days < 0) {
+          months--;
+          days += 30;
+        }
+        if (months < 0) {
+          years--;
+          months += 12;
+        }
+
+        return `# 📅 Exact Date Difference Results\n\n- **Exact Age / Span:** **${years} Years, ${months} Months, ${days} Days**\n- **Total Days Elapsed:** **${totalDays.toLocaleString()} Days**\n- **Total Weeks Elapsed:** **${totalWeeks.toLocaleString()} Weeks**\n- **Total Hours:** **${totalHours.toLocaleString()} Hours**`;
+      }
+    },
+    {
+      id: 'gpa-calculator',
+      category: 'Calculators & Mathematics',
+      title: 'GPA / Grade Point Average Calculator',
+      description: 'Calculates cumulative weighted Grade Point Average (GPA) on a 4.0 grading scale.',
+      inputs: [
+        { id: 'courses', label: 'Course Grades & Credits (e.g., A 3, B+ 4, A- 3, B 3)', type: 'textarea', placeholder: 'A 3\nB+ 4\nA- 3\nB 3' }
+      ],
+      execute: (inputs) => {
+        const text = (inputs.courses || 'A 3\nB+ 4\nA- 3\nB 3').trim();
+        const gradePoints = { 'A+': 4.0, 'A': 4.0, 'A-': 3.7, 'B+': 3.3, 'B': 3.0, 'B-': 2.7, 'C+': 2.3, 'C': 2.0, 'C-': 1.7, 'D+': 1.3, 'D': 1.0, 'F': 0.0 };
+        const lines = text.split('\n');
+        let totalQualityPoints = 0;
+        let totalCredits = 0;
+
+        lines.forEach(line => {
+          const parts = line.trim().split(/\s+/);
+          if (parts.length >= 2) {
+            const gr = parts[0].toUpperCase();
+            const cr = parseFloat(parts[1]);
+            if (gradePoints[gr] !== undefined && !isNaN(cr)) {
+              totalQualityPoints += gradePoints[gr] * cr;
+              totalCredits += cr;
+            }
+          }
+        });
+
+        if (totalCredits === 0) return `# ❌ Invalid Grade Entries\nPlease enter course grades and credits (e.g. \`A 3\` or \`B+ 4\`).`;
+
+        const gpa = totalQualityPoints / totalCredits;
+        return `# 🎓 Academic GPA Calculation\n\n- **Cumulative GPA (4.0 Scale):** **${gpa.toFixed(2)}**\n- **Total Credits Attempted:** **${totalCredits} Credits**\n- **Total Quality Points:** **${totalQualityPoints.toFixed(1)}**`;
+      }
+    },
+    {
+      id: 'salary-to-hourly',
+      category: 'Calculators & Mathematics',
+      title: 'Salary to Hourly Pay Wage Converter',
+      description: 'Converts annual salary into hourly, weekly, bi-weekly, and monthly wage breakdowns.',
+      inputs: [
+        { id: 'salary', label: 'Annual Base Salary ($)', type: 'text', placeholder: '75000' },
+        { id: 'hoursPerWeek', label: 'Work Hours per Week', type: 'text', placeholder: '40' }
+      ],
+      execute: (inputs) => {
+        const sal = parseFloat(inputs.salary || '75000');
+        const hrs = parseFloat(inputs.hoursPerWeek || '40');
+        if (isNaN(sal) || isNaN(hrs) || sal <= 0 || hrs <= 0) {
+          return `# ❌ Invalid Wage Inputs\nPlease enter valid numbers for salary and work hours.`;
+        }
+
+        const yearlyHours = hrs * 52;
+        const hourlyRate = sal / yearlyHours;
+        const dailyRate = hourlyRate * (hrs / 5);
+        const weeklyRate = sal / 52;
+        const biWeeklyRate = sal / 26;
+        const monthlyRate = sal / 12;
+
+        return `# 💵 Wage & Pay Rate Breakdown\n\n- **Hourly Equivalent Rate:** **$${hourlyRate.toFixed(2)} / hour**\n- **Daily Rate (8h avg):** **$${dailyRate.toFixed(2)} / day**\n- **Weekly Pay:** **$${weeklyRate.toFixed(2)} / week**\n- **Bi-Weekly Pay:** **$${biWeeklyRate.toFixed(2)} / 2 weeks**\n- **Monthly Gross Pay:** **$${monthlyRate.toFixed(2)} / month**`;
+      }
+    },
+    {
+      id: 'tip-bill-splitter',
+      category: 'Calculators & Mathematics',
+      title: 'Restaurant Tip & Bill Split Calculator',
+      description: 'Calculates gratuity amount, total bill, and split cost per person in dining groups.',
+      inputs: [
+        { id: 'bill', label: 'Subtotal Bill Amount ($)', type: 'text', placeholder: '120.00' },
+        { id: 'tipPct', label: 'Tip Percentage', type: 'dropdown', options: ['18% (Standard)', '20% (Great Service)', '15% (Fair)', '25% (Exceptional)'] },
+        { id: 'people', label: 'Number of People Splitting', type: 'text', placeholder: '4' }
+      ],
+      execute: (inputs) => {
+        const bill = parseFloat(inputs.bill || '120.00');
+        const tipPct = parseFloat((inputs.tipPct || '18%').replace(/[^0-9.]/g, ''));
+        const people = parseInt(inputs.people || '4', 10);
+        if (isNaN(bill) || isNaN(tipPct) || isNaN(people) || people <= 0) {
+          return `# ❌ Invalid Bill Inputs\nPlease enter valid numerical values.`;
+        }
+
+        const tipAmount = bill * (tipPct / 100);
+        const totalBill = bill + tipAmount;
+        const perPerson = totalBill / people;
+
+        return `# 🍽️ Bill & Tip Split Calculation\n\n- **Subtotal Bill:** $${bill.toFixed(2)}\n- **Tip Amount (${tipPct}%):** **$${tipAmount.toFixed(2)}**\n- **Total Bill (Inc. Tip):** **$${totalBill.toFixed(2)}**\n\n### 👥 Split Per Person (${people} People):\n- **Payment Per Person:** **$${perPerson.toFixed(2)} / person**`;
+      }
+    },
+    {
+      id: 'discount-sales-tax',
+      category: 'Calculators & Mathematics',
+      title: 'Retail Discount & Sales Tax Calculator',
+      description: 'Calculates promotional discount savings, sales tax, and final checkout prices.',
+      inputs: [
+        { id: 'price', label: 'Original Retail Price ($)', type: 'text', placeholder: '199.99' },
+        { id: 'discount', label: 'Discount Percentage (%)', type: 'text', placeholder: '20' },
+        { id: 'tax', label: 'Sales Tax Rate (%)', type: 'text', placeholder: '8.5' }
+      ],
+      execute: (inputs) => {
+        const p = parseFloat(inputs.price || '199.99');
+        const disc = parseFloat(inputs.discount || '20');
+        const tax = parseFloat(inputs.tax || '8.5');
+        if (isNaN(p) || isNaN(disc) || isNaN(tax)) {
+          return `# ❌ Invalid Pricing Inputs\nPlease enter valid numerical values.`;
+        }
+
+        const savings = p * (disc / 100);
+        const discountedPrice = p - savings;
+        const taxAmount = discountedPrice * (tax / 100);
+        const finalPrice = discountedPrice + taxAmount;
+
+        return `# 🏷️ Retail Checkout Price Calculation\n\n- **Original Retail Price:** $${p.toFixed(2)}\n- **Discount Savings (${disc}%):** **-$${savings.toFixed(2)}**\n- **Subtotal After Discount:** $${discountedPrice.toFixed(2)}\n- **Sales Tax (${tax}%):** +$${taxAmount.toFixed(2)}\n- **Final Checkout Price:** **$${finalPrice.toFixed(2)}**`;
+      }
+    },
+    {
+      id: 'fuel-cost-calculator',
+      category: 'Calculators & Mathematics',
+      title: 'Vehicle Fuel Cost & Trip Distance Calculator',
+      description: 'Calculates required fuel volume and total trip cost based on fuel efficiency and gas prices.',
+      inputs: [
+        { id: 'distance', label: 'Total Trip Distance (Miles)', type: 'text', placeholder: '350' },
+        { id: 'efficiency', label: 'Fuel Efficiency (MPG)', type: 'text', placeholder: '28' },
+        { id: 'gasPrice', label: 'Gas Price per Gallon ($)', type: 'text', placeholder: '3.65' }
+      ],
+      execute: (inputs) => {
+        const dist = parseFloat(inputs.distance || '350');
+        const mpg = parseFloat(inputs.efficiency || '28');
+        const price = parseFloat(inputs.gasPrice || '3.65');
+        if (isNaN(dist) || isNaN(mpg) || isNaN(price) || mpg <= 0) {
+          return `# ❌ Invalid Trip Inputs\nPlease enter valid numerical values.`;
+        }
+
+        const gallonsNeeded = dist / mpg;
+        const totalTripCost = gallonsNeeded * price;
+        const costPerMile = totalTripCost / dist;
+
+        return `# 🚗 Vehicle Trip Fuel Cost\n\n- **Total Distance:** ${dist.toLocaleString()} miles\n- **Fuel Required:** **${gallonsNeeded.toFixed(2)} Gallons**\n- **Total Trip Fuel Cost:** **$${totalTripCost.toFixed(2)}**\n- **Cost per Mile:** **$${costPerMile.toFixed(3)} / mile**`;
+      }
     }
   ];
 
@@ -1545,7 +1875,7 @@
     if (!nav) return;
 
     const query = state.searchQuery.toLowerCase().trim();
-    const categories = ['Content Creation', 'Growth Marketing', 'Productivity Solvers', 'Financial Calculators', 'Data & Tech Utilities', 'Network & IP Utilities', 'Converters & Encoders', 'Text & Code Formatters'];
+    const categories = ['Content Creation', 'Growth Marketing', 'Productivity Solvers', 'Financial Calculators', 'Data & Tech Utilities', 'Network & IP Utilities', 'Converters & Encoders', 'Text & Code Formatters', 'Calculators & Mathematics'];
 
     let html = '';
 
