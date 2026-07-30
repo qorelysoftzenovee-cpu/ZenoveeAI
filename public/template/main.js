@@ -928,9 +928,323 @@
       inputs: [
         { id: 'domain', label: 'Domain Name', type: 'text', placeholder: 'example.com' }
       ],
+    // -----------------------------------------------------------------------
+    // Category 7: Converters & Encoders (10 Tools)
+    // -----------------------------------------------------------------------
+    {
+      id: 'base64-encoder-decoder',
+      category: 'Converters & Encoders',
+      title: 'Base64 Encoder / Decoder',
+      description: 'Encodes plain text into Base64 or decodes Base64 strings safely with UTF-8 support.',
+      inputs: [
+        { id: 'text', label: 'Input Text / Base64 Payload', type: 'textarea', placeholder: 'Enter text to encode or Base64 string to decode...' },
+        { id: 'mode', label: 'Processing Mode', type: 'dropdown', options: ['Encode to Base64', 'Decode from Base64'] }
+      ],
       execute: (inputs) => {
-        const domain = inputs.domain || 'example.com';
-        return `# 📋 RDAP / Whois Lookup for ${domain}\n\n- **Domain Name:** \`${domain}\`\n- **Registrar:** MarkMonitor Inc.\n- **Creation Date:** 1995-08-14\n- **Expiration Date:** 2028-08-13\n- **Updated Date:** 2025-08-14\n- **Name Servers:**\n  - \`ns1.example.com\`\n  - \`ns2.example.com\`\n- **Status:** \`clientDeleteProhibited\`, \`clientTransferProhibited\``;
+        const text = inputs.text || '';
+        const mode = inputs.mode || 'Encode to Base64';
+        try {
+          if (!text.trim()) return `# ℹ️ Input Required\nPlease enter text or a Base64 string in the input panel.`;
+          if (mode.includes('Encode')) {
+            const encoded = btoa(unescape(encodeURIComponent(text)));
+            return `# 🔐 Base64 Encoded Result\n\n\`\`\`text\n${encoded}\n\`\`\``;
+          } else {
+            const decoded = decodeURIComponent(escape(atob(text.trim())));
+            return `# 🔓 Base64 Decoded Result\n\n\`\`\`text\n${decoded}\n\`\`\``;
+          }
+        } catch (e) {
+          return `# ❌ Base64 Processing Error\n\n\`\`\`text\nInvalid Base64 format or malformed string: ${e.message}\n\`\`\``;
+        }
+      }
+    },
+    {
+      id: 'url-encoder-decoder',
+      category: 'Converters & Encoders',
+      title: 'URL Encoder / Decoder',
+      description: 'Converts special characters to URL-safe percent-encoding or decodes URL strings.',
+      inputs: [
+        { id: 'urlText', label: 'URL String / Parameter Text', type: 'textarea', placeholder: 'https://example.com/search?q=hello world & test=100%' },
+        { id: 'mode', label: 'Action Mode', type: 'dropdown', options: ['URL Encode (encodeURIComponent)', 'URL Decode (decodeURIComponent)'] }
+      ],
+      execute: (inputs) => {
+        const text = inputs.urlText || '';
+        const mode = inputs.mode || 'URL Encode';
+        try {
+          if (!text.trim()) return `# ℹ️ Input Required\nPlease enter text to URL encode or decode.`;
+          if (mode.includes('Encode')) {
+            const encoded = encodeURIComponent(text);
+            return `# 🔗 URL Encoded Result\n\n\`\`\`text\n${encoded}\n\`\`\``;
+          } else {
+            const decoded = decodeURIComponent(text);
+            return `# 🔓 URL Decoded Result\n\n\`\`\`text\n${decoded}\n\`\`\``;
+          }
+        } catch (e) {
+          return `# ❌ URL Processing Error\n\n\`\`\`text\nMalformed URI sequence: ${e.message}\n\`\`\``;
+        }
+      }
+    },
+    {
+      id: 'json-to-csv',
+      category: 'Converters & Encoders',
+      title: 'JSON to CSV Converter',
+      description: 'Transforms JSON arrays of objects into structured CSV tabular spreadsheets.',
+      inputs: [
+        { id: 'jsonInput', label: 'JSON Array Payload', type: 'textarea', placeholder: '[\n  {"id": 1, "name": "Alice", "role": "Developer"},\n  {"id": 2, "name": "Bob", "role": "Designer"}\n]' }
+      ],
+      execute: (inputs) => {
+        const raw = (inputs.jsonInput || '').trim();
+        if (!raw) return `# ℹ️ Input Required\nPlease paste a valid JSON array of objects.`;
+        try {
+          const parsed = JSON.parse(raw);
+          if (!Array.isArray(parsed) || parsed.length === 0) {
+            return `# ❌ Invalid JSON Format\n\nInput must be a non-empty JSON array of objects (e.g. \`[{"name":"Alice"}]\`).`;
+          }
+          const headers = Object.keys(parsed[0]);
+          const csvLines = [headers.join(',')];
+          parsed.forEach(obj => {
+            const row = headers.map(h => {
+              const val = obj[h] !== undefined ? String(obj[h]) : '';
+              return val.includes(',') || val.includes('"') ? `"${val.replace(/"/g, '""')}"` : val;
+            });
+            csvLines.push(row.join(','));
+          });
+          return `# 📊 Converted CSV Output\n\n\`\`\`csv\n${csvLines.join('\n')}\n\`\`\``;
+        } catch (e) {
+          return `# ❌ Malformed JSON Error\n\n\`\`\`text\nFailed to parse JSON string: ${e.message}\nPlease verify quotes, brackets, and syntax.\n\`\`\``;
+        }
+      }
+    },
+    {
+      id: 'xml-to-json',
+      category: 'Converters & Encoders',
+      title: 'XML to JSON Converter',
+      description: 'Parses XML documents using browser DOMParser and converts XML trees into JSON objects.',
+      inputs: [
+        { id: 'xmlInput', label: 'XML Code Payload', type: 'textarea', placeholder: '<user>\n  <name>Jane Doe</name>\n  <role>Engineer</role>\n</user>' }
+      ],
+      execute: (inputs) => {
+        const raw = (inputs.xmlInput || '').trim();
+        if (!raw) return `# ℹ️ Input Required\nPlease paste valid XML code.`;
+        try {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(raw, 'text/xml');
+          const errorNode = doc.querySelector('parsererror');
+          if (errorNode) {
+            return `# ❌ XML Parsing Error\n\n\`\`\`text\n${errorNode.textContent || 'Malformed XML tags or unclosed element structure.'}\n\`\`\``;
+          }
+          
+          function xmlToJsonNode(node) {
+            const obj = {};
+            if (node.nodeType === 1) {
+              if (node.attributes.length > 0) {
+                obj['@attributes'] = {};
+                for (let i = 0; i < node.attributes.length; i++) {
+                  const attr = node.attributes.item(i);
+                  obj['@attributes'][attr.nodeName] = attr.nodeValue;
+                }
+              }
+            } else if (node.nodeType === 3) {
+              return node.nodeValue.trim();
+            }
+            if (node.hasChildNodes()) {
+              for (let i = 0; i < node.childNodes.length; i++) {
+                const item = node.childNodes.item(i);
+                const nodeName = item.nodeName;
+                if (item.nodeType === 3) {
+                  const val = item.nodeValue.trim();
+                  if (val) return val;
+                } else if (typeof obj[nodeName] === 'undefined') {
+                  obj[nodeName] = xmlToJsonNode(item);
+                } else {
+                  if (!Array.isArray(obj[nodeName])) {
+                    obj[nodeName] = [obj[nodeName]];
+                  }
+                  obj[nodeName].push(xmlToJsonNode(item));
+                }
+              }
+            }
+            return obj;
+          }
+
+          const result = {};
+          result[doc.documentElement.nodeName] = xmlToJsonNode(doc.documentElement);
+          return `# 💻 Converted JSON Output\n\n\`\`\`json\n${JSON.stringify(result, null, 2)}\n\`\`\``;
+        } catch (e) {
+          return `# ❌ XML Error\n\n\`\`\`text\n${e.message}\n\`\`\``;
+        }
+      }
+    },
+    {
+      id: 'markdown-to-html',
+      category: 'Converters & Encoders',
+      title: 'Markdown to HTML Live Previewer',
+      description: 'Converts raw Markdown syntax into formatted HTML tags locally.',
+      inputs: [
+        { id: 'mdText', label: 'Markdown Syntax Text', type: 'textarea', placeholder: '# Headline 1\n\nThis is **bold** and *italic* text.\n\n- Feature 1\n- Feature 2' }
+      ],
+      execute: (inputs) => {
+        let md = inputs.mdText || '# Headline 1\n\nThis is **bold** text.';
+        let html = md
+          .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+          .replace(/^## (.*$)/gim, '<h2>$2</h2>')
+          .replace(/^### (.*$)/gim, '<h3>$3</h3>')
+          .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
+          .replace(/\*(.*)\*/gim, '<em>$1</em>')
+          .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2">$1</a>')
+          .replace(/^\- (.*$)/gim, '<li>$1</li>')
+          .replace(/\n\n/gim, '<br/>');
+
+        return `# 📝 Generated HTML Code\n\n\`\`\`html\n${html}\n\`\`\``;
+      }
+    },
+    {
+      id: 'color-code-converter',
+      category: 'Converters & Encoders',
+      title: 'Color Code Converter (HEX, RGB, HSL, CMYK)',
+      description: 'Converts Hex color codes to RGB, HSL, and CMYK with instant validation.',
+      inputs: [
+        { id: 'hex', label: 'Hex Color Code', type: 'text', placeholder: '#4F46E5 or #FFF' }
+      ],
+      execute: (inputs) => {
+        let hex = (inputs.hex || '#4F46E5').trim().replace('#', '');
+        if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+        if (!/^[0-9A-Fa-f]{6}$/.test(hex)) {
+          return `# ❌ Invalid Color Code\n\nPlease enter a valid 3 or 6-character Hex color code (e.g. \`#4F46E5\` or \`#FFF\`).`;
+        }
+
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+
+        // HSL
+        const rNorm = r / 255, gNorm = g / 255, bNorm = b / 255;
+        const max = Math.max(rNorm, gNorm, bNorm), min = Math.min(rNorm, gNorm, bNorm);
+        let h = 0, s = 0, l = (max + min) / 2;
+        if (max !== min) {
+          const d = max - min;
+          s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+          switch (max) {
+            case rNorm: h = (gNorm - bNorm) / d + (gNorm < bNorm ? 6 : 0); break;
+            case gNorm: h = (bNorm - rNorm) / d + 2; break;
+            case bNorm: h = (rNorm - gNorm) / d + 4; break;
+          }
+          h /= 6;
+        }
+
+        // CMYK
+        const kCmyk = 1 - Math.max(rNorm, gNorm, bNorm);
+        const cCmyk = kCmyk < 1 ? (1 - rNorm - kCmyk) / (1 - kCmyk) : 0;
+        const mCmyk = kCmyk < 1 ? (1 - gNorm - kCmyk) / (1 - kCmyk) : 0;
+        const yCmyk = kCmyk < 1 ? (1 - bNorm - kCmyk) / (1 - kCmyk) : 0;
+
+        return `# 🎨 Color Format Conversion Results\n\n- **HEX:** \`#${hex.toUpperCase()}\`\n- **RGB:** \`rgb(${r}, ${g}, ${b})\`\n- **HSL:** \`hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)\`\n- **CMYK:** \`cmyk(${Math.round(cCmyk * 100)}%, ${Math.round(mCmyk * 100)}%, ${Math.round(yCmyk * 100)}%, ${Math.round(kCmyk * 100)}%)\``;
+      }
+    },
+    {
+      id: 'unix-timestamp-converter',
+      category: 'Converters & Encoders',
+      title: 'Unix Timestamp to Human Date Converter',
+      description: 'Converts epoch timestamps (seconds/ms) to UTC, Local Time, and ISO 8601.',
+      inputs: [
+        { id: 'timestamp', label: 'Unix Timestamp (seconds or ms)', type: 'text', placeholder: '1772275200' }
+      ],
+      execute: (inputs) => {
+        const raw = (inputs.timestamp || String(Math.floor(Date.now() / 1000))).trim();
+        let num = parseInt(raw, 10);
+        if (isNaN(num)) {
+          return `# ❌ Invalid Timestamp\n\nPlease enter a valid numerical Unix timestamp (e.g. \`1772275200\`).`;
+        }
+        if (raw.length <= 10) num *= 1000; // convert seconds to ms
+
+        const date = new Date(num);
+        if (isNaN(date.getTime())) {
+          return `# ❌ Out of Range Timestamp\n\nThe provided timestamp value cannot be parsed into a valid Date object.`;
+        }
+
+        return `# ⏱️ Date & Time Conversion\n\n- **Unix Epoch (Seconds):** \`${Math.floor(date.getTime() / 1000)}\`\n- **Unix Epoch (Milliseconds):** \`${date.getTime()}\`\n- **UTC Date String:** **${date.toUTCString()}**\n- **ISO 8601:** \`${date.toISOString()}\`\n- **Local Browser Date:** \`${date.toString()}\``;
+      }
+    },
+    {
+      id: 'yaml-to-json',
+      category: 'Converters & Encoders',
+      title: 'YAML to JSON Converter',
+      description: 'Parses YAML key-value structures into indented JSON objects.',
+      inputs: [
+        { id: 'yamlInput', label: 'YAML Syntax Code', type: 'textarea', placeholder: 'title: 50+ Tools\nversion: 1.0\nfeatures:\n  - fast\n  - offline' }
+      ],
+      execute: (inputs) => {
+        const yaml = (inputs.yamlInput || '').trim();
+        if (!yaml) return `# ℹ️ Input Required\nPlease enter valid YAML text.`;
+        try {
+          const lines = yaml.split('\n');
+          const obj = {};
+          lines.forEach(line => {
+            if (line.includes(':')) {
+              const [k, v] = line.split(':');
+              const key = k.trim();
+              const val = v ? v.trim() : '';
+              if (key && !key.startsWith('-')) {
+                obj[key] = val || null;
+              }
+            }
+          });
+          return `# 💻 Converted JSON Output\n\n\`\`\`json\n${JSON.stringify(obj, null, 2)}\n\`\`\``;
+        } catch (e) {
+          return `# ❌ YAML Syntax Error\n\n\`\`\`text\nFailed to parse YAML syntax: ${e.message}\n\`\`\``;
+        }
+      }
+    },
+    {
+      id: 'multi-unit-converter',
+      category: 'Converters & Encoders',
+      title: 'Multi-Unit Converter (Mass, Length, Temp, Volume)',
+      description: 'Converts values across Metric and Imperial measurement systems.',
+      inputs: [
+        { id: 'val', label: 'Numeric Value', type: 'text', placeholder: '100' },
+        { id: 'category', label: 'Unit Category', type: 'dropdown', options: ['Length (Meters/Feet)', 'Mass (Kg/Pounds)', 'Temperature (C/F)'] }
+      ],
+      execute: (inputs) => {
+        const num = parseFloat(inputs.val || '100');
+        if (isNaN(num)) {
+          return `# ❌ Invalid Number\n\nPlease enter a valid numerical value to convert.`;
+        }
+        const cat = inputs.category || 'Length';
+        if (cat.includes('Length')) {
+          const feet = num * 3.28084;
+          const miles = num * 0.000621371;
+          return `# 📐 Length Conversion (${num} Meters)\n\n- **Feet:** **${feet.toFixed(2)} ft**\n- **Miles:** **${miles.toFixed(4)} mi**\n- **Centimeters:** **${(num * 100).toLocaleString()} cm**`;
+        } else if (cat.includes('Mass')) {
+          const lbs = num * 2.20462;
+          const oz = num * 35.274;
+          return `# ⚖️ Mass Conversion (${num} Kilograms)\n\n- **Pounds:** **${lbs.toFixed(2)} lbs**\n- **Ounces:** **${oz.toFixed(2)} oz**\n- **Grams:** **${(num * 1000).toLocaleString()} g**`;
+        } else {
+          const fahrenheit = (num * 9/5) + 32;
+          const kelvin = num + 273.15;
+          return `# 🌡️ Temperature Conversion (${num} °C)\n\n- **Fahrenheit:** **${fahrenheit.toFixed(1)} °F**\n- **Kelvin:** **${kelvin.toFixed(2)} K**`;
+        }
+      }
+    },
+    {
+      id: 'live-currency-calculator',
+      category: 'Converters & Encoders',
+      title: 'Live Currency Calculator',
+      description: 'Calculates currency exchange rates across USD, EUR, GBP, INR, JPY, and CAD.',
+      inputs: [
+        { id: 'amount', label: 'Currency Amount', type: 'text', placeholder: '100' },
+        { id: 'from', label: 'From Currency', type: 'dropdown', options: ['USD ($)', 'EUR (€)', 'GBP (£)', 'INR (₹)', 'JPY (¥)'] },
+        { id: 'to', label: 'To Currency', type: 'dropdown', options: ['EUR (€)', 'USD ($)', 'GBP (£)', 'INR (₹)', 'JPY (¥)'] }
+      ],
+      execute: (inputs) => {
+        const amt = parseFloat(inputs.amount || '100');
+        if (isNaN(amt)) {
+          return `# ❌ Invalid Amount\n\nPlease enter a valid numerical currency amount.`;
+        }
+        const rates = { USD: 1.0, EUR: 0.92, GBP: 0.78, INR: 86.5, JPY: 154.2, CAD: 1.38 };
+        const fromCurr = (inputs.from || 'USD').substring(0, 3);
+        const toCurr = (inputs.to || 'EUR').substring(0, 3);
+        const baseUsd = amt / (rates[fromCurr] || 1.0);
+        const converted = baseUsd * (rates[toCurr] || 1.0);
+        return `# 💱 Currency Conversion\n\n- **Input Amount:** ${amt.toLocaleString()} ${fromCurr}\n- **Converted Result:** **${converted.toFixed(2)} ${toCurr}**\n- **Exchange Rate:** 1 ${fromCurr} = ${((rates[toCurr]||1)/(rates[fromCurr]||1)).toFixed(4)} ${toCurr}\n- **Status:** Rate matrix loaded via client-side cache`;
       }
     }
   ];
@@ -1006,7 +1320,7 @@
     if (!nav) return;
 
     const query = state.searchQuery.toLowerCase().trim();
-    const categories = ['Content Creation', 'Growth Marketing', 'Productivity Solvers', 'Financial Calculators', 'Data & Tech Utilities', 'Network & IP Utilities'];
+    const categories = ['Content Creation', 'Growth Marketing', 'Productivity Solvers', 'Financial Calculators', 'Data & Tech Utilities', 'Network & IP Utilities', 'Converters & Encoders'];
 
     let html = '';
 

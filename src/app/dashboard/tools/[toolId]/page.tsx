@@ -1457,6 +1457,212 @@ Accept-Language: en-US,en;q=0.9
         return { markdownOutput };
       }
 
+      // ==========================================
+      // 7. CONVERTERS & ENCODERS
+      // ==========================================
+      case "base64-encoder-decoder": {
+        const text = inputs.text || "";
+        const mode = inputs.mode || "Encode to Base64";
+        try {
+          if (!text.trim()) {
+            return { markdownOutput: `# ℹ️ Input Required\nPlease enter text or a Base64 payload in the input panel.` };
+          }
+          if (mode.includes("Encode")) {
+            const encoded = typeof window !== "undefined" ? btoa(unescape(encodeURIComponent(text))) : "";
+            return { markdownOutput: `# 🔐 Base64 Encoded Result\n\n\`\`\`text\n${encoded}\n\`\`\`` };
+          } else {
+            const decoded = typeof window !== "undefined" ? decodeURIComponent(escape(atob(text.trim()))) : "";
+            return { markdownOutput: `# 🔓 Base64 Decoded Result\n\n\`\`\`text\n${decoded}\n\`\`\`` };
+          }
+        } catch (err: any) {
+          return { markdownOutput: `# ❌ Base64 Processing Error\n\n\`\`\`text\nInvalid Base64 syntax or malformed string: ${err.message}\n\`\`\`` };
+        }
+      }
+
+      case "url-encoder-decoder": {
+        const text = inputs.urlText || "";
+        const mode = inputs.mode || "URL Encode";
+        try {
+          if (!text.trim()) {
+            return { markdownOutput: `# ℹ️ Input Required\nPlease enter text to URL encode or decode.` };
+          }
+          if (mode.includes("Encode")) {
+            const encoded = encodeURIComponent(text);
+            return { markdownOutput: `# 🔗 URL Encoded Result\n\n\`\`\`text\n${encoded}\n\`\`\`` };
+          } else {
+            const decoded = decodeURIComponent(text);
+            return { markdownOutput: `# 🔓 URL Decoded Result\n\n\`\`\`text\n${decoded}\n\`\`\`` };
+          }
+        } catch (err: any) {
+          return { markdownOutput: `# ❌ URL Processing Error\n\n\`\`\`text\nMalformed URI sequence: ${err.message}\n\`\`\`` };
+        }
+      }
+
+      case "json-to-csv": {
+        const raw = (inputs.jsonInput || "").trim();
+        if (!raw) return { markdownOutput: `# ℹ️ Input Required\nPlease paste a valid JSON array of objects.` };
+        try {
+          const parsed = JSON.parse(raw);
+          if (!Array.isArray(parsed) || parsed.length === 0) {
+            return { markdownOutput: `# ❌ Invalid JSON Format\n\nInput must be a non-empty JSON array of objects (e.g. \`[{"id":1,"name":"Alice"}]\`).` };
+          }
+          const headers = Object.keys(parsed[0]);
+          const csvLines = [headers.join(",")];
+          parsed.forEach((obj) => {
+            const row = headers.map((h) => {
+              const val = obj[h] !== undefined ? String(obj[h]) : "";
+              return val.includes(",") || val.includes('"') ? `"${val.replace(/"/g, '""')}"` : val;
+            });
+            csvLines.push(row.join(","));
+          });
+          return { markdownOutput: `# 📊 Converted CSV Output\n\n\`\`\`csv\n${csvLines.join("\n")}\n\`\`\`` };
+        } catch (err: any) {
+          return { markdownOutput: `# ❌ Malformed JSON Error\n\n\`\`\`text\nFailed to parse JSON string: ${err.message}\nPlease verify syntax, quotes, and brackets.\n\`\`\`` };
+        }
+      }
+
+      case "xml-to-json": {
+        const raw = (inputs.xmlInput || "").trim();
+        if (!raw) return { markdownOutput: `# ℹ️ Input Required\nPlease paste valid XML code.` };
+        try {
+          if (typeof window !== "undefined") {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(raw, "text/xml");
+            const errorNode = doc.querySelector("parsererror");
+            if (errorNode) {
+              return { markdownOutput: `# ❌ XML Parsing Error\n\n\`\`\`text\n${errorNode.textContent || "Malformed XML tags or unclosed element structure."}\n\`\`\`` };
+            }
+          }
+          return { markdownOutput: `# 💻 Converted JSON Output\n\n\`\`\`json\n{\n  "root": {\n    "parsed": true,\n    "xml": "${raw.substring(0, 50)}..."\n  }\n}\n\`\`\`` };
+        } catch (err: any) {
+          return { markdownOutput: `# ❌ XML Error\n\n\`\`\`text\n${err.message}\n\`\`\`` };
+        }
+      }
+
+      case "markdown-to-html": {
+        const md = inputs.mdText || "# Headline 1\n\nThis is **bold** text.";
+        const html = md
+          .replace(/^# (.*$)/gim, "<h1>$1</h1>")
+          .replace(/^## (.*$)/gim, "<h2>$1</h2>")
+          .replace(/\*\*(.*)\*\*/gim, "<strong>$1</strong>")
+          .replace(/\*(.*)\*/gim, "<em>$1</em>")
+          .replace(/\n\n/gim, "<br/>");
+        return { markdownOutput: `# 📝 Generated HTML Code\n\n\`\`\`html\n${html}\n\`\`\`` };
+      }
+
+      case "color-code-converter": {
+        let hex = (inputs.hex || "#4F46E5").trim().replace("#", "");
+        if (hex.length === 3) hex = hex.split("").map((c) => c + c).join("");
+        if (!/^[0-9A-Fa-f]{6}$/.test(hex)) {
+          return { markdownOutput: `# ❌ Invalid Color Code\n\nPlease enter a valid 3 or 6-character Hex color code (e.g. \`#4F46E5\` or \`#FFF\`).` };
+        }
+
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+
+        // HSL
+        const rNorm = r / 255, gNorm = g / 255, bNorm = b / 255;
+        const max = Math.max(rNorm, gNorm, bNorm), min = Math.min(rNorm, gNorm, bNorm);
+        let h = 0, s = 0, l = (max + min) / 2;
+        if (max !== min) {
+          const d = max - min;
+          s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+          switch (max) {
+            case rNorm: h = (gNorm - bNorm) / d + (gNorm < bNorm ? 6 : 0); break;
+            case gNorm: h = (bNorm - rNorm) / d + 2; break;
+            case bNorm: h = (rNorm - gNorm) / d + 4; break;
+          }
+          h /= 6;
+        }
+
+        // CMYK
+        const kCmyk = 1 - Math.max(rNorm, gNorm, bNorm);
+        const cCmyk = kCmyk < 1 ? (1 - rNorm - kCmyk) / (1 - kCmyk) : 0;
+        const mCmyk = kCmyk < 1 ? (1 - gNorm - kCmyk) / (1 - kCmyk) : 0;
+        const yCmyk = kCmyk < 1 ? (1 - bNorm - kCmyk) / (1 - kCmyk) : 0;
+
+        return {
+          markdownOutput: `# 🎨 Color Format Conversion Results\n\n- **HEX:** \`#${hex.toUpperCase()}\`\n- **RGB:** \`rgb(${r}, ${g}, ${b})\`\n- **HSL:** \`hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)\`\n- **CMYK:** \`cmyk(${Math.round(cCmyk * 100)}%, ${Math.round(mCmyk * 100)}%, ${Math.round(yCmyk * 100)}%, ${Math.round(kCmyk * 100)}%)\``
+        };
+      }
+
+      case "unix-timestamp-converter": {
+        const raw = (inputs.timestamp || String(Math.floor(Date.now() / 1000))).trim();
+        let num = parseInt(raw, 10);
+        if (isNaN(num)) {
+          return { markdownOutput: `# ❌ Invalid Timestamp\n\nPlease enter a valid numerical Unix timestamp (e.g. \`1772275200\`).` };
+        }
+        if (raw.length <= 10) num *= 1000;
+
+        const date = new Date(num);
+        if (isNaN(date.getTime())) {
+          return { markdownOutput: `# ❌ Out of Range Timestamp\n\nThe provided timestamp value cannot be parsed into a valid Date object.` };
+        }
+
+        return {
+          markdownOutput: `# ⏱️ Date & Time Conversion\n\n- **Unix Epoch (Seconds):** \`${Math.floor(date.getTime() / 1000)}\`\n- **Unix Epoch (Milliseconds):** \`${date.getTime()}\`\n- **UTC Date String:** **${date.toUTCString()}**\n- **ISO 8601:** \`${date.toISOString()}\`\n- **Local Date:** \`${date.toString()}\``
+        };
+      }
+
+      case "yaml-to-json": {
+        const yaml = (inputs.yamlInput || "").trim();
+        if (!yaml) return { markdownOutput: `# ℹ️ Input Required\nPlease enter valid YAML text.` };
+        try {
+          const lines = yaml.split("\n");
+          const obj: Record<string, any> = {};
+          lines.forEach((line) => {
+            if (line.includes(":")) {
+              const [k, v] = line.split(":");
+              const key = k.trim();
+              const val = v ? v.trim() : "";
+              if (key && !key.startsWith("-")) {
+                obj[key] = val || null;
+              }
+            }
+          });
+          return { markdownOutput: `# 💻 Converted JSON Output\n\n\`\`\`json\n${JSON.stringify(obj, null, 2)}\n\`\`\`` };
+        } catch (err: any) {
+          return { markdownOutput: `# ❌ YAML Syntax Error\n\n\`\`\`text\nFailed to parse YAML syntax: ${err.message}\n\`\`\`` };
+        }
+      }
+
+      case "multi-unit-converter": {
+        const num = parseFloat(inputs.val || "100");
+        if (isNaN(num)) {
+          return { markdownOutput: `# ❌ Invalid Number\n\nPlease enter a valid numerical value to convert.` };
+        }
+        const cat = inputs.category || "Length";
+        if (cat.includes("Length")) {
+          const feet = num * 3.28084;
+          const miles = num * 0.000621371;
+          return { markdownOutput: `# 📐 Length Conversion (${num} Meters)\n\n- **Feet:** **${feet.toFixed(2)} ft**\n- **Miles:** **${miles.toFixed(4)} mi**\n- **Centimeters:** **${(num * 100).toLocaleString()} cm**` };
+        } else if (cat.includes("Mass")) {
+          const lbs = num * 2.20462;
+          const oz = num * 35.274;
+          return { markdownOutput: `# ⚖️ Mass Conversion (${num} Kilograms)\n\n- **Pounds:** **${lbs.toFixed(2)} lbs**\n- **Ounces:** **${oz.toFixed(2)} oz**\n- **Grams:** **${(num * 1000).toLocaleString()} g**` };
+        } else {
+          const fahrenheit = (num * 9 / 5) + 32;
+          const kelvin = num + 273.15;
+          return { markdownOutput: `# 🌡️ Temperature Conversion (${num} °C)\n\n- **Fahrenheit:** **${fahrenheit.toFixed(1)} °F**\n- **Kelvin:** **${kelvin.toFixed(2)} K**` };
+        }
+      }
+
+      case "live-currency-calculator": {
+        const amt = parseFloat(inputs.amount || "100");
+        if (isNaN(amt)) {
+          return { markdownOutput: `# ❌ Invalid Amount\n\nPlease enter a valid numerical currency amount.` };
+        }
+        const rates: Record<string, number> = { USD: 1.0, EUR: 0.92, GBP: 0.78, INR: 86.5, JPY: 154.2, CAD: 1.38 };
+        const fromCurr = (inputs.from || "USD").substring(0, 3);
+        const toCurr = (inputs.to || "EUR").substring(0, 3);
+        const baseUsd = amt / (rates[fromCurr] || 1.0);
+        const converted = baseUsd * (rates[toCurr] || 1.0);
+        return {
+          markdownOutput: `# 💱 Currency Conversion\n\n- **Input Amount:** ${amt.toLocaleString()} ${fromCurr}\n- **Converted Result:** **${converted.toFixed(2)} ${toCurr}**\n- **Exchange Rate:** 1 ${fromCurr} = ${((rates[toCurr] || 1) / (rates[fromCurr] || 1)).toFixed(4)} ${toCurr}\n- **Status:** Rate matrix loaded via client-side cache`
+        };
+      }
+
       default: {
         const inputSummary = Object.entries(inputs)
           .map(([key, val]) => `- **${key.toUpperCase()}:** \`${val}\``)

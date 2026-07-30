@@ -739,5 +739,110 @@ export const toolsConfig: ToolConfig[] = [
     inputs: [
       { id: "domain", label: "Target Domain Name", type: "text", placeholder: "e.g. example.com" }
     ]
+  },
+  {
+    id: "base64-encoder-decoder",
+    title: "Base64 Encoder / Decoder",
+    name: "Base64 Encoder / Decoder",
+    category: "Converters & Encoders",
+    description: "Encodes plain text into Base64 or decodes Base64 strings safely with UTF-8 support.",
+    inputs: [
+      { id: "text", label: "Input Text / Base64 Payload", type: "textarea", placeholder: "Enter text to encode or Base64 string to decode..." },
+      { id: "mode", label: "Processing Mode", type: "dropdown", options: ["Encode to Base64", "Decode from Base64"] }
+    ]
+  },
+  {
+    id: "url-encoder-decoder",
+    title: "URL Encoder / Decoder",
+    name: "URL Encoder / Decoder",
+    category: "Converters & Encoders",
+    description: "Converts special characters to URL-safe percent-encoding or decodes URL strings.",
+    inputs: [
+      { id: "urlText", label: "URL String / Parameter Text", type: "textarea", placeholder: "https://example.com/search?q=hello world & test=100%" },
+      { id: "mode", label: "Action Mode", type: "dropdown", options: ["URL Encode (encodeURIComponent)", "URL Decode (decodeURIComponent)"] }
+    ]
+  },
+  {
+    id: "json-to-csv",
+    title: "JSON to CSV Converter",
+    name: "JSON to CSV Converter",
+    category: "Converters & Encoders",
+    description: "Transforms JSON arrays of objects into structured CSV tabular spreadsheets with validation.",
+    inputs: [
+      { id: "jsonInput", label: "JSON Array Payload", type: "textarea", placeholder: '[\n  {"id": 1, "name": "Alice", "role": "Developer"},\n  {"id": 2, "name": "Bob", "role": "Designer"}\n]' }
+    ]
+  },
+  {
+    id: "xml-to-json",
+    title: "XML to JSON Converter",
+    name: "XML to JSON Converter",
+    category: "Converters & Encoders",
+    description: "Parses XML documents using browser DOMParser and converts XML trees into JSON objects.",
+    inputs: [
+      { id: "xmlInput", label: "XML Code Payload", type: "textarea", placeholder: "<user>\n  <name>Jane Doe</name>\n  <role>Engineer</role>\n</user>" }
+    ]
+  },
+  {
+    id: "markdown-to-html",
+    title: "Markdown to HTML Live Previewer",
+    name: "Markdown to HTML Live Previewer",
+    category: "Converters & Encoders",
+    description: "Converts raw Markdown syntax into formatted HTML tags locally.",
+    inputs: [
+      { id: "mdText", label: "Markdown Syntax Text", type: "textarea", placeholder: "# Headline 1\n\nThis is **bold** text." }
+    ]
+  },
+  {
+    id: "color-code-converter",
+    title: "Color Code Converter (HEX, RGB, HSL, CMYK)",
+    name: "Color Code Converter (HEX, RGB, HSL, CMYK)",
+    category: "Converters & Encoders",
+    description: "Converts Hex color codes to RGB, HSL, and CMYK with instant validation.",
+    inputs: [
+      { id: "hex", label: "Hex Color Code", type: "text", placeholder: "e.g. #4F46E5 or #FFF" }
+    ]
+  },
+  {
+    id: "unix-timestamp-converter",
+    title: "Unix Timestamp to Human Date Converter",
+    name: "Unix Timestamp to Human Date Converter",
+    category: "Converters & Encoders",
+    description: "Converts epoch timestamps (seconds/ms) to UTC, Local Time, and ISO 8601.",
+    inputs: [
+      { id: "timestamp", label: "Unix Timestamp (seconds or ms)", type: "text", placeholder: "e.g. 1772275200" }
+    ]
+  },
+  {
+    id: "yaml-to-json",
+    title: "YAML to JSON Converter",
+    name: "YAML to JSON Converter",
+    category: "Converters & Encoders",
+    description: "Parses YAML key-value structures into indented JSON objects.",
+    inputs: [
+      { id: "yamlInput", label: "YAML Syntax Code", type: "textarea", placeholder: "title: 50+ Tools\nversion: 1.0" }
+    ]
+  },
+  {
+    id: "multi-unit-converter",
+    title: "Multi-Unit Converter (Mass, Length, Temp, Volume)",
+    name: "Multi-Unit Converter (Mass, Length, Temp, Volume)",
+    category: "Converters & Encoders",
+    description: "Converts values across Metric and Imperial measurement systems.",
+    inputs: [
+      { id: "val", label: "Numeric Value", type: "text", placeholder: "e.g. 100" },
+      { id: "category", label: "Unit Category", type: "dropdown", options: ["Length (Meters/Feet)", "Mass (Kg/Pounds)", "Temperature (C/F)"] }
+    ]
+  },
+  {
+    id: "live-currency-calculator",
+    title: "Live Currency Calculator",
+    name: "Live Currency Calculator",
+    category: "Converters & Encoders",
+    description: "Calculates currency exchange rates across USD, EUR, GBP, INR, JPY, and CAD.",
+    inputs: [
+      { id: "amount", label: "Currency Amount", type: "text", placeholder: "e.g. 100" },
+      { id: "from", label: "From Currency", type: "dropdown", options: ["USD ($)", "EUR (€)", "GBP (£)", "INR (₹)", "JPY (¥)"] },
+      { id: "to", label: "To Currency", type: "dropdown", options: ["EUR (€)", "USD ($)", "GBP (£)", "INR (₹)", "JPY (¥)"] }
+    ]
   }
 ];
