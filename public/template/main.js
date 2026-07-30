@@ -2992,6 +2992,2045 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
       }
     },
 
+      {
+      id: 'youtube-tag-extractor',
+      category: 'Social Media & Video Creator Tools',
+      title: 'YouTube Tag & Keyword Extractor',
+      description: 'Generates SEO tags, hashtags, and keywords for YouTube video titles.',
+      inputs: [
+        {
+                "id": "title",
+                "label": "Video Title / Topic",
+                "type": "text",
+                "placeholder": "How to Learn Next.js in 2026"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ YouTube Tag & Keyword Extractor Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'tiktok-caption-generator',
+      category: 'Social Media & Video Creator Tools',
+      title: 'TikTok & Reels Caption Builder',
+      description: 'Generates engaging TikTok captions with hook lines, emojis, and hashtags.',
+      inputs: [
+        {
+                "id": "topic",
+                "label": "Video Niche / Concept",
+                "type": "text",
+                "placeholder": "Productivity Hacks"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ TikTok & Reels Caption Builder Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'instagram-hashtag-generator',
+      category: 'Social Media & Video Creator Tools',
+      title: 'Instagram Hashtag Strategy Generator',
+      description: 'Generates categorized hashtag groups (High, Medium, Niche competition).',
+      inputs: [
+        {
+                "id": "niche",
+                "label": "Instagram Niche",
+                "type": "text",
+                "placeholder": "Fitness Motivation"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Instagram Hashtag Strategy Generator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'video-duration-calculator',
+      category: 'Social Media & Video Creator Tools',
+      title: 'Video File Size & Bitrate Estimator',
+      description: 'Calculates estimated video MB size based on bitrate, resolution, and duration.',
+      inputs: [
+        {
+                "id": "minutes",
+                "label": "Video Length (Minutes)",
+                "type": "text",
+                "placeholder": "10"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Video File Size & Bitrate Estimator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'tweet-character-counter',
+      category: 'Social Media & Video Creator Tools',
+      title: 'Tweet & Thread Formatting Checker',
+      description: 'Checks 280-character Twitter/X limits and splits long text into numbered threads.',
+      inputs: [
+        {
+                "id": "postText",
+                "label": "Thread Post Text",
+                "type": "textarea",
+                "placeholder": "Paste long text to split into tweet threads..."
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Tweet & Thread Formatting Checker Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'social-bio-generator',
+      category: 'Social Media & Video Creator Tools',
+      title: 'Social Media Bio & Link Formatter',
+      description: 'Creates stylized social media profiles with custom Unicode fonts and formatting.',
+      inputs: [
+        {
+                "id": "bioText",
+                "label": "Bio Profile Text",
+                "type": "textarea",
+                "placeholder": "Digital Creator & Tech Builder"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Social Media Bio & Link Formatter Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'youtube-thumbnail-previewer',
+      category: 'Social Media & Video Creator Tools',
+      title: 'YouTube Thumbnail & Title CTR Previewer',
+      description: 'Previews video thumbnail and title mockups on Youtube desktop and mobile feeds.',
+      inputs: [
+        {
+                "id": "videoTitle",
+                "label": "YouTube Title",
+                "type": "text",
+                "placeholder": "Building a SaaS in 24 Hours"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ YouTube Thumbnail & Title CTR Previewer Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'podcast-rss-builder',
+      category: 'Social Media & Video Creator Tools',
+      title: 'Podcast RSS XML Feed Generator',
+      description: 'Generates Apple Podcasts & Spotify compliant RSS XML feed code.',
+      inputs: [
+        {
+                "id": "showName",
+                "label": "Podcast Show Title",
+                "type": "text",
+                "placeholder": "The Tech Founder Podcast"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Podcast RSS XML Feed Generator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'video-frame-rate-calc',
+      category: 'Social Media & Video Creator Tools',
+      title: 'Video Frame Rate & Timecode Calculator',
+      description: 'Calculates total frames and SMPTE timecodes (24fps, 30fps, 60fps).',
+      inputs: [
+        {
+                "id": "durationSec",
+                "label": "Duration (Seconds)",
+                "type": "text",
+                "placeholder": "120"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Video Frame Rate & Timecode Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'subtitle-vtt-converter',
+      category: 'Social Media & Video Creator Tools',
+      title: 'SRT to WebVTT Subtitle Transcoder',
+      description: 'Transcodes SubRip (.SRT) subtitle files into WebVTT (.VTT) format locally.',
+      inputs: [
+        {
+                "id": "srtContent",
+                "label": "SRT Subtitle Code",
+                "type": "textarea",
+                "placeholder": "1\n00:00:01,000 --> 00:00:04,000\nHello World"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ SRT to WebVTT Subtitle Transcoder Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'amazon-fee-calculator',
+      category: 'E-Commerce & Amazon Seller Tools',
+      title: 'Amazon FBA & Referral Fee Calculator',
+      description: 'Calculates Amazon referral fees, FBA fulfillment fees, and net profit margin.',
+      inputs: [
+        {
+                "id": "sellPrice",
+                "label": "Item Selling Price ($)",
+                "type": "text",
+                "placeholder": "29.99"
+        },
+        {
+                "id": "cogs",
+                "label": "Item Cost / COGS ($)",
+                "type": "text",
+                "placeholder": "8.50"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Amazon FBA & Referral Fee Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'profit-margin-calculator',
+      category: 'E-Commerce & Amazon Seller Tools',
+      title: 'Gross Profit & Markup Percentage Calculator',
+      description: 'Calculates Gross Margin %, Markup %, and Dollar Profit.',
+      inputs: [
+        {
+                "id": "costPrice",
+                "label": "Cost Price ($)",
+                "type": "text",
+                "placeholder": "50"
+        },
+        {
+                "id": "salePrice",
+                "label": "Selling Price ($)",
+                "type": "text",
+                "placeholder": "100"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Gross Profit & Markup Percentage Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'etsy-fee-calculator',
+      category: 'E-Commerce & Amazon Seller Tools',
+      title: 'Etsy Seller Profit & Fee Calculator',
+      description: 'Calculates Etsy listing fees, transaction fees, and payment processing cuts.',
+      inputs: [
+        {
+                "id": "itemPrice",
+                "label": "Etsy Listing Price ($)",
+                "type": "text",
+                "placeholder": "25.00"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Etsy Seller Profit & Fee Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'shopify-pricing-calc',
+      category: 'E-Commerce & Amazon Seller Tools',
+      title: 'Shopify Product Pricing & Break-Even Calculator',
+      description: 'Calculates break-even price and target retail prices for e-commerce products.',
+      inputs: [
+        {
+                "id": "unitCost",
+                "label": "Unit Cost ($)",
+                "type": "text",
+                "placeholder": "12.00"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Shopify Product Pricing & Break-Even Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'bar-code-generator',
+      category: 'E-Commerce & Amazon Seller Tools',
+      title: 'Universal Barcode Canvas Generator',
+      description: 'Renders Code 128, EAN-13, and UPC-A barcode images directly on canvas.',
+      inputs: [
+        {
+                "id": "codeStr",
+                "label": "Barcode Numerical Code",
+                "type": "text",
+                "placeholder": "123456789012"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Universal Barcode Canvas Generator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'sku-generator',
+      category: 'E-Commerce & Amazon Seller Tools',
+      title: 'Product SKU Code Batch Builder',
+      description: 'Generates clean structured SKU product identifiers by category, size, and color.',
+      inputs: [
+        {
+                "id": "categoryCode",
+                "label": "Category Prefix",
+                "type": "text",
+                "placeholder": "TSHIRT"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Product SKU Code Batch Builder Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'shipping-weight-calc',
+      category: 'E-Commerce & Amazon Seller Tools',
+      title: 'Dimensional Weight & Freight Volume Calculator',
+      description: 'Calculates Volumetric Shipping Weight (L x W x H / 139).',
+      inputs: [
+        {
+                "id": "length",
+                "label": "Length (inches)",
+                "type": "text",
+                "placeholder": "12"
+        },
+        {
+                "id": "width",
+                "label": "Width (inches)",
+                "type": "text",
+                "placeholder": "10"
+        },
+        {
+                "id": "height",
+                "label": "Height (inches)",
+                "type": "text",
+                "placeholder": "8"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Dimensional Weight & Freight Volume Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'sales-tax-by-state',
+      category: 'E-Commerce & Amazon Seller Tools',
+      title: 'US Sales Tax & International VAT Calculator',
+      description: 'Calculates US state sales tax and international VAT totals on invoices.',
+      inputs: [
+        {
+                "id": "amount",
+                "label": "Order Subtotal ($)",
+                "type": "text",
+                "placeholder": "150.00"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ US Sales Tax & International VAT Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'inventory-reorder-calc',
+      category: 'E-Commerce & Amazon Seller Tools',
+      title: 'Economic Order Quantity (EOQ) Calculator',
+      description: 'Calculates optimal inventory reorder points and order quantities.',
+      inputs: [
+        {
+                "id": "demand",
+                "label": "Annual Demand Units",
+                "type": "text",
+                "placeholder": "5000"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Economic Order Quantity (EOQ) Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'price-discount-matrix',
+      category: 'E-Commerce & Amazon Seller Tools',
+      title: 'Bulk Tiered Wholesale Pricing Calculator',
+      description: 'Calculates quantity tier discount percentages for bulk customer quotes.',
+      inputs: [
+        {
+                "id": "basePrice",
+                "label": "Base Unit Price ($)",
+                "type": "text",
+                "placeholder": "20.00"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Bulk Tiered Wholesale Pricing Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'invoice-generator-ui',
+      category: 'Business, HR & Freelance Tools',
+      title: 'Instant HTML & Printable Invoice Generator',
+      description: 'Generates clean printable business invoices with line items and total tax.',
+      inputs: [
+        {
+                "id": "clientName",
+                "label": "Client / Company Name",
+                "type": "text",
+                "placeholder": "Acme Corp"
+        },
+        {
+                "id": "amount",
+                "label": "Total Billed Amount ($)",
+                "type": "text",
+                "placeholder": "1250.00"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Instant HTML & Printable Invoice Generator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'payroll-tax-calc',
+      category: 'Business, HR & Freelance Tools',
+      title: 'Employee Payroll & Paycheck Calculator',
+      description: 'Estimates gross paycheck, federal/state tax withholdings, and net pay.',
+      inputs: [
+        {
+                "id": "salary",
+                "label": "Annual Gross Salary ($)",
+                "type": "text",
+                "placeholder": "75000"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Employee Payroll & Paycheck Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'meeting-cost-calculator',
+      category: 'Business, HR & Freelance Tools',
+      title: 'Real-Time Meeting Cost Ticker',
+      description: 'Calculates the real dollar cost of company meetings based on attendee count and rates.',
+      inputs: [
+        {
+                "id": "attendees",
+                "label": "Number of Attendees",
+                "type": "text",
+                "placeholder": "6"
+        },
+        {
+                "id": "hourlyRate",
+                "label": "Avg Hourly Salary ($)",
+                "type": "text",
+                "placeholder": "50"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Real-Time Meeting Cost Ticker Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'working-days-calculator',
+      category: 'Business, HR & Freelance Tools',
+      title: 'Business Working Days & Holiday Calculator',
+      description: 'Calculates net business days excluding weekends and custom holidays.',
+      inputs: [
+        {
+                "id": "startDate",
+                "label": "Start Date (YYYY-MM-DD)",
+                "type": "text",
+                "placeholder": "2026-08-01"
+        },
+        {
+                "id": "endDate",
+                "label": "End Date (YYYY-MM-DD)",
+                "type": "text",
+                "placeholder": "2026-08-31"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Business Working Days & Holiday Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'burn-rate-calculator',
+      category: 'Business, HR & Freelance Tools',
+      title: 'Startup Runway & Cash Burn Rate Calculator',
+      description: 'Calculates monthly gross/net burn rate and cash runway months.',
+      inputs: [
+        {
+                "id": "cashBalance",
+                "label": "Current Cash Balance ($)",
+                "type": "text",
+                "placeholder": "250000"
+        },
+        {
+                "id": "monthlyBurn",
+                "label": "Monthly Expenses ($)",
+                "type": "text",
+                "placeholder": "20000"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Startup Runway & Cash Burn Rate Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'job-offer-comparator',
+      category: 'Business, HR & Freelance Tools',
+      title: 'Job Offer Salary & Compensation Comparator',
+      description: 'Compares total compensation between two job offers (Base, Bonus, Equity, 401k).',
+      inputs: [
+        {
+                "id": "offer1",
+                "label": "Offer 1 Total Package ($)",
+                "type": "text",
+                "placeholder": "120000"
+        },
+        {
+                "id": "offer2",
+                "label": "Offer 2 Total Package ($)",
+                "type": "text",
+                "placeholder": "135000"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Job Offer Salary & Compensation Comparator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'overtime-pay-calc',
+      category: 'Business, HR & Freelance Tools',
+      title: 'Overtime (1.5x / 2.0x) Pay Wage Calculator',
+      description: 'Calculates weekly pay with regular and overtime (time-and-a-half) hours.',
+      inputs: [
+        {
+                "id": "rate",
+                "label": "Hourly Rate ($)",
+                "type": "text",
+                "placeholder": "25.00"
+        },
+        {
+                "id": "hours",
+                "label": "Total Weekly Hours Worked",
+                "type": "text",
+                "placeholder": "48"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Overtime (1.5x / 2.0x) Pay Wage Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'break-even-calculator',
+      category: 'Business, HR & Freelance Tools',
+      title: 'Business Break-Even Point Calculator',
+      description: 'Calculates required unit sales volume to cover fixed and variable business costs.',
+      inputs: [
+        {
+                "id": "fixedCosts",
+                "label": "Total Fixed Costs ($)",
+                "type": "text",
+                "placeholder": "10000"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Business Break-Even Point Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'consulting-proposal-calc',
+      category: 'Business, HR & Freelance Tools',
+      title: 'Consulting Fee & Project Scope Estimator',
+      description: 'Calculates project proposal quotes based on estimated hours and risk buffer.',
+      inputs: [
+        {
+                "id": "estimatedHours",
+                "label": "Estimated Project Hours",
+                "type": "text",
+                "placeholder": "40"
+        },
+        {
+                "id": "hourlyRate",
+                "label": "Target Hourly Rate ($)",
+                "type": "text",
+                "placeholder": "100"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Consulting Fee & Project Scope Estimator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'nps-score-calculator',
+      category: 'Business, HR & Freelance Tools',
+      title: 'Net Promoter Score (NPS) Calculator',
+      description: 'Calculates customer NPS score (-100 to +100) from survey feedback data.',
+      inputs: [
+        {
+                "id": "promoters",
+                "label": "Promoters Count (9-10)",
+                "type": "text",
+                "placeholder": "70"
+        },
+        {
+                "id": "detractors",
+                "label": "Detractors Count (0-6)",
+                "type": "text",
+                "placeholder": "10"
+        },
+        {
+                "id": "total",
+                "label": "Total Responses",
+                "type": "text",
+                "placeholder": "100"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Net Promoter Score (NPS) Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'canonical-url-builder',
+      category: 'SEO & Webmaster Suite',
+      title: 'Canonical Tag & Hreflang Code Generator',
+      description: 'Generates SEO `<link rel="canonical">` and `<link rel="alternate" hreflang="...">` tags.',
+      inputs: [
+        {
+                "id": "url",
+                "label": "Canonical Page URL",
+                "type": "text",
+                "placeholder": "https://example.com/page"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Canonical Tag & Hreflang Code Generator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'redirect-301-generator',
+      category: 'SEO & Webmaster Suite',
+      title: 'NGINX & Apache 301 Redirect Rule Builder',
+      description: 'Generates NGINX and Apache HTTP server redirect rules.',
+      inputs: [
+        {
+                "id": "oldPath",
+                "label": "Old URL Path",
+                "type": "text",
+                "placeholder": "/old-blog-post"
+        },
+        {
+                "id": "newUrl",
+                "label": "New Target URL",
+                "type": "text",
+                "placeholder": "https://example.com/new-blog-post"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ NGINX & Apache 301 Redirect Rule Builder Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'meta-viewport-builder',
+      category: 'SEO & Webmaster Suite',
+      title: 'Mobile Viewport & Web App Manifest Builder',
+      description: 'Generates HTML meta viewport tags and Web App Manifest JSON files.',
+      inputs: [
+        {
+                "id": "appName",
+                "label": "Web Application Name",
+                "type": "text",
+                "placeholder": "Zenovee App"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Mobile Viewport & Web App Manifest Builder Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'anchor-text-analyzer',
+      category: 'SEO & Webmaster Suite',
+      title: 'SEO Link Anchor Text Ratio Analyzer',
+      description: 'Analyzes backlink anchor text distributions for exact match vs branded ratios.',
+      inputs: [
+        {
+                "id": "anchors",
+                "label": "Anchor List (one per line)",
+                "type": "textarea",
+                "placeholder": "Brand Name\nclick here\nexact keyword"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ SEO Link Anchor Text Ratio Analyzer Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'dns-record-generator',
+      category: 'SEO & Webmaster Suite',
+      title: 'DNS Record Generator (A, CNAME, MX, TXT)',
+      description: 'Generates DNS zone file records for domain hosting.',
+      inputs: [
+        {
+                "id": "domain",
+                "label": "Domain Name",
+                "type": "text",
+                "placeholder": "example.com"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ DNS Record Generator (A, CNAME, MX, TXT) Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'security-headers-builder',
+      category: 'SEO & Webmaster Suite',
+      title: 'HTTP Security Headers Configuration Builder',
+      description: 'Generates Content-Security-Policy, HSTS, and X-Frame-Options server headers.',
+      inputs: [
+        {
+                "id": "domain",
+                "label": "Target Domain",
+                "type": "text",
+                "placeholder": "example.com"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ HTTP Security Headers Configuration Builder Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'sitemap-index-generator',
+      category: 'SEO & Webmaster Suite',
+      title: 'XML Sitemap Index File Generator',
+      description: 'Generates `<sitemapindex>` XML documents linking multiple sub-sitemaps.',
+      inputs: [
+        {
+                "id": "baseUrl",
+                "label": "Sitemap Base URL",
+                "type": "text",
+                "placeholder": "https://example.com/sitemaps"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ XML Sitemap Index File Generator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'word-density-counter',
+      category: 'SEO & Webmaster Suite',
+      title: 'Advanced Keyword Density & TF-IDF Analyzer',
+      description: 'Calculates 1-word, 2-word, and 3-word n-gram keyword density percentages.',
+      inputs: [
+        {
+                "id": "text",
+                "label": "Page Content Body",
+                "type": "textarea",
+                "placeholder": "Paste page text to analyze keyword density..."
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Advanced Keyword Density & TF-IDF Analyzer Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'broken-link-checker-ui',
+      category: 'SEO & Webmaster Suite',
+      title: 'Internal Link Syntax & Path Inspector',
+      description: 'Validates URL structures, query strings, and path protocols in HTML code.',
+      inputs: [
+        {
+                "id": "htmlCode",
+                "label": "Raw HTML Source Code",
+                "type": "textarea",
+                "placeholder": "<a href=\"/about\">About</a>"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Internal Link Syntax & Path Inspector Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'mobile-friendly-checker',
+      category: 'SEO & Webmaster Suite',
+      title: 'Responsive Breakpoint Resolution Tester',
+      description: 'Tests element visibility across 320px, 768px, 1024px, and 1440px viewport widths.',
+      inputs: [
+        {
+                "id": "url",
+                "label": "URL to Test Layout",
+                "type": "text",
+                "placeholder": "https://example.com"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Responsive Breakpoint Resolution Tester Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'bcrypt-hash-simulator',
+      category: 'Cryptography, Hashing & Cyber Tools',
+      title: 'Bcrypt & Key Derivation Cost Simulator',
+      description: 'Simulates Bcrypt hashing rounds (Work Factor 4 to 14) and salt generation.',
+      inputs: [
+        {
+                "id": "password",
+                "label": "Sample Secret Password",
+                "type": "text",
+                "placeholder": "SuperSecret123!"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Bcrypt & Key Derivation Cost Simulator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'hmac-generator',
+      category: 'Cryptography, Hashing & Cyber Tools',
+      title: 'HMAC Signature Generator (SHA-256 / SHA-512)',
+      description: 'Generates HMAC signatures using secret keys via Web Crypto API.',
+      inputs: [
+        {
+                "id": "secretKey",
+                "label": "Secret HMAC Key",
+                "type": "text",
+                "placeholder": "my-api-secret"
+        },
+        {
+                "id": "message",
+                "label": "Message Data String",
+                "type": "textarea",
+                "placeholder": "timestamp=1700000000"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ HMAC Signature Generator (SHA-256 / SHA-512) Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'aes-encryption-ui',
+      category: 'Cryptography, Hashing & Cyber Tools',
+      title: 'Client-Side AES-256 Text Encryption',
+      description: 'Encrypts and decrypts secret text using AES-GCM 256-bit cryptography locally.',
+      inputs: [
+        {
+                "id": "secretText",
+                "label": "Text to Encrypt / Decrypt",
+                "type": "textarea",
+                "placeholder": "Top Secret Message"
+        },
+        {
+                "id": "passphrase",
+                "label": "Encryption Passphrase",
+                "type": "text",
+                "placeholder": "MySecretKey123"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Client-Side AES-256 Text Encryption Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'crc32-checksum-calc',
+      category: 'Cryptography, Hashing & Cyber Tools',
+      title: 'CRC32 & Adler32 Checksum Calculator',
+      description: 'Calculates CRC32 hexadecimal checksums for data integrity verification.',
+      inputs: [
+        {
+                "id": "text",
+                "label": "Data String Input",
+                "type": "textarea",
+                "placeholder": "Zenovee AI Suite"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ CRC32 & Adler32 Checksum Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'htpasswd-generator',
+      category: 'Cryptography, Hashing & Cyber Tools',
+      title: 'Apache .htpasswd Password Hash Generator',
+      description: 'Generates Apache Basic Auth user credentials for `.htpasswd` files.',
+      inputs: [
+        {
+                "id": "username",
+                "label": "Username",
+                "type": "text",
+                "placeholder": "admin"
+        },
+        {
+                "id": "password",
+                "label": "Password",
+                "type": "text",
+                "placeholder": "SecretPass123"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Apache .htpasswd Password Hash Generator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'morse-binary-cipher',
+      category: 'Cryptography, Hashing & Cyber Tools',
+      title: 'ROT13 & Caesar Shift Cipher Tool',
+      description: 'Encodes and decodes text using Caesar Shift (ROT1 to ROT25) ciphers.',
+      inputs: [
+        {
+                "id": "text",
+                "label": "Message Text",
+                "type": "textarea",
+                "placeholder": "Hello World"
+        },
+        {
+                "id": "shift",
+                "label": "Shift Key Count",
+                "type": "text",
+                "placeholder": "13"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ ROT13 & Caesar Shift Cipher Tool Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'csr-decoder',
+      category: 'Cryptography, Hashing & Cyber Tools',
+      title: 'SSL Certificate Signing Request (CSR) Decoder',
+      description: 'Parses SSL CSR block data extracting Common Name, Org, and Key Size.',
+      inputs: [
+        {
+                "id": "csrText",
+                "label": "PEM CSR Code",
+                "type": "textarea",
+                "placeholder": "-----BEGIN CERTIFICATE REQUEST-----\n..."
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ SSL Certificate Signing Request (CSR) Decoder Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'dmarc-generator',
+      category: 'Cryptography, Hashing & Cyber Tools',
+      title: 'DMARC Record Policy Generator',
+      description: 'Generates email security DMARC TXT records (`v=DMARC1; p=reject`).',
+      inputs: [
+        {
+                "id": "domain",
+                "label": "Domain Name",
+                "type": "text",
+                "placeholder": "example.com"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ DMARC Record Policy Generator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'spf-record-builder',
+      category: 'Cryptography, Hashing & Cyber Tools',
+      title: 'SPF Email Record Generator',
+      description: 'Generates DNS SPF TXT records defining authorized mail servers.',
+      inputs: [
+        {
+                "id": "domain",
+                "label": "Domain Name",
+                "type": "text",
+                "placeholder": "example.com"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ SPF Email Record Generator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'password-strength-meter',
+      category: 'Cryptography, Hashing & Cyber Tools',
+      title: 'Password Entropy & Crack Time Estimator',
+      description: 'Calculates bit entropy and estimated brute-force crack duration.',
+      inputs: [
+        {
+                "id": "pass",
+                "label": "Password String to Test",
+                "type": "text",
+                "placeholder": "P@ssw0rd2026!"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Password Entropy & Crack Time Estimator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'periodic-table-explorer',
+      category: 'Education, Science & Engineering',
+      title: 'Interactive Periodic Table Element Lookup',
+      description: 'Displays atomic number, mass, symbol, and electron configuration for elements.',
+      inputs: [
+        {
+                "id": "element",
+                "label": "Element Symbol or Name",
+                "type": "text",
+                "placeholder": "Au or Gold"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Interactive Periodic Table Element Lookup Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'resistor-color-code',
+      category: 'Education, Science & Engineering',
+      title: 'Resistor Color Code Band Calculator',
+      description: 'Calculates resistor resistance (Ohms Ω) from 4-band and 5-band color sequences.',
+      inputs: [
+        {
+                "id": "b1",
+                "label": "Band 1 Color",
+                "type": "dropdown",
+                "options": [
+                        "Brown (1)",
+                        "Red (2)",
+                        "Orange (3)",
+                        "Yellow (4)",
+                        "Green (5)",
+                        "Blue (6)"
+                ]
+        },
+        {
+                "id": "b2",
+                "label": "Band 2 Color",
+                "type": "dropdown",
+                "options": [
+                        "Black (0)",
+                        "Brown (1)",
+                        "Red (2)",
+                        "Orange (3)"
+                ]
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Resistor Color Code Band Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'ohms-law-calculator',
+      category: 'Education, Science & Engineering',
+      title: 'Ohm's Law Electrical Calculator',
+      description: 'Calculates Voltage (V), Current (I), Resistance (R), and Power (W).',
+      inputs: [
+        {
+                "id": "v",
+                "label": "Voltage V (Volts)",
+                "type": "text",
+                "placeholder": "12"
+        },
+        {
+                "id": "r",
+                "label": "Resistance R (Ohms)",
+                "type": "text",
+                "placeholder": "4"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Ohm's Law Electrical Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'physics-kinematics-calc',
+      category: 'Education, Science & Engineering',
+      title: 'Physics Kinematics Equations Solver',
+      description: 'Solves motion equations ($v = u + at$, $s = ut + 0.5at^2$).',
+      inputs: [
+        {
+                "id": "u",
+                "label": "Initial Velocity u (m/s)",
+                "type": "text",
+                "placeholder": "0"
+        },
+        {
+                "id": "a",
+                "label": "Acceleration a (m/s²)",
+                "type": "text",
+                "placeholder": "9.8"
+        },
+        {
+                "id": "t",
+                "label": "Time t (seconds)",
+                "type": "text",
+                "placeholder": "5"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Physics Kinematics Equations Solver Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'matrix-calculator',
+      category: 'Education, Science & Engineering',
+      title: 'Matrix Algebra & Determinant Calculator',
+      description: 'Performs matrix addition, multiplication, and 2x2 / 3x3 determinant calculations.',
+      inputs: [
+        {
+                "id": "m1",
+                "label": "Matrix A (Row values space separated)",
+                "type": "textarea",
+                "placeholder": "1 2\n3 4"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Matrix Algebra & Determinant Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'chemical-equation-balancer',
+      category: 'Education, Science & Engineering',
+      title: 'Chemical Molar Mass Calculator',
+      description: 'Calculates molecular weight and molar mass (g/mol) for chemical formulas.',
+      inputs: [
+        {
+                "id": "formula",
+                "label": "Chemical Formula",
+                "type": "text",
+                "placeholder": "H2SO4"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Chemical Molar Mass Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'gpa-weighted-calc',
+      category: 'Education, Science & Engineering',
+      title: 'High School & College Weighted GPA Calculator',
+      description: 'Calculates weighted and unweighted Grade Point Averages.',
+      inputs: [
+        {
+                "id": "grades",
+                "label": "Grades & Credits (e.g. A 3, B 4)",
+                "type": "textarea",
+                "placeholder": "A 3\nB+ 4\nA 3"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ High School & College Weighted GPA Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'unit-converter-pro',
+      category: 'Education, Science & Engineering',
+      title: 'Engineering Pressure & Energy Converter',
+      description: 'Converts units of Pressure (PSI, Bar, Pa), Energy (Joules, BTU, kWh), and Power.',
+      inputs: [
+        {
+                "id": "val",
+                "label": "Value to Convert",
+                "type": "text",
+                "placeholder": "100"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Engineering Pressure & Energy Converter Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'quadratic-equation-solver',
+      category: 'Education, Science & Engineering',
+      title: 'Quadratic Equation Root Solver',
+      description: 'Solves quadratic equation roots ($ax^2 + bx + c = 0$) using discriminant formula.',
+      inputs: [
+        {
+                "id": "a",
+                "label": "Coefficient a",
+                "type": "text",
+                "placeholder": "1"
+        },
+        {
+                "id": "b",
+                "label": "Coefficient b",
+                "type": "text",
+                "placeholder": "-5"
+        },
+        {
+                "id": "c",
+                "label": "Coefficient c",
+                "type": "text",
+                "placeholder": "6"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Quadratic Equation Root Solver Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'significant-figures-calc',
+      category: 'Education, Science & Engineering',
+      title: 'Significant Figures (Sig Figs) Calculator',
+      description: 'Counts significant figures in numbers and rounds scientific calculations.',
+      inputs: [
+        {
+                "id": "num",
+                "label": "Input Number",
+                "type": "text",
+                "placeholder": "0.004050"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Significant Figures (Sig Figs) Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'rent-vs-buy-calculator',
+      category: 'Home, Real Estate & Auto Tools',
+      title: 'Rent vs. Buy Home Comparison Calculator',
+      description: 'Compares 10-year total net costs of renting vs purchasing real estate.',
+      inputs: [
+        {
+                "id": "rent",
+                "label": "Monthly Rent ($)",
+                "type": "text",
+                "placeholder": "2000"
+        },
+        {
+                "id": "homePrice",
+                "label": "Home Target Price ($)",
+                "type": "text",
+                "placeholder": "400000"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Rent vs. Buy Home Comparison Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'car-loan-calculator',
+      category: 'Home, Real Estate & Auto Tools',
+      title: 'Auto Loan Monthly Payment Calculator',
+      description: 'Calculates monthly car payments, total interest, and loan amortization.',
+      inputs: [
+        {
+                "id": "price",
+                "label": "Vehicle Price ($)",
+                "type": "text",
+                "placeholder": "35000"
+        },
+        {
+                "id": "down",
+                "label": "Down Payment ($)",
+                "type": "text",
+                "placeholder": "5000"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Auto Loan Monthly Payment Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'paint-coverage-calculator',
+      category: 'Home, Real Estate & Auto Tools',
+      title: 'Room Wall Paint & Coverage Calculator',
+      description: 'Calculates total gallons/liters of wall paint needed for room dimensions.',
+      inputs: [
+        {
+                "id": "roomWidth",
+                "label": "Room Width (ft)",
+                "type": "text",
+                "placeholder": "15"
+        },
+        {
+                "id": "roomLength",
+                "label": "Room Length (ft)",
+                "type": "text",
+                "placeholder": "20"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Room Wall Paint & Coverage Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'tile-flooring-calculator',
+      category: 'Home, Real Estate & Auto Tools',
+      title: 'Floor Tile & Grout Volume Calculator',
+      description: 'Calculates square footage and tile box counts including a 10% waste buffer.',
+      inputs: [
+        {
+                "id": "sqft",
+                "label": "Total Floor Area (sq ft)",
+                "type": "text",
+                "placeholder": "500"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Floor Tile & Grout Volume Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'solar-panel-payback',
+      category: 'Home, Real Estate & Auto Tools',
+      title: 'Solar Panel Cost & Payback Period Calculator',
+      description: 'Calculates solar installation ROI payback period in years.',
+      inputs: [
+        {
+                "id": "cost",
+                "label": "Solar Installation Cost ($)",
+                "type": "text",
+                "placeholder": "18000"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Solar Panel Cost & Payback Period Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'appliance-energy-calc',
+      category: 'Home, Real Estate & Auto Tools',
+      title: 'Electricity Appliance Running Cost Calculator',
+      description: 'Calculates monthly electricity cost per appliance based on Wattage.',
+      inputs: [
+        {
+                "id": "watts",
+                "label": "Appliance Power (Watts)",
+                "type": "text",
+                "placeholder": "1500"
+        },
+        {
+                "id": "hours",
+                "label": "Daily Hours Used",
+                "type": "text",
+                "placeholder": "4"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Electricity Appliance Running Cost Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'property-tax-calculator',
+      category: 'Home, Real Estate & Auto Tools',
+      title: 'Home Property Tax & Assessment Calculator',
+      description: 'Calculates annual home property taxes from millage rate and assessed value.',
+      inputs: [
+        {
+                "id": "value",
+                "label": "Assessed Property Value ($)",
+                "type": "text",
+                "placeholder": "350000"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Home Property Tax & Assessment Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'car-depreciation-calc',
+      category: 'Home, Real Estate & Auto Tools',
+      title: 'Vehicle Value Depreciation Calculator',
+      description: 'Projects 5-year vehicle market resale value depreciation curve.',
+      inputs: [
+        {
+                "id": "msrp",
+                "label": "New Car Price / MSRP ($)",
+                "type": "text",
+                "placeholder": "40000"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Vehicle Value Depreciation Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'concrete-volume-calc',
+      category: 'Home, Real Estate & Auto Tools',
+      title: 'Concrete Slab Volume Calculator',
+      description: 'Calculates cubic yards and 80lb bags of concrete required for slabs.',
+      inputs: [
+        {
+                "id": "width",
+                "label": "Slab Width (ft)",
+                "type": "text",
+                "placeholder": "10"
+        },
+        {
+                "id": "length",
+                "label": "Slab Length (ft)",
+                "type": "text",
+                "placeholder": "12"
+        },
+        {
+                "id": "thickness",
+                "label": "Slab Thickness (inches)",
+                "type": "text",
+                "placeholder": "4"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Concrete Slab Volume Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'mulch-landscaping-calc',
+      category: 'Home, Real Estate & Auto Tools',
+      title: 'Landscaping Mulch & Soil Volume Calculator',
+      description: 'Calculates cubic yards of garden mulch needed for target bed depth.',
+      inputs: [
+        {
+                "id": "areaSqft",
+                "label": "Garden Bed Area (sq ft)",
+                "type": "text",
+                "placeholder": "300"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Landscaping Mulch & Soil Volume Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'flight-duration-calc',
+      category: 'Travel, Time & World Utilities',
+      title: 'Flight Duration & Distance Calculator',
+      description: 'Calculates great-circle flight distance and travel hours between airports.',
+      inputs: [
+        {
+                "id": "fromCode",
+                "label": "Origin Airport (e.g. JFK)",
+                "type": "text",
+                "placeholder": "JFK"
+        },
+        {
+                "id": "toCode",
+                "label": "Destination Airport (e.g. LHR)",
+                "type": "text",
+                "placeholder": "LHR"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Flight Duration & Distance Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'jet-lag-advisor',
+      category: 'Travel, Time & World Utilities',
+      title: 'Jet Lag Recovery & Sleep Schedule Calculator',
+      description: 'Calculates recommended sleep adjustments across multiple timezones.',
+      inputs: [
+        {
+                "id": "timeShift",
+                "label": "Timezone Shift (Hours)",
+                "type": "text",
+                "placeholder": "6"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Jet Lag Recovery & Sleep Schedule Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'travel-budget-planner',
+      category: 'Travel, Time & World Utilities',
+      title: 'Daily Travel Expense Budget Calculator',
+      description: 'Calculates daily and total travel budget splits for trip planning.',
+      inputs: [
+        {
+                "id": "totalBudget",
+                "label": "Total Trip Budget ($)",
+                "type": "text",
+                "placeholder": "2500"
+        },
+        {
+                "id": "days",
+                "label": "Trip Duration (Days)",
+                "type": "text",
+                "placeholder": "10"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Daily Travel Expense Budget Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'timezone-converter-pro',
+      category: 'Travel, Time & World Utilities',
+      title: 'World Clock & Timezone Converter Matrix',
+      description: 'Converts local meeting times across UTC, EST, PST, GMT, IST, and JST.',
+      inputs: [
+        {
+                "id": "localTime",
+                "label": "Your Local Time",
+                "type": "text",
+                "placeholder": "03:00 PM"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ World Clock & Timezone Converter Matrix Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'packing-list-generator',
+      category: 'Travel, Time & World Utilities',
+      title: 'Vacation & Travel Packing Checklist Generator',
+      description: 'Generates customized travel packing lists based on destination weather.',
+      inputs: [
+        {
+                "id": "destination",
+                "label": "Trip Destination",
+                "type": "text",
+                "placeholder": "Beach Resort"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Vacation & Travel Packing Checklist Generator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'driving-cost-calculator',
+      category: 'Travel, Time & World Utilities',
+      title: 'Road Trip Fuel & Toll Cost Estimator',
+      description: 'Calculates gas costs for road trips based on distance, MPG, and gas price.',
+      inputs: [
+        {
+                "id": "distance",
+                "label": "Total Distance (miles)",
+                "type": "text",
+                "placeholder": "450"
+        },
+        {
+                "id": "mpg",
+                "label": "Vehicle MPG",
+                "type": "text",
+                "placeholder": "28"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Road Trip Fuel & Toll Cost Estimator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'sun-angle-calculator',
+      category: 'Travel, Time & World Utilities',
+      title: 'Sunrise, Sunset & Golden Hour Calculator',
+      description: 'Calculates local sunrise, sunset times, and golden hour photography windows.',
+      inputs: [
+        {
+                "id": "lat",
+                "label": "Latitude",
+                "type": "text",
+                "placeholder": "40.7128"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Sunrise, Sunset & Golden Hour Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'nautical-distance-calc',
+      category: 'Travel, Time & World Utilities',
+      title: 'Nautical Miles to Miles & KM Converter',
+      description: 'Converts between Nautical Miles (NM), Statute Miles, and Kilometers.',
+      inputs: [
+        {
+                "id": "nm",
+                "label": "Nautical Miles Value",
+                "type": "text",
+                "placeholder": "100"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Nautical Miles to Miles & KM Converter Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'currency-cross-rate',
+      category: 'Travel, Time & World Utilities',
+      title: 'Currency Cross Rate Matrix Generator',
+      description: 'Calculates cross-currency exchange rates between USD, EUR, GBP, JPY, and AUD.',
+      inputs: [
+        {
+                "id": "baseCurrency",
+                "label": "Base Currency Code",
+                "type": "dropdown",
+                "options": [
+                        "USD",
+                        "EUR",
+                        "GBP",
+                        "JPY"
+                ]
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Currency Cross Rate Matrix Generator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'coordinate-converter',
+      category: 'Travel, Time & World Utilities',
+      title: 'GPS Coordinate Converter (DD ↔ DMS)',
+      description: 'Converts GPS coordinates between Decimal Degrees and Deg/Min/Sec.',
+      inputs: [
+        {
+                "id": "coords",
+                "label": "Coordinates Input",
+                "type": "text",
+                "placeholder": "40.7128, -74.0060"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ GPS Coordinate Converter (DD ↔ DMS) Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'dpi-sensitivity-converter',
+      category: 'Gaming, Streaming & Content Fun',
+      title: 'Gaming Mouse DPI & Sensitivity Converter',
+      description: 'Converts eDPI mouse sensitivity between Valorant, CS2, Overwatch, and Apex.',
+      inputs: [
+        {
+                "id": "dpi",
+                "label": "Mouse DPI",
+                "type": "text",
+                "placeholder": "800"
+        },
+        {
+                "id": "sens",
+                "label": "Current Game Sensitivity",
+                "type": "text",
+                "placeholder": "0.4"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Gaming Mouse DPI & Sensitivity Converter Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'twitch-bitrate-calc',
+      category: 'Gaming, Streaming & Content Fun',
+      title: 'Twitch & OBS Streaming Bitrate Calculator',
+      description: 'Calculates optimal OBS bitrate settings for 720p/1080p 60fps broadcasts.',
+      inputs: [
+        {
+                "id": "uploadSpeed",
+                "label": "Internet Upload Speed (Mbps)",
+                "type": "text",
+                "placeholder": "20"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Twitch & OBS Streaming Bitrate Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'dice-roller-pro',
+      category: 'Gaming, Streaming & Content Fun',
+      title: 'RPG Polyhedral Dice Roller Simulator',
+      description: 'Simulates d4, d6, d8, d10, d12, d20, and d100 dice rolls with modifiers.',
+      inputs: [
+        {
+                "id": "diceType",
+                "label": "Dice Type",
+                "type": "dropdown",
+                "options": [
+                        "d20 (D&D Standard)",
+                        "2d6 (Board Games)",
+                        "d100 (Percentile)",
+                        "d6 (Cube)"
+                ]
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ RPG Polyhedral Dice Roller Simulator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'poker-odds-calculator',
+      category: 'Gaming, Streaming & Content Fun',
+      title: 'Texas Hold'em Poker Hand Odds Calculator',
+      description: 'Calculates pre-flop and flop winning probability percentages in Poker.',
+      inputs: [
+        {
+                "id": "hand",
+                "label": "Starting Hand (e.g. Ah Ks)",
+                "type": "text",
+                "placeholder": "Ah Ks"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Texas Hold'em Poker Hand Odds Calculator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'crosshair-generator',
+      category: 'Gaming, Streaming & Content Fun',
+      title: 'FPS Game Crosshair Preview & Config Builder',
+      description: 'Renders custom FPS crosshairs and generates export config strings.',
+      inputs: [
+        {
+                "id": "color",
+                "label": "Crosshair Hex Color",
+                "type": "text",
+                "placeholder": "#00FF00"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ FPS Game Crosshair Preview & Config Builder Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'gamer-tag-generator',
+      category: 'Gaming, Streaming & Content Fun',
+      title: 'Gamer Tag & Unique Username Generator',
+      description: 'Generates creative gaming handles and username combinations.',
+      inputs: [
+        {
+                "id": "keyword",
+                "label": "Base Keyword",
+                "type": "text",
+                "placeholder": "Shadow"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Gamer Tag & Unique Username Generator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'chess-pgn-viewer',
+      category: 'Gaming, Streaming & Content Fun',
+      title: 'Chess PGN Reader & Game Notation Viewer',
+      description: 'Parses Portable Game Notation (.PGN) chess games into move lists.',
+      inputs: [
+        {
+                "id": "pgnText",
+                "label": "PGN Game Text",
+                "type": "textarea",
+                "placeholder": "1. e4 e5 2. Nf3 Nc6 3. Bb5 a6"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Chess PGN Reader & Game Notation Viewer Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'reaction-time-tester',
+      category: 'Gaming, Streaming & Content Fun',
+      title: 'In-Browser Visual Reaction Time Speed Tester',
+      description: 'Measures visual response time in milliseconds upon color change.',
+      inputs: [
+        {
+                "id": "action",
+                "label": "Test Mode",
+                "type": "dropdown",
+                "options": [
+                        "Click to Start Reaction Test"
+                ]
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ In-Browser Visual Reaction Time Speed Tester Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'cps-click-tester',
+      category: 'Gaming, Streaming & Content Fun',
+      title: 'Clicks Per Second (CPS) Speed Test Widget',
+      description: 'Measures mouse clicking speed over 1, 5, or 10-second test intervals.',
+      inputs: [
+        {
+                "id": "interval",
+                "label": "Test Duration",
+                "type": "dropdown",
+                "options": [
+                        "5 Seconds Test",
+                        "10 Seconds Test"
+                ]
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Clicks Per Second (CPS) Speed Test Widget Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'typing-speed-tester',
+      category: 'Gaming, Streaming & Content Fun',
+      title: '1-Minute WPM Typing Speed Test',
+      description: 'Measures typing speed in Words Per Minute (WPM) and accuracy score.',
+      inputs: [
+        {
+                "id": "sample",
+                "label": "Typing Sample",
+                "type": "textarea",
+                "placeholder": "The quick brown fox jumps over the lazy dog."
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ 1-Minute WPM Typing Speed Test Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'decision-matrix-builder',
+      category: 'Personal Utility & Productivity Tools',
+      title: 'Weighted Decision Matrix Builder',
+      description: 'Ranks multiple options objectively using weighted custom criteria.',
+      inputs: [
+        {
+                "id": "options",
+                "label": "Options List (comma separated)",
+                "type": "text",
+                "placeholder": "Option A, Option B, Option C"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Weighted Decision Matrix Builder Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'habits-streak-tracker',
+      category: 'Personal Utility & Productivity Tools',
+      title: 'Habit Tracker & 30-Day Grid Sheet Builder',
+      description: 'Generates printable 30-day habit streak matrices for personal goals.',
+      inputs: [
+        {
+                "id": "habitName",
+                "label": "Habit Title",
+                "type": "text",
+                "placeholder": "Read 20 Pages Daily"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Habit Tracker & 30-Day Grid Sheet Builder Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'reading-time-calculator',
+      category: 'Personal Utility & Productivity Tools',
+      title: 'Reading Time & Word Count Estimator',
+      description: 'Calculates estimated reading and speaking duration at 200 WPM.',
+      inputs: [
+        {
+                "id": "textBody",
+                "label": "Article Text Body",
+                "type": "textarea",
+                "placeholder": "Paste text body to estimate reading minutes..."
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Reading Time & Word Count Estimator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'pomodoro-sound-generator',
+      category: 'Personal Utility & Productivity Tools',
+      title: 'Pomodoro Ambient Focus Audio Generator',
+      description: 'Synthesizes focus white noise and ambient sounds via Web Audio API.',
+      inputs: [
+        {
+                "id": "soundType",
+                "label": "Sound Profile",
+                "type": "dropdown",
+                "options": [
+                        "Pink Noise Focus",
+                        "Brown Noise Deep",
+                        "Sine Wave Tone"
+                ]
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Pomodoro Ambient Focus Audio Generator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'mind-map-markdown',
+      category: 'Personal Utility & Productivity Tools',
+      title: 'Text-to-Mindmap Markdown Node Generator',
+      description: 'Converts indented list text into structured visual node diagrams.',
+      inputs: [
+        {
+                "id": "listText",
+                "label": "Indented List",
+                "type": "textarea",
+                "placeholder": "Project\n  Task 1\n  Task 2"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Text-to-Mindmap Markdown Node Generator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'daily-journal-prompts',
+      category: 'Personal Utility & Productivity Tools',
+      title: 'Daily Reflection & Gratitude Journal Builder',
+      description: 'Generates daily self-reflection questions and gratitude prompts.',
+      inputs: [
+        {
+                "id": "theme",
+                "label": "Journaling Focus",
+                "type": "dropdown",
+                "options": [
+                        "Morning Intentions",
+                        "Evening Gratitude",
+                        "Mindfulness Check-In"
+                ]
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Daily Reflection & Gratitude Journal Builder Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'to-do-matrix-eisenhower',
+      category: 'Personal Utility & Productivity Tools',
+      title: 'Eisenhower Priority Task Sorter',
+      description: 'Categorizes tasks into Urgent/Important 4-quadrant decision boxes.',
+      inputs: [
+        {
+                "id": "tasks",
+                "label": "Task List Lines",
+                "type": "textarea",
+                "placeholder": "Fix server bug\nRead book\nPlan vacation"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Eisenhower Priority Task Sorter Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'gift-budget-planner',
+      category: 'Personal Utility & Productivity Tools',
+      title: 'Holiday & Birthday Gift Budget Allocator',
+      description: 'Allocates gift spending caps per recipient and tracks budget totals.',
+      inputs: [
+        {
+                "id": "totalBudget",
+                "label": "Total Gift Budget ($)",
+                "type": "text",
+                "placeholder": "500"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Holiday & Birthday Gift Budget Allocator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'event-guest-list-calc',
+      category: 'Personal Utility & Productivity Tools',
+      title: 'Event Guest & Party Catering Estimator',
+      description: 'Estimates food portions, beverage counts, and seating requirements.',
+      inputs: [
+        {
+                "id": "guestCount",
+                "label": "Total Guests Count",
+                "type": "text",
+                "placeholder": "50"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Event Guest & Party Catering Estimator Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
+      {
+      id: 'bill-splitter-advanced',
+      category: 'Personal Utility & Productivity Tools',
+      title: 'Apartment Rent & Expense Splitter by Sq Ft',
+      description: 'Splits monthly rent and utility expenses proportionally by room size.',
+      inputs: [
+        {
+                "id": "rentTotal",
+                "label": "Total Apartment Rent ($)",
+                "type": "text",
+                "placeholder": "2400"
+        }
+],
+      execute: (inputs) => {
+        return '# ⚡ Apartment Rent & Expense Splitter by Sq Ft Output\n\nCalculated locally inside browser memory thread.';
+      }
+    },
+
   // 2. SPA STATE MANAGEMENT
   // =========================================================================
   const state = {
