@@ -17,1653 +17,1627 @@ export interface ToolConfig {
 }
 
 export const toolsConfig: ToolConfig[] = [
-  // ==========================================
-  // 1. CONTENT CREATION
-  // ==========================================
   {
     id: "image-compressor",
     title: "Client-Side Image Compressor & Converter",
     name: "Client-Side Image Compressor & Converter",
-    category: "Content Creation",
-    description: "Compresses JPEG/PNG/WebP and converts formats locally using OffscreenCanvas and Browser Squoosh/WASM.",
+    category: "Content Creation & Media",
+    description: "Compresses JPEG/PNG/WebP and converts formats locally using OffscreenCanvas.",
     inputs: [
-      { id: "imageFile", label: "Select Image File", type: "file" },
-      { id: "format", label: "Target Format", type: "dropdown", options: ["WebP", "JPEG", "PNG"] },
-      { id: "quality", label: "Compression Quality", type: "dropdown", options: ["90% (High Quality)", "80% (Balanced)", "60% (High Compression)", "40% (Max Compression)"] },
-      { id: "maxWidth", label: "Max Width (Pixels, optional)", type: "text", placeholder: "e.g. 1920" }
-    ]
-  },
-  {
-    id: "meme-designer",
-    title: "Offline Meme & Infographic Designer",
-    name: "Offline Meme & Infographic Designer",
-    category: "Content Creation",
-    description: "Canvas-based drag-and-drop generator with text layers, custom fonts, and PNG/SVG export.",
-    inputs: [
-      { id: "template", label: "Upload Custom Template Image", type: "file" },
-      { id: "topText", label: "Top Caption Text", type: "text", placeholder: "Enter top caption..." },
-      { id: "bottomText", label: "Bottom Caption Text", type: "text", placeholder: "Enter bottom caption..." },
-      { id: "fontSize", label: "Font Size", type: "dropdown", options: ["24px", "32px", "40px", "48px", "64px"] },
-      { id: "fontColor", label: "Font Fill Color", type: "text", placeholder: "e.g. #FFFFFF" }
-    ]
-  },
-  {
-    id: "markdown-studio",
-    title: "Markdown to PDF & HTML Studio",
-    name: "Markdown to PDF & HTML Studio",
-    category: "Content Creation",
-    description: "Real-time side-by-side editor with syntax highlighting using marked.js and local PDF export via jsPDF.",
-    inputs: [
-      { id: "markdownText", label: "Markdown Document Body", type: "textarea", placeholder: "# Document Title\n\nWrite your markdown text here..." },
-      { id: "theme", label: "Preview Style CSS Theme", type: "dropdown", options: ["Github Light", "Dracula Dark", "Modern Slate", "Minimalist Clean"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Client-Side Image Compressor & Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Client-Side Image Compressor & Converter..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "svg-editor",
     title: "SVG Vector Editor & Color Swapper",
     name: "SVG Vector Editor & Color Swapper",
-    category: "Content Creation",
-    description: "Parses SVG XML directly in browser DOM to tweak colors, resize dimensions, and output clean code or PNGs.",
+    category: "Content Creation & Media",
+    description: "Parses SVG XML directly in browser DOM to tweak colors and resize dimensions.",
     inputs: [
-      { id: "svgCode", label: "Raw SVG Code / XML Source", type: "textarea", placeholder: "<svg>...</svg>" },
-      { id: "oldColor", label: "Old Hex Color to Replace", type: "text", placeholder: "e.g. #FF0000" },
-      { id: "newColor", label: "New Hex Color", type: "text", placeholder: "e.g. #6366F1" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for SVG Vector Editor & Color Swapper",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for SVG Vector Editor & Color Swapper..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "og-generator",
-    title: "Dynamic Open Graph (OG) Card Generator",
-    name: "Dynamic Open Graph (OG) Card Generator",
-    category: "Content Creation",
-    description: "Generates social media preview images (1200x630) using Canvas with customizable templates and text wrapping.",
+    title: "Dynamic Open Graph Card Visual Designer",
+    name: "Dynamic Open Graph Card Visual Designer",
+    category: "Content Creation & Media",
+    description: "Generates social media preview images (1200x630) using HTML5 Canvas.",
     inputs: [
-      { id: "title", label: "Card Headline Title", type: "text", placeholder: "Enter target page headline..." },
-      { id: "subtitle", label: "Subheading / Brand Text", type: "text", placeholder: "e.g. Zenovee AI Suite" },
-      { id: "theme", label: "Visual Color Gradient Palette", type: "dropdown", options: ["Indigo Glow", "Sunset Orange", "Forest Emerald", "Cyberpunk Violet"] },
-      { id: "authorName", label: "Author/Source Tagline", type: "text", placeholder: "e.g. By Admin" }
-    ]
-  },
-  {
-    id: "tts-audio",
-    title: "Text-to-Speech & Audio File Generator",
-    name: "Text-to-Speech & Audio File Generator",
-    category: "Content Creation",
-    description: "Converts plain text into customizable speech synthesized via the SpeechSynthesis API, downloadable as WebM audio.",
-    inputs: [
-      { id: "text", label: "Speech Transcription text", type: "textarea", placeholder: "Type what you want the synthesized voice to read..." },
-      { id: "voice", label: "Selected Synthesizer Voice", type: "dropdown", options: ["Google US English (Male)", "Google UK English (Female)", "Microsoft David (Male)", "System Voice Default"] },
-      { id: "pitch", label: "Speech Tone Pitch", type: "dropdown", options: ["0.8 (Deep)", "1.0 (Normal)", "1.2 (Higher Pitch)", "1.5 (High Voice)"] },
-      { id: "speed", label: "Playback Reading Speed", type: "dropdown", options: ["0.75x (Slow)", "1.0x (Normal)", "1.25x (Flipped)", "1.5x (Fast)"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Dynamic Open Graph Card Visual Designer",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Dynamic Open Graph Card Visual Designer..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "code-beautifier",
     title: "Code Snippet Image Beautifier",
     name: "Code Snippet Image Beautifier",
-    category: "Content Creation",
-    description: "Creates code-card images (like Carbon) using client-side syntax highlighting and custom gradient backgrounds.",
+    category: "Content Creation & Media",
+    description: "Creates code-card images using client-side syntax highlighting and gradients.",
     inputs: [
-      { id: "code", label: "Raw Code Snippet Block", type: "textarea", placeholder: "Paste your raw script here..." },
-      { id: "language", label: "Highlighting Syntax Language", type: "dropdown", options: ["TypeScript / JavaScript", "Python", "HTML / CSS", "JSON / YAML", "Rust / Go"] },
-      { id: "theme", label: "Editor Theme Scheme", type: "dropdown", options: ["Monokai Dark", "VSCode Default", "Synthwave 84", "One Light"] },
-      { id: "padding", label: "Background Frame Padding", type: "dropdown", options: ["16px Minimal", "32px Balanced", "64px Maximum Container"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Code Snippet Image Beautifier",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Code Snippet Image Beautifier..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "batch-watermarker",
     title: "Privacy-First Batch Image Watermarker",
     name: "Privacy-First Batch Image Watermarker",
-    category: "Content Creation",
-    description: "Stamps logos or text onto photos simultaneously using local web workers without uploading files.",
+    category: "Content Creation & Media",
+    description: "Stamps logos or text onto photos simultaneously using local web workers.",
     inputs: [
-      { id: "watermarkText", label: "Text Watermark Label", type: "text", placeholder: "e.g. Confidential" },
-      { id: "position", label: "Watermark Stamp Position", type: "dropdown", options: ["Center Grid", "Bottom Right Corner", "Bottom Left Corner", "Top Right Corner"] },
-      { id: "opacity", label: "Transparency Opacity Level", type: "dropdown", options: ["15% (Watermark Soft)", "30% (Standard)", "50% (Clear Grid)", "80% (Hard Solid)"] }
-    ]
-  },
-  {
-    id: "subtitle-editor",
-    title: "Subtitle (SRT/VTT) Editor & Sync Tool",
-    name: "Subtitle (SRT/VTT) Editor & Sync Tool",
-    category: "Content Creation",
-    description: "Audio waveform viewer using Web Audio API to trim, re-time, and clean subtitle files locally.",
-    inputs: [
-      { id: "subtitleContent", label: "Raw Subtitle Lines (.SRT / .VTT)", type: "textarea", placeholder: "1\n00:00:01,000 --> 00:00:04,000\nHello, World!" },
-      { id: "timeOffsetMs", label: "Time Shift Offset (Milliseconds)", type: "text", placeholder: "e.g. +500 or -1000" },
-      { id: "format", label: "Target Output Format", type: "dropdown", options: ["SRT Format", "WebVTT Format"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Privacy-First Batch Image Watermarker",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Privacy-First Batch Image Watermarker..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "lottie-gif-extractor",
-    title: "Lottie Animation & GIF Frame Extractor",
-    name: "Lottie Animation & GIF Frame Extractor",
-    category: "Content Creation",
-    description: "Unpacks Lottie JSON or animated GIFs frame-by-frame and allows individual SVG/PNG downloads.",
+    title: "Lottie Animation Frame Extractor",
+    name: "Lottie Animation Frame Extractor",
+    category: "Content Creation & Media",
+    description: "Unpacks Lottie JSON or animated GIFs frame-by-frame for SVG/PNG export.",
     inputs: [
-      { id: "extractFormat", label: "Extraction Image Format", type: "dropdown", options: ["PNG Grid Sequence", "SVG Vector Nodes"] },
-      { id: "frameRate", label: "Frames Extraction Speed", type: "dropdown", options: ["Export All Frames", "Skip Every Second Frame (Lighter Grid)", "Export First & Last Only"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Lottie Animation Frame Extractor",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Lottie Animation Frame Extractor..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
-
-  // ==========================================
-  // 2. GROWTH MARKETING
-  // ==========================================
+  {
+    id: "wasm-video-trimmer",
+    title: "WebAssembly Video Trimmer",
+    name: "WebAssembly Video Trimmer",
+    category: "Content Creation & Media",
+    description: "Trims and cuts video clips locally in-browser using WebAssembly ffmpeg core.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for WebAssembly Video Trimmer",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for WebAssembly Video Trimmer..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "audio-pitch-changer",
+    title: "Audio Pitch & Speed Changer",
+    name: "Audio Pitch & Speed Changer",
+    category: "Content Creation & Media",
+    description: "Modifies playback pitch and speed without distortion using Web Audio API.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Audio Pitch & Speed Changer",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Audio Pitch & Speed Changer..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "gif-converter",
+    title: "GIF to MP4 / WebP Converter",
+    name: "GIF to MP4 / WebP Converter",
+    category: "Content Creation & Media",
+    description: "Transcodes animated GIFs into lightweight MP4 videos or WebP images.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for GIF to MP4 / WebP Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for GIF to MP4 / WebP Converter..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "image-aspect-resizer",
+    title: "Image Aspect Ratio Resizer",
+    name: "Image Aspect Ratio Resizer",
+    category: "Content Creation & Media",
+    description: "Resizes images to exact aspect ratios (16:9, 4:3, 1:1) with canvas cropping.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Image Aspect Ratio Resizer",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Image Aspect Ratio Resizer..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
   {
     id: "schema-builder",
     title: "Dynamic JSON-LD Schema Markup Builder",
     name: "Dynamic JSON-LD Schema Markup Builder",
-    category: "Growth Marketing",
-    description: "Interactive form generating Google-compliant schema (FAQ, HowTo, Product, Article, Local Business) with copy-paste readiness.",
+    category: "Growth Marketing & Analytics",
+    description: "Generates Google-compliant JSON-LD schema (FAQ, HowTo, Product, Article).",
     inputs: [
-      { id: "schemaType", label: "Schema Type Definition", type: "dropdown", options: ["FAQ Page Schema", "HowTo Schema Builder", "Product Detail Schema", "Article/Blog Schema", "Local Business Info"] },
-      { id: "name", label: "Primary Entity Name / Title", type: "text", placeholder: "e.g. Zenovee Suite" },
-      { id: "url", label: "Target Entity Canonical URL", type: "text", placeholder: "https://zenovee.ai" },
-      { id: "description", label: "Schema Entity Brief Description", type: "textarea", placeholder: "Add key product highlights or schema summary details..." }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Dynamic JSON-LD Schema Markup Builder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Dynamic JSON-LD Schema Markup Builder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "utm-builder",
-    title: "UTM Campaign Builder & Link History Manager",
-    name: "UTM Campaign Builder & Link History Manager",
-    category: "Growth Marketing",
-    description: "Generates tagged URLs and stores past links in LocalStorage with one-click CSV export.",
+    title: "UTM Campaign Builder & History Tracker",
+    name: "UTM Campaign Builder & History Tracker",
+    category: "Growth Marketing & Analytics",
+    description: "Generates tagged campaign URLs and tracks historical links in LocalStorage.",
     inputs: [
-      { id: "url", label: "Campaign Target Destination URL", type: "text", placeholder: "https://example.com/landing" },
-      { id: "source", label: "Campaign Source (utm_source)", type: "text", placeholder: "e.g. google, facebook, newsletter" },
-      { id: "medium", label: "Campaign Medium (utm_medium)", type: "text", placeholder: "e.g. cpc, email, social" },
-      { id: "campaign", label: "Campaign Name (utm_campaign)", type: "text", placeholder: "e.g. promo_2026" },
-      { id: "term", label: "Campaign Term (utm_term, optional)", type: "text", placeholder: "e.g. custom_keywords" },
-      { id: "content", label: "Campaign Content (utm_content, optional)", type: "text", placeholder: "e.g. post_button" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for UTM Campaign Builder & History Tracker",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for UTM Campaign Builder & History Tracker..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "serp-simulator",
-    title: "Google & Social SERP Snippet Simulator",
-    name: "Google & Social SERP Snippet Simulator",
-    category: "Growth Marketing",
-    description: "Real-time previewer showing how titles, descriptions, and thumbnails render on desktop, mobile, Google, and LinkedIn.",
+    title: "SERP Snippet Visual Simulator",
+    name: "SERP Snippet Visual Simulator",
+    category: "Growth Marketing & Analytics",
+    description: "Previews how titles, descriptions, and URLs render on Google desktop and mobile.",
     inputs: [
-      { id: "title", label: "SEO Meta Title (Title Tag)", type: "text", placeholder: "Max 60 characters recommended..." },
-      { id: "description", label: "SEO Meta Description Tag", type: "textarea", placeholder: "Max 160 characters recommended for description snippet..." },
-      { id: "url", label: "Display Destination URL Link", type: "text", placeholder: "https://example.com/blog-post" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for SERP Snippet Visual Simulator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for SERP Snippet Visual Simulator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "robots-sitemap-builder",
-    title: "Robots.txt & XML Sitemap Builder/Validator",
-    name: "Robots.txt & XML Sitemap Builder/Validator",
-    category: "Growth Marketing",
-    description: "Generates clean sitemaps and tests robots.txt rules against custom URL paths using pure JS logic.",
+    title: "Robots.txt & XML Sitemap Validator",
+    name: "Robots.txt & XML Sitemap Validator",
+    category: "Growth Marketing & Analytics",
+    description: "Generates clean sitemaps and tests robots.txt disallow rules against URL paths.",
     inputs: [
-      { id: "domainUrl", label: "Target Domain Canonical URL", type: "text", placeholder: "https://zenovee.ai" },
-      { id: "disallowRules", label: "Disallowed Paths (One per line)", type: "textarea", placeholder: "/api/\n/admin/\n/private/" },
-      { id: "allowRules", label: "Explicitly Allowed Paths (One per line)", type: "textarea", placeholder: "/static/\n/assets/" },
-      { id: "sitemapUrls", label: "Sitemap URLs to include (One per line)", type: "textarea", placeholder: "/features\n/about\n/dashboard" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Robots.txt & XML Sitemap Validator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Robots.txt & XML Sitemap Validator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
-    id: "og-tag-generator",
-    title: "Open Graph & Twitter Card Meta Tag Generator",
-    name: "Open Graph & Twitter Card Meta Tag Generator",
-    category: "Growth Marketing",
-    description: "Interactive generator that previews and outputs header tags for HTML insertion.",
+    id: "headline-pixel-inspector",
+    title: "Headline Character & Pixel Width Inspector",
+    name: "Headline Character & Pixel Width Inspector",
+    category: "Growth Marketing & Analytics",
+    description: "Measures Google SERP title pixel widths (max 600px) and character limits.",
     inputs: [
-      { id: "title", label: "Social Card Title Label", type: "text", placeholder: "e.g. Zenovee Suite - Web Utility Platform" },
-      { id: "description", label: "Social Card Description Tag", type: "textarea", placeholder: "Short summary for Facebook/Twitter index..." },
-      { id: "siteName", label: "Global Brand Site Name", type: "text", placeholder: "e.g. Zenovee AI" },
-      { id: "siteUrl", label: "Canonical URL Link", type: "text", placeholder: "https://zenovee.ai" },
-      { id: "image", label: "OG Card Image URL Path", type: "text", placeholder: "https://zenovee.ai/og-card.png" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Headline Character & Pixel Width Inspector",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Headline Character & Pixel Width Inspector..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
-  
   {
     id: "email-signature",
-    title: "Client-Side HTML Email Signature Generator",
-    name: "Client-Side HTML Email Signature Generator",
-    category: "Growth Marketing",
-    description: "Form builder creating responsive, inline-styled HTML signatures with live preview and past signature persistence.",
+    title: "Client-Side HTML Email Signature Builder",
+    name: "Client-Side HTML Email Signature Builder",
+    category: "Growth Marketing & Analytics",
+    description: "Generates responsive HTML email signatures with clickable icons and avatars.",
     inputs: [
-      { id: "fullName", label: "Sender Full Name", type: "text", placeholder: "e.g. Jane Doe" },
-      { id: "jobTitle", label: "Sender Professional Role", type: "text", placeholder: "e.g. VP Marketing" },
-      { id: "company", label: "Company / Workspace Name", type: "text", placeholder: "e.g. Zenovee Softwares" },
-      { id: "phone", label: "Office Contact Number", type: "text", placeholder: "e.g. +1 555 123 4567" },
-      { id: "email", label: "Sender Professional Email", type: "text", placeholder: "jane@company.com" },
-      { id: "logoUrl", label: "Profile Picture / Logo URL", type: "text", placeholder: "https://example.com/logo.png" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Client-Side HTML Email Signature Builder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Client-Side HTML Email Signature Builder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "qr-studio",
-    title: "Custom QR Code Studio",
-    name: "Custom QR Code Studio",
-    category: "Growth Marketing",
-    description: "Generates vector/raster QR codes with embedded logos, custom gradients, and error-correction control (qrcode.js).",
+    title: "Vector-Based Custom QR Code Generator",
+    name: "Vector-Based Custom QR Code Generator",
+    category: "Growth Marketing & Analytics",
+    description: "Generates vector SVG & PNG QR codes with custom colors and logo embedding.",
     inputs: [
-      { id: "text", label: "Target URL / Raw Data Payload", type: "text", placeholder: "https://zenovee.ai" },
-      { id: "fgColor", label: "QR Block Hex Color", type: "text", placeholder: "e.g. #000000" },
-      { id: "errorCorrection", label: "Error Correction Capability Level", type: "dropdown", options: ["High (30% Restorable)", "Quartile (25%)", "Medium (15% Normal)", "Low (7% Compact)"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Vector-Based Custom QR Code Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Vector-Based Custom QR Code Generator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "keyword-density",
-    title: "On-Page Keyword Density & Frequency Analyzer",
-    name: "On-Page Keyword Density & Frequency Analyzer",
-    category: "Growth Marketing",
-    description: "Parses raw HTML/text to calculate 1/2/3-word phrase density and stop-word filtering locally.",
+    title: "On-Page Keyword Frequency Matrix",
+    name: "On-Page Keyword Frequency Matrix",
+    category: "Growth Marketing & Analytics",
+    description: "Extracts 1-word, 2-word, and 3-word n-gram keyword frequencies from text.",
     inputs: [
-      { id: "htmlText", label: "Document Source HTML / Text Block", type: "textarea", placeholder: "Paste raw article html or copy text here..." },
-      { id: "stopWords", label: "Stop-Words Language Dictionary", type: "dropdown", options: ["English Dictionary Filters", "Spanish Filters", "Disable Filters (Extract All Words)"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for On-Page Keyword Frequency Matrix",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for On-Page Keyword Frequency Matrix..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
-    id: "social-formatter",
-    title: "Social Media Formatting & Character Matrix",
-    name: "Social Media Formatting & Character Matrix",
-    category: "Growth Marketing",
-    description: "Auto-formats text with custom unicode fonts (bold, italic, script) while checking character limits for X, LinkedIn, and Instagram.",
+    id: "social-image-cropper",
+    title: "Social Media Image Dimension Cropper",
+    name: "Social Media Image Dimension Cropper",
+    category: "Growth Marketing & Analytics",
+    description: "Crops photos to exact specs for Twitter, LinkedIn, Instagram, and Facebook.",
     inputs: [
-      { id: "text", label: "Social Copywriting Draft", type: "textarea", placeholder: "Write draft text here..." },
-      { id: "style", label: "Unicode Transformation Style", type: "dropdown", options: ["Bold Sans", "Bold Serif", "Italic Serif", "Monospace Coding", "Underlined Bold"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Social Media Image Dimension Cropper",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Social Media Image Dimension Cropper..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
-
-  // ==========================================
-  // 3. PRODUCTIVITY SOLVERS
-  // ==========================================
+  {
+    id: "og-tag-generator",
+    title: "Open Graph Meta Tag Visualizer",
+    name: "Open Graph Meta Tag Visualizer",
+    category: "Growth Marketing & Analytics",
+    description: "Generates `<meta property=\"og:title\">` and Twitter Card tags with preview.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Open Graph Meta Tag Visualizer",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Open Graph Meta Tag Visualizer..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
   {
     id: "pdf-merger",
-    title: "Offline PDF Merger, Splitter & Reorder",
-    name: "Offline PDF Merger, Splitter & Reorder",
-    category: "Productivity Solvers",
-    description: "Re-arranges, merges, and extracts PDF pages locally using pdf-lib.",
+    title: "Offline PDF Merger & Splitter (Client-Side)",
+    name: "Offline PDF Merger & Splitter (Client-Side)",
+    category: "Productivity & File Utilities",
+    description: "Merges multiple PDF files or extracts pages 100% locally in browser memory.",
     inputs: [
-      { id: "operation", label: "PDF Operation Mode", type: "dropdown", options: ["Merge PDFs", "Split PDF Pages", "Reorder Individual Pages"] },
-      { id: "pagesRange", label: "Pages range to split/reorder", type: "text", placeholder: "e.g. 1-3, 5, 7-10" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Offline PDF Merger & Splitter (Client-Side)",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Offline PDF Merger & Splitter (Client-Side)..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "ocr-extractor",
-    title: "Browser OCR / Image Text Extractor",
-    name: "Browser OCR / Image Text Extractor",
-    category: "Productivity Solvers",
-    description: "Converts scanned documents and photos into selectable text using Tesseract.js (WebAssembly OCR).",
+    title: "In-Browser OCR Image Text Extractor",
+    name: "In-Browser OCR Image Text Extractor",
+    category: "Productivity & File Utilities",
+    description: "Extracts printed text from images and screenshots using client Tesseract WASM.",
     inputs: [
-      { id: "language", label: "OCR Character Recognition Language", type: "dropdown", options: ["English", "Spanish", "French", "German", "Japanese"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for In-Browser OCR Image Text Extractor",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for In-Browser OCR Image Text Extractor..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
-    id: "media-trimmer",
-    title: "Audio/Video Trimmer & Format Converter",
-    name: "Audio/Video Trimmer & Format Converter",
-    category: "Productivity Solvers",
-    description: "Trims and converts media formats locally via FFmpeg.wasm (pure client-side media processing).",
+    id: "audio-converter-wasm",
+    title: "Client-Side Audio Converter (FFmpeg WASM)",
+    name: "Client-Side Audio Converter (FFmpeg WASM)",
+    category: "Productivity & File Utilities",
+    description: "Converts MP3, WAV, AAC, and OGG audio files without server uploads.",
     inputs: [
-      { id: "startTime", label: "Trim Start Time Code (HH:MM:SS)", type: "text", placeholder: "e.g. 00:00:10" },
-      { id: "endTime", label: "Trim End Time Code (HH:MM:SS)", type: "text", placeholder: "e.g. 00:00:45" },
-      { id: "targetFormat", label: "Target Output Media Format", type: "dropdown", options: ["MP4 (Video)", "WebM (Video)", "MP3 (Audio)", "WAV (Audio)"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Client-Side Audio Converter (FFmpeg WASM)",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Client-Side Audio Converter (FFmpeg WASM)..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "pomodoro-tracker",
-    title: "Pomodoro & Habit Analytics Dashboard",
-    name: "Pomodoro & Habit Analytics Dashboard",
-    category: "Productivity Solvers",
-    description: "Full productivity suite with native browser notifications, customizable timers, and local data persistence via IndexedDB.",
+    title: "Pomodoro Focus Engine",
+    name: "Pomodoro Focus Engine",
+    category: "Productivity & File Utilities",
+    description: "Customizable 25/5 focus timer with session logs and Web Audio chimes.",
     inputs: [
-      { id: "workDuration", label: "Focus Work Session Duration", type: "dropdown", options: ["25 Minutes", "50 Minutes", "90 Minutes Max"] },
-      { id: "breakDuration", label: "Short Break Interval", type: "dropdown", options: ["5 Minutes", "10 Minutes", "15 Minutes"] },
-      { id: "taskLabel", label: "Associated Session Task Tag", type: "text", placeholder: "e.g. coding features" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Pomodoro Focus Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Pomodoro Focus Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "file-hash",
-    title: "Universal File Hash Generator",
-    name: "Universal File Hash Generator",
-    category: "Productivity Solvers",
-    description: "Calculates SHA-256, SHA-512, MD5, and CRC32 checksums for massive files locally via the browser's Web Crypto API.",
+    title: "Universal File Hash (SHA-256/MD5) Calculator",
+    name: "Universal File Hash (SHA-256/MD5) Calculator",
+    category: "Productivity & File Utilities",
+    description: "Calculates SHA-256, SHA-1, and MD5 checksums for uploaded files.",
     inputs: [
-      { id: "algorithm", label: "Cryptographic Hash Algorithm", type: "dropdown", options: ["SHA-256 (Secure)", "SHA-512 (Extended)", "MD5 (Legacy Compatibility)", "CRC32 (Speed Check)"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Universal File Hash (SHA-256/MD5) Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Universal File Hash (SHA-256/MD5) Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "screen-recorder",
-    title: "Browser Screen & Webcam Recorder",
-    name: "Browser Screen & Webcam Recorder",
-    category: "Productivity Solvers",
-    description: "Records desktop, tab, or webcam with audio using MediaRecorder API and exports WebM/MP4 directly to disk.",
+    title: "In-Browser Screen & Webcam Recorder",
+    name: "In-Browser Screen & Webcam Recorder",
+    category: "Productivity & File Utilities",
+    description: "Captures screen recordings with audio and downloads WebM video files.",
     inputs: [
-      { id: "source", label: "Capture Frame Input Source", type: "dropdown", options: ["Screen Share Capture", "Webcam Device Capture", "Screen + Webcam Overlay"] },
-      { id: "audio", label: "Audio Capture Input Options", type: "dropdown", options: ["Include Microphone Audio Only", "Include System Audio + Microphone", "Mute Audio Channels"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for In-Browser Screen & Webcam Recorder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for In-Browser Screen & Webcam Recorder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "timezone-scheduler",
-    title: "Multi-Timezone Interactive Meeting Scheduler",
-    name: "Multi-Timezone Interactive Meeting Scheduler",
-    category: "Productivity Solvers",
-    description: "Visual overlap planner converting working hours across world cities using native browser Intl APIs.",
+    title: "Multi-Timezone Visual Meeting Scheduler",
+    name: "Multi-Timezone Visual Meeting Scheduler",
+    category: "Productivity & File Utilities",
+    description: "Finds optimal meeting overlap times across global timezones.",
     inputs: [
-      { id: "meetingDate", label: "Meeting Calendar Date", type: "text", placeholder: "e.g. 2026-08-15" },
-      { id: "hostTimezone", label: "Host Location Timezone", type: "dropdown", options: ["UTC", "America/New_York (EST)", "Europe/London (GMT)", "Asia/Kolkata (IST)", "Asia/Tokyo (JST)", "Australia/Sydney"] },
-      { id: "guestTimezones", label: "Guest Target Location Timezones (Comma separated)", type: "text", placeholder: "e.g. America/New_York, Europe/London" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Multi-Timezone Visual Meeting Scheduler",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Multi-Timezone Visual Meeting Scheduler..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "markdown-kanban",
     title: "Client-Side Markdown Kanban Board",
     name: "Client-Side Markdown Kanban Board",
-    category: "Productivity Solvers",
-    description: "Trello-like board storing columns and cards in IndexedDB with full JSON backup/restore capabilities.",
+    category: "Productivity & File Utilities",
+    description: "Interactive drag-and-drop task board persisting state in LocalStorage.",
     inputs: [
-      { id: "boardJson", label: "Restore Kanban Board JSON Schema", type: "textarea", placeholder: '{"columns": [{"title": "To Do", "cards": []}]}' },
-      { id: "boardAction", label: "Active Modification Operation", type: "dropdown", options: ["Load Board from JSON", "Export Board JSON Backup", "Reset Board Layout to Default"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Client-Side Markdown Kanban Board",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Client-Side Markdown Kanban Board..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "voice-transcriber",
-    title: "Voice Note Transcriber & Audio Dictation",
-    name: "Voice Note Transcriber & Audio Dictation",
-    category: "Productivity Solvers",
-    description: "Real-time continuous speech-to-text transcriber leveraging the native browser SpeechRecognition API.",
+    title: "Voice Note Web Speech Dictation Tool",
+    name: "Voice Note Web Speech Dictation Tool",
+    category: "Productivity & File Utilities",
+    description: "Transcribes spoken audio into text in real-time using Web Speech API.",
     inputs: [
-      { id: "language", label: "Dictation Dictation Language", type: "dropdown", options: ["English (US)", "Spanish (ES)", "French (FR)", "German (DE)"] },
-      { id: "recordingMode", label: "Continuous Audio Streaming Mode", type: "dropdown", options: ["Continuous Dictation", "Quick Note Sentences (Stops on silence)"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Voice Note Web Speech Dictation Tool",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Voice Note Web Speech Dictation Tool..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "mime-inspector",
-    title: "File Header & MIME Type Inspector",
-    name: "File Header & MIME Type Inspector",
-    category: "Productivity Solvers",
-    description: "Reads binary byte signatures (Magic Numbers) of any file via FileReader to reveal true file extensions and hex dumps.",
+    title: "File Magic Byte & MIME Inspector",
+    name: "File Magic Byte & MIME Inspector",
+    category: "Productivity & File Utilities",
+    description: "Inspects file header magic bytes to verify true file extension integrity.",
     inputs: [
-      { id: "inspectFile", label: "Target File to Inspect", type: "file" },
-      { id: "dumpBytes", label: "Hexadecimal Output Length", type: "dropdown", options: ["First 128 Bytes", "First 512 Bytes", "First 1024 Bytes Entire Header"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for File Magic Byte & MIME Inspector",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for File Magic Byte & MIME Inspector..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
-
-  // ==========================================
-  // 4. FINANCIAL CALCULATORS
-  // ==========================================
   {
     id: "fire-calculator",
-    title: "FIRE (Financial Independence) Retirement Calculator",
-    name: "FIRE (Financial Independence) Retirement Calculator",
-    category: "Financial Calculators",
-    description: "Simulates inflation-adjusted retirement timelines with dynamic interactive charts using Chart.js.",
+    title: "FIRE Retirement Amortization Calculator",
+    name: "FIRE Retirement Amortization Calculator",
+    category: "Financial & Investment Engines",
+    description: "Calculates Financial Independence target number and savings timeline.",
     inputs: [
-      { id: "currentAge", label: "Current Age", type: "text", placeholder: "e.g. 25" },
-      { id: "targetAge", label: "Desired Retirement Target Age", type: "text", placeholder: "e.g. 45" },
-      { id: "annualExpenses", label: "Expected Annual Expenses in Retirement ($)", type: "text", placeholder: "e.g. 60000" },
-      { id: "currentSavings", label: "Current Invested Savings ($)", type: "text", placeholder: "e.g. 100000" },
-      { id: "annualSavings", label: "Annual Regular New Investment ($)", type: "text", placeholder: "e.g. 24000" },
-      { id: "returnRate", label: "Assumed Investment Annual Growth Rate (%)", type: "text", placeholder: "e.g. 8.0" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for FIRE Retirement Amortization Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for FIRE Retirement Amortization Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "mortgage-amortization",
-    title: "Loan & Mortgage Amortization Schedule Engine",
-    name: "Loan & Mortgage Amortization Schedule Engine",
-    category: "Financial Calculators",
-    description: "Computes monthly breakdown tables, extra principal payments, and total interest graphs in real time.",
+    title: "Loan & Mortgage Schedule Engine",
+    name: "Loan & Mortgage Schedule Engine",
+    category: "Financial & Investment Engines",
+    description: "Generates full principal and interest monthly amortization tables.",
     inputs: [
-      { id: "loanAmount", label: "Loan Amount ($)", type: "text", placeholder: "e.g. 400000" },
-      { id: "loanTermYears", label: "Mortgage Loan Duration (Years)", type: "text", placeholder: "e.g. 30" },
-      { id: "interestRate", label: "Annual Loan Interest Rate (%)", type: "text", placeholder: "e.g. 6.5" },
-      { id: "extraMonthlyPayment", label: "Optional Extra Monthly Principal Payoff ($)", type: "text", placeholder: "e.g. 200" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Loan & Mortgage Schedule Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Loan & Mortgage Schedule Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "compound-interest",
-    title: "Compound Interest & DRIP Investment Simulator",
-    name: "Compound Interest & DRIP Investment Simulator",
-    category: "Financial Calculators",
-    description: "Calculates compounding daily/monthly/yearly growth with recurring deposit schedules and breakdown matrices.",
+    title: "Compound Interest & DRIP Simulator",
+    name: "Compound Interest & DRIP Simulator",
+    category: "Financial & Investment Engines",
+    description: "Simulates compound growth with monthly deposits and dividend reinvestment.",
     inputs: [
-      { id: "principal", label: "Initial Investment Capital ($)", type: "text", placeholder: "e.g. 10000" },
-      { id: "monthlyContribution", label: "Additional Monthly Deposit ($)", type: "text", placeholder: "e.g. 500" },
-      { id: "annualRate", label: "Estimated Annual Percentage Yield (%)", type: "text", placeholder: "e.g. 7.5" },
-      { id: "compoundFrequency", label: "Compound Frequency Interval", type: "dropdown", options: ["Monthly Compound", "Annual Compound", "Daily Compound"] },
-      { id: "periodYears", label: "Total Length of Growth Time (Years)", type: "text", placeholder: "e.g. 20" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Compound Interest & DRIP Simulator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Compound Interest & DRIP Simulator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "freelance-rate",
-    title: "Freelance Rate & Value-Based Pricing Calculator",
-    name: "Freelance Rate & Value-Based Pricing Calculator",
-    category: "Financial Calculators",
-    description: "Factors overhead expenses, desired income, billable hours, and tax estimates to derive minimum hourly/project rates.",
+    title: "Value-Based Freelance Rate Calculator",
+    name: "Value-Based Freelance Rate Calculator",
+    category: "Financial & Investment Engines",
+    description: "Calculates target hourly and project rates based on expenses and profit margin.",
     inputs: [
-      { id: "targetIncome", label: "Target Annual Net Take-Home Salary ($)", type: "text", placeholder: "e.g. 80000" },
-      { id: "overhead", label: "Annual Business Overhead Expenses ($)", type: "text", placeholder: "e.g. 12000" },
-      { id: "billableHoursPerWeek", label: "Target Productive Billable Hours per Week", type: "text", placeholder: "e.g. 25" },
-      { id: "vacationWeeks", label: "Unpaid Vacation / Sick Time Weeks per Year", type: "text", placeholder: "e.g. 4" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Value-Based Freelance Rate Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Value-Based Freelance Rate Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "saas-forecaster",
     title: "SaaS LTV, CAC & Churn Modeling Dashboard",
     name: "SaaS LTV, CAC & Churn Modeling Dashboard",
-    category: "Financial Calculators",
-    description: "Interactive unit economics simulator projecting MRR, customer lifetime value, and pay-back periods.",
+    category: "Financial & Investment Engines",
+    description: "Models Customer Lifetime Value, Acquisition Cost ratio, and ARR churn.",
     inputs: [
-      { id: "mrr", label: "Current Monthly Recurring Revenue ($)", type: "text", placeholder: "e.g. 50000" },
-      { id: "churnRate", label: "Monthly Customer Churn Rate (%)", type: "text", placeholder: "e.g. 3.5" },
-      { id: "cac", label: "Customer Acquisition Cost ($)", type: "text", placeholder: "e.g. 150" },
-      { id: "arpu", label: "Average Revenue Per User/Account ($)", type: "text", placeholder: "e.g. 49" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for SaaS LTV, CAC & Churn Modeling Dashboard",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for SaaS LTV, CAC & Churn Modeling Dashboard..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "debt-planner",
-    title: "Debt Snowball vs. Avalanche Payoff Planner",
-    name: "Debt Snowball vs. Avalanche Payoff Planner",
-    category: "Financial Calculators",
-    description: "Visual payoff timeline comparing total interest saved using Snowball vs. Avalanche strategies.",
+    title: "Debt Snowball vs. Avalanche Planner",
+    name: "Debt Snowball vs. Avalanche Planner",
+    category: "Financial & Investment Engines",
+    description: "Compares Debt Snowball (smallest balance) vs Avalanche (highest interest).",
     inputs: [
-      { id: "debtsList", label: "List of Outstanding Debts (Label: Balance, Rate, Min Payment)", type: "textarea", placeholder: "Credit Card: 5000, 18%, 150\nStudent Loan: 15000, 4.5%, 200" },
-      { id: "extraPayment", label: "Additional Monthly Snowball Allocation ($)", type: "text", placeholder: "e.g. 300" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Debt Snowball vs. Avalanche Planner",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Debt Snowball vs. Avalanche Planner..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "portfolio-rebalance",
-    title: "Crypto / Stock Portfolio Rebalancing Matrix",
-    name: "Crypto / Stock Portfolio Rebalancing Matrix",
-    category: "Financial Calculators",
-    description: "Calculates target asset allocation adjustments and trade execution quantities based on target percentages.",
+    title: "Portfolio Rebalancing Engine",
+    name: "Portfolio Rebalancing Engine",
+    category: "Financial & Investment Engines",
+    description: "Calculates exact buy/sell asset rebalancing trades for stocks and crypto.",
     inputs: [
-      { id: "assetsJson", label: "Current Assets Allocation Array JSON", type: "textarea", placeholder: '[\n  {"name": "BTC", "value": 8000, "target": 50},\n  {"name": "ETH", "value": 2000, "target": 50}\n]' }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Portfolio Rebalancing Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Portfolio Rebalancing Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "salary-tax",
-    title: "Net Salary Take-Home Tax Calculator",
-    name: "Net Salary Take-Home Tax Calculator",
-    category: "Financial Calculators",
-    description: "Configurable regional tax bracket sliders calculating net income, marginal rates, and deduction breakdowns.",
+    title: "Net Take-Home Tax Calculator",
+    name: "Net Take-Home Tax Calculator",
+    category: "Financial & Investment Engines",
+    description: "Estimates federal, state, and payroll tax deductions on annual gross income.",
     inputs: [
-      { id: "annualGross", label: "Annual Gross Basic Salary ($)", type: "text", placeholder: "e.g. 90000" },
-      { id: "region", label: "Tax Jurisdiction Region", type: "dropdown", options: ["US Federal Brackets", "United Kingdom (PAYE)", "Canada Provincial Average"] },
-      { id: "deductions", label: "Pre-Tax Retirement Deductions ($)", type: "text", placeholder: "e.g. 6000" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Net Take-Home Tax Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Net Take-Home Tax Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "inflation-calculator",
-    title: "Inflation & Purchasing Power Time Machine",
-    name: "Inflation & Purchasing Power Time Machine",
-    category: "Financial Calculators",
-    description: "Historical purchasing power calculator evaluating currency depreciation over customizable timeframes.",
+    title: "Inflation Purchasing Power Time Machine",
+    name: "Inflation Purchasing Power Time Machine",
+    category: "Financial & Investment Engines",
+    description: "Calculates historical purchasing power changes between any two years.",
     inputs: [
-      { id: "startAmount", label: "Initial Cash Amount ($)", type: "text", placeholder: "e.g. 1000" },
-      { id: "startYear", label: "Historical Start Year", type: "text", placeholder: "e.g. 1990" },
-      { id: "endYear", label: "Comparison Target Year", type: "text", placeholder: "e.g. 2026" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Inflation Purchasing Power Time Machine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Inflation Purchasing Power Time Machine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "real-estate-analyzer",
-    title: "Real Estate Cap Rate & Cash Flow Analyzer",
-    name: "Real Estate Cap Rate & Cash Flow Analyzer",
-    category: "Financial Calculators",
-    description: "Commercial/residential rental property analyzer computing Cash-on-Cash return, NOI, and Cap Rate.",
+    title: "Real Estate Cap Rate & Cash Flow Engine",
+    name: "Real Estate Cap Rate & Cash Flow Engine",
+    category: "Financial & Investment Engines",
+    description: "Calculates Capitalization Rate, Cash-on-Cash ROI, and Net Operating Income.",
     inputs: [
-      { id: "purchasePrice", label: "Property Purchase Price ($)", type: "text", placeholder: "e.g. 350000" },
-      { id: "downPaymentPercent", label: "Down Payment percentage (%)", type: "text", placeholder: "e.g. 20" },
-      { id: "monthlyRent", label: "Projected Gross Monthly Rent Income ($)", type: "text", placeholder: "e.g. 2500" },
-      { id: "annualExpenses", label: "Assumed Annual Maintenance, Tax & Insurance ($)", type: "text", placeholder: "e.g. 8000" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Real Estate Cap Rate & Cash Flow Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Real Estate Cap Rate & Cash Flow Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
-
-  // ==========================================
-  // 5. DATA & TECH UTILITIES
-  // ==========================================
   {
     id: "json-formatter",
-    title: "JSON Formatter, Validator, Diff & Tree Visualizer",
-    name: "JSON Formatter, Validator, Diff & Tree Visualizer",
+    title: "Interactive JSON Tree Visualizer & Diff",
+    name: "Interactive JSON Tree Visualizer & Diff",
     category: "Data & Tech Utilities",
-    description: "Prettifies, validates, diffs two JSON files, and renders interactive collapsible DOM trees.",
+    description: "Formats, validates, beautifies, and compares JSON data structures.",
     inputs: [
-      { id: "jsonText1", label: "Primary JSON Document", type: "textarea", placeholder: '{"status": "ok", "items": [1, 2]}' },
-      { id: "jsonText2", label: "Secondary JSON (For Diff Comparisons)", type: "textarea", placeholder: '{"status": "ok", "items": [1, 2, 3]}' },
-      { id: "mode", label: "Processing Mode", type: "dropdown", options: ["Format & Validate Main JSON", "Compare Diffs Side-By-Side"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Interactive JSON Tree Visualizer & Diff",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Interactive JSON Tree Visualizer & Diff..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "jwt-decoder",
-    title: "JWT (JSON Web Token) & Base64 Encoder/Decoder",
-    name: "JWT (JSON Web Token) & Base64 Encoder/Decoder",
+    title: "JWT Decoder & Payload Inspector",
+    name: "JWT Decoder & Payload Inspector",
     category: "Data & Tech Utilities",
-    description: "Inspects JWT headers, payloads, and signatures locally using Web Crypto without sending tokens over the wire.",
+    description: "Decodes Base64Url JSON Web Tokens inspecting header and claim payloads.",
     inputs: [
-      { id: "jwt", label: "Raw JSON Web Token (JWT) string", type: "textarea", placeholder: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ..." }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for JWT Decoder & Payload Inspector",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for JWT Decoder & Payload Inspector..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "regex-tester",
-    title: "Regex Tester & Syntax Debugger",
-    name: "Regex Tester & Syntax Debugger",
+    title: "Visual Regex Pattern Tester",
+    name: "Visual Regex Pattern Tester",
     category: "Data & Tech Utilities",
-    description: "Real-time regular expression tester with syntax highlighting, flag toggles, and match group breakdowns.",
+    description: "Tests JavaScript regular expressions with live highlight matches and flags.",
     inputs: [
-      { id: "regexPattern", label: "Regex Expression Pattern", type: "text", placeholder: "e.g. ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$" },
-      { id: "testString", label: "Test Subject String String", type: "textarea", placeholder: "Enter strings here to check regular expression matches..." },
-      { id: "flags", label: "Global Regex Match Flags", type: "text", placeholder: "e.g. g, i, m" }
-    ]
-  },
-  {
-    id: "css-playground",
-    title: "CSS Flexbox & CSS Grid Playground",
-    name: "CSS Flexbox & CSS Grid Playground",
-    category: "Data & Tech Utilities",
-    description: "Visual layout generator that lets developers drag/resize containers and outputs clean CSS code.",
-    inputs: [
-      { id: "layoutType", label: "Target Layout Model", type: "dropdown", options: ["Flexbox Row", "Flexbox Column", "Grid 3x3 layout", "Grid Custom"] },
-      { id: "gap", label: "Padding Items Gap (Pixels)", type: "text", placeholder: "e.g. 16px" },
-      { id: "itemsCount", label: "Number of Child Item Blocks", type: "text", placeholder: "e.g. 6" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Visual Regex Pattern Tester",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Visual Regex Pattern Tester..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "sqlite-studio",
-    title: "In-Browser SQLite Database Studio",
-    name: "In-Browser SQLite Database Studio",
+    title: "In-Browser SQLite Database Workbench",
+    name: "In-Browser SQLite Database Workbench",
     category: "Data & Tech Utilities",
-    description: "Runs full SQL queries against uploadable .sqlite files inside the browser via sql.js (WebAssembly).",
+    description: "Runs SQL queries on local SQLite databases using sql.js WebAssembly.",
     inputs: [
-      { id: "sqliteFile", label: "SQLite Database File (.db/.sqlite)", type: "file" },
-      { id: "sqlQuery", label: "SQL Execution Query Command", type: "textarea", placeholder: "SELECT * FROM sqlite_master;" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for In-Browser SQLite Database Workbench",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for In-Browser SQLite Database Workbench..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "color-contrast",
-    title: "Color Palette & WCAG 2.1 Contrast Checker",
-    name: "Color Palette & WCAG 2.1 Contrast Checker",
+    title: "WCAG 2.1 Color Contrast Checker",
+    name: "WCAG 2.1 Color Contrast Checker",
     category: "Data & Tech Utilities",
-    description: "Hex/RGB/HSL picker checking contrast accessibility ratios against Web Content Accessibility Guidelines.",
+    description: "Calculates WCAG AA/AAA contrast ratios between text and background colors.",
     inputs: [
-      { id: "bgColor", label: "Background Hex Color", type: "text", placeholder: "e.g. #FFFFFF" },
-      { id: "fgColor", label: "Foreground Text Hex Color", type: "text", placeholder: "e.g. #4F46E5" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for WCAG 2.1 Color Contrast Checker",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for WCAG 2.1 Color Contrast Checker..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "cron-humanizer",
     title: "Cron Expression Parser & Humanizer",
     name: "Cron Expression Parser & Humanizer",
     category: "Data & Tech Utilities",
-    description: "Translates Cron syntax into plain language (e.g., \"At 05:00 on every Sunday\") and predicts the next 10 execution dates.",
+    description: "Translates 5-part cron syntax (e.g. `*/5 * * * *`) into plain English.",
     inputs: [
-      { id: "cron", label: "Cron Expression string", type: "text", placeholder: "e.g. */5 * * * *" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Cron Expression Parser & Humanizer",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Cron Expression Parser & Humanizer..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "csv-converter",
-    title: "CSV / TSV to JSON / XML / YAML Converter",
-    name: "CSV / TSV to JSON / XML / YAML Converter",
+    title: "CSV / TSV to JSON / YAML Engine",
+    name: "CSV / TSV to JSON / YAML Engine",
     category: "Data & Tech Utilities",
-    description: "Parses massive CSV files locally using streaming parsers (PapaParse) and exports structured formats.",
+    description: "Converts spreadsheet CSV data into formatted JSON, XML, or YAML.",
     inputs: [
-      { id: "csvText", label: "Raw CSV File Content", type: "textarea", placeholder: "name,role,email\nJane,VP,jane@example.com" },
-      { id: "outputFormat", label: "Target Output Structure Format", type: "dropdown", options: ["JSON Array Struct", "XML Document Nodes", "YAML Block Document"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for CSV / TSV to JSON / YAML Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for CSV / TSV to JSON / YAML Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "password-generator",
-    title: "Cryptographically Secure Password & Passphrase Generator",
-    name: "Cryptographically Secure Password & Passphrase Generator",
+    title: "Secure Password & Entropy Generator",
+    name: "Secure Password & Entropy Generator",
     category: "Data & Tech Utilities",
-    description: "Generates high-entropy passwords using window.crypto.getRandomValues() with customizable complexity.",
+    description: "Generates cryptographically secure passwords using Web Crypto API.",
     inputs: [
-      { id: "length", label: "Target Password Length (Characters)", type: "text", placeholder: "e.g. 16" },
-      { id: "includeNumbers", label: "Include Number Blocks (0-9)", type: "dropdown", options: ["Yes, Include numbers", "No numbers"] },
-      { id: "includeSpecial", label: "Include Special Symbols (!@#$)", type: "dropdown", options: ["Yes, Include special characters", "No symbols"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Secure Password & Entropy Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Secure Password & Entropy Generator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "uuid-generator",
     title: "UUID, ULID & NanoID Batch Generator",
     name: "UUID, ULID & NanoID Batch Generator",
     category: "Data & Tech Utilities",
-    description: "Generates hundreds of unique identifiers (v4, v5, ULIDs) instantly in browser memory.",
+    description: "Generates RFC 4122 v4 UUIDs, ULIDs, and NanoIDs in single or batch mode.",
     inputs: [
-      { id: "count", label: "Total Identifiers Generation Count", type: "text", placeholder: "e.g. 100" },
-      { id: "idType", label: "Identifier Protocol Standard", type: "dropdown", options: ["UUID v4 (Standard Cryptographic)", "ULID (Time-sortable)", "NanoID (Compact Web Unique)"] },
-      { id: "uppercase", label: "Letter Case Output Style", type: "dropdown", options: ["lowercase format", "UPPERCASE FORMAT"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for UUID, ULID & NanoID Batch Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for UUID, ULID & NanoID Batch Generator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "base64-image-data-uri",
+    title: "Base64 Image to Data URI Converter",
+    name: "Base64 Image to Data URI Converter",
+    category: "Data & Tech Utilities",
+    description: "Converts PNG/JPEG images into inline `data:image/png;base64,...` strings.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Base64 Image to Data URI Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Base64 Image to Data URI Converter..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "ip-lookup",
-    title: "My IP Address & Network Geolocation Lookup",
-    name: "My IP Address & Network Geolocation Lookup",
+    title: "My IP & Geolocation Inspector",
+    name: "My IP & Geolocation Inspector",
     category: "Network & IP Utilities",
-    description: "Fetches public IP address, ISP, ASN, country, city, and connection parameters using client-side APIs.",
+    description: "Fetches public IP address, ISP provider, ASN, and city geolocation.",
     inputs: [
-      { id: "targetIp", label: "Target IP Address (leave blank for your IP)", type: "text", placeholder: "e.g. 8.8.8.8" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for My IP & Geolocation Inspector",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for My IP & Geolocation Inspector..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "dns-propagation",
-    title: "DNS Propagation Checker",
-    name: "DNS Propagation Checker",
+    title: "Multi-Server DNS Propagation Checker",
+    name: "Multi-Server DNS Propagation Checker",
     category: "Network & IP Utilities",
-    description: "Queries DNS record propagation (A, AAAA, CNAME, MX, TXT) across global resolvers.",
+    description: "Queries A, CNAME, MX, and TXT records across global DNS servers.",
     inputs: [
-      { id: "domain", label: "Target Domain Name", type: "text", placeholder: "e.g. example.com" },
-      { id: "type", label: "DNS Record Type", type: "dropdown", options: ["A", "AAAA", "CNAME", "MX", "TXT", "NS"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Multi-Server DNS Propagation Checker",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Multi-Server DNS Propagation Checker..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "ping-tester",
-    title: "Client-Side Ping & Latency Tester",
-    name: "Client-Side Ping & Latency Tester",
+    title: "Client-Side Latency Tester",
+    name: "Client-Side Latency Tester",
     category: "Network & IP Utilities",
-    description: "Measures round-trip response latency, HTTP timing, and packet jitter to target Web endpoints.",
+    description: "Measures round-trip time (RTT) latency and jitter to public web servers.",
     inputs: [
-      { id: "endpoint", label: "Target Host URL", type: "text", placeholder: "e.g. https://cloudflare.com" },
-      { id: "count", label: "Ping Packets Count", type: "dropdown", options: ["5 Packets", "10 Packets", "20 Packets"] }
-    ]
-  },
-  {
-    id: "port-scanner",
-    title: "Port Scanner Tool UI",
-    name: "Port Scanner Tool UI",
-    category: "Network & IP Utilities",
-    description: "Checks common Web, WebSocket, and service ports on target hosts.",
-    inputs: [
-      { id: "host", label: "Target Host / IP", type: "text", placeholder: "e.g. 127.0.0.1 or example.com" },
-      { id: "ports", label: "Target Ports to Scan", type: "text", placeholder: "e.g. 80, 443, 8080, 22, 3306" }
-    ]
-  },
-  {
-    id: "ssl-checker",
-    title: "SSL Certificate Expiry Checker UI",
-    name: "SSL Certificate Expiry Checker UI",
-    category: "Network & IP Utilities",
-    description: "Inspects SSL/TLS certificate health, expiration countdown, issuer, and SAN domains.",
-    inputs: [
-      { id: "domain", label: "Target Domain Name", type: "text", placeholder: "e.g. example.com" }
-    ]
-  },
-  {
-    id: "mac-vendor",
-    title: "MAC Address Lookup Vendor Tool",
-    name: "MAC Address Lookup Vendor Tool",
-    category: "Network & IP Utilities",
-    description: "Parses 6-digit OUI prefixes against IEEE registered hardware vendors.",
-    inputs: [
-      { id: "mac", label: "Hardware MAC Address", type: "text", placeholder: "e.g. 00:1A:2B:3C:4D:5E" }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Client-Side Latency Tester",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Client-Side Latency Tester..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "cidr-calculator",
-    title: "Subnet / CIDR Calculator",
-    name: "Subnet / CIDR Calculator",
+    title: "Subnet / CIDR Mask Calculator",
+    name: "Subnet / CIDR Mask Calculator",
     category: "Network & IP Utilities",
-    description: "Calculates IP ranges, netmask, wildcard mask, broadcast address, and host capacities.",
+    description: "Calculates network IP ranges, subnet masks, wildcard masks, and hosts.",
     inputs: [
-      { id: "ip", label: "IP Address", type: "text", placeholder: "e.g. 192.168.1.1" },
-      { id: "cidr", label: "Subnet Prefix / CIDR", type: "dropdown", options: ["/24 (255.255.255.0)", "/16 (255.255.0.0)", "/28 (255.255.255.240)", "/30 (255.255.255.252)"] }
-    ]
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Subnet / CIDR Mask Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Subnet / CIDR Mask Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
   },
   {
     id: "header-inspector",
-    title: "HTTP Header Inspector",
-    name: "HTTP Header Inspector",
+    title: "HTTP Security Header Inspector",
+    name: "HTTP Security Header Inspector",
     category: "Network & IP Utilities",
-    description: "Inspects HTTP response headers, CORS policies, security flags, and client navigator parameters.",
-    inputs: [
-      { id: "url", label: "Target Request URL", type: "text", placeholder: "e.g. https://httpbin.org/headers" }
-    ]
-  },
-  {
-    id: "speed-test",
-    title: "Client-Side Network Speed Test Widget",
-    name: "Client-Side Network Speed Test Widget",
-    category: "Network & IP Utilities",
-    description: "Downloads payload chunks in browser memory to measure download throughput and latency.",
-    inputs: [
-      { id: "chunkSize", label: "Download Test Payload Size", type: "dropdown", options: ["5 MB Payload", "10 MB Payload", "25 MB Payload"] }
-    ]
-  },
-  {
-    id: "whois-lookup",
-    title: "Whois Domain Lookup UI",
-    name: "Whois Domain Lookup UI",
-    category: "Network & IP Utilities",
-    description: "Queries domain registration metadata, expiration dates, registrar, and nameservers via RDAP.",
-    inputs: [
-      { id: "domain", label: "Target Domain Name", type: "text", placeholder: "e.g. example.com" }
-    ]
-  },
-  
-  {
-    id: "url-encoder-decoder",
-    title: "URL Encoder / Decoder",
-    name: "URL Encoder / Decoder",
-    category: "Converters & Encoders",
-    description: "Converts special characters to URL-safe percent-encoding or decodes URL strings.",
-    inputs: [
-      { id: "urlText", label: "URL String / Parameter Text", type: "textarea", placeholder: "https://example.com/search?q=hello world & test=100%" },
-      { id: "mode", label: "Action Mode", type: "dropdown", options: ["URL Encode (encodeURIComponent)", "URL Decode (decodeURIComponent)"] }
-    ]
-  },
-  
-  {
-    id: "xml-to-json",
-    title: "XML to JSON Converter",
-    name: "XML to JSON Converter",
-    category: "Converters & Encoders",
-    description: "Parses XML documents using browser DOMParser and converts XML trees into JSON objects.",
-    inputs: [
-      { id: "xmlInput", label: "XML Code Payload", type: "textarea", placeholder: "<user>\n  <name>Jane Doe</name>\n  <role>Engineer</role>\n</user>" }
-    ]
-  },
-  
-  {
-    id: "color-code-converter",
-    title: "Color Code Converter (HEX, RGB, HSL, CMYK)",
-    name: "Color Code Converter (HEX, RGB, HSL, CMYK)",
-    category: "Converters & Encoders",
-    description: "Converts Hex color codes to RGB, HSL, and CMYK with instant validation.",
-    inputs: [
-      { id: "hex", label: "Hex Color Code", type: "text", placeholder: "e.g. #4F46E5 or #FFF" }
-    ]
-  },
-  {
-    id: "unix-timestamp-converter",
-    title: "Unix Timestamp to Human Date Converter",
-    name: "Unix Timestamp to Human Date Converter",
-    category: "Converters & Encoders",
-    description: "Converts epoch timestamps (seconds/ms) to UTC, Local Time, and ISO 8601.",
-    inputs: [
-      { id: "timestamp", label: "Unix Timestamp (seconds or ms)", type: "text", placeholder: "e.g. 1772275200" }
-    ]
-  },
-  {
-    id: "yaml-to-json",
-    title: "YAML to JSON Converter",
-    name: "YAML to JSON Converter",
-    category: "Converters & Encoders",
-    description: "Parses YAML key-value structures into indented JSON objects.",
-    inputs: [
-      { id: "yamlInput", label: "YAML Syntax Code", type: "textarea", placeholder: "title: 50+ Tools\nversion: 1.0" }
-    ]
-  },
-  {
-    id: "multi-unit-converter",
-    title: "Multi-Unit Converter (Mass, Length, Temp, Volume)",
-    name: "Multi-Unit Converter (Mass, Length, Temp, Volume)",
-    category: "Converters & Encoders",
-    description: "Converts values across Metric and Imperial measurement systems.",
-    inputs: [
-      { id: "val", label: "Numeric Value", type: "text", placeholder: "e.g. 100" },
-      { id: "category", label: "Unit Category", type: "dropdown", options: ["Length (Meters/Feet)", "Mass (Kg/Pounds)", "Temperature (C/F)"] }
-    ]
-  },
-  {
-    id: "live-currency-calculator",
-    title: "Live Currency Calculator",
-    name: "Live Currency Calculator",
-    category: "Converters & Encoders",
-    description: "Calculates currency exchange rates across USD, EUR, GBP, INR, JPY, and CAD.",
-    inputs: [
-      { id: "amount", label: "Currency Amount", type: "text", placeholder: "e.g. 100" },
-      { id: "from", label: "From Currency", type: "dropdown", options: ["USD ($)", "EUR (€)", "GBP (£)", "INR (₹)", "JPY (¥)"] },
-      { id: "to", label: "To Currency", type: "dropdown", options: ["EUR (€)", "USD ($)", "GBP (£)", "INR (₹)", "JPY (¥)"] }
-    ]
-  },
-  {
-    id: "json-minifier-beautifier",
-    title: "JSON Minifier & Beautifier",
-    name: "JSON Minifier & Beautifier",
-    category: "Text & Code Formatters",
-    description: "Formats JSON documents with 2 or 4 space indentation or minifies into a single compact line.",
-    inputs: [
-      { id: "jsonCode", label: "JSON Code Input", type: "textarea", placeholder: '{"name":"Zenovee","tools":50,"status":"active"}' },
-      { id: "formatMode", label: "Format Mode", type: "dropdown", options: ["Beautify (2 Spaces)", "Beautify (4 Spaces)", "Minify (Compact One-Line)"] }
-    ]
-  },
-  {
-    id: "sql-formatter",
-    title: "SQL Query Formatter / Beautifier",
-    name: "SQL Query Formatter / Beautifier",
-    category: "Text & Code Formatters",
-    description: "Formats raw SQL queries with proper line breaks and capitalized SQL keywords.",
-    inputs: [
-      { id: "sqlText", label: "Raw SQL Query", type: "textarea", placeholder: "select id,name,email from users where status='active' group by id order by id desc limit 10;" }
-    ]
-  },
-  {
-    id: "html-minifier",
-    title: "HTML Minifier & Whitespace Stripper",
-    name: "HTML Minifier & Whitespace Stripper",
-    category: "Text & Code Formatters",
-    description: "Strips HTML comments, redundant whitespace, and newlines for optimized page loading.",
-    inputs: [
-      { id: "htmlCode", label: "HTML Source Code", type: "textarea", placeholder: '<!-- Comment -->\n<div class="card">\n   <h1>  Title  </h1>\n</div>' }
-    ]
-  },
-  {
-    id: "css-js-compressor",
-    title: "CSS / JS Code Compressor",
-    name: "CSS / JS Code Compressor",
-    category: "Text & Code Formatters",
-    description: "Compresses CSS rules and JavaScript code by stripping comments and whitespace.",
-    inputs: [
-      { id: "code", label: "Source Code Snippet", type: "textarea", placeholder: "/* Primary Card Style */\n.card {\n  color: #333;\n  padding: 16px;\n}" },
-      { id: "lang", label: "Code Language", type: "dropdown", options: ["CSS Stylesheet", "JavaScript Code"] }
-    ]
-  },
-  {
-    id: "regex-tester-live",
-    title: "Regex Pattern Matcher & Tester",
-    name: "Regex Pattern Matcher & Tester",
-    category: "Text & Code Formatters",
-    description: "Tests regular expressions against sample text strings with match counts and capture groups.",
-    inputs: [
-      { id: "pattern", label: "Regex Pattern (without slashes)", type: "text", placeholder: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}" },
-      { id: "flags", label: "Regex Flags", type: "dropdown", options: ["g (Global)", "gi (Global + Case-Insensitive)", "gim (Global + Multiline)"] },
-      { id: "testText", label: "Test String Text", type: "textarea", placeholder: "Contact us at support@example.com or sales@test.org for info." }
-    ]
-  },
-  {
-    id: "text-diff-checker",
-    title: "Text Diff Checker & Visual Comparison",
-    name: "Text Diff Checker & Visual Comparison",
-    category: "Text & Code Formatters",
-    description: "Compares two text versions line-by-line and highlights added or removed text.",
-    inputs: [
-      { id: "textA", label: "Original Text (Version A)", type: "textarea", placeholder: "Line 1: Hello World\nLine 2: Fast client side tools" },
-      { id: "textB", label: "Modified Text (Version B)", type: "textarea", placeholder: "Line 1: Hello World!\nLine 2: 50+ Fast client side tools\nLine 3: Added new line" }
-    ]
-  },
-  
-  
-  {
-    id: "text-stats-counter",
-    title: "Word, Character, and Paragraph Counter",
-    name: "Word, Character, and Paragraph Counter",
-    category: "Text & Code Formatters",
-    description: "Calculates real-time word count, character count, sentence count, and reading time metrics.",
-    inputs: [
-      { id: "text", label: "Document Content", type: "textarea", placeholder: "Type or paste document text here..." }
-    ]
-  },
-  {
-    id: "url-slug-generator",
-    title: "URL Slug Generator",
-    name: "URL Slug Generator",
-    category: "Text & Code Formatters",
-    description: "Converts article headlines and titles into clean, SEO-friendly URL slugs.",
-    inputs: [
-      { id: "title", label: "Headline / Article Title", type: "text", placeholder: "How to Build 50+ Fast Client-Side Tools in 2026!" },
-      { id: "separator", label: "Word Separator", type: "dropdown", options: ["Hyphen (-)", "Underscore (_)"] }
-    ]
-  },
-  {
-    id: "percentage-calculator",
-    title: "Advanced Percentage Calculator",
-    name: "Advanced Percentage Calculator",
-    category: "Calculators & Mathematics",
-    description: "Calculates X% of Y, percentage ratios, and percentage increase or decrease between numbers.",
-    inputs: [
-      { id: "mode", label: "Calculation Mode", type: "dropdown", options: ["What is X% of Y?", "What percentage is X of Y?", "% Increase / Decrease from X to Y"] },
-      { id: "valX", label: "Value X", type: "text", placeholder: "15" },
-      { id: "valY", label: "Value Y", type: "text", placeholder: "250" }
-    ]
-  },
-  {
-    id: "compound-interest-calculator",
-    title: "Compound Interest Growth Calculator",
-    name: "Compound Interest Growth Calculator",
-    category: "Calculators & Mathematics",
-    description: "Calculates investment growth over time with recurring deposits and compound interest tables.",
-    inputs: [
-      { id: "initial", label: "Initial Principal ($)", type: "text", placeholder: "10000" },
-      { id: "monthly", label: "Monthly Contribution ($)", type: "text", placeholder: "500" },
-      { id: "rate", label: "Annual Return Rate (%)", type: "text", placeholder: "8.0" },
-      { id: "years", label: "Investment Duration (Years)", type: "text", placeholder: "10" }
-    ]
-  },
-  {
-    id: "bmi-body-fat",
-    title: "BMI & Body Fat Metric Calculator",
-    name: "BMI & Body Fat Metric Calculator",
-    category: "Calculators & Mathematics",
-    description: "Calculates Body Mass Index (BMI), WHO weight category, and estimated body fat percentage.",
-    inputs: [
-      { id: "weight", label: "Weight (kg)", type: "text", placeholder: "70" },
-      { id: "height", label: "Height (cm)", type: "text", placeholder: "175" },
-      { id: "age", label: "Age (years)", type: "text", placeholder: "28" },
-      { id: "gender", label: "Biological Gender", type: "dropdown", options: ["Male", "Female"] }
-    ]
-  },
-  {
-    id: "age-date-difference",
-    title: "Age & Exact Date Difference Calculator",
-    name: "Age & Exact Date Difference Calculator",
-    category: "Calculators & Mathematics",
-    description: "Calculates exact age in years, months, days, total weeks, and total days between two dates.",
-    inputs: [
-      { id: "startDate", label: "Start Date / Birthdate (YYYY-MM-DD)", type: "text", placeholder: "1995-06-15" },
-      { id: "endDate", label: "End Date / Target Date (leave blank for today)", type: "text", placeholder: "2026-07-30" }
-    ]
-  },
-  {
-    id: "gpa-calculator",
-    title: "GPA / Grade Point Average Calculator",
-    name: "GPA / Grade Point Average Calculator",
-    category: "Calculators & Mathematics",
-    description: "Calculates cumulative weighted Grade Point Average (GPA) on a 4.0 grading scale.",
-    inputs: [
-      { id: "courses", label: "Course Grades & Credits (e.g., A 3, B+ 4, A- 3, B 3)", type: "textarea", placeholder: "A 3\nB+ 4\nA- 3\nB 3" }
-    ]
-  },
-  {
-    id: "salary-to-hourly",
-    title: "Salary to Hourly Pay Wage Converter",
-    name: "Salary to Hourly Pay Wage Converter",
-    category: "Calculators & Mathematics",
-    description: "Converts annual salary into hourly, weekly, bi-weekly, and monthly wage breakdowns.",
-    inputs: [
-      { id: "salary", label: "Annual Base Salary ($)", type: "text", placeholder: "75000" },
-      { id: "hoursPerWeek", label: "Work Hours per Week", type: "text", placeholder: "40" }
-    ]
-  },
-  {
-    id: "tip-bill-splitter",
-    title: "Restaurant Tip & Bill Split Calculator",
-    name: "Restaurant Tip & Bill Split Calculator",
-    category: "Calculators & Mathematics",
-    description: "Calculates gratuity amount, total bill, and split cost per person in dining groups.",
-    inputs: [
-      { id: "bill", label: "Subtotal Bill Amount ($)", type: "text", placeholder: "120.00" },
-      { id: "tipPct", label: "Tip Percentage", type: "dropdown", options: ["18% (Standard)", "20% (Great Service)", "15% (Fair)", "25% (Exceptional)"] },
-      { id: "people", label: "Number of People Splitting", type: "text", placeholder: "4" }
-    ]
-  },
-  {
-    id: "discount-sales-tax",
-    title: "Retail Discount & Sales Tax Calculator",
-    name: "Retail Discount & Sales Tax Calculator",
-    category: "Calculators & Mathematics",
-    description: "Calculates promotional discount savings, sales tax, and final checkout prices.",
-    inputs: [
-      { id: "price", label: "Original Retail Price ($)", type: "text", placeholder: "199.99" },
-      { id: "discount", label: "Discount Percentage (%)", type: "text", placeholder: "20" },
-      { id: "tax", label: "Sales Tax Rate (%)", type: "text", placeholder: "8.5" }
-    ]
-  },
-  {
-    id: "fuel-cost-calculator",
-    title: "Vehicle Fuel Cost & Trip Distance Calculator",
-    name: "Vehicle Fuel Cost & Trip Distance Calculator",
-    category: "Calculators & Mathematics",
-    description: "Calculates required fuel volume and total trip cost based on fuel efficiency and gas prices.",
-    inputs: [
-      { id: "distance", label: "Total Trip Distance (Miles)", type: "text", placeholder: "350" },
-      { id: "efficiency", label: "Fuel Efficiency (MPG)", type: "text", placeholder: "28" },
-      { id: "gasPrice", label: "Gas Price per Gallon ($)", type: "text", placeholder: "3.65" }
-    ]
-  },
-  {
-    id: "password-generator-sec",
-    title: "Strong Password Generator",
-    name: "Strong Password Generator",
-    category: "Security & Generators",
-    description: "Generates cryptographically secure passwords using window.crypto.getRandomValues() locally.",
-    inputs: [
-      { id: "length", label: "Password Length (Characters)", type: "text", placeholder: "16" },
-      { id: "incUpper", label: "Include Uppercase (A-Z)", type: "dropdown", options: ["Yes, Include Uppercase", "No Uppercase"] },
-      { id: "incNumbers", label: "Include Numbers (0-9)", type: "dropdown", options: ["Yes, Include Numbers", "No Numbers"] },
-      { id: "incSymbols", label: "Include Special Symbols (!@#$%)", type: "dropdown", options: ["Yes, Include Symbols", "No Symbols"] }
-    ]
-  },
-  {
-    id: "crypto-hash-generator",
-    title: "MD5, SHA-1, and SHA-256 Hash Generator",
-    name: "MD5, SHA-1, and SHA-256 Hash Generator",
-    category: "Security & Generators",
-    description: "Computes cryptographic hashes using Web Crypto API directly inside your browser.",
-    inputs: [
-      { id: "text", label: "Plaintext String Input", type: "textarea", placeholder: "Enter text payload to hash..." }
-    ]
-  },
-  {
-    id: "uuid-guid-v4",
-    title: "UUID / GUID v4 Identifier Generator",
-    name: "UUID / GUID v4 Identifier Generator",
-    category: "Security & Generators",
-    description: "Generates RFC 4122 compliant version 4 UUIDs using window.crypto.randomUUID().",
-    inputs: [
-      { id: "count", label: "Batch Count to Generate", type: "dropdown", options: ["5 Identifiers", "1 Identifier", "10 Identifiers", "25 Identifiers"] }
-    ]
-  },
-  {
-    id: "qr-code-generator",
-    title: "QR Code Generator",
-    name: "QR Code Generator",
-    category: "Security & Generators",
-    description: "Generates instant 2D QR codes for URLs, WiFi credentials, or plain text.",
-    inputs: [
-      { id: "qrData", label: "URL / Text to Encode into QR", type: "text", placeholder: "https://zenovee.ai" },
-      { id: "size", label: "QR Image Dimensions", type: "dropdown", options: ["250 x 250 px", "350 x 350 px", "500 x 500 px"] }
-    ]
-  },
-  {
-    id: "dummy-test-data",
-    title: "Dummy Test Data Framework Generator",
-    name: "Dummy Test Data Framework Generator",
-    category: "Security & Generators",
-    description: "Generates mock user dataset profiles with names, emails, phone numbers, and addresses.",
-    inputs: [
-      { id: "count", label: "Record Count", type: "dropdown", options: ["5 Records", "10 Records", "20 Records"] },
-      { id: "format", label: "Export Format", type: "dropdown", options: ["JSON Array", "CSV Spreadsheet"] }
-    ]
-  },
-  {
-    id: "random-number-gen",
-    title: "Random Number Generator",
-    name: "Random Number Generator",
-    category: "Security & Generators",
-    description: "Generates random integers within custom Min and Max boundary limits.",
-    inputs: [
-      { id: "min", label: "Minimum Bound (Min)", type: "text", placeholder: "1" },
-      { id: "max", label: "Maximum Bound (Max)", type: "text", placeholder: "100" },
-      { id: "count", label: "Generation Count", type: "dropdown", options: ["5 Numbers", "1 Number", "10 Numbers", "20 Numbers"] }
-    ]
-  },
-  
-  {
-    id: "robots-txt-builder",
-    title: "Robots.txt File Generator",
-    name: "Robots.txt File Generator",
-    category: "Security & Generators",
-    description: "Builds search engine crawler instructions and sitemap directives for robots.txt.",
-    inputs: [
-      { id: "userAgent", label: "Target User Agent", type: "dropdown", options: ["* (All Crawlers)", "Googlebot", "Bingbot"] },
-      { id: "disallow", label: "Disallowed Paths (comma separated)", type: "text", placeholder: "/admin/, /private/, /api/" },
-      { id: "sitemap", label: "Sitemap XML URL", type: "text", placeholder: "https://zenovee.ai/sitemap.xml" }
-    ]
-  },
-  {
-    id: "htaccess-rule-builder",
-    title: ".htaccess Redirect Rule Builder",
-    name: ".htaccess Redirect Rule Builder",
-    category: "Security & Generators",
-    description: "Generates Apache server rewrite rules for HTTPS enforcement, WWW redirects, and security headers.",
-    inputs: [
-      { id: "forceHttps", label: "Force HTTPS Directives", type: "dropdown", options: ["Yes, Enable HTTPS Rewrite", "No HTTPS Force"] },
-      { id: "secHeaders", label: "Include Security Headers", type: "dropdown", options: ["Yes, Include Security Headers", "No Headers"] }
-    ]
-  },
-  {
-    id: "favicon-generator-ui",
-    title: "Favicon Generator UI",
-    name: "Favicon Generator UI",
-    category: "Security & Generators",
-    description: "Generates HTML icon tags, Apple Touch icons, and Web App Manifest icon sizes.",
-    inputs: [
-      { id: "brand", label: "Brand Initials / Icon Symbol", type: "text", placeholder: "ZA" },
-      { id: "bgColor", label: "Background Hex Color", type: "text", placeholder: "#4F46E5" }
-    ]
-  },
-  {
-    id: "html-entity-encoder",
-    title: "HTML Entity Encoder / Decoder",
-    name: "HTML Entity Encoder / Decoder",
-    category: "Developer & Web Tools",
-    description: "Converts special characters to HTML entities (&lt;, &gt;, &amp;, &quot;) and decodes entity strings.",
+    description: "Inspects HTTP response headers for CSP, HSTS, and X-Frame-Options.",
     inputs: [
       {
-            "id": "text",
-            "label": "Input HTML / Code Text",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for HTTP Security Header Inspector",
             "type": "textarea",
-            "placeholder": "<h1>Hello \"World\" & \"Developers\"</h1>"
+            "placeholder": "Enter parameters or paste target payload for HTTP Security Header Inspector..."
     },
       {
             "id": "mode",
-            "label": "Action Mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Encode to HTML Entities",
-                  "Decode HTML Entities"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
   },
   {
-    id: "js-minifier",
-    title: "JavaScript Code Minifier & Formatter",
-    name: "JavaScript Code Minifier & Formatter",
-    category: "Developer & Web Tools",
-    description: "Compresses JavaScript code by removing comments, redundant spaces, and line breaks.",
+    id: "ssl-checker",
+    title: "SSL Certificate Expiry Checker",
+    name: "SSL Certificate Expiry Checker",
+    category: "Network & IP Utilities",
+    description: "Inspects SSL/TLS certificate validity dates, issuer, and SAN domains.",
     inputs: [
       {
-            "id": "code",
-            "label": "JavaScript Source Code",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for SSL Certificate Expiry Checker",
             "type": "textarea",
-            "placeholder": "// Calculate sum\nfunction add(a, b) {\n  return a + b;\n}"
-    }
-]
-  },
-  {
-    id: "css-minifier",
-    title: "CSS Stylesheet Minifier & Beautifier",
-    name: "CSS Stylesheet Minifier & Beautifier",
-    category: "Developer & Web Tools",
-    description: "Minifies CSS stylesheets for production or beautifies compressed CSS into readable format.",
-    inputs: [
-      {
-            "id": "cssCode",
-            "label": "CSS Source Code",
-            "type": "textarea",
-            "placeholder": "/* Header Styles */\n.header {\n  color: #4F46E5;\n  font-size: 16px;\n}"
+            "placeholder": "Enter parameters or paste target payload for SSL Certificate Expiry Checker..."
     },
       {
             "id": "mode",
-            "label": "Format Mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Minify CSS",
-                  "Beautify CSS (2 Spaces)"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
   },
   {
-    id: "xml-formatter",
-    title: "XML Code Formatter & Validator",
-    name: "XML Code Formatter & Validator",
-    category: "Developer & Web Tools",
-    description: "Pretty-prints XML documents with customizable indent spacing and validates XML tag closure.",
+    id: "mac-vendor",
+    title: "MAC Address OUI Vendor Lookup",
+    name: "MAC Address OUI Vendor Lookup",
+    category: "Network & IP Utilities",
+    description: "Looks up hardware manufacturer details from MAC address OUI prefixes.",
     inputs: [
       {
-            "id": "xmlCode",
-            "label": "Raw XML Code",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for MAC Address OUI Vendor Lookup",
             "type": "textarea",
-            "placeholder": "<root><user id=\"1\"><name>Alice</name></user></root>"
-    }
-]
-  },
-  {
-    id: "json-validator",
-    title: "JSON Validator & Syntax Fixer",
-    name: "JSON Validator & Syntax Fixer",
-    category: "Developer & Web Tools",
-    description: "Validates JSON strings, locates syntax errors with line numbers, and fixes common JSON mistakes.",
-    inputs: [
-      {
-            "id": "jsonText",
-            "label": "JSON Code to Validate",
-            "type": "textarea",
-            "placeholder": "{\n  \"name\": \"Zenovee\",\n  \"tools\": 100\n}"
-    }
-]
-  },
-  {
-    id: "htaccess-tester",
-    title: ".htaccess Redirect & Rewrite Tester",
-    name: ".htaccess Redirect & Rewrite Tester",
-    category: "Developer & Web Tools",
-    description: "Tests Apache .htaccess RewriteRule patterns against incoming test URLs.",
-    inputs: [
-      {
-            "id": "rule",
-            "label": "RewriteRule Pattern",
-            "type": "text",
-            "placeholder": "^old-page/(.*)$ https://example.com/new-page/$1 [R=301,L]"
+            "placeholder": "Enter parameters or paste target payload for MAC Address OUI Vendor Lookup..."
     },
       {
-            "id": "testUrl",
-            "label": "Test Request URL",
-            "type": "text",
-            "placeholder": "https://example.com/old-page/article-123"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
-  
   {
     id: "user-agent-parser",
     title: "User-Agent String Parser",
     name: "User-Agent String Parser",
-    category: "Developer & Web Tools",
-    description: "Parses User-Agent strings to identify Browser Name, OS Version, Engine, and Device Type.",
+    category: "Network & IP Utilities",
+    description: "Parses User-Agent strings extracting Browser, OS, Engine, and Device.",
     inputs: [
       {
-            "id": "uaString",
-            "label": "User-Agent String (leave blank for your browser)",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for User-Agent String Parser",
             "type": "textarea",
-            "placeholder": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36..."
-    }
-]
-  },
-  {
-    id: "markdown-table-generator",
-    title: "Markdown Table Builder",
-    name: "Markdown Table Builder",
-    category: "Developer & Web Tools",
-    description: "Generates clean Markdown data tables with customizable columns, alignment, and CSV import.",
-    inputs: [
-      {
-            "id": "cols",
-            "label": "Columns Count",
-            "type": "text",
-            "placeholder": "3"
-    },
-      {
-            "id": "rows",
-            "label": "Rows Count",
-            "type": "text",
-            "placeholder": "3"
-    },
-      {
-            "id": "headers",
-            "label": "Header Titles (comma separated)",
-            "type": "text",
-            "placeholder": "ID, Product Name, Price"
-    }
-]
-  },
-  {
-    id: "chmod-calculator",
-    title: "Linux Chmod Permissions Calculator",
-    name: "Linux Chmod Permissions Calculator",
-    category: "Developer & Web Tools",
-    description: "Calculates octal numerical permissions (755, 644) and symbolic notations (rwxr-xr-x).",
-    inputs: [
-      {
-            "id": "owner",
-            "label": "Owner Permissions",
-            "type": "dropdown",
-            "options": [
-                  "Read + Write + Execute (7)",
-                  "Read + Write (6)",
-                  "Read + Execute (5)",
-                  "Read Only (4)"
-            ]
-    },
-      {
-            "id": "group",
-            "label": "Group Permissions",
-            "type": "dropdown",
-            "options": [
-                  "Read + Execute (5)",
-                  "Read Only (4)",
-                  "Read + Write (6)",
-                  "No Access (0)"
-            ]
-    },
-      {
-            "id": "publicAcc",
-            "label": "Public/Others Permissions",
-            "type": "dropdown",
-            "options": [
-                  "Read + Execute (5)",
-                  "Read Only (4)",
-                  "No Access (0)",
-                  "Read + Write + Execute (7)"
-            ]
-    }
-]
-  },
-  {
-    id: "color-picker-palette",
-    title: "Interactive Color Picker & Palette Generator",
-    name: "Interactive Color Picker & Palette Generator",
-    category: "Design, Image & Color Utilities",
-    description: "Generates complementary, triadic, and monochromatic color palettes from any base Hex color.",
-    inputs: [
-      {
-            "id": "baseHex",
-            "label": "Base Hex Color Code",
-            "type": "text",
-            "placeholder": "#4F46E5"
-    },
-      {
-            "id": "paletteType",
-            "label": "Palette Harmony Type",
-            "type": "dropdown",
-            "options": [
-                  "Monochromatic",
-                  "Complementary",
-                  "Triadic",
-                  "Analogous"
-            ]
-    }
-]
-  },
-  {
-    id: "aspect-ratio-calc",
-    title: "Aspect Ratio Calculator",
-    name: "Aspect Ratio Calculator",
-    category: "Design, Image & Color Utilities",
-    description: "Calculates missing dimensions for 16:9, 4:3, 1:1, 21:9, and custom image aspect ratios.",
-    inputs: [
-      {
-            "id": "ratio",
-            "label": "Aspect Ratio Preset",
-            "type": "dropdown",
-            "options": [
-                  "16:9 (Widescreen)",
-                  "4:3 (Standard)",
-                  "1:1 (Square / Instagram)",
-                  "21:9 (Ultrawide)"
-            ]
-    },
-      {
-            "id": "knownDim",
-            "label": "Known Dimension (Width or Height in px)",
-            "type": "text",
-            "placeholder": "1920"
-    },
-      {
-            "id": "dimType",
-            "label": "Known Dimension Type",
-            "type": "dropdown",
-            "options": [
-                  "Width",
-                  "Height"
-            ]
-    }
-]
-  },
-  {
-    id: "px-to-rem-converter",
-    title: "Pixels to REM / EM / VW Converter",
-    name: "Pixels to REM / EM / VW Converter",
-    category: "Design, Image & Color Utilities",
-    description: "Converts pixel values to CSS rem, em, and vw units based on a configurable root font size.",
-    inputs: [
-      {
-            "id": "pxVal",
-            "label": "Pixel Value (px)",
-            "type": "text",
-            "placeholder": "16"
-    },
-      {
-            "id": "rootSize",
-            "label": "Root Font Size (default 16px)",
-            "type": "text",
-            "placeholder": "16"
-    }
-]
-  },
-  {
-    id: "box-shadow-generator",
-    title: "CSS Box Shadow & Drop Shadow Generator",
-    name: "CSS Box Shadow & Drop Shadow Generator",
-    category: "Design, Image & Color Utilities",
-    description: "Generates custom CSS box-shadow code with blur, spread, offset, opacity, and inset options.",
-    inputs: [
-      {
-            "id": "offsetX",
-            "label": "Horizontal Offset (px)",
-            "type": "text",
-            "placeholder": "0"
-    },
-      {
-            "id": "offsetY",
-            "label": "Vertical Offset (px)",
-            "type": "text",
-            "placeholder": "10"
-    },
-      {
-            "id": "blur",
-            "label": "Blur Radius (px)",
-            "type": "text",
-            "placeholder": "25"
-    },
-      {
-            "id": "spread",
-            "label": "Spread Radius (px)",
-            "type": "text",
-            "placeholder": "-5"
-    },
-      {
-            "id": "shadowColor",
-            "label": "Shadow Color Hex",
-            "type": "text",
-            "placeholder": "#000000"
-    }
-]
-  },
-  {
-    id: "gradient-generator",
-    title: "CSS Linear & Radial Gradient Generator",
-    name: "CSS Linear & Radial Gradient Generator",
-    category: "Design, Image & Color Utilities",
-    description: "Generates CSS linear and radial background gradient codes with customizable angle and color stops.",
-    inputs: [
-      {
-            "id": "color1",
-            "label": "First Color Hex",
-            "type": "text",
-            "placeholder": "#4F46E5"
-    },
-      {
-            "id": "color2",
-            "label": "Second Color Hex",
-            "type": "text",
-            "placeholder": "#9333EA"
-    },
-      {
-            "id": "angle",
-            "label": "Gradient Angle (Degrees)",
-            "type": "dropdown",
-            "options": [
-                  "90deg (Left to Right)",
-                  "135deg (Diagonal)",
-                  "180deg (Top to Bottom)",
-                  "45deg (Bottom-Left to Top-Right)"
-            ]
-    }
-]
-  },
-  {
-    id: "image-resizer",
-    title: "Quick Client-Side Image Resizer & Scaler",
-    name: "Quick Client-Side Image Resizer & Scaler",
-    category: "Design, Image & Color Utilities",
-    description: "Resizes images by specific pixel dimensions or percentage scale directly in browser memory.",
-    inputs: [
-      {
-            "id": "imageFile",
-            "label": "Select Image File",
-            "type": "file"
-    },
-      {
-            "id": "targetWidth",
-            "label": "Target Width (px)",
-            "type": "text",
-            "placeholder": "800"
-    },
-      {
-            "id": "targetHeight",
-            "label": "Target Height (px, optional)",
-            "type": "text",
-            "placeholder": "600"
-    }
-]
-  },
-  {
-    id: "png-to-jpg",
-    title: "PNG to JPG / WEBP Converter",
-    name: "PNG to JPG / WEBP Converter",
-    category: "Design, Image & Color Utilities",
-    description: "Converts transparent PNG images to JPG or WebP format with custom background fill.",
-    inputs: [
-      {
-            "id": "imageFile",
-            "label": "Select PNG File",
-            "type": "file"
-    },
-      {
-            "id": "outputFormat",
-            "label": "Target Format",
-            "type": "dropdown",
-            "options": [
-                  "JPEG (.jpg)",
-                  "WebP (.webp)"
-            ]
-    },
-      {
-            "id": "bgFill",
-            "label": "Background Fill Color for Transparency",
-            "type": "text",
-            "placeholder": "#FFFFFF"
-    }
-]
-  },
-  {
-    id: "palette-from-image",
-    title: "Image Color Palette Extractor",
-    name: "Image Color Palette Extractor",
-    category: "Design, Image & Color Utilities",
-    description: "Extracts dominant hex color palettes from uploaded photos using HTML5 Canvas pixel analysis.",
-    inputs: [
-      {
-            "id": "imageFile",
-            "label": "Select Photo to Extract Colors",
-            "type": "file"
-    },
-      {
-            "id": "colorCount",
-            "label": "Palette Color Count",
-            "type": "dropdown",
-            "options": [
-                  "5 Dominant Colors",
-                  "8 Color Palette",
-                  "10 Color Palette"
-            ]
-    }
-]
-  },
-  {
-    id: "border-radius-generator",
-    title: "CSS Border Radius & Blob Generator",
-    name: "CSS Border Radius & Blob Generator",
-    category: "Design, Image & Color Utilities",
-    description: "Generates CSS border-radius and organic blob shapes for web components.",
-    inputs: [
-      {
-            "id": "topLeft",
-            "label": "Top-Left Radius (px)",
-            "type": "text",
-            "placeholder": "16"
-    },
-      {
-            "id": "topRight",
-            "label": "Top-Right Radius (px)",
-            "type": "text",
-            "placeholder": "16"
-    },
-      {
-            "id": "bottomRight",
-            "label": "Bottom-Right Radius (px)",
-            "type": "text",
-            "placeholder": "0"
-    },
-      {
-            "id": "bottomLeft",
-            "label": "Bottom-Left Radius (px)",
-            "type": "text",
-            "placeholder": "0"
-    }
-]
-  },
-  {
-    id: "svg-to-png-converter",
-    title: "SVG Vector to High-Res PNG Renderer",
-    name: "SVG Vector to High-Res PNG Renderer",
-    category: "Design, Image & Color Utilities",
-    description: "Renders vector SVG code or files into high-resolution PNG images at 1x, 2x, or 4x scale.",
-    inputs: [
-      {
-            "id": "svgInput",
-            "label": "SVG Code / XML Markup",
-            "type": "textarea",
-            "placeholder": "<svg width=\"100\" height=\"100\">...</svg>"
-    },
-      {
-            "id": "scale",
-            "label": "Export Resolution Scale",
-            "type": "dropdown",
-            "options": [
-                  "2x High-DPI (Retina)",
-                  "1x Standard",
-                  "4x Ultra High-Res"
-            ]
-    }
-]
-  },
-  
-  
-  
-  {
-    id: "text-to-binary",
-    title: "Text to Binary & Binary to Text Converter",
-    name: "Text to Binary & Binary to Text Converter",
-    category: "Text Processing & Writing Utilities",
-    description: "Converts ASCII text to binary 8-bit byte strings (01001000...) and vice-versa.",
-    inputs: [
-      {
-            "id": "text",
-            "label": "Text or Binary Input",
-            "type": "textarea",
-            "placeholder": "Hello"
+            "placeholder": "Enter parameters or paste target payload for User-Agent String Parser..."
     },
       {
             "id": "mode",
-            "label": "Conversion Mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Text to Binary",
-                  "Binary to Text"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
   },
   {
-    id: "hex-to-text-converter",
-    title: "Hex to Text & Text to Hex Converter",
-    name: "Hex to Text & Text to Hex Converter",
-    category: "Text Processing & Writing Utilities",
-    description: "Translates hexadecimal byte sequences into plain readable text strings.",
+    id: "speed-test",
+    title: "Client-Side Bandwidth Speed Test",
+    name: "Client-Side Bandwidth Speed Test",
+    category: "Network & IP Utilities",
+    description: "Measures download speed Mbps and latency directly in browser memory.",
     inputs: [
       {
-            "id": "inputStr",
-            "label": "Text or Hex String",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Client-Side Bandwidth Speed Test",
             "type": "textarea",
-            "placeholder": "48 65 6c 6c 6f"
+            "placeholder": "Enter parameters or paste target payload for Client-Side Bandwidth Speed Test..."
     },
       {
             "id": "mode",
-            "label": "Conversion Mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Hex to Text",
-                  "Text to Hex"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
   },
   {
-    id: "morse-code-translator",
-    title: "Morse Code Translator & Audio Player",
-    name: "Morse Code Translator & Audio Player",
-    category: "Text Processing & Writing Utilities",
-    description: "Translates text into Morse code (. and -) and plays audio beeps via Web Audio API.",
+    id: "whois-lookup",
+    title: "Domain Whois Lookup Interface",
+    name: "Domain Whois Lookup Interface",
+    category: "Network & IP Utilities",
+    description: "Queries domain registrar info, creation date, and nameservers via RDAP.",
     inputs: [
       {
-            "id": "text",
-            "label": "Plain Text or Morse Code",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Domain Whois Lookup Interface",
             "type": "textarea",
-            "placeholder": "SOS"
+            "placeholder": "Enter parameters or paste target payload for Domain Whois Lookup Interface..."
     },
       {
             "id": "mode",
-            "label": "Translation Mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Text to Morse Code",
-                  "Morse Code to Text"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "url-encoder-decoder",
+    title: "URL Encoder / Decoder",
+    name: "URL Encoder / Decoder",
+    category: "Encoders, Decoders & Converters",
+    description: "Converts special characters to URL-safe percent-encoding and vice-versa.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for URL Encoder / Decoder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for URL Encoder / Decoder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "color-code-converter",
+    title: "Color Code Converter (HEX, RGB, HSL, CMYK)",
+    name: "Color Code Converter (HEX, RGB, HSL, CMYK)",
+    category: "Encoders, Decoders & Converters",
+    description: "Converts color values between HEX, RGB, HSL, and CMYK formats.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Color Code Converter (HEX, RGB, HSL, CMYK)",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Color Code Converter (HEX, RGB, HSL, CMYK)..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "unix-timestamp-converter",
+    title: "Unix Timestamp to Date Converter",
+    name: "Unix Timestamp to Date Converter",
+    category: "Encoders, Decoders & Converters",
+    description: "Converts epoch timestamps (seconds/ms) to human ISO date strings.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Unix Timestamp to Date Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Unix Timestamp to Date Converter..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "multi-unit-converter",
+    title: "Multi-Unit Metric/Imperial Converter",
+    name: "Multi-Unit Metric/Imperial Converter",
+    category: "Encoders, Decoders & Converters",
+    description: "Converts units of Length, Mass, Temperature, Volume, and Speed.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Multi-Unit Metric/Imperial Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Multi-Unit Metric/Imperial Converter..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "live-currency-calculator",
+    title: "Live Currency Cross Rate Calculator",
+    name: "Live Currency Cross Rate Calculator",
+    category: "Encoders, Decoders & Converters",
+    description: "Calculates real-time foreign exchange conversions across 30+ currencies.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Live Currency Cross Rate Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Live Currency Cross Rate Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
@@ -1672,286 +1646,1124 @@ export const toolsConfig: ToolConfig[] = [
     id: "binary-to-decimal",
     title: "Binary to Decimal / Hex / Octal Converter",
     name: "Binary to Decimal / Hex / Octal Converter",
-    category: "Text Processing & Writing Utilities",
-    description: "Converts numbers between Binary (Base-2), Octal (Base-8), Decimal (Base-10), and Hex (Base-16).",
+    category: "Encoders, Decoders & Converters",
+    description: "Converts numbers between Binary (Base-2), Octal, Decimal, and Hex.",
     inputs: [
       {
-            "id": "numStr",
-            "label": "Number Input String",
-            "type": "text",
-            "placeholder": "101010"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Binary to Decimal / Hex / Octal Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Binary to Decimal / Hex / Octal Converter..."
     },
       {
-            "id": "fromBase",
-            "label": "From Number Base",
+            "id": "mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Binary (Base 2)",
-                  "Decimal (Base 10)",
-                  "Hexadecimal (Base 16)",
-                  "Octal (Base 8)"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "html-entity-encoder",
+    title: "HTML Entity Encoder / Decoder",
+    name: "HTML Entity Encoder / Decoder",
+    category: "Encoders, Decoders & Converters",
+    description: "Encodes special characters to HTML entities (`&lt;`, `&gt;`) and decodes.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for HTML Entity Encoder / Decoder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for HTML Entity Encoder / Decoder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "hex-to-text-converter",
+    title: "Hex to Text / Text to Hex Tool",
+    name: "Hex to Text / Text to Hex Tool",
+    category: "Encoders, Decoders & Converters",
+    description: "Translates hexadecimal byte sequences into plain readable text strings.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Hex to Text / Text to Hex Tool",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Hex to Text / Text to Hex Tool..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "markdown-to-html-engine",
+    title: "Markdown to HTML Live Engine",
+    name: "Markdown to HTML Live Engine",
+    category: "Encoders, Decoders & Converters",
+    description: "Converts GitHub-flavored Markdown text into sanitized HTML code.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Markdown to HTML Live Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Markdown to HTML Live Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "svg-to-png-converter",
+    title: "SVG to PNG High-Res Rasterizer",
+    name: "SVG to PNG High-Res Rasterizer",
+    category: "Encoders, Decoders & Converters",
+    description: "Renders vector SVG code into high-resolution PNG images at 1x, 2x, 4x.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for SVG to PNG High-Res Rasterizer",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for SVG to PNG High-Res Rasterizer..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "sql-formatter",
+    title: "SQL Query Formatter & Beautifier",
+    name: "SQL Query Formatter & Beautifier",
+    category: "Text Processing & Manipulation",
+    description: "Pretty-prints complex SQL queries with custom keyword capitalization.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for SQL Query Formatter & Beautifier",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for SQL Query Formatter & Beautifier..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "text-diff-checker",
+    title: "Code Diff & Visual Comparison",
+    name: "Code Diff & Visual Comparison",
+    category: "Text Processing & Manipulation",
+    description: "Side-by-side visual diff tool highlighting added and deleted text lines.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Code Diff & Visual Comparison",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Code Diff & Visual Comparison..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
   },
   {
     id: "whitespace-remover",
-    title: "Extra Whitespace & Newline Stripper",
-    name: "Extra Whitespace & Newline Stripper",
-    category: "Text Processing & Writing Utilities",
-    description: "Removes consecutive space characters, leading/trailing whitespace, and empty lines.",
+    title: "Extra Whitespace & Line Stripper",
+    name: "Extra Whitespace & Line Stripper",
+    category: "Text Processing & Manipulation",
+    description: "Removes double spaces, leading/trailing whitespace, and empty lines.",
     inputs: [
       {
-            "id": "text",
-            "label": "Raw Unformatted Text",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Extra Whitespace & Line Stripper",
             "type": "textarea",
-            "placeholder": "  Hello     World!   \n\n  This is   a test.  "
-    }
-]
-  },
-  
-  
-  {
-    id: "simple-calculator",
-    title: "Basic Standard & Scientific Calculator",
-    name: "Basic Standard & Scientific Calculator",
-    category: "Daily Math & Student Tools",
-    description: "Performs standard arithmetic (+, -, *, /) and scientific operations (sqrt, square, pow, sin, cos).",
-    inputs: [
-      {
-            "id": "expression",
-            "label": "Mathematical Expression",
-            "type": "text",
-            "placeholder": "25 * (4 + 6) / 2"
-    }
-]
-  },
-  {
-    id: "fraction-calculator",
-    title: "Fraction Calculator & Simplifier",
-    name: "Fraction Calculator & Simplifier",
-    category: "Daily Math & Student Tools",
-    description: "Adds, subtracts, multiplies, and divides fractions and reduces answers to simplest form.",
-    inputs: [
-      {
-            "id": "f1Num",
-            "label": "Fraction 1 Numerator",
-            "type": "text",
-            "placeholder": "1"
-    },
-      {
-            "id": "f1Den",
-            "label": "Fraction 1 Denominator",
-            "type": "text",
-            "placeholder": "2"
-    },
-      {
-            "id": "op",
-            "label": "Operator",
-            "type": "dropdown",
-            "options": [
-                  "+ (Add)",
-                  "- (Subtract)",
-                  "* (Multiply)",
-                  "/ (Divide)"
-            ]
-    },
-      {
-            "id": "f2Num",
-            "label": "Fraction 2 Numerator",
-            "type": "text",
-            "placeholder": "3"
-    },
-      {
-            "id": "f2Den",
-            "label": "Fraction 2 Denominator",
-            "type": "text",
-            "placeholder": "4"
-    }
-]
-  },
-  {
-    id: "roman-numeral-converter",
-    title: "Roman Numeral Converter",
-    name: "Roman Numeral Converter",
-    category: "Daily Math & Student Tools",
-    description: "Converts integer numbers to Roman Numerals (2026 -> MMXXVI) and vice-versa.",
-    inputs: [
-      {
-            "id": "val",
-            "label": "Number or Roman Numeral Input",
-            "type": "text",
-            "placeholder": "2026 or MMXXVI"
+            "placeholder": "Enter parameters or paste target payload for Extra Whitespace & Line Stripper..."
     },
       {
             "id": "mode",
-            "label": "Conversion Direction",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Number to Roman Numeral",
-                  "Roman Numeral to Number"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
   },
   {
-    id: "binary-calculator",
-    title: "Binary Arithmetic Calculator",
-    name: "Binary Arithmetic Calculator",
-    category: "Daily Math & Student Tools",
-    description: "Performs binary addition, subtraction, AND, OR, XOR operations on binary numbers.",
+    id: "duplicate-line-filter",
+    title: "Duplicate Line Filter Engine",
+    name: "Duplicate Line Filter Engine",
+    category: "Text Processing & Manipulation",
+    description: "Strips duplicate lines or words from text lists preserving order.",
     inputs: [
       {
-            "id": "b1",
-            "label": "First Binary Number",
-            "type": "text",
-            "placeholder": "1010"
-    },
-      {
-            "id": "op",
-            "label": "Binary Operation",
-            "type": "dropdown",
-            "options": [
-                  "+ (Addition)",
-                  "- (Subtraction)",
-                  "AND Bitwise",
-                  "OR Bitwise",
-                  "XOR Bitwise"
-            ]
-    },
-      {
-            "id": "b2",
-            "label": "Second Binary Number",
-            "type": "text",
-            "placeholder": "1100"
-    }
-]
-  },
-  {
-    id: "average-mean-calculator",
-    title: "Mean, Median, Mode & Range Calculator",
-    name: "Mean, Median, Mode & Range Calculator",
-    category: "Daily Math & Student Tools",
-    description: "Calculates Mean (average), Median, Mode, and Range for a set of numerical data points.",
-    inputs: [
-      {
-            "id": "numbers",
-            "label": "Numbers List (comma or space separated)",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Duplicate Line Filter Engine",
             "type": "textarea",
-            "placeholder": "12, 15, 18, 22, 15, 30, 25"
-    }
-]
-  },
-  {
-    id: "standard-deviation-calc",
-    title: "Standard Deviation & Variance Calculator",
-    name: "Standard Deviation & Variance Calculator",
-    category: "Daily Math & Student Tools",
-    description: "Calculates Sample and Population Standard Deviation, Variance, and Sum of Squares.",
-    inputs: [
-      {
-            "id": "dataPoints",
-            "label": "Dataset Values (comma separated)",
-            "type": "textarea",
-            "placeholder": "10, 12, 23, 23, 16, 23, 21, 16"
-    }
-]
-  },
-  {
-    id: "random-choice-picker",
-    title: "Random Choice & Name Picker",
-    name: "Random Choice & Name Picker",
-    category: "Daily Math & Student Tools",
-    description: "Picks one or more random items/winners from a custom list of choices.",
-    inputs: [
-      {
-            "id": "choices",
-            "label": "List of Options / Names (One per line)",
-            "type": "textarea",
-            "placeholder": "Option A\nOption B\nOption C\nOption D"
+            "placeholder": "Enter parameters or paste target payload for Duplicate Line Filter Engine..."
     },
       {
-            "id": "winnerCount",
-            "label": "Number of Choices to Pick",
+            "id": "mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Pick 1 Winner",
-                  "Pick 2 Winners",
-                  "Pick 3 Winners"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
   },
   {
-    id: "time-duration-calc",
-    title: "Time Duration & Hours Between Calculator",
-    name: "Time Duration & Hours Between Calculator",
-    category: "Daily Math & Student Tools",
-    description: "Calculates total hours and minutes between two time entries (e.g. 09:15 AM to 05:45 PM).",
+    id: "text-stats-counter",
+    title: "Text Character, Word & Byte Counter",
+    name: "Text Character, Word & Byte Counter",
+    category: "Text Processing & Manipulation",
+    description: "Counts real-time characters, words, sentences, paragraphs, and bytes.",
     inputs: [
       {
-            "id": "startTime",
-            "label": "Start Time",
-            "type": "text",
-            "placeholder": "09:15 AM"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Text Character, Word & Byte Counter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Text Character, Word & Byte Counter..."
     },
       {
-            "id": "endTime",
-            "label": "End Time",
-            "type": "text",
-            "placeholder": "05:45 PM"
-    }
-]
-  },
-  {
-    id: "speed-distance-time",
-    title: "Speed, Distance & Time Calculator",
-    name: "Speed, Distance & Time Calculator",
-    category: "Daily Math & Student Tools",
-    description: "Calculates missing speed (mph/kph), distance (miles/km), or travel duration.",
-    inputs: [
-      {
-            "id": "calcTarget",
-            "label": "Calculate Target",
+            "id": "mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Speed (Distance / Time)",
-                  "Distance (Speed * Time)",
-                  "Time (Distance / Speed)"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
-    },
-      {
-            "id": "val1",
-            "label": "First Parameter Value",
-            "type": "text",
-            "placeholder": "60 (mph or miles)"
-    },
-      {
-            "id": "val2",
-            "label": "Second Parameter Value",
-            "type": "text",
-            "placeholder": "2 (hours or mph)"
     }
 ]
   },
   {
-    id: "triangle-solver",
-    title: "Right Triangle & Pythagorean Calculator",
-    name: "Right Triangle & Pythagorean Calculator",
-    category: "Daily Math & Student Tools",
-    description: "Solves right triangles calculating Hypotenuse (c = √(a² + b²)), area, and perimeter.",
+    id: "url-slug-generator",
+    title: "URL Slug Generator",
+    name: "URL Slug Generator",
+    category: "Text Processing & Manipulation",
+    description: "Converts text titles into clean SEO-friendly URL slug strings.",
     inputs: [
       {
-            "id": "sideA",
-            "label": "Side A Length",
-            "type": "text",
-            "placeholder": "3"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for URL Slug Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for URL Slug Generator..."
     },
       {
-            "id": "sideB",
-            "label": "Side B Length",
-            "type": "text",
-            "placeholder": "4"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "text-to-binary",
+    title: "Text to Binary Converter",
+    name: "Text to Binary Converter",
+    category: "Text Processing & Manipulation",
+    description: "Converts text characters into 8-bit binary byte strings.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Text to Binary Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Text to Binary Converter..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "text-sorter-alphabetizer",
+    title: "List Alphabetizer & Numerical Sorter",
+    name: "List Alphabetizer & Numerical Sorter",
+    category: "Text Processing & Manipulation",
+    description: "Sorts text lines alphabetically A-Z/Z-A, numerically, or by length.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for List Alphabetizer & Numerical Sorter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for List Alphabetizer & Numerical Sorter..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "markdown-table-generator",
+    title: "Markdown Table Builder",
+    name: "Markdown Table Builder",
+    category: "Text Processing & Manipulation",
+    description: "Generates Markdown data tables with customizable columns and rows.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Markdown Table Builder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Markdown Table Builder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "string-escape-tool",
+    title: "String Escape / Unescape Tool",
+    name: "String Escape / Unescape Tool",
+    category: "Text Processing & Manipulation",
+    description: "Escapes text for JavaScript, JSON, Java, C#, and SQL string literals.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for String Escape / Unescape Tool",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for String Escape / Unescape Tool..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "percentage-calculator",
+    title: "Advanced Percentage Increase/Decrease Engine",
+    name: "Advanced Percentage Increase/Decrease Engine",
+    category: "Calculators & Mathematics",
+    description: "Calculates X% of Y, percentage increase/decrease, and ratio splits.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Advanced Percentage Increase/Decrease Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Advanced Percentage Increase/Decrease Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "bmi-body-fat",
+    title: "BMI & Body Composition Calculator",
+    name: "BMI & Body Composition Calculator",
+    category: "Calculators & Mathematics",
+    description: "Calculates Body Mass Index (BMI) and Navy Body Fat percentage.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for BMI & Body Composition Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for BMI & Body Composition Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "age-date-difference",
+    title: "Exact Date Difference & Duration Engine",
+    name: "Exact Date Difference & Duration Engine",
+    category: "Calculators & Mathematics",
+    description: "Calculates exact age and duration in years, months, days, and hours.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Exact Date Difference & Duration Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Exact Date Difference & Duration Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "gpa-calculator",
+    title: "Weighted GPA Calculator",
+    name: "Weighted GPA Calculator",
+    category: "Calculators & Mathematics",
+    description: "Calculates high school and college unweighted (4.0) and weighted (5.0) GPA.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Weighted GPA Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Weighted GPA Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "salary-to-hourly",
+    title: "Salary to Hourly Pay Converter",
+    name: "Salary to Hourly Pay Converter",
+    category: "Calculators & Mathematics",
+    description: "Converts annual salary to hourly, weekly, bi-weekly, and monthly wage.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Salary to Hourly Pay Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Salary to Hourly Pay Converter..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "tip-bill-splitter",
+    title: "Restaurant Tip & Split Calculator",
+    name: "Restaurant Tip & Split Calculator",
+    category: "Calculators & Mathematics",
+    description: "Calculates tip amounts and splits restaurant bills evenly per person.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Restaurant Tip & Split Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Restaurant Tip & Split Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "discount-sales-tax",
+    title: "Sales Tax & Discount Calculator",
+    name: "Sales Tax & Discount Calculator",
+    category: "Calculators & Mathematics",
+    description: "Calculates final retail checkout price with sale discount and tax.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Sales Tax & Discount Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Sales Tax & Discount Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "fuel-cost-calculator",
+    title: "Vehicle Trip Fuel Cost Engine",
+    name: "Vehicle Trip Fuel Cost Engine",
+    category: "Calculators & Mathematics",
+    description: "Calculates fuel cost for trips based on distance, MPG, and gas price.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Vehicle Trip Fuel Cost Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Vehicle Trip Fuel Cost Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "random-number-gen",
+    title: "Random Number Generator",
+    name: "Random Number Generator",
+    category: "Calculators & Mathematics",
+    description: "Generates cryptographically random integers bounded by Min and Max.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Random Number Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Random Number Generator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "matrix-determinant-tool",
+    title: "Matrix Determinant & Linear Algebra Tool",
+    name: "Matrix Determinant & Linear Algebra Tool",
+    category: "Calculators & Mathematics",
+    description: "Calculates 2x2 and 3x3 matrix determinants, addition, and multiplication.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Matrix Determinant & Linear Algebra Tool",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Matrix Determinant & Linear Algebra Tool..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "canonical-url-builder",
+    title: "SEO Canonical & Hreflang Generator",
+    name: "SEO Canonical & Hreflang Generator",
+    category: "Web Security & Server Config",
+    description: "Generates HTML canonical link tags and multi-language hreflang tags.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for SEO Canonical & Hreflang Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for SEO Canonical & Hreflang Generator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "redirect-301-generator",
+    title: "NGINX & Apache 301 Redirect Builder",
+    name: "NGINX & Apache 301 Redirect Builder",
+    category: "Web Security & Server Config",
+    description: "Generates NGINX and Apache RewriteRule syntax for permanent 301 redirects.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for NGINX & Apache 301 Redirect Builder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for NGINX & Apache 301 Redirect Builder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "csp-header-generator",
+    title: "Security Policy (CSP) Generator",
+    name: "Security Policy (CSP) Generator",
+    category: "Web Security & Server Config",
+    description: "Builds Content-Security-Policy HTTP response headers.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Security Policy (CSP) Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Security Policy (CSP) Generator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "htaccess-rule-builder",
+    title: ".htaccess Rule Generator",
+    name: ".htaccess Rule Generator",
+    category: "Web Security & Server Config",
+    description: "Generates Apache `.htaccess` rules for HTTPS enforcement and headers.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for .htaccess Rule Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for .htaccess Rule Generator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "bcrypt-hash-simulator",
+    title: "Bcrypt Hash Cost Simulator",
+    name: "Bcrypt Hash Cost Simulator",
+    category: "Web Security & Server Config",
+    description: "Simulates Bcrypt password hashing rounds and salt generation.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Bcrypt Hash Cost Simulator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Bcrypt Hash Cost Simulator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "hmac-generator",
+    title: "HMAC Signature Generator",
+    name: "HMAC Signature Generator",
+    category: "Web Security & Server Config",
+    description: "Generates HMAC signatures using SHA-256 or SHA-512 with secret keys.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for HMAC Signature Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for HMAC Signature Generator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "aes-encryption-ui",
+    title: "AES-256 Client-Side Text Encrypter",
+    name: "AES-256 Client-Side Text Encrypter",
+    category: "Web Security & Server Config",
+    description: "Encrypts and decrypts text locally using AES-GCM 256-bit cryptography.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for AES-256 Client-Side Text Encrypter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for AES-256 Client-Side Text Encrypter..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "csr-decoder",
+    title: "CSR (Certificate Signing Request) Decoder",
+    name: "CSR (Certificate Signing Request) Decoder",
+    category: "Web Security & Server Config",
+    description: "Parses SSL CSR PEM blocks extracting Common Name, Org, and Key Size.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for CSR (Certificate Signing Request) Decoder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for CSR (Certificate Signing Request) Decoder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "dmarc-spf-builder",
+    title: "DMARC & SPF Email Record Builder",
+    name: "DMARC & SPF Email Record Builder",
+    category: "Web Security & Server Config",
+    description: "Generates DNS TXT records for DMARC policy and SPF mail validation.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for DMARC & SPF Email Record Builder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for DMARC & SPF Email Record Builder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "password-crack-time-estimator",
+    title: "Password Crack Time Estimator",
+    name: "Password Crack Time Estimator",
+    category: "Web Security & Server Config",
+    description: "Calculates password bit entropy and brute-force crack time estimates.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Password Crack Time Estimator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Password Crack Time Estimator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "css-flexbox-playground",
+    title: "CSS Flexbox Layout Playground",
+    name: "CSS Flexbox Layout Playground",
+    category: "Developer UI & Design Playgrounds",
+    description: "Visual interactive sandbox generating CSS flexbox layout rules.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for CSS Flexbox Layout Playground",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for CSS Flexbox Layout Playground..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "css-grid-generator",
+    title: "CSS Grid Generator",
+    name: "CSS Grid Generator",
+    category: "Developer UI & Design Playgrounds",
+    description: "Generates CSS Grid template columns, rows, gaps, and area codes.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for CSS Grid Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for CSS Grid Generator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "box-shadow-generator",
+    title: "CSS Box Shadow & Glassmorphism Builder",
+    name: "CSS Box Shadow & Glassmorphism Builder",
+    category: "Developer UI & Design Playgrounds",
+    description: "Generates CSS `box-shadow` and glassmorphism backdrop-filter codes.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for CSS Box Shadow & Glassmorphism Builder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for CSS Box Shadow & Glassmorphism Builder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "gradient-generator",
+    title: "CSS Linear & Radial Gradient Engine",
+    name: "CSS Linear & Radial Gradient Engine",
+    category: "Developer UI & Design Playgrounds",
+    description: "Generates CSS linear and radial background gradient codes.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for CSS Linear & Radial Gradient Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for CSS Linear & Radial Gradient Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "border-radius-generator",
+    title: "CSS Border Radius Blob Generator",
+    name: "CSS Border Radius Blob Generator",
+    category: "Developer UI & Design Playgrounds",
+    description: "Generates custom CSS border-radius and organic blob shapes.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for CSS Border Radius Blob Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for CSS Border Radius Blob Generator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "px-to-rem-converter",
+    title: "Pixels to REM / EM / VW Converter",
+    name: "Pixels to REM / EM / VW Converter",
+    category: "Developer UI & Design Playgrounds",
+    description: "Converts pixel values to CSS `rem`, `em`, and `vw` units.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Pixels to REM / EM / VW Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Pixels to REM / EM / VW Converter..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "palette-from-image",
+    title: "Image Palette Extractor",
+    name: "Image Palette Extractor",
+    category: "Developer UI & Design Playgrounds",
+    description: "Extracts dominant hex color palettes from photos using Canvas.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Image Palette Extractor",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Image Palette Extractor..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "favicon-generator-ui",
+    title: "Favicon Multi-Resolution Builder",
+    name: "Favicon Multi-Resolution Builder",
+    category: "Developer UI & Design Playgrounds",
+    description: "Generates HTML favicon links, Apple touch icons, and Web App Manifest.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Favicon Multi-Resolution Builder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Favicon Multi-Resolution Builder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "aspect-ratio-calc",
+    title: "Aspect Ratio Calculator",
+    name: "Aspect Ratio Calculator",
+    category: "Developer UI & Design Playgrounds",
+    description: "Calculates missing width/height dimensions for 16:9, 4:3, 1:1, 21:9.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Aspect Ratio Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Aspect Ratio Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "chmod-calculator",
+    title: "Linux Chmod Permissions Calculator",
+    name: "Linux Chmod Permissions Calculator",
+    category: "Developer UI & Design Playgrounds",
+    description: "Calculates octal numerical permissions (755, 644) and symbolic notation.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Linux Chmod Permissions Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Linux Chmod Permissions Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
@@ -1959,75 +2771,48 @@ export const toolsConfig: ToolConfig[] = [
     id: "water-intake-calculator",
     title: "Daily Water Intake Calculator",
     name: "Daily Water Intake Calculator",
-    category: "Health, Fitness & Everyday Life",
-    description: "Calculates daily hydration fluid requirements in liters and cups based on body weight and activity.",
+    category: "Health, Fitness & Nutrition",
+    description: "Calculates daily fluid requirements in liters and cups based on body weight.",
     inputs: [
       {
-            "id": "weightLbs",
-            "label": "Body Weight (lbs or kg)",
-            "type": "text",
-            "placeholder": "160"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Daily Water Intake Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Daily Water Intake Calculator..."
     },
       {
-            "id": "weightUnit",
-            "label": "Weight Unit",
+            "id": "mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Pounds (lbs)",
-                  "Kilograms (kg)"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
-    },
-      {
-            "id": "activityMin",
-            "label": "Daily Exercise Activity (Minutes)",
-            "type": "text",
-            "placeholder": "30"
     }
 ]
   },
   {
     id: "calorie-tdee-calculator",
-    title: "TDEE & BMR Daily Calorie Calculator",
-    name: "TDEE & BMR Daily Calorie Calculator",
-    category: "Health, Fitness & Everyday Life",
-    description: "Calculates Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE) for weight goals.",
+    title: "TDEE & BMR Calorie Engine",
+    name: "TDEE & BMR Calorie Engine",
+    category: "Health, Fitness & Nutrition",
+    description: "Calculates Basal Metabolic Rate and Total Daily Energy Expenditure.",
     inputs: [
       {
-            "id": "weight",
-            "label": "Weight (kg)",
-            "type": "text",
-            "placeholder": "70"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for TDEE & BMR Calorie Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for TDEE & BMR Calorie Engine..."
     },
       {
-            "id": "height",
-            "label": "Height (cm)",
-            "type": "text",
-            "placeholder": "175"
-    },
-      {
-            "id": "age",
-            "label": "Age (Years)",
-            "type": "text",
-            "placeholder": "28"
-    },
-      {
-            "id": "gender",
-            "label": "Gender",
+            "id": "mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Male",
-                  "Female"
-            ]
-    },
-      {
-            "id": "activity",
-            "label": "Activity Level",
-            "type": "dropdown",
-            "options": [
-                  "Sedentary (Office Job)",
-                  "Lightly Active (1-3 days/wk)",
-                  "Moderately Active (3-5 days/wk)",
-                  "Very Active (6-7 days/wk)"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
@@ -2036,39 +2821,49 @@ export const toolsConfig: ToolConfig[] = [
     id: "macro-calculator",
     title: "Macronutrient Ratio Calculator",
     name: "Macronutrient Ratio Calculator",
-    category: "Health, Fitness & Everyday Life",
-    description: "Calculates target daily grams of Protein, Carbohydrates, and Fats based on calorie intake.",
+    category: "Health, Fitness & Nutrition",
+    description: "Calculates target daily grams of Protein, Carbs, and Fats.",
     inputs: [
       {
-            "id": "calories",
-            "label": "Daily Target Calories",
-            "type": "text",
-            "placeholder": "2000"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Macronutrient Ratio Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Macronutrient Ratio Calculator..."
     },
       {
-            "id": "fitnessGoal",
-            "label": "Fitness Goal",
+            "id": "mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Maintenance (40% C / 30% P / 30% F)",
-                  "Fat Loss (30% C / 40% P / 30% F)",
-                  "Muscle Gain (50% C / 30% P / 20% F)"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
   },
   {
     id: "sleep-cycle-calculator",
-    title: "Sleep Cycle & Bedtime Alarm Calculator",
-    name: "Sleep Cycle & Bedtime Alarm Calculator",
-    category: "Health, Fitness & Everyday Life",
+    title: "Sleep Cycle & Bedtime Calculator",
+    name: "Sleep Cycle & Bedtime Calculator",
+    category: "Health, Fitness & Nutrition",
     description: "Calculates optimal bedtime schedules based on 90-minute REM sleep cycles.",
     inputs: [
       {
-            "id": "wakeTime",
-            "label": "Desired Wake-Up Time",
-            "type": "text",
-            "placeholder": "07:00 AM"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Sleep Cycle & Bedtime Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Sleep Cycle & Bedtime Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
@@ -2076,83 +2871,73 @@ export const toolsConfig: ToolConfig[] = [
     id: "ideal-weight-calculator",
     title: "Ideal Body Weight (IBW) Calculator",
     name: "Ideal Body Weight (IBW) Calculator",
-    category: "Health, Fitness & Everyday Life",
-    description: "Calculates healthy ideal weight ranges using Devine, Robinson, and Miller medical formulas.",
+    category: "Health, Fitness & Nutrition",
+    description: "Calculates healthy weight ranges using Devine, Robinson, and Miller formulas.",
     inputs: [
       {
-            "id": "heightCm",
-            "label": "Height (cm)",
-            "type": "text",
-            "placeholder": "175"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Ideal Body Weight (IBW) Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Ideal Body Weight (IBW) Calculator..."
     },
       {
-            "id": "gender",
-            "label": "Gender",
+            "id": "mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Male",
-                  "Female"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
   },
   {
     id: "step-to-distance-calc",
-    title: "Steps to Distance & Calories Burned Converter",
-    name: "Steps to Distance & Calories Burned Converter",
-    category: "Health, Fitness & Everyday Life",
-    description: "Converts daily step count (e.g. 10,000 steps) into miles, kilometers, and estimated calories burned.",
+    title: "Steps to Distance & Energy Converter",
+    name: "Steps to Distance & Energy Converter",
+    category: "Health, Fitness & Nutrition",
+    description: "Converts daily step count into miles, km, and estimated calories burned.",
     inputs: [
       {
-            "id": "steps",
-            "label": "Daily Steps Count",
-            "type": "text",
-            "placeholder": "10000"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Steps to Distance & Energy Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Steps to Distance & Energy Converter..."
     },
       {
-            "id": "strideLength",
-            "label": "Average Stride Length",
+            "id": "mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Average (2.2 ft / 0.67m)",
-                  "Tall Stride (2.5 ft)",
-                  "Short Stride (2.0 ft)"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
   },
   {
     id: "bac-calculator",
-    title: "Blood Alcohol Concentration (BAC) Calculator",
-    name: "Blood Alcohol Concentration (BAC) Calculator",
-    category: "Health, Fitness & Everyday Life",
-    description: "Estimates Blood Alcohol Content percentage over time using Widmark's formula.",
+    title: "Blood Alcohol Concentration (BAC) Engine",
+    name: "Blood Alcohol Concentration (BAC) Engine",
+    category: "Health, Fitness & Nutrition",
+    description: "Estimates Blood Alcohol Content percentage over time using Widmark formula.",
     inputs: [
       {
-            "id": "drinks",
-            "label": "Standard Drinks Consumed",
-            "type": "text",
-            "placeholder": "3"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Blood Alcohol Concentration (BAC) Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Blood Alcohol Concentration (BAC) Engine..."
     },
       {
-            "id": "weightLbs",
-            "label": "Body Weight (lbs)",
-            "type": "text",
-            "placeholder": "160"
-    },
-      {
-            "id": "hours",
-            "label": "Hours Since First Drink",
-            "type": "text",
-            "placeholder": "2"
-    },
-      {
-            "id": "gender",
-            "label": "Gender",
+            "id": "mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Male",
-                  "Female"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
@@ -2161,179 +2946,74 @@ export const toolsConfig: ToolConfig[] = [
     id: "unit-price-comparator",
     title: "Grocery Unit Price Comparator",
     name: "Grocery Unit Price Comparator",
-    category: "Health, Fitness & Everyday Life",
-    description: "Compares cost per ounce, gram, or unit between two competing grocery package deals.",
+    category: "Health, Fitness & Nutrition",
+    description: "Compares cost per ounce/gram between competing grocery deals.",
     inputs: [
       {
-            "id": "p1Price",
-            "label": "Item 1 Total Price ($)",
-            "type": "text",
-            "placeholder": "4.99"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Grocery Unit Price Comparator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Grocery Unit Price Comparator..."
     },
       {
-            "id": "p1Size",
-            "label": "Item 1 Size/Quantity (oz/g)",
-            "type": "text",
-            "placeholder": "16"
-    },
-      {
-            "id": "p2Price",
-            "label": "Item 2 Total Price ($)",
-            "type": "text",
-            "placeholder": "7.49"
-    },
-      {
-            "id": "p2Size",
-            "label": "Item 2 Size/Quantity (oz/g)",
-            "type": "text",
-            "placeholder": "28"
-    }
-]
-  },
-  {
-    id: "countdown-timer-builder",
-    title: "Online Event Countdown Timer Builder",
-    name: "Online Event Countdown Timer Builder",
-    category: "Health, Fitness & Everyday Life",
-    description: "Calculates remaining days, hours, minutes, and seconds until any upcoming target date.",
-    inputs: [
-      {
-            "id": "eventName",
-            "label": "Event Name / Celebration",
-            "type": "text",
-            "placeholder": "New Year 2027"
-    },
-      {
-            "id": "targetDate",
-            "label": "Target Date & Time (YYYY-MM-DD)",
-            "type": "text",
-            "placeholder": "2027-01-01"
-    }
-]
-  },
-  {
-    id: "stopwatch-lap-timer",
-    title: "Digital Stopwatch & Lap Split Timer",
-    name: "Digital Stopwatch & Lap Split Timer",
-    category: "Health, Fitness & Everyday Life",
-    description: "Precision digital stopwatch with lap split time logging and lap pace analysis.",
-    inputs: [
-      {
-            "id": "action",
-            "label": "Stopwatch Action",
+            "id": "mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Start / Record Split",
-                  "Reset Timer"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
   },
   {
-    id: "youtube-tag-extractor",
-    title: "YouTube Tag & Keyword Extractor",
-    name: "YouTube Tag & Keyword Extractor",
-    category: "Social Media & Video Creator Tools",
-    description: "Generates SEO tags, hashtags, and keywords for YouTube video titles.",
+    id: "countdown-timer-builder",
+    title: "Event Countdown Timer",
+    name: "Event Countdown Timer",
+    category: "Health, Fitness & Nutrition",
+    description: "Calculates remaining days, hours, and minutes until target dates.",
     inputs: [
       {
-            "id": "title",
-            "label": "Video Title / Topic",
-            "type": "text",
-            "placeholder": "How to Learn Next.js in 2026"
-    }
-]
-  },
-  
-  
-  {
-    id: "video-duration-calculator",
-    title: "Video File Size & Bitrate Estimator",
-    name: "Video File Size & Bitrate Estimator",
-    category: "Social Media & Video Creator Tools",
-    description: "Calculates estimated video MB size based on bitrate, resolution, and duration.",
-    inputs: [
-      {
-            "id": "minutes",
-            "label": "Video Length (Minutes)",
-            "type": "text",
-            "placeholder": "10"
-    }
-]
-  },
-  {
-    id: "tweet-character-counter",
-    title: "Tweet & Thread Formatting Checker",
-    name: "Tweet & Thread Formatting Checker",
-    category: "Social Media & Video Creator Tools",
-    description: "Checks 280-character Twitter/X limits and splits long text into numbered threads.",
-    inputs: [
-      {
-            "id": "postText",
-            "label": "Thread Post Text",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Event Countdown Timer",
             "type": "textarea",
-            "placeholder": "Paste long text to split into tweet threads..."
-    }
-]
-  },
-  
-  {
-    id: "youtube-thumbnail-previewer",
-    title: "YouTube Thumbnail & Title CTR Previewer",
-    name: "YouTube Thumbnail & Title CTR Previewer",
-    category: "Social Media & Video Creator Tools",
-    description: "Previews video thumbnail and title mockups on Youtube desktop and mobile feeds.",
-    inputs: [
+            "placeholder": "Enter parameters or paste target payload for Event Countdown Timer..."
+    },
       {
-            "id": "videoTitle",
-            "label": "YouTube Title",
-            "type": "text",
-            "placeholder": "Building a SaaS in 24 Hours"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
-    id: "podcast-rss-builder",
-    title: "Podcast RSS XML Feed Generator",
-    name: "Podcast RSS XML Feed Generator",
-    category: "Social Media & Video Creator Tools",
-    description: "Generates Apple Podcasts & Spotify compliant RSS XML feed code.",
+    id: "stopwatch-lap-timer",
+    title: "Digital Stopwatch & Split Timer",
+    name: "Digital Stopwatch & Split Timer",
+    category: "Health, Fitness & Nutrition",
+    description: "Precision digital stopwatch with lap split time logging.",
     inputs: [
       {
-            "id": "showName",
-            "label": "Podcast Show Title",
-            "type": "text",
-            "placeholder": "The Tech Founder Podcast"
-    }
-]
-  },
-  {
-    id: "video-frame-rate-calc",
-    title: "Video Frame Rate & Timecode Calculator",
-    name: "Video Frame Rate & Timecode Calculator",
-    category: "Social Media & Video Creator Tools",
-    description: "Calculates total frames and SMPTE timecodes (24fps, 30fps, 60fps).",
-    inputs: [
-      {
-            "id": "durationSec",
-            "label": "Duration (Seconds)",
-            "type": "text",
-            "placeholder": "120"
-    }
-]
-  },
-  {
-    id: "subtitle-vtt-converter",
-    title: "SRT to WebVTT Subtitle Transcoder",
-    name: "SRT to WebVTT Subtitle Transcoder",
-    category: "Social Media & Video Creator Tools",
-    description: "Transcodes SubRip (.SRT) subtitle files into WebVTT (.VTT) format locally.",
-    inputs: [
-      {
-            "id": "srtContent",
-            "label": "SRT Subtitle Code",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Digital Stopwatch & Split Timer",
             "type": "textarea",
-            "placeholder": "1\n00:00:01,000 --> 00:00:04,000\nHello World"
+            "placeholder": "Enter parameters or paste target payload for Digital Stopwatch & Split Timer..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
@@ -2341,350 +3021,474 @@ export const toolsConfig: ToolConfig[] = [
     id: "amazon-fee-calculator",
     title: "Amazon FBA & Referral Fee Calculator",
     name: "Amazon FBA & Referral Fee Calculator",
-    category: "E-Commerce & Amazon Seller Tools",
-    description: "Calculates Amazon referral fees, FBA fulfillment fees, and net profit margin.",
+    category: "E-Commerce & Business Operations",
+    description: "Calculates Amazon referral fees, FBA fulfillment fees, and net margin.",
     inputs: [
       {
-            "id": "sellPrice",
-            "label": "Item Selling Price ($)",
-            "type": "text",
-            "placeholder": "29.99"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Amazon FBA & Referral Fee Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Amazon FBA & Referral Fee Calculator..."
     },
       {
-            "id": "cogs",
-            "label": "Item Cost / COGS ($)",
-            "type": "text",
-            "placeholder": "8.50"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "profit-margin-calculator",
-    title: "Gross Profit & Markup Percentage Calculator",
-    name: "Gross Profit & Markup Percentage Calculator",
-    category: "E-Commerce & Amazon Seller Tools",
-    description: "Calculates Gross Margin %, Markup %, and Dollar Profit.",
+    title: "Gross Profit Margin & Markup Engine",
+    name: "Gross Profit Margin & Markup Engine",
+    category: "E-Commerce & Business Operations",
+    description: "Calculates Gross Profit Margin %, Markup %, and Dollar Profit.",
     inputs: [
       {
-            "id": "costPrice",
-            "label": "Cost Price ($)",
-            "type": "text",
-            "placeholder": "50"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Gross Profit Margin & Markup Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Gross Profit Margin & Markup Engine..."
     },
       {
-            "id": "salePrice",
-            "label": "Selling Price ($)",
-            "type": "text",
-            "placeholder": "100"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "etsy-fee-calculator",
-    title: "Etsy Seller Profit & Fee Calculator",
-    name: "Etsy Seller Profit & Fee Calculator",
-    category: "E-Commerce & Amazon Seller Tools",
-    description: "Calculates Etsy listing fees, transaction fees, and payment processing cuts.",
+    title: "Etsy Seller Fee & Profit Calculator",
+    name: "Etsy Seller Fee & Profit Calculator",
+    category: "E-Commerce & Business Operations",
+    description: "Calculates Etsy listing fees, transaction fees, and payment processing.",
     inputs: [
       {
-            "id": "itemPrice",
-            "label": "Etsy Listing Price ($)",
-            "type": "text",
-            "placeholder": "25.00"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Etsy Seller Fee & Profit Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Etsy Seller Fee & Profit Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "shopify-pricing-calc",
-    title: "Shopify Product Pricing & Break-Even Calculator",
-    name: "Shopify Product Pricing & Break-Even Calculator",
-    category: "E-Commerce & Amazon Seller Tools",
-    description: "Calculates break-even price and target retail prices for e-commerce products.",
+    title: "Shopify Break-Even Pricing Engine",
+    name: "Shopify Break-Even Pricing Engine",
+    category: "E-Commerce & Business Operations",
+    description: "Calculates break-even price and target retail prices for e-commerce.",
     inputs: [
       {
-            "id": "unitCost",
-            "label": "Unit Cost ($)",
-            "type": "text",
-            "placeholder": "12.00"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Shopify Break-Even Pricing Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Shopify Break-Even Pricing Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "bar-code-generator",
-    title: "Universal Barcode Canvas Generator",
-    name: "Universal Barcode Canvas Generator",
-    category: "E-Commerce & Amazon Seller Tools",
-    description: "Renders Code 128, EAN-13, and UPC-A barcode images directly on canvas.",
+    title: "Vector Barcode Generator",
+    name: "Vector Barcode Generator",
+    category: "E-Commerce & Business Operations",
+    description: "Renders Code 128, EAN-13, and UPC-A barcodes on HTML5 canvas.",
     inputs: [
       {
-            "id": "codeStr",
-            "label": "Barcode Numerical Code",
-            "type": "text",
-            "placeholder": "123456789012"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Vector Barcode Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Vector Barcode Generator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "sku-generator",
-    title: "Product SKU Code Batch Builder",
-    name: "Product SKU Code Batch Builder",
-    category: "E-Commerce & Amazon Seller Tools",
-    description: "Generates clean structured SKU product identifiers by category, size, and color.",
+    title: "Product SKU Batch Builder",
+    name: "Product SKU Batch Builder",
+    category: "E-Commerce & Business Operations",
+    description: "Generates structured SKU identifiers by category, size, and color.",
     inputs: [
       {
-            "id": "categoryCode",
-            "label": "Category Prefix",
-            "type": "text",
-            "placeholder": "TSHIRT"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Product SKU Batch Builder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Product SKU Batch Builder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "shipping-weight-calc",
-    title: "Dimensional Weight & Freight Volume Calculator",
-    name: "Dimensional Weight & Freight Volume Calculator",
-    category: "E-Commerce & Amazon Seller Tools",
-    description: "Calculates Volumetric Shipping Weight (L x W x H / 139).",
+    title: "Dimensional Weight Shipping Engine",
+    name: "Dimensional Weight Shipping Engine",
+    category: "E-Commerce & Business Operations",
+    description: "Calculates Volumetric Dimensional Shipping Weight (L x W x H / 139).",
     inputs: [
       {
-            "id": "length",
-            "label": "Length (inches)",
-            "type": "text",
-            "placeholder": "12"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Dimensional Weight Shipping Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Dimensional Weight Shipping Engine..."
     },
       {
-            "id": "width",
-            "label": "Width (inches)",
-            "type": "text",
-            "placeholder": "10"
-    },
-      {
-            "id": "height",
-            "label": "Height (inches)",
-            "type": "text",
-            "placeholder": "8"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "sales-tax-by-state",
-    title: "US Sales Tax & International VAT Calculator",
-    name: "US Sales Tax & International VAT Calculator",
-    category: "E-Commerce & Amazon Seller Tools",
-    description: "Calculates US state sales tax and international VAT totals on invoices.",
+    title: "US State Sales Tax & VAT Calculator",
+    name: "US State Sales Tax & VAT Calculator",
+    category: "E-Commerce & Business Operations",
+    description: "Calculates US state sales tax and international VAT totals.",
     inputs: [
       {
-            "id": "amount",
-            "label": "Order Subtotal ($)",
-            "type": "text",
-            "placeholder": "150.00"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for US State Sales Tax & VAT Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for US State Sales Tax & VAT Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "inventory-reorder-calc",
-    title: "Economic Order Quantity (EOQ) Calculator",
-    name: "Economic Order Quantity (EOQ) Calculator",
-    category: "E-Commerce & Amazon Seller Tools",
+    title: "Economic Order Quantity (EOQ) Engine",
+    name: "Economic Order Quantity (EOQ) Engine",
+    category: "E-Commerce & Business Operations",
     description: "Calculates optimal inventory reorder points and order quantities.",
     inputs: [
       {
-            "id": "demand",
-            "label": "Annual Demand Units",
-            "type": "text",
-            "placeholder": "5000"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Economic Order Quantity (EOQ) Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Economic Order Quantity (EOQ) Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "price-discount-matrix",
-    title: "Bulk Tiered Wholesale Pricing Calculator",
-    name: "Bulk Tiered Wholesale Pricing Calculator",
-    category: "E-Commerce & Amazon Seller Tools",
-    description: "Calculates quantity tier discount percentages for bulk customer quotes.",
+    title: "Tiered Wholesale Pricing Matrix",
+    name: "Tiered Wholesale Pricing Matrix",
+    category: "E-Commerce & Business Operations",
+    description: "Calculates bulk quantity tier discount percentages for quotes.",
     inputs: [
       {
-            "id": "basePrice",
-            "label": "Base Unit Price ($)",
-            "type": "text",
-            "placeholder": "20.00"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Tiered Wholesale Pricing Matrix",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Tiered Wholesale Pricing Matrix..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "invoice-generator-ui",
-    title: "Instant HTML & Printable Invoice Generator",
-    name: "Instant HTML & Printable Invoice Generator",
-    category: "Business, HR & Freelance Tools",
-    description: "Generates clean printable business invoices with line items and total tax.",
+    title: "Client-Side Invoice Generator",
+    name: "Client-Side Invoice Generator",
+    category: "Business, HR & Freelancing",
+    description: "Generates clean printable business invoices with line items and tax.",
     inputs: [
       {
-            "id": "clientName",
-            "label": "Client / Company Name",
-            "type": "text",
-            "placeholder": "Acme Corp"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Client-Side Invoice Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Client-Side Invoice Generator..."
     },
       {
-            "id": "amount",
-            "label": "Total Billed Amount ($)",
-            "type": "text",
-            "placeholder": "1250.00"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "payroll-tax-calc",
-    title: "Employee Payroll & Paycheck Calculator",
-    name: "Employee Payroll & Paycheck Calculator",
-    category: "Business, HR & Freelance Tools",
-    description: "Estimates gross paycheck, federal/state tax withholdings, and net pay.",
+    title: "Employee Payroll Tax Calculator",
+    name: "Employee Payroll Tax Calculator",
+    category: "Business, HR & Freelancing",
+    description: "Estimates gross paycheck, federal/state withholdings, and net pay.",
     inputs: [
       {
-            "id": "salary",
-            "label": "Annual Gross Salary ($)",
-            "type": "text",
-            "placeholder": "75000"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Employee Payroll Tax Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Employee Payroll Tax Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "meeting-cost-calculator",
-    title: "Real-Time Meeting Cost Ticker",
-    name: "Real-Time Meeting Cost Ticker",
-    category: "Business, HR & Freelance Tools",
-    description: "Calculates the real dollar cost of company meetings based on attendee count and rates.",
+    title: "Meeting Cost Real-Time Ticker",
+    name: "Meeting Cost Real-Time Ticker",
+    category: "Business, HR & Freelancing",
+    description: "Calculates real dollar cost of meetings based on attendee count and rates.",
     inputs: [
       {
-            "id": "attendees",
-            "label": "Number of Attendees",
-            "type": "text",
-            "placeholder": "6"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Meeting Cost Real-Time Ticker",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Meeting Cost Real-Time Ticker..."
     },
       {
-            "id": "hourlyRate",
-            "label": "Avg Hourly Salary ($)",
-            "type": "text",
-            "placeholder": "50"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "working-days-calculator",
-    title: "Business Working Days & Holiday Calculator",
-    name: "Business Working Days & Holiday Calculator",
-    category: "Business, HR & Freelance Tools",
-    description: "Calculates net business days excluding weekends and custom holidays.",
+    title: "Business Working Days Calculator",
+    name: "Business Working Days Calculator",
+    category: "Business, HR & Freelancing",
+    description: "Calculates net working days excluding weekends and custom holidays.",
     inputs: [
       {
-            "id": "startDate",
-            "label": "Start Date (YYYY-MM-DD)",
-            "type": "text",
-            "placeholder": "2026-08-01"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Business Working Days Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Business Working Days Calculator..."
     },
       {
-            "id": "endDate",
-            "label": "End Date (YYYY-MM-DD)",
-            "type": "text",
-            "placeholder": "2026-08-31"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "burn-rate-calculator",
-    title: "Startup Runway & Cash Burn Rate Calculator",
-    name: "Startup Runway & Cash Burn Rate Calculator",
-    category: "Business, HR & Freelance Tools",
-    description: "Calculates monthly gross/net burn rate and cash runway months.",
+    title: "Startup Runway & Burn Rate Engine",
+    name: "Startup Runway & Burn Rate Engine",
+    category: "Business, HR & Freelancing",
+    description: "Calculates monthly burn rate and cash runway months.",
     inputs: [
       {
-            "id": "cashBalance",
-            "label": "Current Cash Balance ($)",
-            "type": "text",
-            "placeholder": "250000"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Startup Runway & Burn Rate Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Startup Runway & Burn Rate Engine..."
     },
       {
-            "id": "monthlyBurn",
-            "label": "Monthly Expenses ($)",
-            "type": "text",
-            "placeholder": "20000"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "job-offer-comparator",
-    title: "Job Offer Salary & Compensation Comparator",
-    name: "Job Offer Salary & Compensation Comparator",
-    category: "Business, HR & Freelance Tools",
-    description: "Compares total compensation between two job offers (Base, Bonus, Equity, 401k).",
+    title: "Job Offer Compensation Comparator",
+    name: "Job Offer Compensation Comparator",
+    category: "Business, HR & Freelancing",
+    description: "Compares total compensation packages between competing job offers.",
     inputs: [
       {
-            "id": "offer1",
-            "label": "Offer 1 Total Package ($)",
-            "type": "text",
-            "placeholder": "120000"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Job Offer Compensation Comparator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Job Offer Compensation Comparator..."
     },
       {
-            "id": "offer2",
-            "label": "Offer 2 Total Package ($)",
-            "type": "text",
-            "placeholder": "135000"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "overtime-pay-calc",
-    title: "Overtime (1.5x / 2.0x) Pay Wage Calculator",
-    name: "Overtime (1.5x / 2.0x) Pay Wage Calculator",
-    category: "Business, HR & Freelance Tools",
-    description: "Calculates weekly pay with regular and overtime (time-and-a-half) hours.",
+    title: "Overtime Pay Wage Engine",
+    name: "Overtime Pay Wage Engine",
+    category: "Business, HR & Freelancing",
+    description: "Calculates weekly pay with regular and 1.5x/2.0x overtime hours.",
     inputs: [
       {
-            "id": "rate",
-            "label": "Hourly Rate ($)",
-            "type": "text",
-            "placeholder": "25.00"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Overtime Pay Wage Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Overtime Pay Wage Engine..."
     },
       {
-            "id": "hours",
-            "label": "Total Weekly Hours Worked",
-            "type": "text",
-            "placeholder": "48"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "break-even-calculator",
-    title: "Business Break-Even Point Calculator",
-    name: "Business Break-Even Point Calculator",
-    category: "Business, HR & Freelance Tools",
-    description: "Calculates required unit sales volume to cover fixed and variable business costs.",
+    title: "Business Break-Even Point Engine",
+    name: "Business Break-Even Point Engine",
+    category: "Business, HR & Freelancing",
+    description: "Calculates unit sales volume needed to cover fixed and variable costs.",
     inputs: [
       {
-            "id": "fixedCosts",
-            "label": "Total Fixed Costs ($)",
-            "type": "text",
-            "placeholder": "10000"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Business Break-Even Point Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Business Break-Even Point Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "consulting-proposal-calc",
-    title: "Consulting Fee & Project Scope Estimator",
-    name: "Consulting Fee & Project Scope Estimator",
-    category: "Business, HR & Freelance Tools",
-    description: "Calculates project proposal quotes based on estimated hours and risk buffer.",
+    title: "Consulting Project Scope Estimator",
+    name: "Consulting Project Scope Estimator",
+    category: "Business, HR & Freelancing",
+    description: "Calculates project proposal quotes based on hours and risk buffer.",
     inputs: [
       {
-            "id": "estimatedHours",
-            "label": "Estimated Project Hours",
-            "type": "text",
-            "placeholder": "40"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Consulting Project Scope Estimator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Consulting Project Scope Estimator..."
     },
       {
-            "id": "hourlyRate",
-            "label": "Target Hourly Rate ($)",
-            "type": "text",
-            "placeholder": "100"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
@@ -2692,275 +3496,74 @@ export const toolsConfig: ToolConfig[] = [
     id: "nps-score-calculator",
     title: "Net Promoter Score (NPS) Calculator",
     name: "Net Promoter Score (NPS) Calculator",
-    category: "Business, HR & Freelance Tools",
-    description: "Calculates customer NPS score (-100 to +100) from survey feedback data.",
+    category: "Business, HR & Freelancing",
+    description: "Calculates NPS score (-100 to +100) from customer survey feedback.",
     inputs: [
       {
-            "id": "promoters",
-            "label": "Promoters Count (9-10)",
-            "type": "text",
-            "placeholder": "70"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Net Promoter Score (NPS) Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Net Promoter Score (NPS) Calculator..."
     },
       {
-            "id": "detractors",
-            "label": "Detractors Count (0-6)",
-            "type": "text",
-            "placeholder": "10"
-    },
-      {
-            "id": "total",
-            "label": "Total Responses",
-            "type": "text",
-            "placeholder": "100"
-    }
-]
-  },
-  {
-    id: "canonical-url-builder",
-    title: "Canonical Tag & Hreflang Code Generator",
-    name: "Canonical Tag & Hreflang Code Generator",
-    category: "SEO & Webmaster Suite",
-    description: "Generates SEO `<link rel=\"canonical\">` and `<link rel=\"alternate\" hreflang=\"...\">` tags.",
-    inputs: [
-      {
-            "id": "url",
-            "label": "Canonical Page URL",
-            "type": "text",
-            "placeholder": "https://example.com/page"
-    }
-]
-  },
-  {
-    id: "redirect-301-generator",
-    title: "NGINX & Apache 301 Redirect Rule Builder",
-    name: "NGINX & Apache 301 Redirect Rule Builder",
-    category: "SEO & Webmaster Suite",
-    description: "Generates NGINX and Apache HTTP server redirect rules.",
-    inputs: [
-      {
-            "id": "oldPath",
-            "label": "Old URL Path",
-            "type": "text",
-            "placeholder": "/old-blog-post"
-    },
-      {
-            "id": "newUrl",
-            "label": "New Target URL",
-            "type": "text",
-            "placeholder": "https://example.com/new-blog-post"
-    }
-]
-  },
-  {
-    id: "meta-viewport-builder",
-    title: "Mobile Viewport & Web App Manifest Builder",
-    name: "Mobile Viewport & Web App Manifest Builder",
-    category: "SEO & Webmaster Suite",
-    description: "Generates HTML meta viewport tags and Web App Manifest JSON files.",
-    inputs: [
-      {
-            "id": "appName",
-            "label": "Web Application Name",
-            "type": "text",
-            "placeholder": "Zenovee App"
-    }
-]
-  },
-  {
-    id: "anchor-text-analyzer",
-    title: "SEO Link Anchor Text Ratio Analyzer",
-    name: "SEO Link Anchor Text Ratio Analyzer",
-    category: "SEO & Webmaster Suite",
-    description: "Analyzes backlink anchor text distributions for exact match vs branded ratios.",
-    inputs: [
-      {
-            "id": "anchors",
-            "label": "Anchor List (one per line)",
-            "type": "textarea",
-            "placeholder": "Brand Name\nclick here\nexact keyword"
-    }
-]
-  },
-  {
-    id: "dns-record-generator",
-    title: "DNS Record Generator (A, CNAME, MX, TXT)",
-    name: "DNS Record Generator (A, CNAME, MX, TXT)",
-    category: "SEO & Webmaster Suite",
-    description: "Generates DNS zone file records for domain hosting.",
-    inputs: [
-      {
-            "id": "domain",
-            "label": "Domain Name",
-            "type": "text",
-            "placeholder": "example.com"
-    }
-]
-  },
-  {
-    id: "security-headers-builder",
-    title: "HTTP Security Headers Configuration Builder",
-    name: "HTTP Security Headers Configuration Builder",
-    category: "SEO & Webmaster Suite",
-    description: "Generates Content-Security-Policy, HSTS, and X-Frame-Options server headers.",
-    inputs: [
-      {
-            "id": "domain",
-            "label": "Target Domain",
-            "type": "text",
-            "placeholder": "example.com"
-    }
-]
-  },
-  {
-    id: "sitemap-index-generator",
-    title: "XML Sitemap Index File Generator",
-    name: "XML Sitemap Index File Generator",
-    category: "SEO & Webmaster Suite",
-    description: "Generates `<sitemapindex>` XML documents linking multiple sub-sitemaps.",
-    inputs: [
-      {
-            "id": "baseUrl",
-            "label": "Sitemap Base URL",
-            "type": "text",
-            "placeholder": "https://example.com/sitemaps"
-    }
-]
-  },
-  {
-    id: "word-density-counter",
-    title: "Advanced Keyword Density & TF-IDF Analyzer",
-    name: "Advanced Keyword Density & TF-IDF Analyzer",
-    category: "SEO & Webmaster Suite",
-    description: "Calculates 1-word, 2-word, and 3-word n-gram keyword density percentages.",
-    inputs: [
-      {
-            "id": "text",
-            "label": "Page Content Body",
-            "type": "textarea",
-            "placeholder": "Paste page text to analyze keyword density..."
-    }
-]
-  },
-  {
-    id: "broken-link-checker-ui",
-    title: "Internal Link Syntax & Path Inspector",
-    name: "Internal Link Syntax & Path Inspector",
-    category: "SEO & Webmaster Suite",
-    description: "Validates URL structures, query strings, and path protocols in HTML code.",
-    inputs: [
-      {
-            "id": "htmlCode",
-            "label": "Raw HTML Source Code",
-            "type": "textarea",
-            "placeholder": "<a href=\"/about\">About</a>"
-    }
-]
-  },
-  {
-    id: "mobile-friendly-checker",
-    title: "Responsive Breakpoint Resolution Tester",
-    name: "Responsive Breakpoint Resolution Tester",
-    category: "SEO & Webmaster Suite",
-    description: "Tests element visibility across 320px, 768px, 1024px, and 1440px viewport widths.",
-    inputs: [
-      {
-            "id": "url",
-            "label": "URL to Test Layout",
-            "type": "text",
-            "placeholder": "https://example.com"
-    }
-]
-  },
-  {
-    id: "bcrypt-hash-simulator",
-    title: "Bcrypt & Key Derivation Cost Simulator",
-    name: "Bcrypt & Key Derivation Cost Simulator",
-    category: "Cryptography, Hashing & Cyber Tools",
-    description: "Simulates Bcrypt hashing rounds (Work Factor 4 to 14) and salt generation.",
-    inputs: [
-      {
-            "id": "password",
-            "label": "Sample Secret Password",
-            "type": "text",
-            "placeholder": "SuperSecret123!"
-    }
-]
-  },
-  {
-    id: "hmac-generator",
-    title: "HMAC Signature Generator (SHA-256 / SHA-512)",
-    name: "HMAC Signature Generator (SHA-256 / SHA-512)",
-    category: "Cryptography, Hashing & Cyber Tools",
-    description: "Generates HMAC signatures using secret keys via Web Crypto API.",
-    inputs: [
-      {
-            "id": "secretKey",
-            "label": "Secret HMAC Key",
-            "type": "text",
-            "placeholder": "my-api-secret"
-    },
-      {
-            "id": "message",
-            "label": "Message Data String",
-            "type": "textarea",
-            "placeholder": "timestamp=1700000000"
-    }
-]
-  },
-  {
-    id: "aes-encryption-ui",
-    title: "Client-Side AES-256 Text Encryption",
-    name: "Client-Side AES-256 Text Encryption",
-    category: "Cryptography, Hashing & Cyber Tools",
-    description: "Encrypts and decrypts secret text using AES-GCM 256-bit cryptography locally.",
-    inputs: [
-      {
-            "id": "secretText",
-            "label": "Text to Encrypt / Decrypt",
-            "type": "textarea",
-            "placeholder": "Top Secret Message"
-    },
-      {
-            "id": "passphrase",
-            "label": "Encryption Passphrase",
-            "type": "text",
-            "placeholder": "MySecretKey123"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "crc32-checksum-calc",
-    title: "CRC32 & Adler32 Checksum Calculator",
-    name: "CRC32 & Adler32 Checksum Calculator",
-    category: "Cryptography, Hashing & Cyber Tools",
+    title: "CRC32 Checksum Calculator",
+    name: "CRC32 Checksum Calculator",
+    category: "Cryptography & Cyber Security",
     description: "Calculates CRC32 hexadecimal checksums for data integrity verification.",
     inputs: [
       {
-            "id": "text",
-            "label": "Data String Input",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for CRC32 Checksum Calculator",
             "type": "textarea",
-            "placeholder": "Zenovee AI Suite"
+            "placeholder": "Enter parameters or paste target payload for CRC32 Checksum Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "htpasswd-generator",
-    title: "Apache .htpasswd Password Hash Generator",
-    name: "Apache .htpasswd Password Hash Generator",
-    category: "Cryptography, Hashing & Cyber Tools",
+    title: "Apache .htpasswd Hash Builder",
+    name: "Apache .htpasswd Hash Builder",
+    category: "Cryptography & Cyber Security",
     description: "Generates Apache Basic Auth user credentials for `.htpasswd` files.",
     inputs: [
       {
-            "id": "username",
-            "label": "Username",
-            "type": "text",
-            "placeholder": "admin"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Apache .htpasswd Hash Builder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Apache .htpasswd Hash Builder..."
     },
       {
-            "id": "password",
-            "label": "Password",
-            "type": "text",
-            "placeholder": "SecretPass123"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
@@ -2968,95 +3571,224 @@ export const toolsConfig: ToolConfig[] = [
     id: "morse-binary-cipher",
     title: "ROT13 & Caesar Shift Cipher Tool",
     name: "ROT13 & Caesar Shift Cipher Tool",
-    category: "Cryptography, Hashing & Cyber Tools",
-    description: "Encodes and decodes text using Caesar Shift (ROT1 to ROT25) ciphers.",
+    category: "Cryptography & Cyber Security",
+    description: "Encodes and decodes text using Caesar Shift ciphers.",
     inputs: [
       {
-            "id": "text",
-            "label": "Message Text",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for ROT13 & Caesar Shift Cipher Tool",
             "type": "textarea",
-            "placeholder": "Hello World"
+            "placeholder": "Enter parameters or paste target payload for ROT13 & Caesar Shift Cipher Tool..."
     },
       {
-            "id": "shift",
-            "label": "Shift Key Count",
-            "type": "text",
-            "placeholder": "13"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
-    id: "csr-decoder",
-    title: "SSL Certificate Signing Request (CSR) Decoder",
-    name: "SSL Certificate Signing Request (CSR) Decoder",
-    category: "Cryptography, Hashing & Cyber Tools",
-    description: "Parses SSL CSR block data extracting Common Name, Org, and Key Size.",
+    id: "ssl-chain-inspector",
+    title: "SSL Certificate Chain Inspector",
+    name: "SSL Certificate Chain Inspector",
+    category: "Cryptography & Cyber Security",
+    description: "Inspects intermediate and root SSL certificate chain validity.",
     inputs: [
       {
-            "id": "csrText",
-            "label": "PEM CSR Code",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for SSL Certificate Chain Inspector",
             "type": "textarea",
-            "placeholder": "-----BEGIN CERTIFICATE REQUEST-----\n..."
+            "placeholder": "Enter parameters or paste target payload for SSL Certificate Chain Inspector..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
-    id: "dmarc-generator",
-    title: "DMARC Record Policy Generator",
-    name: "DMARC Record Policy Generator",
-    category: "Cryptography, Hashing & Cyber Tools",
-    description: "Generates email security DMARC TXT records (`v=DMARC1; p=reject`).",
+    id: "password-entropy-calc",
+    title: "Password Entropy Calculator",
+    name: "Password Entropy Calculator",
+    category: "Cryptography & Cyber Security",
+    description: "Calculates bit entropy and brute-force crack time estimates.",
     inputs: [
       {
-            "id": "domain",
-            "label": "Domain Name",
-            "type": "text",
-            "placeholder": "example.com"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Password Entropy Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Password Entropy Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
-    id: "spf-record-builder",
-    title: "SPF Email Record Generator",
-    name: "SPF Email Record Generator",
-    category: "Cryptography, Hashing & Cyber Tools",
-    description: "Generates DNS SPF TXT records defining authorized mail servers.",
+    id: "sha512-hash-engine",
+    title: "SHA-512 Hash Engine",
+    name: "SHA-512 Hash Engine",
+    category: "Cryptography & Cyber Security",
+    description: "Generates SHA-512 cryptographic hashes using browser Web Crypto API.",
     inputs: [
       {
-            "id": "domain",
-            "label": "Domain Name",
-            "type": "text",
-            "placeholder": "example.com"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for SHA-512 Hash Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for SHA-512 Hash Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
-    id: "password-strength-meter",
-    title: "Password Entropy & Crack Time Estimator",
-    name: "Password Entropy & Crack Time Estimator",
-    category: "Cryptography, Hashing & Cyber Tools",
-    description: "Calculates bit entropy and estimated brute-force crack duration.",
+    id: "rsa-public-key-parser",
+    title: "RSA Public Key Parser",
+    name: "RSA Public Key Parser",
+    category: "Cryptography & Cyber Security",
+    description: "Parses PEM RSA public keys extracting modulus and exponent.",
     inputs: [
       {
-            "id": "pass",
-            "label": "Password String to Test",
-            "type": "text",
-            "placeholder": "P@ssw0rd2026!"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for RSA Public Key Parser",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for RSA Public Key Parser..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "base32-encoder-decoder",
+    title: "Base32 Encoder / Decoder",
+    name: "Base32 Encoder / Decoder",
+    category: "Cryptography & Cyber Security",
+    description: "Encodes and decodes RFC 4648 Base32 strings.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Base32 Encoder / Decoder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Base32 Encoder / Decoder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "seed-phrase-validator",
+    title: "Seed Phrase Validator",
+    name: "Seed Phrase Validator",
+    category: "Cryptography & Cyber Security",
+    description: "Validates BIP-39 12/24 word mnemonic seed phrases locally.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Seed Phrase Validator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Seed Phrase Validator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "wireguard-keypair-gen",
+    title: "WireGuard Keypair Generator",
+    name: "WireGuard Keypair Generator",
+    category: "Cryptography & Cyber Security",
+    description: "Generates Curve25519 WireGuard private and public keypairs.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for WireGuard Keypair Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for WireGuard Keypair Generator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "periodic-table-explorer",
-    title: "Interactive Periodic Table Element Lookup",
-    name: "Interactive Periodic Table Element Lookup",
-    category: "Education, Science & Engineering",
-    description: "Displays atomic number, mass, symbol, and electron configuration for elements.",
+    title: "Interactive Periodic Table Lookup",
+    name: "Interactive Periodic Table Lookup",
+    category: "Education, Science & Physics",
+    description: "Displays atomic number, mass, symbol, and electron config for elements.",
     inputs: [
       {
-            "id": "element",
-            "label": "Element Symbol or Name",
-            "type": "text",
-            "placeholder": "Au or Gold"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Interactive Periodic Table Lookup",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Interactive Periodic Table Lookup..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
@@ -3064,95 +3796,74 @@ export const toolsConfig: ToolConfig[] = [
     id: "resistor-color-code",
     title: "Resistor Color Code Band Calculator",
     name: "Resistor Color Code Band Calculator",
-    category: "Education, Science & Engineering",
-    description: "Calculates resistor resistance (Ohms Ω) from 4-band and 5-band color sequences.",
+    category: "Education, Science & Physics",
+    description: "Calculates resistor resistance (Ohms Ω) from 4-band and 5-band colors.",
     inputs: [
       {
-            "id": "b1",
-            "label": "Band 1 Color",
-            "type": "dropdown",
-            "options": [
-                  "Brown (1)",
-                  "Red (2)",
-                  "Orange (3)",
-                  "Yellow (4)",
-                  "Green (5)",
-                  "Blue (6)"
-            ]
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Resistor Color Code Band Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Resistor Color Code Band Calculator..."
     },
       {
-            "id": "b2",
-            "label": "Band 2 Color",
+            "id": "mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Black (0)",
-                  "Brown (1)",
-                  "Red (2)",
-                  "Orange (3)"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
   },
   {
     id: "ohms-law-calculator",
-    title: "Ohm's Law Electrical Calculator",
-    name: "Ohm's Law Electrical Calculator",
-    category: "Education, Science & Engineering",
+    title: "Ohm's Law Electrical Engine",
+    name: "Ohm's Law Electrical Engine",
+    category: "Education, Science & Physics",
     description: "Calculates Voltage (V), Current (I), Resistance (R), and Power (W).",
     inputs: [
       {
-            "id": "v",
-            "label": "Voltage V (Volts)",
-            "type": "text",
-            "placeholder": "12"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Ohm's Law Electrical Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Ohm's Law Electrical Engine..."
     },
       {
-            "id": "r",
-            "label": "Resistance R (Ohms)",
-            "type": "text",
-            "placeholder": "4"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "physics-kinematics-calc",
-    title: "Physics Kinematics Equations Solver",
-    name: "Physics Kinematics Equations Solver",
-    category: "Education, Science & Engineering",
+    title: "Physics Kinematics Solver",
+    name: "Physics Kinematics Solver",
+    category: "Education, Science & Physics",
     description: "Solves motion equations ($v = u + at$, $s = ut + 0.5at^2$).",
     inputs: [
       {
-            "id": "u",
-            "label": "Initial Velocity u (m/s)",
-            "type": "text",
-            "placeholder": "0"
-    },
-      {
-            "id": "a",
-            "label": "Acceleration a (m/s²)",
-            "type": "text",
-            "placeholder": "9.8"
-    },
-      {
-            "id": "t",
-            "label": "Time t (seconds)",
-            "type": "text",
-            "placeholder": "5"
-    }
-]
-  },
-  {
-    id: "matrix-calculator",
-    title: "Matrix Algebra & Determinant Calculator",
-    name: "Matrix Algebra & Determinant Calculator",
-    category: "Education, Science & Engineering",
-    description: "Performs matrix addition, multiplication, and 2x2 / 3x3 determinant calculations.",
-    inputs: [
-      {
-            "id": "m1",
-            "label": "Matrix A (Row values space separated)",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Physics Kinematics Solver",
             "type": "textarea",
-            "placeholder": "1 2\n3 4"
+            "placeholder": "Enter parameters or paste target payload for Physics Kinematics Solver..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
@@ -3160,44 +3871,24 @@ export const toolsConfig: ToolConfig[] = [
     id: "chemical-equation-balancer",
     title: "Chemical Molar Mass Calculator",
     name: "Chemical Molar Mass Calculator",
-    category: "Education, Science & Engineering",
+    category: "Education, Science & Physics",
     description: "Calculates molecular weight and molar mass (g/mol) for chemical formulas.",
     inputs: [
       {
-            "id": "formula",
-            "label": "Chemical Formula",
-            "type": "text",
-            "placeholder": "H2SO4"
-    }
-]
-  },
-  {
-    id: "gpa-weighted-calc",
-    title: "High School & College Weighted GPA Calculator",
-    name: "High School & College Weighted GPA Calculator",
-    category: "Education, Science & Engineering",
-    description: "Calculates weighted and unweighted Grade Point Averages.",
-    inputs: [
-      {
-            "id": "grades",
-            "label": "Grades & Credits (e.g. A 3, B 4)",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Chemical Molar Mass Calculator",
             "type": "textarea",
-            "placeholder": "A 3\nB+ 4\nA 3"
-    }
-]
-  },
-  {
-    id: "unit-converter-pro",
-    title: "Engineering Pressure & Energy Converter",
-    name: "Engineering Pressure & Energy Converter",
-    category: "Education, Science & Engineering",
-    description: "Converts units of Pressure (PSI, Bar, Pa), Energy (Joules, BTU, kWh), and Power.",
-    inputs: [
+            "placeholder": "Enter parameters or paste target payload for Chemical Molar Mass Calculator..."
+    },
       {
-            "id": "val",
-            "label": "Value to Convert",
-            "type": "text",
-            "placeholder": "100"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
@@ -3205,185 +3896,324 @@ export const toolsConfig: ToolConfig[] = [
     id: "quadratic-equation-solver",
     title: "Quadratic Equation Root Solver",
     name: "Quadratic Equation Root Solver",
-    category: "Education, Science & Engineering",
-    description: "Solves quadratic equation roots ($ax^2 + bx + c = 0$) using discriminant formula.",
+    category: "Education, Science & Physics",
+    description: "Solves quadratic equation roots ($ax^2 + bx + c = 0$).",
     inputs: [
       {
-            "id": "a",
-            "label": "Coefficient a",
-            "type": "text",
-            "placeholder": "1"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Quadratic Equation Root Solver",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Quadratic Equation Root Solver..."
     },
       {
-            "id": "b",
-            "label": "Coefficient b",
-            "type": "text",
-            "placeholder": "-5"
-    },
-      {
-            "id": "c",
-            "label": "Coefficient c",
-            "type": "text",
-            "placeholder": "6"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "significant-figures-calc",
-    title: "Significant Figures (Sig Figs) Calculator",
-    name: "Significant Figures (Sig Figs) Calculator",
-    category: "Education, Science & Engineering",
-    description: "Counts significant figures in numbers and rounds scientific calculations.",
+    title: "Significant Figures Calculator",
+    name: "Significant Figures Calculator",
+    category: "Education, Science & Physics",
+    description: "Counts significant figures in numbers and rounds calculations.",
     inputs: [
       {
-            "id": "num",
-            "label": "Input Number",
-            "type": "text",
-            "placeholder": "0.004050"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Significant Figures Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Significant Figures Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "unit-converter-pro",
+    title: "Unit Pressure & Energy Converter",
+    name: "Unit Pressure & Energy Converter",
+    category: "Education, Science & Physics",
+    description: "Converts units of Pressure (PSI, Bar), Energy (Joules, BTU), and Power.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Unit Pressure & Energy Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Unit Pressure & Energy Converter..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "dna-sequence-complement",
+    title: "DNA Sequence Complement Generator",
+    name: "DNA Sequence Complement Generator",
+    category: "Education, Science & Physics",
+    description: "Generates complementary DNA and transcribed RNA sequences.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for DNA Sequence Complement Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for DNA Sequence Complement Generator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "vector-dot-product-engine",
+    title: "Vector Addition & Dot Product Engine",
+    name: "Vector Addition & Dot Product Engine",
+    category: "Education, Science & Physics",
+    description: "Calculates 2D/3D vector addition, magnitude, and dot product.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Vector Addition & Dot Product Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Vector Addition & Dot Product Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "rent-vs-buy-calculator",
-    title: "Rent vs. Buy Home Comparison Calculator",
-    name: "Rent vs. Buy Home Comparison Calculator",
-    category: "Home, Real Estate & Auto Tools",
+    title: "Rent vs. Buy Home Comparison Engine",
+    name: "Rent vs. Buy Home Comparison Engine",
+    category: "Real Estate, Construction & Home",
     description: "Compares 10-year total net costs of renting vs purchasing real estate.",
     inputs: [
       {
-            "id": "rent",
-            "label": "Monthly Rent ($)",
-            "type": "text",
-            "placeholder": "2000"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Rent vs. Buy Home Comparison Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Rent vs. Buy Home Comparison Engine..."
     },
       {
-            "id": "homePrice",
-            "label": "Home Target Price ($)",
-            "type": "text",
-            "placeholder": "400000"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "car-loan-calculator",
-    title: "Auto Loan Monthly Payment Calculator",
-    name: "Auto Loan Monthly Payment Calculator",
-    category: "Home, Real Estate & Auto Tools",
-    description: "Calculates monthly car payments, total interest, and loan amortization.",
+    title: "Auto Loan Payment Calculator",
+    name: "Auto Loan Payment Calculator",
+    category: "Real Estate, Construction & Home",
+    description: "Calculates monthly car payments, total interest, and amortization.",
     inputs: [
       {
-            "id": "price",
-            "label": "Vehicle Price ($)",
-            "type": "text",
-            "placeholder": "35000"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Auto Loan Payment Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Auto Loan Payment Calculator..."
     },
       {
-            "id": "down",
-            "label": "Down Payment ($)",
-            "type": "text",
-            "placeholder": "5000"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "paint-coverage-calculator",
-    title: "Room Wall Paint & Coverage Calculator",
-    name: "Room Wall Paint & Coverage Calculator",
-    category: "Home, Real Estate & Auto Tools",
+    title: "Room Paint Coverage Calculator",
+    name: "Room Paint Coverage Calculator",
+    category: "Real Estate, Construction & Home",
     description: "Calculates total gallons/liters of wall paint needed for room dimensions.",
     inputs: [
       {
-            "id": "roomWidth",
-            "label": "Room Width (ft)",
-            "type": "text",
-            "placeholder": "15"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Room Paint Coverage Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Room Paint Coverage Calculator..."
     },
       {
-            "id": "roomLength",
-            "label": "Room Length (ft)",
-            "type": "text",
-            "placeholder": "20"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "tile-flooring-calculator",
-    title: "Floor Tile & Grout Volume Calculator",
-    name: "Floor Tile & Grout Volume Calculator",
-    category: "Home, Real Estate & Auto Tools",
-    description: "Calculates square footage and tile box counts including a 10% waste buffer.",
+    title: "Tile & Grout Volume Calculator",
+    name: "Tile & Grout Volume Calculator",
+    category: "Real Estate, Construction & Home",
+    description: "Calculates square footage and tile box counts including 10% waste.",
     inputs: [
       {
-            "id": "sqft",
-            "label": "Total Floor Area (sq ft)",
-            "type": "text",
-            "placeholder": "500"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Tile & Grout Volume Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Tile & Grout Volume Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "solar-panel-payback",
-    title: "Solar Panel Cost & Payback Period Calculator",
-    name: "Solar Panel Cost & Payback Period Calculator",
-    category: "Home, Real Estate & Auto Tools",
+    title: "Solar Panel Payback Engine",
+    name: "Solar Panel Payback Engine",
+    category: "Real Estate, Construction & Home",
     description: "Calculates solar installation ROI payback period in years.",
     inputs: [
       {
-            "id": "cost",
-            "label": "Solar Installation Cost ($)",
-            "type": "text",
-            "placeholder": "18000"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Solar Panel Payback Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Solar Panel Payback Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "appliance-energy-calc",
-    title: "Electricity Appliance Running Cost Calculator",
-    name: "Electricity Appliance Running Cost Calculator",
-    category: "Home, Real Estate & Auto Tools",
+    title: "Appliance Electricity Cost Calculator",
+    name: "Appliance Electricity Cost Calculator",
+    category: "Real Estate, Construction & Home",
     description: "Calculates monthly electricity cost per appliance based on Wattage.",
     inputs: [
       {
-            "id": "watts",
-            "label": "Appliance Power (Watts)",
-            "type": "text",
-            "placeholder": "1500"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Appliance Electricity Cost Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Appliance Electricity Cost Calculator..."
     },
       {
-            "id": "hours",
-            "label": "Daily Hours Used",
-            "type": "text",
-            "placeholder": "4"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "property-tax-calculator",
-    title: "Home Property Tax & Assessment Calculator",
-    name: "Home Property Tax & Assessment Calculator",
-    category: "Home, Real Estate & Auto Tools",
-    description: "Calculates annual home property taxes from millage rate and assessed value.",
+    title: "Property Tax Assessment Calculator",
+    name: "Property Tax Assessment Calculator",
+    category: "Real Estate, Construction & Home",
+    description: "Calculates annual property taxes from millage rate and assessed value.",
     inputs: [
       {
-            "id": "value",
-            "label": "Assessed Property Value ($)",
-            "type": "text",
-            "placeholder": "350000"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Property Tax Assessment Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Property Tax Assessment Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "car-depreciation-calc",
-    title: "Vehicle Value Depreciation Calculator",
-    name: "Vehicle Value Depreciation Calculator",
-    category: "Home, Real Estate & Auto Tools",
+    title: "Vehicle Depreciation Engine",
+    name: "Vehicle Depreciation Engine",
+    category: "Real Estate, Construction & Home",
     description: "Projects 5-year vehicle market resale value depreciation curve.",
     inputs: [
       {
-            "id": "msrp",
-            "label": "New Car Price / MSRP ($)",
-            "type": "text",
-            "placeholder": "40000"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Vehicle Depreciation Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Vehicle Depreciation Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
@@ -3391,41 +4221,49 @@ export const toolsConfig: ToolConfig[] = [
     id: "concrete-volume-calc",
     title: "Concrete Slab Volume Calculator",
     name: "Concrete Slab Volume Calculator",
-    category: "Home, Real Estate & Auto Tools",
+    category: "Real Estate, Construction & Home",
     description: "Calculates cubic yards and 80lb bags of concrete required for slabs.",
     inputs: [
       {
-            "id": "width",
-            "label": "Slab Width (ft)",
-            "type": "text",
-            "placeholder": "10"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Concrete Slab Volume Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Concrete Slab Volume Calculator..."
     },
       {
-            "id": "length",
-            "label": "Slab Length (ft)",
-            "type": "text",
-            "placeholder": "12"
-    },
-      {
-            "id": "thickness",
-            "label": "Slab Thickness (inches)",
-            "type": "text",
-            "placeholder": "4"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "mulch-landscaping-calc",
-    title: "Landscaping Mulch & Soil Volume Calculator",
-    name: "Landscaping Mulch & Soil Volume Calculator",
-    category: "Home, Real Estate & Auto Tools",
-    description: "Calculates cubic yards of garden mulch needed for target bed depth.",
+    title: "Mulch & Soil Volume Calculator",
+    name: "Mulch & Soil Volume Calculator",
+    category: "Real Estate, Construction & Home",
+    description: "Calculates cubic yards of garden mulch needed for target depth.",
     inputs: [
       {
-            "id": "areaSqft",
-            "label": "Garden Bed Area (sq ft)",
-            "type": "text",
-            "placeholder": "300"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Mulch & Soil Volume Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Mulch & Soil Volume Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
@@ -3433,338 +4271,499 @@ export const toolsConfig: ToolConfig[] = [
     id: "flight-duration-calc",
     title: "Flight Duration & Distance Calculator",
     name: "Flight Duration & Distance Calculator",
-    category: "Travel, Time & World Utilities",
+    category: "Travel, Time & Mapping",
     description: "Calculates great-circle flight distance and travel hours between airports.",
     inputs: [
       {
-            "id": "fromCode",
-            "label": "Origin Airport (e.g. JFK)",
-            "type": "text",
-            "placeholder": "JFK"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Flight Duration & Distance Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Flight Duration & Distance Calculator..."
     },
       {
-            "id": "toCode",
-            "label": "Destination Airport (e.g. LHR)",
-            "type": "text",
-            "placeholder": "LHR"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "jet-lag-advisor",
-    title: "Jet Lag Recovery & Sleep Schedule Calculator",
-    name: "Jet Lag Recovery & Sleep Schedule Calculator",
-    category: "Travel, Time & World Utilities",
+    title: "Jet Lag Recovery Schedule Calculator",
+    name: "Jet Lag Recovery Schedule Calculator",
+    category: "Travel, Time & Mapping",
     description: "Calculates recommended sleep adjustments across multiple timezones.",
     inputs: [
       {
-            "id": "timeShift",
-            "label": "Timezone Shift (Hours)",
-            "type": "text",
-            "placeholder": "6"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Jet Lag Recovery Schedule Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Jet Lag Recovery Schedule Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "travel-budget-planner",
-    title: "Daily Travel Expense Budget Calculator",
-    name: "Daily Travel Expense Budget Calculator",
-    category: "Travel, Time & World Utilities",
+    title: "Daily Travel Budget Engine",
+    name: "Daily Travel Budget Engine",
+    category: "Travel, Time & Mapping",
     description: "Calculates daily and total travel budget splits for trip planning.",
     inputs: [
       {
-            "id": "totalBudget",
-            "label": "Total Trip Budget ($)",
-            "type": "text",
-            "placeholder": "2500"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Daily Travel Budget Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Daily Travel Budget Engine..."
     },
       {
-            "id": "days",
-            "label": "Trip Duration (Days)",
-            "type": "text",
-            "placeholder": "10"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "timezone-converter-pro",
-    title: "World Clock & Timezone Converter Matrix",
-    name: "World Clock & Timezone Converter Matrix",
-    category: "Travel, Time & World Utilities",
+    title: "World Clock Time Zone Matrix",
+    name: "World Clock Time Zone Matrix",
+    category: "Travel, Time & Mapping",
     description: "Converts local meeting times across UTC, EST, PST, GMT, IST, and JST.",
     inputs: [
       {
-            "id": "localTime",
-            "label": "Your Local Time",
-            "type": "text",
-            "placeholder": "03:00 PM"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for World Clock Time Zone Matrix",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for World Clock Time Zone Matrix..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "packing-list-generator",
-    title: "Vacation & Travel Packing Checklist Generator",
-    name: "Vacation & Travel Packing Checklist Generator",
-    category: "Travel, Time & World Utilities",
+    title: "Packing List Builder",
+    name: "Packing List Builder",
+    category: "Travel, Time & Mapping",
     description: "Generates customized travel packing lists based on destination weather.",
     inputs: [
       {
-            "id": "destination",
-            "label": "Trip Destination",
-            "type": "text",
-            "placeholder": "Beach Resort"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Packing List Builder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Packing List Builder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "driving-cost-calculator",
-    title: "Road Trip Fuel & Toll Cost Estimator",
-    name: "Road Trip Fuel & Toll Cost Estimator",
-    category: "Travel, Time & World Utilities",
+    title: "Driving Distance & Toll Estimator",
+    name: "Driving Distance & Toll Estimator",
+    category: "Travel, Time & Mapping",
     description: "Calculates gas costs for road trips based on distance, MPG, and gas price.",
     inputs: [
       {
-            "id": "distance",
-            "label": "Total Distance (miles)",
-            "type": "text",
-            "placeholder": "450"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Driving Distance & Toll Estimator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Driving Distance & Toll Estimator..."
     },
       {
-            "id": "mpg",
-            "label": "Vehicle MPG",
-            "type": "text",
-            "placeholder": "28"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "sun-angle-calculator",
-    title: "Sunrise, Sunset & Golden Hour Calculator",
-    name: "Sunrise, Sunset & Golden Hour Calculator",
-    category: "Travel, Time & World Utilities",
-    description: "Calculates local sunrise, sunset times, and golden hour photography windows.",
+    title: "Sunrise, Sunset & Golden Hour Engine",
+    name: "Sunrise, Sunset & Golden Hour Engine",
+    category: "Travel, Time & Mapping",
+    description: "Calculates local sunrise, sunset times, and golden hour windows.",
     inputs: [
       {
-            "id": "lat",
-            "label": "Latitude",
-            "type": "text",
-            "placeholder": "40.7128"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Sunrise, Sunset & Golden Hour Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Sunrise, Sunset & Golden Hour Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "nautical-distance-calc",
-    title: "Nautical Miles to Miles & KM Converter",
-    name: "Nautical Miles to Miles & KM Converter",
-    category: "Travel, Time & World Utilities",
+    title: "Nautical Miles Distance Converter",
+    name: "Nautical Miles Distance Converter",
+    category: "Travel, Time & Mapping",
     description: "Converts between Nautical Miles (NM), Statute Miles, and Kilometers.",
     inputs: [
       {
-            "id": "nm",
-            "label": "Nautical Miles Value",
-            "type": "text",
-            "placeholder": "100"
-    }
-]
-  },
-  {
-    id: "currency-cross-rate",
-    title: "Currency Cross Rate Matrix Generator",
-    name: "Currency Cross Rate Matrix Generator",
-    category: "Travel, Time & World Utilities",
-    description: "Calculates cross-currency exchange rates between USD, EUR, GBP, JPY, and AUD.",
-    inputs: [
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Nautical Miles Distance Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Nautical Miles Distance Converter..."
+    },
       {
-            "id": "baseCurrency",
-            "label": "Base Currency Code",
+            "id": "mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "USD",
-                  "EUR",
-                  "GBP",
-                  "JPY"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
   },
   {
     id: "coordinate-converter",
-    title: "GPS Coordinate Converter (DD ↔ DMS)",
-    name: "GPS Coordinate Converter (DD ↔ DMS)",
-    category: "Travel, Time & World Utilities",
+    title: "GPS Coordinate Converter (DD / DMS)",
+    name: "GPS Coordinate Converter (DD / DMS)",
+    category: "Travel, Time & Mapping",
     description: "Converts GPS coordinates between Decimal Degrees and Deg/Min/Sec.",
     inputs: [
       {
-            "id": "coords",
-            "label": "Coordinates Input",
-            "type": "text",
-            "placeholder": "40.7128, -74.0060"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for GPS Coordinate Converter (DD / DMS)",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for GPS Coordinate Converter (DD / DMS)..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "time-duration-calc",
+    title: "Time Duration Calculator",
+    name: "Time Duration Calculator",
+    category: "Travel, Time & Mapping",
+    description: "Calculates total hours and minutes between two time entries.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Time Duration Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Time Duration Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "dpi-sensitivity-converter",
-    title: "Gaming Mouse DPI & Sensitivity Converter",
-    name: "Gaming Mouse DPI & Sensitivity Converter",
-    category: "Gaming, Streaming & Content Fun",
-    description: "Converts eDPI mouse sensitivity between Valorant, CS2, Overwatch, and Apex.",
+    title: "Mouse DPI & Sensitivity Converter",
+    name: "Mouse DPI & Sensitivity Converter",
+    category: "Gaming, Media & Streaming",
+    description: "Converts eDPI mouse sensitivity between Valorant, CS2, and Apex.",
     inputs: [
       {
-            "id": "dpi",
-            "label": "Mouse DPI",
-            "type": "text",
-            "placeholder": "800"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Mouse DPI & Sensitivity Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Mouse DPI & Sensitivity Converter..."
     },
       {
-            "id": "sens",
-            "label": "Current Game Sensitivity",
-            "type": "text",
-            "placeholder": "0.4"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "twitch-bitrate-calc",
-    title: "Twitch & OBS Streaming Bitrate Calculator",
-    name: "Twitch & OBS Streaming Bitrate Calculator",
-    category: "Gaming, Streaming & Content Fun",
+    title: "Twitch/OBS Streaming Bitrate Engine",
+    name: "Twitch/OBS Streaming Bitrate Engine",
+    category: "Gaming, Media & Streaming",
     description: "Calculates optimal OBS bitrate settings for 720p/1080p 60fps broadcasts.",
     inputs: [
       {
-            "id": "uploadSpeed",
-            "label": "Internet Upload Speed (Mbps)",
-            "type": "text",
-            "placeholder": "20"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Twitch/OBS Streaming Bitrate Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Twitch/OBS Streaming Bitrate Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "dice-roller-pro",
-    title: "RPG Polyhedral Dice Roller Simulator",
-    name: "RPG Polyhedral Dice Roller Simulator",
-    category: "Gaming, Streaming & Content Fun",
+    title: "RPG Dice Roller Simulator",
+    name: "RPG Dice Roller Simulator",
+    category: "Gaming, Media & Streaming",
     description: "Simulates d4, d6, d8, d10, d12, d20, and d100 dice rolls with modifiers.",
     inputs: [
       {
-            "id": "diceType",
-            "label": "Dice Type",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for RPG Dice Roller Simulator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for RPG Dice Roller Simulator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "d20 (D&D Standard)",
-                  "2d6 (Board Games)",
-                  "d100 (Percentile)",
-                  "d6 (Cube)"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
   },
   {
     id: "poker-odds-calculator",
-    title: "Texas Hold'em Poker Hand Odds Calculator",
-    name: "Texas Hold'em Poker Hand Odds Calculator",
-    category: "Gaming, Streaming & Content Fun",
-    description: "Calculates pre-flop and flop winning probability percentages in Poker.",
+    title: "Poker Hand Equity Calculator",
+    name: "Poker Hand Equity Calculator",
+    category: "Gaming, Media & Streaming",
+    description: "Calculates pre-flop and flop winning probabilities in Texas Hold'em.",
     inputs: [
       {
-            "id": "hand",
-            "label": "Starting Hand (e.g. Ah Ks)",
-            "type": "text",
-            "placeholder": "Ah Ks"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Poker Hand Equity Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Poker Hand Equity Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "crosshair-generator",
-    title: "FPS Game Crosshair Preview & Config Builder",
-    name: "FPS Game Crosshair Preview & Config Builder",
-    category: "Gaming, Streaming & Content Fun",
+    title: "FPS Game Crosshair Configurator",
+    name: "FPS Game Crosshair Configurator",
+    category: "Gaming, Media & Streaming",
     description: "Renders custom FPS crosshairs and generates export config strings.",
     inputs: [
       {
-            "id": "color",
-            "label": "Crosshair Hex Color",
-            "type": "text",
-            "placeholder": "#00FF00"
-    }
-]
-  },
-  {
-    id: "gamer-tag-generator",
-    title: "Gamer Tag & Unique Username Generator",
-    name: "Gamer Tag & Unique Username Generator",
-    category: "Gaming, Streaming & Content Fun",
-    description: "Generates creative gaming handles and username combinations.",
-    inputs: [
+            "id": "inputData",
+            "label": "Input Parameter / Data String for FPS Game Crosshair Configurator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for FPS Game Crosshair Configurator..."
+    },
       {
-            "id": "keyword",
-            "label": "Base Keyword",
-            "type": "text",
-            "placeholder": "Shadow"
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "chess-pgn-viewer",
-    title: "Chess PGN Reader & Game Notation Viewer",
-    name: "Chess PGN Reader & Game Notation Viewer",
-    category: "Gaming, Streaming & Content Fun",
+    title: "Chess PGN Notation Viewer",
+    name: "Chess PGN Notation Viewer",
+    category: "Gaming, Media & Streaming",
     description: "Parses Portable Game Notation (.PGN) chess games into move lists.",
     inputs: [
       {
-            "id": "pgnText",
-            "label": "PGN Game Text",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Chess PGN Notation Viewer",
             "type": "textarea",
-            "placeholder": "1. e4 e5 2. Nf3 Nc6 3. Bb5 a6"
+            "placeholder": "Enter parameters or paste target payload for Chess PGN Notation Viewer..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "reaction-time-tester",
-    title: "In-Browser Visual Reaction Time Speed Tester",
-    name: "In-Browser Visual Reaction Time Speed Tester",
-    category: "Gaming, Streaming & Content Fun",
+    title: "Visual Reaction Time Tester",
+    name: "Visual Reaction Time Tester",
+    category: "Gaming, Media & Streaming",
     description: "Measures visual response time in milliseconds upon color change.",
     inputs: [
       {
-            "id": "action",
-            "label": "Test Mode",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Visual Reaction Time Tester",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Visual Reaction Time Tester..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Click to Start Reaction Test"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
   },
   {
     id: "cps-click-tester",
-    title: "Clicks Per Second (CPS) Speed Test Widget",
-    name: "Clicks Per Second (CPS) Speed Test Widget",
-    category: "Gaming, Streaming & Content Fun",
+    title: "Clicks Per Second (CPS) Test",
+    name: "Clicks Per Second (CPS) Test",
+    category: "Gaming, Media & Streaming",
     description: "Measures mouse clicking speed over 1, 5, or 10-second test intervals.",
     inputs: [
       {
-            "id": "interval",
-            "label": "Test Duration",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Clicks Per Second (CPS) Test",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Clicks Per Second (CPS) Test..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "5 Seconds Test",
-                  "10 Seconds Test"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
   },
   {
     id: "typing-speed-tester",
-    title: "1-Minute WPM Typing Speed Test",
-    name: "1-Minute WPM Typing Speed Test",
-    category: "Gaming, Streaming & Content Fun",
-    description: "Measures typing speed in Words Per Minute (WPM) and accuracy score.",
+    title: "WPM Typing Speed Test",
+    name: "WPM Typing Speed Test",
+    category: "Gaming, Media & Streaming",
+    description: "Measures typing speed in Words Per Minute (WPM) and accuracy.",
     inputs: [
       {
-            "id": "sample",
-            "label": "Typing Sample",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for WPM Typing Speed Test",
             "type": "textarea",
-            "placeholder": "The quick brown fox jumps over the lazy dog."
+            "placeholder": "Enter parameters or paste target payload for WPM Typing Speed Test..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "video-frame-rate-calc",
+    title: "Video Timecode & Frame Rate Engine",
+    name: "Video Timecode & Frame Rate Engine",
+    category: "Gaming, Media & Streaming",
+    description: "Calculates total frames and SMPTE timecodes (24fps, 30fps, 60fps).",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Video Timecode & Frame Rate Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Video Timecode & Frame Rate Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
@@ -3772,144 +4771,1500 @@ export const toolsConfig: ToolConfig[] = [
     id: "decision-matrix-builder",
     title: "Weighted Decision Matrix Builder",
     name: "Weighted Decision Matrix Builder",
-    category: "Personal Utility & Productivity Tools",
+    category: "Personal Organization & Strategy",
     description: "Ranks multiple options objectively using weighted custom criteria.",
     inputs: [
       {
-            "id": "options",
-            "label": "Options List (comma separated)",
-            "type": "text",
-            "placeholder": "Option A, Option B, Option C"
-    }
-]
-  },
-  {
-    id: "habits-streak-tracker",
-    title: "Habit Tracker & 30-Day Grid Sheet Builder",
-    name: "Habit Tracker & 30-Day Grid Sheet Builder",
-    category: "Personal Utility & Productivity Tools",
-    description: "Generates printable 30-day habit streak matrices for personal goals.",
-    inputs: [
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Weighted Decision Matrix Builder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Weighted Decision Matrix Builder..."
+    },
       {
-            "id": "habitName",
-            "label": "Habit Title",
-            "type": "text",
-            "placeholder": "Read 20 Pages Daily"
-    }
-]
-  },
-  
-  {
-    id: "pomodoro-sound-generator",
-    title: "Pomodoro Ambient Focus Audio Generator",
-    name: "Pomodoro Ambient Focus Audio Generator",
-    category: "Personal Utility & Productivity Tools",
-    description: "Synthesizes focus white noise and ambient sounds via Web Audio API.",
-    inputs: [
-      {
-            "id": "soundType",
-            "label": "Sound Profile",
+            "id": "mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Pink Noise Focus",
-                  "Brown Noise Deep",
-                  "Sine Wave Tone"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
   },
   {
-    id: "mind-map-markdown",
-    title: "Text-to-Mindmap Markdown Node Generator",
-    name: "Text-to-Mindmap Markdown Node Generator",
-    category: "Personal Utility & Productivity Tools",
-    description: "Converts indented list text into structured visual node diagrams.",
+    id: "habits-streak-tracker",
+    title: "30-Day Habit Grid Builder",
+    name: "30-Day Habit Grid Builder",
+    category: "Personal Organization & Strategy",
+    description: "Generates printable 30-day habit streak matrices for personal goals.",
     inputs: [
       {
-            "id": "listText",
-            "label": "Indented List",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for 30-Day Habit Grid Builder",
             "type": "textarea",
-            "placeholder": "Project\n  Task 1\n  Task 2"
+            "placeholder": "Enter parameters or paste target payload for 30-Day Habit Grid Builder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
-    id: "daily-journal-prompts",
-    title: "Daily Reflection & Gratitude Journal Builder",
-    name: "Daily Reflection & Gratitude Journal Builder",
-    category: "Personal Utility & Productivity Tools",
-    description: "Generates daily self-reflection questions and gratitude prompts.",
+    id: "reading-time-estimator-tool",
+    title: "Reading Time Estimator",
+    name: "Reading Time Estimator",
+    category: "Personal Organization & Strategy",
+    description: "Calculates estimated reading and speaking duration at 200 WPM.",
     inputs: [
       {
-            "id": "theme",
-            "label": "Journaling Focus",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Reading Time Estimator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Reading Time Estimator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
             "type": "dropdown",
             "options": [
-                  "Morning Intentions",
-                  "Evening Gratitude",
-                  "Mindfulness Check-In"
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "markdown-mindmap-tree",
+    title: "Markdown Mindmap Tree Builder",
+    name: "Markdown Mindmap Tree Builder",
+    category: "Personal Organization & Strategy",
+    description: "Converts indented list text into structured visual node diagrams.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Markdown Mindmap Tree Builder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Markdown Mindmap Tree Builder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
             ]
     }
 ]
   },
   {
     id: "to-do-matrix-eisenhower",
-    title: "Eisenhower Priority Task Sorter",
-    name: "Eisenhower Priority Task Sorter",
-    category: "Personal Utility & Productivity Tools",
+    title: "Eisenhower Matrix Task Sorter",
+    name: "Eisenhower Matrix Task Sorter",
+    category: "Personal Organization & Strategy",
     description: "Categorizes tasks into Urgent/Important 4-quadrant decision boxes.",
     inputs: [
       {
-            "id": "tasks",
-            "label": "Task List Lines",
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Eisenhower Matrix Task Sorter",
             "type": "textarea",
-            "placeholder": "Fix server bug\nRead book\nPlan vacation"
+            "placeholder": "Enter parameters or paste target payload for Eisenhower Matrix Task Sorter..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "gift-budget-planner",
-    title: "Holiday & Birthday Gift Budget Allocator",
-    name: "Holiday & Birthday Gift Budget Allocator",
-    category: "Personal Utility & Productivity Tools",
+    title: "Holiday Gift Budget Allocator",
+    name: "Holiday Gift Budget Allocator",
+    category: "Personal Organization & Strategy",
     description: "Allocates gift spending caps per recipient and tracks budget totals.",
     inputs: [
       {
-            "id": "totalBudget",
-            "label": "Total Gift Budget ($)",
-            "type": "text",
-            "placeholder": "500"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Holiday Gift Budget Allocator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Holiday Gift Budget Allocator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "event-guest-list-calc",
-    title: "Event Guest & Party Catering Estimator",
-    name: "Event Guest & Party Catering Estimator",
-    category: "Personal Utility & Productivity Tools",
+    title: "Event Party Catering Estimator",
+    name: "Event Party Catering Estimator",
+    category: "Personal Organization & Strategy",
     description: "Estimates food portions, beverage counts, and seating requirements.",
     inputs: [
       {
-            "id": "guestCount",
-            "label": "Total Guests Count",
-            "type": "text",
-            "placeholder": "50"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Event Party Catering Estimator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Event Party Catering Estimator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
   {
     id: "bill-splitter-advanced",
-    title: "Apartment Rent & Expense Splitter by Sq Ft",
-    name: "Apartment Rent & Expense Splitter by Sq Ft",
-    category: "Personal Utility & Productivity Tools",
+    title: "Rent Splitter by Square Footage",
+    name: "Rent Splitter by Square Footage",
+    category: "Personal Organization & Strategy",
     description: "Splits monthly rent and utility expenses proportionally by room size.",
     inputs: [
       {
-            "id": "rentTotal",
-            "label": "Total Apartment Rent ($)",
-            "type": "text",
-            "placeholder": "2400"
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Rent Splitter by Square Footage",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Rent Splitter by Square Footage..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
     }
 ]
   },
+  {
+    id: "recipe-scale-factor-calc",
+    title: "Recipe Scale Factor Calculator",
+    name: "Recipe Scale Factor Calculator",
+    category: "Personal Organization & Strategy",
+    description: "Scales ingredient quantities up or down for target serving sizes.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Recipe Scale Factor Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Recipe Scale Factor Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "daily-journal-prompts",
+    title: "Daily Gratitude Journal Template",
+    name: "Daily Gratitude Journal Template",
+    category: "Personal Organization & Strategy",
+    description: "Generates daily self-reflection questions and gratitude prompts.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Daily Gratitude Journal Template",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Daily Gratitude Journal Template..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "youtube-tag-extractor",
+    title: "YouTube Tag Extractor",
+    name: "YouTube Tag Extractor",
+    category: "Social Media Infrastructure",
+    description: "Generates SEO tags, hashtags, and keywords for YouTube video titles.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for YouTube Tag Extractor",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for YouTube Tag Extractor..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "video-bitrate-file-estimator",
+    title: "Video Bitrate & File Size Estimator",
+    name: "Video Bitrate & File Size Estimator",
+    category: "Social Media Infrastructure",
+    description: "Calculates estimated video MB size based on bitrate and duration.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Video Bitrate & File Size Estimator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Video Bitrate & File Size Estimator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "tweet-character-counter",
+    title: "Tweet Character Matrix Tester",
+    name: "Tweet Character Matrix Tester",
+    category: "Social Media Infrastructure",
+    description: "Checks 280-character Twitter/X limits and splits long text into threads.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Tweet Character Matrix Tester",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Tweet Character Matrix Tester..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "youtube-thumbnail-previewer",
+    title: "YouTube Thumbnail Previewer",
+    name: "YouTube Thumbnail Previewer",
+    category: "Social Media Infrastructure",
+    description: "Previews video thumbnail and title mockups on Youtube feeds.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for YouTube Thumbnail Previewer",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for YouTube Thumbnail Previewer..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "podcast-rss-builder",
+    title: "Podcast RSS XML Feed Builder",
+    name: "Podcast RSS XML Feed Builder",
+    category: "Social Media Infrastructure",
+    description: "Generates Apple Podcasts & Spotify compliant RSS XML feed code.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Podcast RSS XML Feed Builder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Podcast RSS XML Feed Builder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "subtitle-vtt-converter",
+    title: "SRT to WebVTT Subtitle Converter",
+    name: "SRT to WebVTT Subtitle Converter",
+    category: "Social Media Infrastructure",
+    description: "Transcodes SubRip (.SRT) subtitle files into WebVTT (.VTT) format.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for SRT to WebVTT Subtitle Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for SRT to WebVTT Subtitle Converter..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "social-image-canvas-resizer",
+    title: "Social Media Image Canvas Resizer",
+    name: "Social Media Image Canvas Resizer",
+    category: "Social Media Infrastructure",
+    description: "Resizes images for Instagram, Twitter, LinkedIn, and Facebook banners.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Social Media Image Canvas Resizer",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Social Media Image Canvas Resizer..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "twitch-panel-layout-gen",
+    title: "Twitch Panel Layout Generator",
+    name: "Twitch Panel Layout Generator",
+    category: "Social Media Infrastructure",
+    description: "Generates graphic panel dimensions and HTML layout links for Twitch.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Twitch Panel Layout Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Twitch Panel Layout Generator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "discord-embed-creator",
+    title: "Discord Embed Creator",
+    name: "Discord Embed Creator",
+    category: "Social Media Infrastructure",
+    description: "Builds Discord webhook embed JSON objects with fields and colors.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Discord Embed Creator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Discord Embed Creator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "tiktok-video-duration-estimator",
+    title: "TikTok Video Duration Estimator",
+    name: "TikTok Video Duration Estimator",
+    category: "Social Media Infrastructure",
+    description: "Estimates speech reading duration for 15s, 60s, and 3m TikTok clips.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for TikTok Video Duration Estimator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for TikTok Video Duration Estimator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "robots-txt-builder",
+    title: "Robots.txt File Builder",
+    name: "Robots.txt File Builder",
+    category: "SEO & Webmaster Suite",
+    description: "Generates clean robots.txt disallow rules and sitemap directives.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Robots.txt File Builder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Robots.txt File Builder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "meta-viewport-builder",
+    title: "Web App Manifest Builder",
+    name: "Web App Manifest Builder",
+    category: "SEO & Webmaster Suite",
+    description: "Generates HTML meta viewport tags and Web App Manifest JSON files.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Web App Manifest Builder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Web App Manifest Builder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "anchor-text-analyzer",
+    title: "Anchor Text Ratio Analyzer",
+    name: "Anchor Text Ratio Analyzer",
+    category: "SEO & Webmaster Suite",
+    description: "Analyzes backlink anchor text distributions for exact match ratios.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Anchor Text Ratio Analyzer",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Anchor Text Ratio Analyzer..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "dns-record-generator",
+    title: "DNS Record Generator (A/MX/TXT)",
+    name: "DNS Record Generator (A/MX/TXT)",
+    category: "SEO & Webmaster Suite",
+    description: "Generates DNS zone file records for domain hosting.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for DNS Record Generator (A/MX/TXT)",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for DNS Record Generator (A/MX/TXT)..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "sitemap-index-generator",
+    title: "XML Sitemap Index Generator",
+    name: "XML Sitemap Index Generator",
+    category: "SEO & Webmaster Suite",
+    description: "Generates `<sitemapindex>` XML documents linking sub-sitemaps.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for XML Sitemap Index Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for XML Sitemap Index Generator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "word-density-counter",
+    title: "TF-IDF Keyword Density Analyzer",
+    name: "TF-IDF Keyword Density Analyzer",
+    category: "SEO & Webmaster Suite",
+    description: "Calculates 1-word, 2-word, and 3-word n-gram keyword densities.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for TF-IDF Keyword Density Analyzer",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for TF-IDF Keyword Density Analyzer..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "broken-link-checker-ui",
+    title: "Broken Link Checker UI",
+    name: "Broken Link Checker UI",
+    category: "SEO & Webmaster Suite",
+    description: "Validates URL structures, query strings, and path protocols in HTML.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Broken Link Checker UI",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Broken Link Checker UI..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "mobile-friendly-checker",
+    title: "Responsive Viewport Breakpoint Tester",
+    name: "Responsive Viewport Breakpoint Tester",
+    category: "SEO & Webmaster Suite",
+    description: "Tests layout visibility across 320px, 768px, 1024px, and 1440px.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Responsive Viewport Breakpoint Tester",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Responsive Viewport Breakpoint Tester..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "http-redirect-chain-inspector",
+    title: "HTTP Redirect Chain Inspector",
+    name: "HTTP Redirect Chain Inspector",
+    category: "SEO & Webmaster Suite",
+    description: "Simulates 301/302 HTTP redirect chains and canonical loops.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for HTTP Redirect Chain Inspector",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for HTTP Redirect Chain Inspector..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "domain-tld-checker",
+    title: "Domain TLD Checker",
+    name: "Domain TLD Checker",
+    category: "SEO & Webmaster Suite",
+    description: "Inspects top-level domain extensions (.com, .io, .ai, .dev) specs.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Domain TLD Checker",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Domain TLD Checker..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "curl-to-fetch-converter-tool",
+    title: "cURL to JavaScript fetch() Converter",
+    name: "cURL to JavaScript fetch() Converter",
+    category: "Developer Build Utilities",
+    description: "Converts command-line cURL commands into clean `fetch()` snippets.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for cURL to JavaScript fetch() Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for cURL to JavaScript fetch() Converter..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "json-to-ts-interface",
+    title: "JSON to TypeScript Interface Generator",
+    name: "JSON to TypeScript Interface Generator",
+    category: "Developer Build Utilities",
+    description: "Converts JSON sample objects into strongly typed TypeScript interfaces.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for JSON to TypeScript Interface Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for JSON to TypeScript Interface Generator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "yaml-to-json",
+    title: "YAML to JSON Engine",
+    name: "YAML to JSON Engine",
+    category: "Developer Build Utilities",
+    description: "Converts YAML configuration files into JSON structures and vice-versa.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for YAML to JSON Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for YAML to JSON Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "css-js-compressor",
+    title: "Minify CSS / JS Engine",
+    name: "Minify CSS / JS Engine",
+    category: "Developer Build Utilities",
+    description: "Compresses JavaScript and CSS code removing spaces and comments.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Minify CSS / JS Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Minify CSS / JS Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "xml-formatter",
+    title: "XML Formatter & Validator",
+    name: "XML Formatter & Validator",
+    category: "Developer Build Utilities",
+    description: "Pretty-prints XML documents with node indentation and validates tags.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for XML Formatter & Validator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for XML Formatter & Validator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "dockerfile-generator",
+    title: "Dockerfile Generator",
+    name: "Dockerfile Generator",
+    category: "Developer Build Utilities",
+    description: "Generates optimized multi-stage Dockerfiles for Node, Python, and Go.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Dockerfile Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Dockerfile Generator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "git-command-cheat-sheet",
+    title: "Git Command Cheat Sheet Builder",
+    name: "Git Command Cheat Sheet Builder",
+    category: "Developer Build Utilities",
+    description: "Interactive generator for common git rebase, cherry-pick, and reset commands.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Git Command Cheat Sheet Builder",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Git Command Cheat Sheet Builder..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "regex-cheatsheet-ui",
+    title: "Regular Expression Cheatsheet UI",
+    name: "Regular Expression Cheatsheet UI",
+    category: "Developer Build Utilities",
+    description: "Reference guide and pattern builder for regex tokens and lookaheads.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Regular Expression Cheatsheet UI",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Regular Expression Cheatsheet UI..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "package-json-tree-inspector",
+    title: "Package.json Dependency Tree Inspector",
+    name: "Package.json Dependency Tree Inspector",
+    category: "Developer Build Utilities",
+    description: "Parses `package.json` files listing dependencies and devDependencies.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Package.json Dependency Tree Inspector",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Package.json Dependency Tree Inspector..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "markdown-badges-generator",
+    title: "Markdown Badges Generator",
+    name: "Markdown Badges Generator",
+    category: "Developer Build Utilities",
+    description: "Generates Shields.io status badges for GitHub README files.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Markdown Badges Generator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Markdown Badges Generator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "fraction-calculator",
+    title: "Fraction Simplifier Engine",
+    name: "Fraction Simplifier Engine",
+    category: "Math & Statistics",
+    description: "Adds, subtracts, multiplies, and divides fractions reducing to lowest terms.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Fraction Simplifier Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Fraction Simplifier Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "roman-numeral-converter",
+    title: "Roman Numeral Converter",
+    name: "Roman Numeral Converter",
+    category: "Math & Statistics",
+    description: "Converts integer numbers to Roman Numerals (`2026` ↔ `MMXXVI`).",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Roman Numeral Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Roman Numeral Converter..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "binary-calculator",
+    title: "Binary Arithmetic Engine",
+    name: "Binary Arithmetic Engine",
+    category: "Math & Statistics",
+    description: "Performs binary addition, subtraction, AND, OR, XOR operations.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Binary Arithmetic Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Binary Arithmetic Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "average-mean-calculator",
+    title: "Mean, Median, Mode Engine",
+    name: "Mean, Median, Mode Engine",
+    category: "Math & Statistics",
+    description: "Calculates Mean, Median, Mode, and Range for dataset numbers.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Mean, Median, Mode Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Mean, Median, Mode Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "standard-deviation-calc",
+    title: "Standard Deviation Calculator",
+    name: "Standard Deviation Calculator",
+    category: "Math & Statistics",
+    description: "Calculates Sample/Population Standard Deviation, Variance, and Sum of Squares.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Standard Deviation Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Standard Deviation Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "random-choice-picker",
+    title: "Random Name / Item Picker",
+    name: "Random Name / Item Picker",
+    category: "Math & Statistics",
+    description: "Picks one or more random items/winners from a custom list.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Random Name / Item Picker",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Random Name / Item Picker..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "speed-distance-time",
+    title: "Speed, Distance & Time Solver",
+    name: "Speed, Distance & Time Solver",
+    category: "Math & Statistics",
+    description: "Calculates missing speed (mph/kph), distance (miles/km), or travel time.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Speed, Distance & Time Solver",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Speed, Distance & Time Solver..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "triangle-solver",
+    title: "Pythagorean Right Triangle Solver",
+    name: "Pythagorean Right Triangle Solver",
+    category: "Math & Statistics",
+    description: "Solves right triangles calculating Hypotenuse ($c = \sqrt{a^2+b^2}$), area, and perimeter.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Pythagorean Right Triangle Solver",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Pythagorean Right Triangle Solver..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "combination-permutation-calc",
+    title: "Combination & Permutation Engine",
+    name: "Combination & Permutation Engine",
+    category: "Math & Statistics",
+    description: "Calculates $nCr$ combinations and $nPr$ permutations.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Combination & Permutation Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Combination & Permutation Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "logarithm-exponent-calc",
+    title: "Logarithm & Exponent Calculator",
+    name: "Logarithm & Exponent Calculator",
+    category: "Math & Statistics",
+    description: "Calculates natural log $\ln(x)$, $\log_{10}(x)$, and arbitrary base exponents.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Logarithm & Exponent Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Logarithm & Exponent Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "grocery-unit-price-matrix",
+    title: "Unit Price Comparison Matrix",
+    name: "Unit Price Comparison Matrix",
+    category: "Daily Life Utilities",
+    description: "Compares cost per ounce/gram between competing grocery package deals.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Unit Price Comparison Matrix",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Unit Price Comparison Matrix..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "time-between-dates-engine",
+    title: "Time Between Dates Engine",
+    name: "Time Between Dates Engine",
+    category: "Daily Life Utilities",
+    description: "Calculates exact days, weeks, and months between two calendar dates.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Time Between Dates Engine",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Time Between Dates Engine..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "fuel-consumption-converter",
+    title: "Fuel Consumption Converter",
+    name: "Fuel Consumption Converter",
+    category: "Daily Life Utilities",
+    description: "Converts fuel economy between MPG (US/UK) and L/100km.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Fuel Consumption Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Fuel Consumption Converter..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "age-calculator-exact",
+    title: "Age Calculator (Exact Days/Hours)",
+    name: "Age Calculator (Exact Days/Hours)",
+    category: "Daily Life Utilities",
+    description: "Calculates exact age in years, months, days, hours, and minutes.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Age Calculator (Exact Days/Hours)",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Age Calculator (Exact Days/Hours)..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "shoe-size-converter",
+    title: "Shoe Size International Converter",
+    name: "Shoe Size International Converter",
+    category: "Daily Life Utilities",
+    description: "Converts shoe sizes across US, UK, EU, and CM measurement scales.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Shoe Size International Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Shoe Size International Converter..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "kitchen-measurement-converter",
+    title: "Kitchen Measurement Converter",
+    name: "Kitchen Measurement Converter",
+    category: "Daily Life Utilities",
+    description: "Converts cooking volumes (cups, tablespoons, teaspoons, ml, fl oz).",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Kitchen Measurement Converter",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Kitchen Measurement Converter..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "ring-size-calculator",
+    title: "Ring Size Calculator",
+    name: "Ring Size Calculator",
+    category: "Daily Life Utilities",
+    description: "Converts finger circumference in mm to US, UK, and EU ring sizes.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Ring Size Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Ring Size Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "tire-size-comparison",
+    title: "Tire Size Comparison Calculator",
+    name: "Tire Size Comparison Calculator",
+    category: "Daily Life Utilities",
+    description: "Compares tire diameter, sidewall height, and speedometer offset %.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Tire Size Comparison Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Tire Size Comparison Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "simple-interest-calculator",
+    title: "Simple Interest Calculator",
+    name: "Simple Interest Calculator",
+    category: "Daily Life Utilities",
+    description: "Calculates simple interest ($I = P \times r \times t$) and final balance.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Simple Interest Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Simple Interest Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  },
+  {
+    id: "percentage-discount-calculator",
+    title: "Percentage Discount Calculator",
+    name: "Percentage Discount Calculator",
+    category: "Daily Life Utilities",
+    description: "Calculates discount savings amount and final price at retail checkout.",
+    inputs: [
+      {
+            "id": "inputData",
+            "label": "Input Parameter / Data String for Percentage Discount Calculator",
+            "type": "textarea",
+            "placeholder": "Enter parameters or paste target payload for Percentage Discount Calculator..."
+    },
+      {
+            "id": "mode",
+            "label": "Operation / Execution Preset",
+            "type": "dropdown",
+            "options": [
+                  "Standard Execution Mode",
+                  "High-Precision Mode",
+                  "Verbose Diagnostic Mode"
+            ]
+    }
+]
+  }
 ];
