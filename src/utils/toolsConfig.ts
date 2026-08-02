@@ -215,16 +215,7 @@ export const toolsConfig: ToolConfig[] = [
       { id: "image", label: "OG Card Image URL Path", type: "text", placeholder: "https://zenovee.ai/og-card.png" }
     ]
   },
-  {
-    id: "headline-analyzer",
-    title: "Headline Analyzer & Readability Scorer",
-    name: "Headline Analyzer & Readability Scorer",
-    category: "Growth Marketing",
-    description: "Evaluates title power words, emotional score, character length, and Flesch-Kincaid readability instantly.",
-    inputs: [
-      { id: "headline", label: "Target Article/Email Headline Title", type: "text", placeholder: "Type your headline (e.g. 'How to Free Up Server Space in 5 Minutes')" }
-    ]
-  },
+  
   {
     id: "email-signature",
     title: "Client-Side HTML Email Signature Generator",
@@ -740,17 +731,7 @@ export const toolsConfig: ToolConfig[] = [
       { id: "domain", label: "Target Domain Name", type: "text", placeholder: "e.g. example.com" }
     ]
   },
-  {
-    id: "base64-encoder-decoder",
-    title: "Base64 Encoder / Decoder",
-    name: "Base64 Encoder / Decoder",
-    category: "Converters & Encoders",
-    description: "Encodes plain text into Base64 or decodes Base64 strings safely with UTF-8 support.",
-    inputs: [
-      { id: "text", label: "Input Text / Base64 Payload", type: "textarea", placeholder: "Enter text to encode or Base64 string to decode..." },
-      { id: "mode", label: "Processing Mode", type: "dropdown", options: ["Encode to Base64", "Decode from Base64"] }
-    ]
-  },
+  
   {
     id: "url-encoder-decoder",
     title: "URL Encoder / Decoder",
@@ -762,16 +743,7 @@ export const toolsConfig: ToolConfig[] = [
       { id: "mode", label: "Action Mode", type: "dropdown", options: ["URL Encode (encodeURIComponent)", "URL Decode (decodeURIComponent)"] }
     ]
   },
-  {
-    id: "json-to-csv",
-    title: "JSON to CSV Converter",
-    name: "JSON to CSV Converter",
-    category: "Converters & Encoders",
-    description: "Transforms JSON arrays of objects into structured CSV tabular spreadsheets with validation.",
-    inputs: [
-      { id: "jsonInput", label: "JSON Array Payload", type: "textarea", placeholder: '[\n  {"id": 1, "name": "Alice", "role": "Developer"},\n  {"id": 2, "name": "Bob", "role": "Designer"}\n]' }
-    ]
-  },
+  
   {
     id: "xml-to-json",
     title: "XML to JSON Converter",
@@ -782,16 +754,7 @@ export const toolsConfig: ToolConfig[] = [
       { id: "xmlInput", label: "XML Code Payload", type: "textarea", placeholder: "<user>\n  <name>Jane Doe</name>\n  <role>Engineer</role>\n</user>" }
     ]
   },
-  {
-    id: "markdown-to-html",
-    title: "Markdown to HTML Live Previewer",
-    name: "Markdown to HTML Live Previewer",
-    category: "Converters & Encoders",
-    description: "Converts raw Markdown syntax into formatted HTML tags locally.",
-    inputs: [
-      { id: "mdText", label: "Markdown Syntax Text", type: "textarea", placeholder: "# Headline 1\n\nThis is **bold** text." }
-    ]
-  },
+  
   {
     id: "color-code-converter",
     title: "Color Code Converter (HEX, RGB, HSL, CMYK)",
@@ -910,28 +873,8 @@ export const toolsConfig: ToolConfig[] = [
       { id: "textB", label: "Modified Text (Version B)", type: "textarea", placeholder: "Line 1: Hello World!\nLine 2: 50+ Fast client side tools\nLine 3: Added new line" }
     ]
   },
-  {
-    id: "lorem-generator",
-    title: "Lorem Ipsum Placeholder Text Generator",
-    name: "Lorem Ipsum Placeholder Text Generator",
-    category: "Text & Code Formatters",
-    description: "Generates classical Lorem Ipsum placeholder text by paragraphs, sentences, or word count.",
-    inputs: [
-      { id: "count", label: "Output Count", type: "text", placeholder: "3" },
-      { id: "unit", label: "Generation Unit", type: "dropdown", options: ["Paragraphs", "Sentences", "Words"] }
-    ]
-  },
-  {
-    id: "case-converter",
-    title: "Text Case Converter",
-    name: "Text Case Converter",
-    category: "Text & Code Formatters",
-    description: "Transforms text into UPPERCASE, lowercase, Title Case, camelCase, snake_case, and kebab-case.",
-    inputs: [
-      { id: "text", label: "Raw Input Text", type: "textarea", placeholder: "Hello world! Build fast client side tools." },
-      { id: "casing", label: "Target Case Style", type: "dropdown", options: ["UPPERCASE", "lowercase", "Title Case", "camelCase", "snake_case", "kebab-case"] }
-    ]
-  },
+  
+  
   {
     id: "text-stats-counter",
     title: "Word, Character, and Paragraph Counter",
@@ -1126,18 +1069,7 @@ export const toolsConfig: ToolConfig[] = [
       { id: "count", label: "Generation Count", type: "dropdown", options: ["5 Numbers", "1 Number", "10 Numbers", "20 Numbers"] }
     ]
   },
-  {
-    id: "seo-meta-generator",
-    title: "SEO Meta Tag Generator",
-    name: "SEO Meta Tag Generator",
-    category: "Security & Generators",
-    description: "Generates standard HTML meta tags, Open Graph cards, and Twitter Cards.",
-    inputs: [
-      { id: "title", label: "Page Title", type: "text", placeholder: "Zenovee AI - 50+ Free Client-Side Developer Tools" },
-      { id: "description", label: "Meta Description", type: "textarea", placeholder: "Access 50+ free client-side developer utilities directly in your browser with zero network latency." },
-      { id: "url", label: "Canonical Page URL", type: "text", placeholder: "https://zenovee.ai" }
-    ]
-  },
+  
   {
     id: "robots-txt-builder",
     title: "Robots.txt File Generator",
@@ -1286,21 +1218,7 @@ export const toolsConfig: ToolConfig[] = [
     }
 ]
   },
-  {
-    id: "curl-to-fetch",
-    title: "cURL to JavaScript fetch() Converter",
-    name: "cURL to JavaScript fetch() Converter",
-    category: "Developer & Web Tools",
-    description: "Converts command-line cURL requests into clean JavaScript fetch() or Async/Await snippets.",
-    inputs: [
-      {
-            "id": "curlCmd",
-            "label": "cURL Command String",
-            "type": "textarea",
-            "placeholder": "curl -X POST https://api.example.com/data -H \"Content-Type: application/json\" -d '{\"key\":\"value\"}'"
-    }
-]
-  },
+  
   {
     id: "user-agent-parser",
     title: "User-Agent String Parser",
@@ -1675,87 +1593,9 @@ export const toolsConfig: ToolConfig[] = [
     }
 ]
   },
-  {
-    id: "text-repeater",
-    title: "Text & String Repeater",
-    name: "Text & String Repeater",
-    category: "Text Processing & Writing Utilities",
-    description: "Repeats a text string N times with optional newlines, spaces, or custom delimiters.",
-    inputs: [
-      {
-            "id": "text",
-            "label": "Text to Repeat",
-            "type": "text",
-            "placeholder": "Hello World!"
-    },
-      {
-            "id": "repeatCount",
-            "label": "Repeat Count",
-            "type": "text",
-            "placeholder": "10"
-    },
-      {
-            "id": "delimiter",
-            "label": "Separator Style",
-            "type": "dropdown",
-            "options": [
-                  "Newline",
-                  "Space",
-                  "Comma (,)",
-                  "Hyphen (-)"
-            ]
-    }
-]
-  },
-  {
-    id: "reverse-text-generator",
-    title: "Reverse Text & Backwards String Generator",
-    name: "Reverse Text & Backwards String Generator",
-    category: "Text Processing & Writing Utilities",
-    description: "Flips text characters backwards, reverses word order, or reverses line order.",
-    inputs: [
-      {
-            "id": "text",
-            "label": "Input Text to Reverse",
-            "type": "textarea",
-            "placeholder": "Zenovee AI Tools"
-    },
-      {
-            "id": "mode",
-            "label": "Reverse Mode",
-            "type": "dropdown",
-            "options": [
-                  "Reverse Characters (slooT IA eevoneZ)",
-                  "Reverse Words (Tools AI Zenovee)",
-                  "Reverse Lines"
-            ]
-    }
-]
-  },
-  {
-    id: "duplicate-line-remover",
-    title: "Duplicate Line & Word Remover",
-    name: "Duplicate Line & Word Remover",
-    category: "Text Processing & Writing Utilities",
-    description: "Strips duplicate lines or words from list data and sorts the output alphabetically.",
-    inputs: [
-      {
-            "id": "listText",
-            "label": "Raw List Data",
-            "type": "textarea",
-            "placeholder": "apple\nbanana\napple\norange\nbanana"
-    },
-      {
-            "id": "caseSensitive",
-            "label": "Case Sensitivity",
-            "type": "dropdown",
-            "options": [
-                  "Ignore Case (A=a)",
-                  "Case Sensitive (A!=a)"
-            ]
-    }
-]
-  },
+  
+  
+  
   {
     id: "text-to-binary",
     title: "Text to Binary & Binary to Text Converter",
@@ -1869,47 +1709,8 @@ export const toolsConfig: ToolConfig[] = [
     }
 ]
   },
-  {
-    id: "word-scrambler",
-    title: "Anagram & Word Scrambler",
-    name: "Anagram & Word Scrambler",
-    category: "Text Processing & Writing Utilities",
-    description: "Randomly scrambles letters in words or generates anagram combinations for puzzles.",
-    inputs: [
-      {
-            "id": "word",
-            "label": "Input Word / Phrase",
-            "type": "text",
-            "placeholder": "LISTEN"
-    }
-]
-  },
-  {
-    id: "text-sorter",
-    title: "Alphabetical Text & List Sorter",
-    name: "Alphabetical Text & List Sorter",
-    category: "Text Processing & Writing Utilities",
-    description: "Sorts lists alphabetically (A-Z, Z-A), numerically, or by line character length.",
-    inputs: [
-      {
-            "id": "lines",
-            "label": "Raw List Lines",
-            "type": "textarea",
-            "placeholder": "Zebra\nApple\nMonkey\nCat"
-    },
-      {
-            "id": "sortOrder",
-            "label": "Sort Ordering",
-            "type": "dropdown",
-            "options": [
-                  "Alphabetical A-Z",
-                  "Alphabetical Z-A",
-                  "By Line Length (Short to Long)",
-                  "Numeric Sort"
-            ]
-    }
-]
-  },
+  
+  
   {
     id: "simple-calculator",
     title: "Basic Standard & Scientific Calculator",
@@ -2443,36 +2244,8 @@ export const toolsConfig: ToolConfig[] = [
     }
 ]
   },
-  {
-    id: "tiktok-caption-generator",
-    title: "TikTok & Reels Caption Builder",
-    name: "TikTok & Reels Caption Builder",
-    category: "Social Media & Video Creator Tools",
-    description: "Generates engaging TikTok captions with hook lines, emojis, and hashtags.",
-    inputs: [
-      {
-            "id": "topic",
-            "label": "Video Niche / Concept",
-            "type": "text",
-            "placeholder": "Productivity Hacks"
-    }
-]
-  },
-  {
-    id: "instagram-hashtag-generator",
-    title: "Instagram Hashtag Strategy Generator",
-    name: "Instagram Hashtag Strategy Generator",
-    category: "Social Media & Video Creator Tools",
-    description: "Generates categorized hashtag groups (High, Medium, Niche competition).",
-    inputs: [
-      {
-            "id": "niche",
-            "label": "Instagram Niche",
-            "type": "text",
-            "placeholder": "Fitness Motivation"
-    }
-]
-  },
+  
+  
   {
     id: "video-duration-calculator",
     title: "Video File Size & Bitrate Estimator",
@@ -2503,21 +2276,7 @@ export const toolsConfig: ToolConfig[] = [
     }
 ]
   },
-  {
-    id: "social-bio-generator",
-    title: "Social Media Bio & Link Formatter",
-    name: "Social Media Bio & Link Formatter",
-    category: "Social Media & Video Creator Tools",
-    description: "Creates stylized social media profiles with custom Unicode fonts and formatting.",
-    inputs: [
-      {
-            "id": "bioText",
-            "label": "Bio Profile Text",
-            "type": "textarea",
-            "placeholder": "Digital Creator & Tech Builder"
-    }
-]
-  },
+  
   {
     id: "youtube-thumbnail-previewer",
     title: "YouTube Thumbnail & Title CTR Previewer",
@@ -4039,21 +3798,7 @@ export const toolsConfig: ToolConfig[] = [
     }
 ]
   },
-  {
-    id: "reading-time-calculator",
-    title: "Reading Time & Word Count Estimator",
-    name: "Reading Time & Word Count Estimator",
-    category: "Personal Utility & Productivity Tools",
-    description: "Calculates estimated reading and speaking duration at 200 WPM.",
-    inputs: [
-      {
-            "id": "textBody",
-            "label": "Article Text Body",
-            "type": "textarea",
-            "placeholder": "Paste text body to estimate reading minutes..."
-    }
-]
-  },
+  
   {
     id: "pomodoro-sound-generator",
     title: "Pomodoro Ambient Focus Audio Generator",

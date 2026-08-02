@@ -239,21 +239,7 @@
         return `# 🏷️ Head Meta Tags\n\n\`\`\`html\n<meta property="og:title" content="${inputs.title || ''}" />\n<meta property="og:description" content="${inputs.desc || ''}" />\n<meta property="og:image" content="${inputs.img || ''}" />\n<meta name="twitter:card" content="summary_large_image" />\n\`\`\``;
       }
     },
-    {
-      id: 'headline-analyzer',
-      category: 'Growth Marketing',
-      title: 'Headline Analyzer & Readability Scorer',
-      description: 'Evaluates title power words, emotional score, and character length.',
-      inputs: [
-        { id: 'headline', label: 'Headline Text', type: 'text', placeholder: 'How to Build Fast Client-Side Tools' }
-      ],
-      execute: (inputs) => {
-        const text = inputs.headline || '';
-        const len = text.length;
-        const words = text.split(/\s+/).filter(Boolean).length;
-        return `# 📝 Headline Analysis Score\n\n- **Impact Score:** **78 / 100** (Great Headline)\n- **Character Count:** ${len} chars\n- **Word Count:** ${words} words\n- **Power Words Detected:** Yes ("Fast", "Client-Side")`;
-      }
-    },
+    
     {
       id: 'email-signature',
       category: 'Growth Marketing',
@@ -931,32 +917,7 @@
     // -----------------------------------------------------------------------
     // Category 7: Converters & Encoders (10 Tools)
     // -----------------------------------------------------------------------
-    {
-      id: 'base64-encoder-decoder',
-      category: 'Converters & Encoders',
-      title: 'Base64 Encoder / Decoder',
-      description: 'Encodes plain text into Base64 or decodes Base64 strings safely with UTF-8 support.',
-      inputs: [
-        { id: 'text', label: 'Input Text / Base64 Payload', type: 'textarea', placeholder: 'Enter text to encode or Base64 string to decode...' },
-        { id: 'mode', label: 'Processing Mode', type: 'dropdown', options: ['Encode to Base64', 'Decode from Base64'] }
-      ],
-      execute: (inputs) => {
-        const text = inputs.text || '';
-        const mode = inputs.mode || 'Encode to Base64';
-        try {
-          if (!text.trim()) return `# ℹ️ Input Required\nPlease enter text or a Base64 string in the input panel.`;
-          if (mode.includes('Encode')) {
-            const encoded = btoa(unescape(encodeURIComponent(text)));
-            return `# 🔐 Base64 Encoded Result\n\n\`\`\`text\n${encoded}\n\`\`\``;
-          } else {
-            const decoded = decodeURIComponent(escape(atob(text.trim())));
-            return `# 🔓 Base64 Decoded Result\n\n\`\`\`text\n${decoded}\n\`\`\``;
-          }
-        } catch (e) {
-          return `# ❌ Base64 Processing Error\n\n\`\`\`text\nInvalid Base64 format or malformed string: ${e.message}\n\`\`\``;
-        }
-      }
-    },
+    
     {
       id: 'url-encoder-decoder',
       category: 'Converters & Encoders',
@@ -983,37 +944,7 @@
         }
       }
     },
-    {
-      id: 'json-to-csv',
-      category: 'Converters & Encoders',
-      title: 'JSON to CSV Converter',
-      description: 'Transforms JSON arrays of objects into structured CSV tabular spreadsheets.',
-      inputs: [
-        { id: 'jsonInput', label: 'JSON Array Payload', type: 'textarea', placeholder: '[\n  {"id": 1, "name": "Alice", "role": "Developer"},\n  {"id": 2, "name": "Bob", "role": "Designer"}\n]' }
-      ],
-      execute: (inputs) => {
-        const raw = (inputs.jsonInput || '').trim();
-        if (!raw) return `# ℹ️ Input Required\nPlease paste a valid JSON array of objects.`;
-        try {
-          const parsed = JSON.parse(raw);
-          if (!Array.isArray(parsed) || parsed.length === 0) {
-            return `# ❌ Invalid JSON Format\n\nInput must be a non-empty JSON array of objects (e.g. \`[{"name":"Alice"}]\`).`;
-          }
-          const headers = Object.keys(parsed[0]);
-          const csvLines = [headers.join(',')];
-          parsed.forEach(obj => {
-            const row = headers.map(h => {
-              const val = obj[h] !== undefined ? String(obj[h]) : '';
-              return val.includes(',') || val.includes('"') ? `"${val.replace(/"/g, '""')}"` : val;
-            });
-            csvLines.push(row.join(','));
-          });
-          return `# 📊 Converted CSV Output\n\n\`\`\`csv\n${csvLines.join('\n')}\n\`\`\``;
-        } catch (e) {
-          return `# ❌ Malformed JSON Error\n\n\`\`\`text\nFailed to parse JSON string: ${e.message}\nPlease verify quotes, brackets, and syntax.\n\`\`\``;
-        }
-      }
-    },
+    
     {
       id: 'xml-to-json',
       category: 'Converters & Encoders',
@@ -1074,29 +1005,7 @@
         }
       }
     },
-    {
-      id: 'markdown-to-html',
-      category: 'Converters & Encoders',
-      title: 'Markdown to HTML Live Previewer',
-      description: 'Converts raw Markdown syntax into formatted HTML tags locally.',
-      inputs: [
-        { id: 'mdText', label: 'Markdown Syntax Text', type: 'textarea', placeholder: '# Headline 1\n\nThis is **bold** and *italic* text.\n\n- Feature 1\n- Feature 2' }
-      ],
-      execute: (inputs) => {
-        let md = inputs.mdText || '# Headline 1\n\nThis is **bold** text.';
-        let html = md
-          .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-          .replace(/^## (.*$)/gim, '<h2>$2</h2>')
-          .replace(/^### (.*$)/gim, '<h3>$3</h3>')
-          .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
-          .replace(/\*(.*)\*/gim, '<em>$1</em>')
-          .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2">$1</a>')
-          .replace(/^\- (.*$)/gim, '<li>$1</li>')
-          .replace(/\n\n/gim, '<br/>');
-
-        return `# 📝 Generated HTML Code\n\n\`\`\`html\n${html}\n\`\`\``;
-      }
-    },
+    
     {
       id: 'color-code-converter',
       category: 'Converters & Encoders',
@@ -1388,48 +1297,8 @@
         return `# 🔍 Visual Line-by-Line Diff\n\n\`\`\`diff\n${diff.join('\n')}\n\`\`\``;
       }
     },
-    {
-      id: 'lorem-generator',
-      category: 'Text & Code Formatters',
-      title: 'Lorem Ipsum Placeholder Text Generator',
-      description: 'Generates classical Lorem Ipsum placeholder text by paragraphs, sentences, or word count.',
-      inputs: [
-        { id: 'count', label: 'Output Count', type: 'text', placeholder: '3' },
-        { id: 'unit', label: 'Generation Unit', type: 'dropdown', options: ['Paragraphs', 'Sentences', 'Words'] }
-      ],
-      execute: (inputs) => {
-        const count = Math.min(50, parseInt(inputs.count || '3', 10) || 3);
-        const unit = inputs.unit || 'Paragraphs';
-        const sampleParagraph = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
-        let result = [];
-        for (let i = 0; i < count; i++) {
-          result.push(`Paragraph ${i + 1}:\n${sampleParagraph}`);
-        }
-        return `# 📝 Generated Lorem Ipsum (${count} ${unit})\n\n${result.join('\n\n')}`;
-      }
-    },
-    {
-      id: 'case-converter',
-      category: 'Text & Code Formatters',
-      title: 'Text Case Converter',
-      description: 'Transforms text into UPPERCASE, lowercase, Title Case, camelCase, snake_case, and kebab-case.',
-      inputs: [
-        { id: 'text', label: 'Raw Input Text', type: 'textarea', placeholder: 'Hello world! Build fast client side tools.' },
-        { id: 'casing', label: 'Target Case Style', type: 'dropdown', options: ['UPPERCASE', 'lowercase', 'Title Case', 'camelCase', 'snake_case', 'kebab-case'] }
-      ],
-      execute: (inputs) => {
-        const text = inputs.text || 'Hello world';
-        const casing = inputs.casing || 'UPPERCASE';
-        let res = text;
-        if (casing === 'UPPERCASE') res = text.toUpperCase();
-        else if (casing === 'lowercase') res = text.toLowerCase();
-        else if (casing === 'Title Case') res = text.replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.substr(1).toLowerCase());
-        else if (casing === 'camelCase') res = text.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
-        else if (casing === 'snake_case') res = text.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '_');
-        else if (casing === 'kebab-case') res = text.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-');
-        return `# 🔤 Converted Text Output\n\nStyle: **${casing}**\n\n\`\`\`text\n${res}\n\`\`\``;
-      }
-    },
+    
+    
     {
       id: 'text-stats-counter',
       category: 'Text & Code Formatters',
@@ -1949,42 +1818,7 @@
         return `# 🎲 Generated Random Numbers\n\n- **Range Bounds:** [${min} ... ${max}]\n\n\`\`\`text\n${numbers.join(', ')}\n\`\`\``;
       }
     },
-    {
-      id: 'seo-meta-generator',
-      category: 'Security & Generators',
-      title: 'SEO Meta Tag Generator',
-      description: 'Generates standard HTML meta tags, Open Graph cards, and Twitter Cards.',
-      inputs: [
-        { id: 'title', label: 'Page Title', type: 'text', placeholder: 'Zenovee AI - 50+ Free Client-Side Developer Tools' },
-        { id: 'description', label: 'Meta Description', type: 'textarea', placeholder: 'Access 50+ free client-side developer utilities directly in your browser with zero network latency.' },
-        { id: 'url', label: 'Canonical Page URL', type: 'text', placeholder: 'https://zenovee.ai' }
-      ],
-      execute: (inputs) => {
-        const t = inputs.title || 'Zenovee AI - 50+ Free Developer Tools';
-        const d = inputs.description || 'Access 50+ free client-side developer utilities with 100% privacy.';
-        const u = inputs.url || 'https://zenovee.ai';
-
-        const code = `<!-- Primary Meta Tags -->
-<title>${t}</title>
-<meta name="title" content="${t}">
-<meta name="description" content="${d}">
-<link rel="canonical" href="${u}">
-
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="${u}">
-<meta property="og:title" content="${t}">
-<meta property="og:description" content="${d}">
-
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="${u}">
-<meta property="twitter:title" content="${t}">
-<meta property="twitter:description" content="${d}">`;
-
-        return `# 🏷️ HTML SEO Meta Code Snippet\n\n\`\`\`html\n${code}\n\`\`\``;
-      }
-    },
+    
     {
       id: 'robots-txt-builder',
       category: 'Security & Generators',
@@ -2185,23 +2019,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
       }
     },
 
-      {
-      id: 'curl-to-fetch',
-      category: 'Developer & Web Tools',
-      title: 'cURL to JavaScript fetch() Converter',
-      description: 'Converts command-line cURL requests into clean JavaScript fetch() or Async/Await snippets.',
-      inputs: [
-        {
-                "id": "curlCmd",
-                "label": "cURL Command String",
-                "type": "textarea",
-                "placeholder": "curl https://api.example.com/data"
-        }
-],
-      execute: (inputs) => {
-        return '# ⚡ cURL to JavaScript fetch() Converter Output\n\nProcess completed locally inside client browser thread.';
-      }
-    },
+      
 
       {
       id: 'user-agent-parser',
@@ -2449,59 +2267,11 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
       }
     },
 
-      {
-      id: 'text-repeater',
-      category: 'Text Processing & Writing Utilities',
-      title: 'Text & String Repeater',
-      description: 'Repeats a text string N times with optional newlines, spaces, or custom delimiters.',
-      inputs: [
-        {
-                "id": "text",
-                "label": "Text to Repeat",
-                "type": "text",
-                "placeholder": "Hello World!"
-        }
-],
-      execute: (inputs) => {
-        return '# ⚡ Text & String Repeater Output\n\nProcess completed locally inside client browser thread.';
-      }
-    },
+      
 
-      {
-      id: 'reverse-text-generator',
-      category: 'Text Processing & Writing Utilities',
-      title: 'Reverse Text & Backwards String Generator',
-      description: 'Flips text characters backwards, reverses word order, or reverses line order.',
-      inputs: [
-        {
-                "id": "text",
-                "label": "Input Text to Reverse",
-                "type": "textarea",
-                "placeholder": "Zenovee AI Tools"
-        }
-],
-      execute: (inputs) => {
-        return '# ⚡ Reverse Text & Backwards String Generator Output\n\nProcess completed locally inside client browser thread.';
-      }
-    },
+      
 
-      {
-      id: 'duplicate-line-remover',
-      category: 'Text Processing & Writing Utilities',
-      title: 'Duplicate Line & Word Remover',
-      description: 'Strips duplicate lines or words from list data and sorts the output alphabetically.',
-      inputs: [
-        {
-                "id": "listText",
-                "label": "Raw List Data",
-                "type": "textarea",
-                "placeholder": "apple\nbanana\napple"
-        }
-],
-      execute: (inputs) => {
-        return '# ⚡ Duplicate Line & Word Remover Output\n\nProcess completed locally inside client browser thread.';
-      }
-    },
+      
 
       {
       id: 'text-to-binary',
@@ -2593,41 +2363,9 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
       }
     },
 
-      {
-      id: 'word-scrambler',
-      category: 'Text Processing & Writing Utilities',
-      title: 'Anagram & Word Scrambler',
-      description: 'Randomly scrambles letters in words or generates anagram combinations for puzzles.',
-      inputs: [
-        {
-                "id": "word",
-                "label": "Input Word",
-                "type": "text",
-                "placeholder": "LISTEN"
-        }
-],
-      execute: (inputs) => {
-        return '# ⚡ Anagram & Word Scrambler Output\n\nProcess completed locally inside client browser thread.';
-      }
-    },
+      
 
-      {
-      id: 'text-sorter',
-      category: 'Text Processing & Writing Utilities',
-      title: 'Alphabetical Text & List Sorter',
-      description: 'Sorts lists alphabetically (A-Z, Z-A), numerically, or by line character length.',
-      inputs: [
-        {
-                "id": "lines",
-                "label": "Raw List Lines",
-                "type": "textarea",
-                "placeholder": "Zebra\nApple\nCat"
-        }
-],
-      execute: (inputs) => {
-        return '# ⚡ Alphabetical Text & List Sorter Output\n\nProcess completed locally inside client browser thread.';
-      }
-    },
+      
 
       {
       id: 'simple-calculator',
@@ -3010,41 +2748,9 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
       }
     },
 
-      {
-      id: 'tiktok-caption-generator',
-      category: 'Social Media & Video Creator Tools',
-      title: 'TikTok & Reels Caption Builder',
-      description: 'Generates engaging TikTok captions with hook lines, emojis, and hashtags.',
-      inputs: [
-        {
-                "id": "topic",
-                "label": "Video Niche / Concept",
-                "type": "text",
-                "placeholder": "Productivity Hacks"
-        }
-],
-      execute: (inputs) => {
-        return '# ⚡ TikTok & Reels Caption Builder Output\n\nCalculated locally inside browser memory thread.';
-      }
-    },
+      
 
-      {
-      id: 'instagram-hashtag-generator',
-      category: 'Social Media & Video Creator Tools',
-      title: 'Instagram Hashtag Strategy Generator',
-      description: 'Generates categorized hashtag groups (High, Medium, Niche competition).',
-      inputs: [
-        {
-                "id": "niche",
-                "label": "Instagram Niche",
-                "type": "text",
-                "placeholder": "Fitness Motivation"
-        }
-],
-      execute: (inputs) => {
-        return '# ⚡ Instagram Hashtag Strategy Generator Output\n\nCalculated locally inside browser memory thread.';
-      }
-    },
+      
 
       {
       id: 'video-duration-calculator',
@@ -3082,23 +2788,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
       }
     },
 
-      {
-      id: 'social-bio-generator',
-      category: 'Social Media & Video Creator Tools',
-      title: 'Social Media Bio & Link Formatter',
-      description: 'Creates stylized social media profiles with custom Unicode fonts and formatting.',
-      inputs: [
-        {
-                "id": "bioText",
-                "label": "Bio Profile Text",
-                "type": "textarea",
-                "placeholder": "Digital Creator & Tech Builder"
-        }
-],
-      execute: (inputs) => {
-        return '# ⚡ Social Media Bio & Link Formatter Output\n\nCalculated locally inside browser memory thread.';
-      }
-    },
+      
 
       {
       id: 'youtube-thumbnail-previewer',
@@ -4879,23 +4569,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
       }
     },
 
-      {
-      id: 'reading-time-calculator',
-      category: 'Personal Utility & Productivity Tools',
-      title: 'Reading Time & Word Count Estimator',
-      description: 'Calculates estimated reading and speaking duration at 200 WPM.',
-      inputs: [
-        {
-                "id": "textBody",
-                "label": "Article Text Body",
-                "type": "textarea",
-                "placeholder": "Paste text body to estimate reading minutes..."
-        }
-],
-      execute: (inputs) => {
-        return '# ⚡ Reading Time & Word Count Estimator Output\n\nCalculated locally inside browser memory thread.';
-      }
-    },
+      
 
       {
       id: 'pomodoro-sound-generator',
