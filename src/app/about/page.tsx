@@ -1,73 +1,107 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft, Sparkles, Target, Zap } from "lucide-react";
+import { Metadata } from 'next';
+import Navbar from '@/components/ui/Navbar';
+import Footer from '@/components/ui/Footer';
+import Link from 'next/link';
+import { Target, ShieldCheck, Zap, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: "About Us | Zenovee Free Suite",
-  description: "Learn about Zenovee Free Suite, our mission to consolidate fragmented tools, and our local client-side architecture.",
+  title: 'About | Zenovee',
+  description: 'Learn about Zenovee, our mission, and how we build tools for the modern web.',
 };
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-[#FAFBFE] pb-24 font-sans text-slate-900">
-      <div className="mx-auto max-w-7xl px-6 pt-12 lg:px-8">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors mb-10">
-          <ArrowLeft className="w-4 h-4" />
-          Back to Home
-        </Link>
-        
-        <div className="max-w-3xl mb-16">
-          <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">About Zenovee Free Suite</h1>
-          <p className="mt-6 text-lg leading-8 text-slate-600">
-            We are building a comprehensive, 100% free hub of client-side developer, marketing, and productivity tools. Our mission is to end subscription fatigue by offering a comprehensive suite of utilities that run entirely in your browser with zero data storage or registration requirements.
+    <main className="min-h-screen flex flex-col overflow-hidden relative">
+      <Navbar />
+      
+      {/* Background */}
+      <div className="aurora-mesh absolute inset-0 pointer-events-none opacity-40">
+        <div className="aurora-orb aurora-orb-1 opacity-40" />
+        <div className="aurora-orb aurora-orb-2 opacity-30" />
+      </div>
+
+      <div className="flex-1 relative z-10 pt-32 pb-24">
+        {/* Hero Section */}
+        <div className="max-w-4xl mx-auto px-6 text-center mb-24 anim-fade-up">
+          <div className="badge badge-violet mb-6 inline-flex">Our Story</div>
+          <h1 className="text-4xl sm:text-6xl font-extrabold text-white mb-6 tracking-tight">
+            Built for the <span className="gradient-text">modern web.</span>
+          </h1>
+          <p className="text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+            Zenovee is on a mission to democratize powerful AI and productivity tools, bringing them directly to your browser with unparalleled speed, privacy, and user experience.
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-3 mb-24">
-          <div className="rounded-3xl border border-slate-200 bg-white p-8">
-            <div className="p-3 bg-indigo-50 text-indigo-600 rounded-xl w-fit mb-6">
-              <Target className="w-6 h-6" />
+        {/* Values Grid */}
+        <div className="max-w-7xl mx-auto px-6 mb-32">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 stagger">
+            <div className="glass-card-dark rounded-2xl p-8 flex flex-col items-start anim-fade-up delay-100">
+              <div className="bg-violet-500/10 text-violet-400 rounded-xl p-3 mb-6 ring-1 ring-violet-500/20">
+                <Target className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Our Mission</h3>
+              <p className="text-zinc-400 leading-relaxed">
+                To build beautifully designed, highly functional tools that respect your time and boost your daily productivity without unnecessary friction.
+              </p>
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Our Mission</h3>
-            <p className="text-slate-600 leading-relaxed">
-              To democratize access to advanced utilities by collapsing fragmented, costly software stacks into a single, completely free platform.
-            </p>
-          </div>
-          
-          <div className="rounded-3xl border border-slate-200 bg-white p-8">
-            <div className="p-3 bg-indigo-50 text-indigo-600 rounded-xl w-fit mb-6">
-              <Sparkles className="w-6 h-6" />
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">100% Browser Local</h3>
-            <p className="text-slate-600 leading-relaxed">
-              We leverage modern client-side APIs, ensuring your inputs never leave your computer. Pure privacy, zero server storage, and zero tracking.
-            </p>
-          </div>
 
-          <div className="rounded-3xl border border-slate-200 bg-white p-8">
-            <div className="p-3 bg-indigo-50 text-indigo-600 rounded-xl w-fit mb-6">
-              <Zap className="w-6 h-6" />
+            <div className="glass-card-dark rounded-2xl p-8 flex flex-col items-start anim-fade-up delay-200">
+              <div className="bg-cyan-500/10 text-cyan-400 rounded-xl p-3 mb-6 ring-1 ring-cyan-500/20">
+                <ShieldCheck className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Privacy-First</h3>
+              <p className="text-zinc-400 leading-relaxed">
+                We believe your data is yours. Our tools are built to run locally in your browser whenever possible, keeping your sensitive information safe.
+              </p>
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Instant Execution</h3>
-            <p className="text-slate-600 leading-relaxed">
-              Enjoy immediate results without server roundtrips, queues, or backend execution delays.
-            </p>
+
+            <div className="glass-card-dark rounded-2xl p-8 flex flex-col items-start anim-fade-up delay-300">
+              <div className="bg-emerald-500/10 text-emerald-400 rounded-xl p-3 mb-6 ring-1 ring-emerald-500/20">
+                <Zap className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Instant Speed</h3>
+              <p className="text-zinc-400 leading-relaxed">
+                No waiting, no loading screens. By leveraging modern client-side technologies, our tools operate with zero latency for a seamless experience.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div className="rounded-[2.5rem] bg-slate-900 px-8 py-16 sm:p-16 relative overflow-hidden text-center">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.2),transparent_70%)]" />
-          <h2 className="text-3xl font-bold tracking-tight text-white relative z-10">Access All 50+ Utilities Instantly</h2>
-          <p className="mt-4 text-lg text-slate-300 max-w-2xl mx-auto relative z-10">
-            No signup, no authentication, and no limits. Experience the suite that puts your data privacy first.
-          </p>
-          <div className="mt-8 flex justify-center relative z-10">
-            <Link href="/dashboard" className="rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-100 transition-colors">
-              Browse All Free Tools
+        {/* Architecture Section */}
+        <div className="max-w-5xl mx-auto px-6 mb-32 anim-fade-up delay-400">
+          <div className="glass-card-dark rounded-3xl p-10 md:p-16 border border-white/10 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-violet-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+            <div className="max-w-3xl relative z-10">
+              <h2 className="text-3xl font-bold text-white mb-6">How Zenovee works</h2>
+              <div className="space-y-6 text-zinc-300 text-lg leading-relaxed">
+                <p>
+                  Unlike traditional web applications that send your data back and forth to a server, Zenovee is built on a client-side architecture powered by modern web technologies.
+                </p>
+                <p>
+                  This means that for the vast majority of our tools, the heavy lifting happens directly on your device. This approach fundamentally shifts how we handle performance and privacy. Your data never leaves your browser unless absolutely necessary.
+                </p>
+                <p>
+                  The result? An instantly responsive toolkit that feels like a native desktop application, wrapped in a premium, beautifully crafted user interface.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="max-w-5xl mx-auto px-6 anim-fade-up delay-500">
+          <div className="rounded-3xl bg-gradient-to-br from-violet-600 to-indigo-800 p-12 text-center text-white shadow-2xl relative overflow-hidden border border-white/10">
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjU2IDI1NiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOSIgbnVtT2N0YXZlcz0iNCIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiLz48L3N2Zz4=')] opacity-[0.03] mix-blend-overlay pointer-events-none"></div>
+            
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6 relative z-10 tracking-tight">Experience the difference</h2>
+            <Link href="/dashboard" className="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-white text-violet-900 font-bold hover:bg-white/90 transition-all shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 relative z-10">
+              Explore Our Tools <ArrowRight className="w-5 h-5 ml-2" />
             </Link>
           </div>
         </div>
       </div>
+      
+      <Footer />
     </main>
   );
 }

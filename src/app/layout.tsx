@@ -1,37 +1,56 @@
 import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-const inter = { variable: "--font-inter", className: "font-sans" };
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: "#09090b",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
 };
 
 export const metadata: Metadata = {
   title: {
-    default: "Zenovee Suite | 50+ Free Client-Side Developer & Growth Utilities",
-    template: "%s | Zenovee Suite",
+    default: "Zenovee — Premium Developer & Marketing Tool Suite",
+    template: "%s | Zenovee",
   },
-  description: "100% free client-side utility platform running high-volume calculations, image conversions, and text processing locally in your browser.",
-  keywords: ["Free Tools", "Client Side Utilities", "WebP Converter", "UTM Builder", "TikTok Duration Estimator", "Base64 Encoder", "Developer Tools"],
+  description:
+    "Experience the ultimate collection of 250+ ultra-fast, premium client-side tools for developers and marketers. Zero server calls, total privacy, absolutely free.",
+  keywords: [
+    "free online tools",
+    "developer tools",
+    "marketing tools",
+    "client-side utilities",
+    "WebP converter",
+    "UTM builder",
+    "JSON formatter",
+    "image compressor",
+    "Base64 encoder",
+    "privacy-first tools",
+  ],
   authors: [{ name: "Zenovee" }],
-  creator: "Zenovee AI",
+  creator: "Zenovee",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://zenovee.ai",
-    title: "Zenovee Suite | 50+ Free Client-Side Utilities",
-    description: "100% free client-side utility platform hosted on Cloudflare Pages.",
-    siteName: "Zenovee Suite",
+    title: "Zenovee — Free Browser-Native Developer & Marketing Tools",
+    description:
+      "250+ free tools that run 100% in your browser. No signup, no data collection, no limits.",
+    siteName: "Zenovee",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Zenovee Suite | 50+ Free Client-Side Utilities",
-    description: "100% free client-side utility platform.",
+    title: "Zenovee — Free Browser-Native Tools",
+    description:
+      "250+ free client-side tools for developers and marketers. Zero data collection.",
   },
   robots: {
     index: true,
@@ -52,11 +71,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} font-sans h-full antialiased`}>
-      <body className="min-h-full">
+    <html lang="en" className={`${inter.variable} h-full dark`}>
+      <body className="min-h-full font-sans antialiased bg-zinc-950 text-zinc-50 selection:bg-violet-500/30 selection:text-white grain-overlay">
         {children}
 
-        {/* Lightweight Asynchronous Cloudflare / Privacy Analytics Script Hook */}
+        {/* Cloudflare Analytics */}
         <Script
           src="https://static.cloudflareinsights.com/beacon.min.js"
           strategy="afterInteractive"

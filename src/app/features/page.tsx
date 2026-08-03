@@ -1,80 +1,96 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft, CheckCircle2, LayoutGrid, Layers, LineChart, Sparkles } from "lucide-react";
-import { toolsConfig } from "@/utils/toolsConfig";
+import { Metadata } from 'next';
+import Navbar from '@/components/ui/Navbar';
+import Footer from '@/components/ui/Footer';
+import Link from 'next/link';
+import { toolsConfig } from '@/utils/toolsConfig';
+import { ArrowRight, TerminalSquare } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: "50+ Client-Side Free Tools | Zenovee Free Suite",
-  description: "Explore our comprehensive suite of 50+ client-side utility tools for marketing, development, data analysis, and media conversion.",
-  openGraph: {
-    title: "50+ Client-Side Free Tools | Zenovee Free Suite",
-    description: "Explore our comprehensive suite of 50+ client-side utility tools.",
-  }
+  title: 'Features | Zenovee',
+  description: 'Explore the complete suite of premium client-side developer and marketing tools by Zenovee.',
 };
 
 export default function FeaturesPage() {
-  const categories = [
-    { name: "Content & Marketing Engines", icon: <Sparkles className="w-5 h-5" />, tools: toolsConfig.slice(0, 15) },
-    { name: "Developer & Technical Utilities", icon: <LayoutGrid className="w-5 h-5" />, tools: toolsConfig.slice(15, 30) },
-    { name: "Data & SEO Solvers", icon: <LineChart className="w-5 h-5" />, tools: toolsConfig.slice(30, 40) },
-    { name: "Financial & Media Operations", icon: <Layers className="w-5 h-5" />, tools: toolsConfig.slice(40, 50) },
-  ];
+  const groupedTools = toolsConfig.reduce((acc, tool) => {
+    const category = tool.category || 'Other';
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push(tool);
+    return acc;
+  }, {} as Record<string, typeof toolsConfig>);
 
   return (
-    <main className="min-h-screen bg-[#FAFBFE] pb-24 font-sans text-slate-900">
-      <div className="mx-auto max-w-7xl px-6 pt-12 lg:px-8">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-indigo-600 transition-colors mb-10">
-          <ArrowLeft className="w-4 h-4" />
-          Back to Home
-        </Link>
-        
-        <div className="max-w-3xl mb-16">
-          <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">All 50+ Browser-Native Utilities</h1>
-          <p className="mt-4 text-lg text-slate-600">
-            A comprehensive overview of every tool included in the Zenovee Free Suite. Secure, fast, and private utilities running entirely on your machine.
+    <main className="min-h-screen flex flex-col overflow-hidden relative">
+      <Navbar />
+      
+      {/* Background */}
+      <div className="aurora-mesh absolute inset-0 pointer-events-none opacity-40">
+        <div className="aurora-orb aurora-orb-1 opacity-50" />
+        <div className="aurora-orb aurora-orb-2 opacity-30" />
+        <div className="aurora-orb aurora-orb-3 opacity-40" />
+      </div>
+
+      <div className="flex-1 relative z-10 pt-32 pb-24">
+        {/* Hero Section */}
+        <div className="max-w-4xl mx-auto px-6 text-center mb-24 anim-fade-up">
+          <div className="badge badge-violet mb-6 inline-flex">Complete Toolkit</div>
+          <h1 className="text-4xl sm:text-6xl font-extrabold text-white mb-6 tracking-tight">
+            Every tool, <span className="gradient-text">one platform.</span>
+          </h1>
+          <p className="text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+            Discover our comprehensive suite of client-side utilities designed to supercharge your workflow. From text processing to advanced generators, everything runs locally in your browser.
           </p>
         </div>
 
-        <div className="space-y-24">
-          {categories.map((cat, idx) => (
-            <section key={idx}>
-              <div className="flex items-center gap-3 mb-8 border-b border-slate-200 pb-4">
-                <div className="p-2.5 rounded-xl bg-indigo-50 text-indigo-600">
-                  {cat.icon}
-                </div>
-                <h2 className="text-2xl font-bold text-slate-900">{cat.name}</h2>
+        {/* Tools by Category */}
+        <div className="max-w-7xl mx-auto px-6 space-y-24">
+          {Object.entries(groupedTools).map(([category, tools], index) => (
+            <section key={category} className={`anim-fade-up delay-${(index % 3 + 1) * 100}`}>
+              <div className="flex items-center gap-4 mb-10 border-b border-white/5 pb-4">
+                <TerminalSquare className="w-8 h-8 text-violet-400" />
+                <h2 className="text-2xl font-bold text-white">{category}</h2>
+                <div className="badge badge-cyan ml-2">{tools.length} Tools</div>
               </div>
               
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {cat.tools.map(tool => (
-                  <div key={tool.id} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex justify-between items-start mb-3">
-                      <h3 className="font-semibold text-slate-900">{tool.title || tool.name}</h3>
-                      <span className="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-600 border border-emerald-100">
-                        100% Free
-                      </span>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                {tools.map((tool) => (
+                  <Link href={`/dashboard/tools/${tool.id}`} key={tool.id} className="block group h-full">
+                    <div className="tool-card h-full flex flex-col p-5">
+                      <div className="flex items-center gap-3 mb-3">
+                        <h3 className="text-base font-bold text-white group-hover:text-violet-300 transition-colors line-clamp-1">{tool.title}</h3>
+                      </div>
+                      <p className="text-sm text-zinc-400 flex-1 mb-4 leading-relaxed line-clamp-2">
+                        {tool.description}
+                      </p>
+                      <div className="text-xs font-medium text-violet-400 flex items-center opacity-60 group-hover:opacity-100 transition-opacity">
+                        Launch Tool <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
+                      </div>
                     </div>
-                    <p className="text-sm text-slate-500 leading-relaxed mb-4">{tool.description}</p>
-                    <div className="flex items-center gap-2 text-xs font-medium text-indigo-600">
-                      <CheckCircle2 className="w-3.5 h-3.5" /> Ready to use
-                    </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </section>
           ))}
         </div>
-        
-        <div className="mt-24 rounded-3xl bg-indigo-600 px-6 py-16 text-center sm:px-12">
-          <h2 className="text-3xl font-bold tracking-tight text-white">Ready to access all 50+ tools?</h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-indigo-100">Browse and launch any developer, marketing, data, or media utility instantly.</p>
-          <div className="mt-8 flex justify-center">
-            <Link href="/dashboard" className="rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-50 transition-colors">
-              Launch Tools Workspace
+
+        {/* CTA Section */}
+        <div className="max-w-5xl mx-auto px-6 mt-32 anim-fade-up delay-300">
+          <div className="rounded-3xl bg-gradient-to-br from-violet-600 to-indigo-800 p-12 text-center text-white shadow-2xl relative overflow-hidden border border-white/10">
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjU2IDI1NiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOSIgbnVtT2N0YXZlcz0iNCIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiLz48L3N2Zz4=')] opacity-[0.03] mix-blend-overlay pointer-events-none"></div>
+            
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 relative z-10 tracking-tight">Ready to boost your productivity?</h2>
+            <p className="text-violet-200 mb-10 max-w-xl mx-auto relative z-10 text-lg">
+              Join thousands of professionals using Zenovee to work smarter and faster.
+            </p>
+            <Link href="/dashboard" className="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-white text-violet-900 font-bold hover:bg-white/90 transition-all shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 relative z-10">
+              Go to Dashboard <ArrowRight className="w-5 h-5 ml-2" />
             </Link>
           </div>
         </div>
       </div>
+      
+      <Footer />
     </main>
   );
 }

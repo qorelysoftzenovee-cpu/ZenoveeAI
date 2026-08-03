@@ -1,235 +1,312 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
-import Link from "next/link";
+import React, { useState, useMemo } from 'react';
+import Link from 'next/link';
+import Navbar from '@/components/ui/Navbar';
+import Footer from '@/components/ui/Footer';
+import { toolsConfig } from '@/utils/toolsConfig';
 import { 
-  ArrowRight, 
-  Sparkles, 
   Zap, 
   ShieldCheck, 
+  Globe, 
+  ArrowRight, 
   Search, 
-  Cpu, 
-  Clock, 
-  FileCode, 
-  Layers, 
-  Play, 
-  EyeOff, 
-  Terminal,
-  Activity,
-  Heart
-} from "lucide-react";
-import { toolsConfig } from "@/utils/toolsConfig";
+  X,
+  Code2,
+  Image as ImageIcon,
+  PenTool,
+  Cpu,
+  Calculator,
+  Layout,
+  TerminalSquare
+} from 'lucide-react';
 
-export default function LandingPage() {
-  const [searchQuery, setSearchQuery] = useState("");
+export default function Home() {
+  const [searchQuery, setSearchQuery] = useState('');
 
   const filteredTools = useMemo(() => {
-    const q = searchQuery.toLowerCase().trim();
-    if (!q) return toolsConfig.slice(0, 12); // Show top trending tools by default
+    if (!searchQuery) return toolsConfig.slice(0, 8);
+    const query = searchQuery.toLowerCase();
     return toolsConfig.filter(
-      (t) =>
-        t.title?.toLowerCase().includes(q) ||
-        t.name?.toLowerCase().includes(q) ||
-        t.description?.toLowerCase().includes(q) ||
-        t.category?.toLowerCase().includes(q) ||
-        t.id?.toLowerCase().includes(q)
+      (tool) =>
+        tool.title.toLowerCase().includes(query) ||
+        tool.description.toLowerCase().includes(query) ||
+        tool.category.toLowerCase().includes(query) ||
+        tool.id.toLowerCase().includes(query)
     );
   }, [searchQuery]);
 
   const categories = useMemo(() => {
-    const map: Record<string, number> = {};
-    toolsConfig.forEach(t => {
-      map[t.category] = (map[t.category] || 0) + 1;
+    const categoryCounts: Record<string, number> = {};
+    toolsConfig.forEach((tool) => {
+      categoryCounts[tool.category] = (categoryCounts[tool.category] || 0) + 1;
     });
-    return Object.entries(map).map(([name, count]) => ({ name, count }));
+    return Object.entries(categoryCounts)
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count);
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-800 font-sans relative overflow-hidden antialiased">
-      {/* Decorative Aurora Gradients */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-200/30 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-200/30 blur-[120px] pointer-events-none" />
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
 
-      {/* Navigation Header */}
-      <header className="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200/60 transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="rounded-xl border border-indigo-100 bg-indigo-50/70 p-2 text-indigo-650 shadow-sm transition-transform group-hover:scale-105">
-              <Sparkles className="h-4.5 w-4.5 text-indigo-605" />
-            </div>
-            <span className="font-bold tracking-tight text-slate-900 text-lg">Zenovee Suite</span>
-          </Link>
-          <nav className="flex items-center gap-6">
-            <Link href="/features" className="text-sm font-bold text-slate-700 hover:text-indigo-650 transition-colors uppercase tracking-wider">Features</Link>
-            <Link href="/about" className="text-sm font-bold text-slate-700 hover:text-indigo-650 transition-colors uppercase tracking-wider">About</Link>
-            <Link 
-              href="/dashboard" 
-              className="inline-flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-4.5 py-2.5 rounded-xl shadow-sm transition-all uppercase tracking-wider"
-            >
-              Launch Workspace
-            </Link>
-          </nav>
-        </div>
-      </header>
-
-      {/* Main Hero & Content */}
-      <main className="max-w-7xl mx-auto px-6 pt-16 pb-24 relative z-10">
-        
-        {/* Value Badges Block */}
-        <div className="flex flex-wrap justify-center gap-2.5 mb-8">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-250 bg-emerald-50 px-3.5 py-1 text-xs font-bold text-emerald-600 shadow-sm uppercase tracking-wider font-mono">
-            <Zap className="w-3.5 h-3.5" /> 100% Free Forever
-          </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-indigo-150 bg-indigo-50 px-3.5 py-1 text-xs font-bold text-indigo-600 shadow-sm uppercase tracking-wider font-mono">
-            <ShieldCheck className="w-3.5 h-3.5" /> Browser-Local Privacy
-          </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-150 bg-blue-50 px-3.5 py-1 text-xs font-bold text-blue-600 shadow-sm uppercase tracking-wider font-mono">
-            <EyeOff className="w-3.5 h-3.5" /> Zero Registration Required
-          </span>
-        </div>
-
-        {/* Hero Copy */}
-        <div className="text-center max-w-4xl mx-auto mb-16">
-          <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-6xl leading-[1.15]">
-            50+ Free Online Developer & Marketing Tools — <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-indigo-650 to-blue-600">No Signup, No Credit Card, 100% Instant.</span>
-          </h1>
-          <p className="mt-6 text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed font-semibold">
-            Run high-performance scripts, generators, formatters, and calculators directly in your browser. Complete privacy with zero server logging.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link 
-              href="/dashboard"
-              className="group inline-flex items-center gap-2 rounded-2xl bg-indigo-600 hover:bg-indigo-700 px-7 py-4 text-sm font-extrabold text-white shadow-lg shadow-indigo-500/10 hover:shadow-indigo-500/20 transition-all hover:scale-[1.01]"
-            >
-              Browse All 50+ Free Tools
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Link>
+      <main className="flex-1">
+        {/* HERO SECTION */}
+        <section className="relative overflow-hidden pt-32 pb-24">
+          <div className="aurora-mesh absolute inset-0 -z-10 opacity-70">
+            <div className="aurora-orb aurora-orb-1"></div>
+            <div className="aurora-orb aurora-orb-2"></div>
+            <div className="aurora-orb aurora-orb-3"></div>
+            <div className="aurora-orb aurora-orb-4"></div>
+            <div className="aurora-orb aurora-orb-5"></div>
           </div>
-        </div>
+          
+          <div className="particle-field">
+            {Array.from({ length: 20 }).map((_, i) => (
+              <div 
+                key={i} 
+                className="particle" 
+                style={{ 
+                  left: `${Math.random() * 100}%`, 
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 5}s`,
+                  animationDuration: `${3 + Math.random() * 4}s`
+                }}
+              />
+            ))}
+          </div>
 
-        {/* Interactive Search Console */}
-        <div className="max-w-2xl mx-auto mb-16">
-          <div className="bg-white border border-slate-200 shadow-md rounded-2xl p-2.5 flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-slate-50 text-slate-400">
-              <Search className="w-5 h-5" />
+          <div className="relative z-10 text-center max-w-5xl mx-auto px-6">
+            <div className="flex justify-center gap-3 flex-wrap mb-8 anim-fade-up">
+              <span className="badge badge-emerald">
+                <Zap className="w-4 h-4 mr-1" /> Free Forever
+              </span>
+              <span className="badge badge-violet">
+                <ShieldCheck className="w-4 h-4 mr-1" /> 100% Client-Side
+              </span>
+              <span className="badge badge-cyan">
+                <Globe className="w-4 h-4 mr-1" /> No Signup Required
+              </span>
             </div>
-            <input 
+
+            <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight leading-[1.1] anim-fade-up delay-100 text-white">
+              The Ultimate Free Tool Suite<br />
+              <span className="gradient-text-animated mt-2 block">For Developers & Marketers.</span>
+            </h1>
+
+            <p className="mt-6 text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed anim-fade-up delay-200">
+              Instantly access {toolsConfig.length}+ ultra-fast, premium client-side utilities. 
+              Zero server calls. Total privacy. Absolutely free.
+            </p>
+
+            <div className="mt-10 flex flex-wrap justify-center gap-4 anim-fade-up delay-300">
+              <Link href="/dashboard" className="btn-primary flex items-center">
+                Explore All {toolsConfig.length} Tools <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+              <Link href="/features" className="btn-ghost">
+                View Features
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* SEARCH SECTION */}
+        <section className="max-w-2xl mx-auto px-6 -mt-8 mb-20 relative z-20 anim-fade-up delay-400">
+          <div className="relative group">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 w-5 h-5 transition-colors group-focus-within:text-violet-400" />
+            <input
               type="text"
+              className="search-input"
+              placeholder="Search tools — try &quot;json format&quot;, &quot;utm builder&quot;, &quot;color picker&quot;..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search base64 codec, webp converter, UTM builder..."
-              className="flex-1 bg-transparent text-base text-slate-900 placeholder:text-slate-555 outline-none pr-4 font-semibold"
             />
             {searchQuery && (
               <button 
-                onClick={() => setSearchQuery("")}
-                className="text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-slate-650 px-2 py-1 rounded hover:bg-slate-50"
+                onClick={() => setSearchQuery('')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 transition-colors p-1"
+                aria-label="Clear search"
               >
-                Clear
+                <X className="w-4 h-4" />
               </button>
             )}
           </div>
-        </div>
+        </section>
 
-        {/* Real-time Dynamic Grid Preview */}
-        <div className="mb-20">
-          <div className="flex items-center justify-between mb-8">
+        {/* TOOLS GRID */}
+        <section className="max-w-7xl mx-auto px-6 mb-32 relative z-10">
+          <div className="flex justify-between items-end mb-8">
             <div>
-              <h2 className="text-lg font-extrabold text-slate-900 tracking-tight uppercase">
-                {searchQuery ? `Search Results (${filteredTools.length})` : "Trending Utilities Grid"}
+              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                <TerminalSquare className="w-6 h-6 text-violet-400" />
+                {searchQuery ? `Results (${filteredTools.length})` : 'Featured Tools'}
               </h2>
-              <p className="text-xs text-slate-500 mt-1">
-                {searchQuery ? "Showing matching tools ready for local execution." : "Quick-launch tools running 100% locally in browser memory."}
+              <p className="text-sm text-zinc-400 mt-2">
+                {searchQuery ? `Tools matching "${searchQuery}"` : 'Handpicked utilities by our community'}
               </p>
             </div>
             {!searchQuery && (
-              <span className="text-xs font-semibold text-slate-450 uppercase tracking-wider font-mono">
-                Total Catalog: {toolsConfig.length} Utilities
-              </span>
+              <Link href="/dashboard" className="text-sm font-medium text-violet-400 hover:text-violet-300 transition-colors hidden sm:flex items-center gap-1 group">
+                View all {toolsConfig.length} tools <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             )}
           </div>
 
           {filteredTools.length > 0 ? (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 stagger">
               {filteredTools.map((tool) => (
-                <Link
-                  key={tool.id}
-                  href={`/dashboard/tools/${tool.id}`}
-                  className="group block rounded-2xl border border-slate-250/60 bg-white p-5 hover:border-indigo-300 hover:shadow-md transition-all duration-200"
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-500 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100/50">
-                      {tool.category}
-                    </span>
-                    <div className="rounded-lg border border-slate-100 bg-slate-50 p-1.5 text-slate-400 group-hover:text-indigo-650 group-hover:bg-indigo-50 group-hover:border-indigo-100 transition-colors">
-                      <Play className="w-3.5 h-3.5 fill-current" />
-                    </div>
-                  </div>
-                  <h3 className="text-base font-extrabold text-slate-950 group-hover:text-indigo-650 transition-colors leading-snug">
-                    {tool.title || tool.name}
+                <Link href={`/dashboard/tools/${tool.id}`} key={tool.id} className="tool-card group anim-fade-up block">
+                  <span className="badge badge-violet text-[10px] uppercase tracking-wider font-bold mb-3">
+                    {tool.category}
+                  </span>
+                  <h3 className="text-base font-semibold text-white group-hover:text-violet-300 transition-colors">
+                    {tool.title}
                   </h3>
-                  <p className="text-sm text-slate-600 mt-2.5 line-clamp-2 leading-relaxed font-medium">
+                  <p className="text-sm text-zinc-400 mt-2 line-clamp-2">
                     {tool.description}
                   </p>
+                  <div className="mt-4 flex items-center text-xs font-medium text-violet-400 gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+                    Launch Tool <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </Link>
               ))}
             </div>
           ) : (
-            <div className="text-center py-12 bg-white rounded-2xl border border-slate-200/80 max-w-md mx-auto">
-              <Terminal className="w-10 h-10 text-slate-350 mx-auto mb-3" />
-              <h3 className="font-bold text-slate-800">No Matching Utilities Found</h3>
-              <p className="text-xs text-slate-400 mt-1 px-4 leading-relaxed">
-                Try searching for a different keyword or category, or browse the entire free workspace directory.
-              </p>
+            <div className="text-center py-20 glass-card-dark rounded-3xl">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-zinc-800/50 mb-4 ring-1 ring-white/10">
+                <Search className="w-8 h-8 text-zinc-500" />
+              </div>
+              <h3 className="text-xl font-semibold text-white">No tools found</h3>
+              <p className="text-zinc-400 mt-2">Try adjusting your search terms or browse all categories.</p>
               <button 
-                onClick={() => setSearchQuery("")}
-                className="mt-4 inline-flex items-center gap-1 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl px-3.5 py-1.5 text-xs font-bold text-slate-700 transition-all cursor-pointer"
+                onClick={() => setSearchQuery('')}
+                className="mt-6 px-6 py-2 bg-zinc-800 text-white rounded-full text-sm font-medium hover:bg-zinc-700 transition-colors ring-1 ring-white/10"
               >
-                Reset Search Filters
+                Clear Search
               </button>
             </div>
           )}
-        </div>
+        </section>
 
-        {/* Categories Bento Board */}
-        <div className="border-t border-slate-200/80 pt-16">
-          <h2 className="text-center text-xs font-bold uppercase tracking-widest text-indigo-600 mb-12">
-            Multi-Domain Coverage Breakdown
-          </h2>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {categories.map((cat, idx) => (
+        {/* HOW IT WORKS */}
+        <section className="max-w-7xl mx-auto px-6 py-24 relative">
+          <div className="section-divider absolute top-0 left-6 right-6"></div>
+          
+          <div className="text-center mb-16 pt-8">
+            <span className="badge badge-cyan mb-4">Workflow</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white">Instant results. Zero friction.</h2>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            <div className="glass-card-dark rounded-2xl p-8 text-center relative overflow-hidden group">
+              <div className="absolute top-0 right-0 p-4 opacity-5 transform translate-x-4 -translate-y-4 group-hover:opacity-10 transition-opacity">
+                <Search className="w-40 h-40 text-violet-500" />
+              </div>
+              <div className="relative z-10">
+                <span className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-violet-400/50 to-violet-600/20 block mb-6">01</span>
+                <h3 className="text-xl font-bold text-white mb-3">Find</h3>
+                <p className="text-zinc-400">Search instantly through {toolsConfig.length}+ specialized utilities.</p>
+              </div>
+            </div>
+            
+            <div className="glass-card-dark rounded-2xl p-8 text-center relative overflow-hidden group">
+              <div className="absolute top-0 right-0 p-4 opacity-5 transform translate-x-4 -translate-y-4 group-hover:opacity-10 transition-opacity">
+                <Cpu className="w-40 h-40 text-cyan-500" />
+              </div>
+              <div className="relative z-10">
+                <span className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-cyan-400/50 to-cyan-600/20 block mb-6">02</span>
+                <h3 className="text-xl font-bold text-white mb-3">Execute</h3>
+                <p className="text-zinc-400">Run locally in your browser. No server delays, total privacy.</p>
+              </div>
+            </div>
+
+            <div className="glass-card-dark rounded-2xl p-8 text-center relative overflow-hidden group">
+              <div className="absolute top-0 right-0 p-4 opacity-5 transform translate-x-4 -translate-y-4 group-hover:opacity-10 transition-opacity">
+                <Zap className="w-40 h-40 text-emerald-500" />
+              </div>
+              <div className="relative z-10">
+                <span className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-emerald-400/50 to-emerald-600/20 block mb-6">03</span>
+                <h3 className="text-xl font-bold text-white mb-3">Build</h3>
+                <p className="text-zinc-400">Copy output, download files, and get back to shipping.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CATEGORIES */}
+        <section className="max-w-7xl mx-auto px-6 pb-24">
+          <div className="text-center mb-12">
+            <span className="badge badge-emerald mb-4">Categories</span>
+            <h2 className="text-3xl font-bold text-white">Built for your stack</h2>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 stagger">
+            {categories.map((category) => (
               <Link 
-                key={idx}
-                href={`/dashboard?category=${encodeURIComponent(cat.name)}`}
-                className="rounded-2xl border border-slate-200 bg-white p-5 text-center hover:border-indigo-250 hover:shadow-sm transition-all block group"
+                href={`/dashboard?category=${encodeURIComponent(category.name)}`} 
+                key={category.name} 
+                className="glass-card-dark rounded-xl p-5 text-center anim-fade-up transition-all group"
               >
-                <span className="block font-extrabold text-slate-900 group-hover:text-indigo-600 transition-colors text-sm">
-                  {cat.name}
-                </span>
-                <span className="inline-block mt-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-slate-50 px-2 py-0.5 rounded border border-slate-100 font-mono">
-                  {cat.count} Utilities
-                </span>
+                <h3 className="text-sm font-semibold text-white group-hover:text-cyan-400 transition-colors">{category.name}</h3>
+                <span className="block text-xs text-zinc-500 mt-1">{category.count} tools</span>
               </Link>
             ))}
           </div>
-        </div>
+        </section>
 
+        {/* STATS SECTION */}
+        <section className="max-w-7xl mx-auto px-6 pb-32">
+          <div className="glass-card-dark rounded-3xl p-12 relative overflow-hidden border border-white/10">
+            <div className="aurora-mesh absolute inset-0 opacity-40 -z-10">
+               <div className="aurora-orb aurora-orb-1 scale-150"></div>
+               <div className="aurora-orb aurora-orb-4 scale-150"></div>
+            </div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center relative z-10">
+              <div>
+                <div className="gradient-text text-4xl md:text-5xl font-extrabold mb-2">{toolsConfig.length}+</div>
+                <div className="text-xs font-semibold text-zinc-400 uppercase tracking-widest">Free Tools</div>
+              </div>
+              <div>
+                <div className="gradient-text text-4xl md:text-5xl font-extrabold mb-2">{categories.length}</div>
+                <div className="text-xs font-semibold text-zinc-400 uppercase tracking-widest">Categories</div>
+              </div>
+              <div>
+                <div className="gradient-text text-4xl md:text-5xl font-extrabold mb-2">0</div>
+                <div className="text-xs font-semibold text-zinc-400 uppercase tracking-widest">Server Calls</div>
+              </div>
+              <div>
+                <div className="gradient-text text-4xl md:text-5xl font-extrabold mb-2">100%</div>
+                <div className="text-xs font-semibold text-zinc-400 uppercase tracking-widest">Private</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA SECTION */}
+        <section className="max-w-7xl mx-auto px-6 pb-32">
+          <div className="rounded-3xl bg-gradient-to-br from-violet-600 to-indigo-800 p-12 md:p-20 text-center relative overflow-hidden shadow-2xl border border-white/10">
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjU2IDI1NiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOSIgbnVtT2N0YXZlcz0iNCIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiLz48L3N2Zz4=')] opacity-[0.03] mix-blend-overlay pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3"></div>
+            
+            <div className="relative z-10">
+              <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-tight mb-6">Ready to upgrade your workflow?</h2>
+              <p className="text-lg text-white/70 max-w-2xl mx-auto mb-10">
+                Stop wasting time searching for simple utilities. Bookmark Zenovee and keep the ultimate developer suite one click away.
+              </p>
+              <Link 
+                href="/dashboard" 
+                className="inline-flex items-center justify-center bg-white text-violet-900 font-bold rounded-xl px-8 py-4 hover:bg-white/90 hover:scale-105 active:scale-95 transition-all shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.4)]"
+              >
+                Launch Dashboard <ArrowRight className="w-5 h-5 ml-2" />
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
 
-      {/* Minimal Footer */}
-      <footer className="border-t border-slate-200/80 bg-white/50 py-8 text-center text-xs text-slate-400">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-1.5">
-            <span>© {new Date().getFullYear()} Zenovee Suite. Built with</span>
-            <Heart className="w-3.5 h-3.5 text-rose-500 fill-current" />
-            <span>for a subscription-free web.</span>
-          </div>
-          <div className="flex gap-4">
-            <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
-            <Link href="/terms" className="hover:underline">Terms of Service</Link>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
