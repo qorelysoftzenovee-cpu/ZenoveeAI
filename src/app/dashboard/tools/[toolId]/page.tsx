@@ -1022,47 +1022,6 @@ ${JSON.stringify(payloadJson, null, 2)}
       // ------------------------------------------------------------------------
       // 7. UTM Link Architecture Builder (`utm-builder`)
       // ------------------------------------------------------------------------
-      case "utm-builder": {
-        try {
-          const rawUrl = (inputs.url || "https://example.com").trim();
-          const parsedUrl = new URL(rawUrl.startsWith("http") ? rawUrl : `https://${rawUrl}`);
-
-          if (inputs.source?.trim()) parsedUrl.searchParams.set("utm_source", inputs.source.trim());
-          if (inputs.medium?.trim()) parsedUrl.searchParams.set("utm_medium", inputs.medium.trim());
-          if (inputs.campaign?.trim()) parsedUrl.searchParams.set("utm_campaign", inputs.campaign.trim());
-          if (inputs.term?.trim()) parsedUrl.searchParams.set("utm_term", inputs.term.trim());
-          if (inputs.content?.trim()) parsedUrl.searchParams.set("utm_content", inputs.content.trim());
-
-          const finalUrl = parsedUrl.toString();
-
-          const markdownOutput = `# 🔗 UTM Campaign Link Builder Output
-
-## Generated Campaign URL
-\`\`\`text
-${finalUrl}
-\`\`\`
-
----
-
-## 📊 Parameter Breakdown
-- **Base Destination Host:** \`${parsedUrl.hostname}\`
-- **UTM Source:** \`${inputs.source || "(Not Specified)"}\`
-- **UTM Medium:** \`${inputs.medium || "(Not Specified)"}\`
-- **UTM Campaign:** \`${inputs.campaign || "(Not Specified)"}\`
-- **UTM Term:** \`${inputs.term || "(Not Specified)"}\`
-- **UTM Content:** \`${inputs.content || "(Not Specified)"}\``;
-
-          return { markdownOutput };
-        } catch (err: any) {
-          return {
-            markdownOutput: `# ❌ URL Construction Error\nInvalid base URL provided: ${err.message}`,
-          };
-        }
-      }
-
-      // ------------------------------------------------------------------------
-      // 8. Stripe & PayPal Net Fee Deductor (`stripe-fee`)
-      // ------------------------------------------------------------------------
       case "stripe-fee": {
         try {
           const targetNet = parseFloat(inputs.targetNet || "100");
@@ -1829,40 +1788,6 @@ Accept-Language: en-US,en;q=0.9
           const status = diff >= 0 ? "🟢 INCREASE" : "🔴 DECREASE";
           return { markdownOutput: `# 🧮 Percentage Change Result\n\n- **Change Status**: **${status}**\n- **Difference Amount**: ${diff >= 0 ? "+" : ""}${diff.toLocaleString()}\n- **Percentage Delta**: **${pctChange >= 0 ? "+" : ""}${pctChange.toFixed(2)}%**` };
         }
-      }
-
-      case "mortgage-amortization": {
-        const p = parseFloat(inputs.principal || "300000");
-        const annualRate = parseFloat(inputs.rate || "6.5");
-        const years = parseInt((inputs.term || "30").split(" ")[0], 10);
-        if (isNaN(p) || isNaN(annualRate) || isNaN(years) || p <= 0) {
-          return { markdownOutput: `# ❌ Invalid Loan Inputs\nPlease enter valid numerical values for principal, rate, and term.` };
-        }
-
-        const r = (annualRate / 100) / 12;
-        const n = years * 12;
-        const monthlyPayment = (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-        const totalPayment = monthlyPayment * n;
-        const totalInterest = totalPayment - p;
-
-        let balance = p;
-        let yearlyTable = "| Year | Principal Paid | Interest Paid | End Balance |\n|:---:|:---:|:---:|:---:|\n";
-        for (let yr = 1; yr <= years; yr++) {
-          let yrInterest = 0;
-          let yrPrincipal = 0;
-          for (let m = 1; m <= 12; m++) {
-            const intShare = balance * r;
-            const prinShare = monthlyPayment - intShare;
-            yrInterest += intShare;
-            yrPrincipal += prinShare;
-            balance -= prinShare;
-          }
-          yearlyTable += `| Year ${yr} | $${Math.round(yrPrincipal).toLocaleString()} | $${Math.round(yrInterest).toLocaleString()} | $${Math.max(0, Math.round(balance)).toLocaleString()} |\n`;
-        }
-
-        return {
-          markdownOutput: `# 🏡 Mortgage Amortization Calculation\n\n- **Monthly Payment**: **$${monthlyPayment.toFixed(2)} / month**\n- **Total Interest Paid**: **$${Math.round(totalInterest).toLocaleString()}**\n- **Total Repayment Amount**: **$${Math.round(totalPayment).toLocaleString()}**\n\n### 📅 Yearly Amortization Schedule\n\n${yearlyTable}`
-        };
       }
 
       case "compound-interest-calculator": {
