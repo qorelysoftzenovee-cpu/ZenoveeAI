@@ -30,7 +30,7 @@ export default function Navbar() {
   return (
     <header 
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "glass-nav-dark py-3" : "bg-transparent py-5"
+        isScrolled ? "glass-nav py-3" : "bg-transparent py-5"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,8 +41,8 @@ export default function Navbar() {
               <Terminal className="w-5 h-5 text-white" />
               <div className="absolute inset-0 rounded-xl ring-1 ring-white/20"></div>
             </div>
-            <span className="text-xl font-bold tracking-tight text-white group-hover:text-violet-200 transition-colors">
-              Zenovee<span className="text-violet-400">.</span>
+            <span className="text-xl font-bold tracking-tight text-slate-900 group-hover:text-violet-700 transition-colors">
+              Zenovee<span className="text-violet-600">.</span>
             </span>
           </Link>
 
@@ -52,8 +52,8 @@ export default function Navbar() {
               <Link 
                 key={link.name} 
                 href={link.href}
-                className={`text-sm font-medium transition-colors hover:text-white ${
-                  isActive(link.href) ? "text-white" : "text-zinc-400"
+                className={`text-sm font-medium transition-colors hover:text-violet-700 ${
+                  isActive(link.href) ? "text-violet-700" : "text-slate-600"
                 }`}
               >
                 {link.name}
@@ -70,7 +70,7 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <button 
-            className="md:hidden p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/50 transition-colors"
+            className="md:hidden p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-200/50 transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -80,13 +80,13 @@ export default function Navbar() {
 
       {/* Mobile Navigation Dropdown */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full glass-nav-dark border-t border-white/5 py-4 px-4 flex flex-col gap-4 shadow-xl anim-fade-down origin-top">
+        <div className="md:hidden absolute top-full left-0 w-full glass-nav border-t border-slate-200 py-4 px-4 flex flex-col gap-4 shadow-xl anim-fade-down origin-top">
           {navLinks.map((link) => (
             <Link 
               key={link.name} 
               href={link.href}
               className={`text-base font-medium p-3 rounded-lg transition-colors ${
-                isActive(link.href) ? "bg-violet-500/10 text-white" : "text-zinc-400 hover:text-white hover:bg-white/5"
+                isActive(link.href) ? "bg-violet-500/10 text-violet-700" : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
               }`}
               onClick={() => setIsMobileMenuOpen(false)}
             >

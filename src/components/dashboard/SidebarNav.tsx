@@ -31,7 +31,7 @@ function SidebarNavContent() {
   return (
     <div className="space-y-5 max-h-[calc(100vh-11rem)] overflow-y-auto custom-scroll pr-1">
       <div>
-        <h3 className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500 px-3 mb-2">
+        <h3 className="text-[10px] font-semibold uppercase tracking-widest text-slate-500 px-3 mb-2">
           Directory
         </h3>
         <Link 
@@ -39,7 +39,7 @@ function SidebarNavContent() {
           className={`flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium transition-all ${
             activeCategory === 'all' 
               ? 'bg-violet-500/15 text-violet-300' 
-              : 'text-zinc-400 hover:bg-white/5 hover:text-zinc-200'
+              : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
           }`}
         >
           <div className="flex items-center gap-2.5">
@@ -53,7 +53,7 @@ function SidebarNavContent() {
       </div>
 
       <div>
-        <h3 className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500 px-3 mb-2">
+        <h3 className="text-[10px] font-semibold uppercase tracking-widest text-slate-500 px-3 mb-2">
           Categories
         </h3>
         <div className="space-y-0.5">
@@ -67,14 +67,14 @@ function SidebarNavContent() {
                 key={cat.name}
                 href={`/dashboard?category=${cat.name}`}
                 className={`flex items-center justify-between rounded-xl px-3 py-2 text-xs font-medium transition-all ${
-                  isActive ? meta.activeClass : 'text-zinc-400 hover:bg-white/5 hover:text-zinc-200'
+                  isActive ? meta.activeClass : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                 }`}
               >
                 <div className="flex items-center gap-2.5 truncate">
                   <Icon size={14} className={isActive ? '' : meta.color} />
                   <span className="truncate capitalize">{cat.name.replace('-', ' ')}</span>
                 </div>
-                <span className="text-[10px] bg-white/5 text-zinc-400 px-1.5 py-0.5 rounded ml-2">
+                <span className="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded ml-2">
                   {cat.count}
                 </span>
               </Link>
@@ -84,16 +84,16 @@ function SidebarNavContent() {
       </div>
 
       <div className="border-t border-white/5 pt-4 mt-2">
-        <h3 className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500 px-3 mb-2">
+        <h3 className="text-[10px] font-semibold uppercase tracking-widest text-slate-500 px-3 mb-2">
           Insights
         </h3>
         <div className="space-y-0.5">
-          <Link href="/dashboard/history" className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-medium text-zinc-400 hover:bg-white/5 hover:text-zinc-200 transition-all">
-            <History size={14} className="text-zinc-500" />
+          <Link href="/dashboard/history" className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-all">
+            <History size={14} className="text-slate-500" />
             <span>History</span>
           </Link>
-          <Link href="/dashboard/analytics" className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-medium text-zinc-400 hover:bg-white/5 hover:text-zinc-200 transition-all">
-            <PieChart size={14} className="text-zinc-500" />
+          <Link href="/dashboard/analytics" className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-all">
+            <PieChart size={14} className="text-slate-500" />
             <span>Analytics</span>
           </Link>
         </div>
@@ -104,7 +104,7 @@ function SidebarNavContent() {
 
 export default function SidebarNav() {
   return (
-    <Suspense fallback={<div className="p-4 space-y-4"><div className="h-4 bg-white/5 rounded w-1/2 animate-pulse"></div><div className="space-y-2"><div className="h-8 bg-white/5 rounded animate-pulse"></div><div className="h-8 bg-white/5 rounded animate-pulse"></div></div></div>}>
+    <Suspense fallback={<div className="p-4 space-y-4"><div className="h-4 bg-slate-100 rounded w-1/2 animate-pulse"></div><div className="space-y-2"><div className="h-8 bg-slate-100 rounded animate-pulse"></div><div className="h-8 bg-slate-100 rounded animate-pulse"></div></div></div>}>
       <SidebarNavContent />
     </Suspense>
   )

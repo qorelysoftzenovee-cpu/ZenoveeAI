@@ -2421,7 +2421,7 @@ export default function ToolWorkspacePage() {
 
 
       {/* Header Bento Box */}
-      <div className="mb-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="mb-8 rounded-2xl border border-slate-200 bg-white p-4 md:p-6 shadow-sm">
         <div className="flex items-start gap-4">
           <div className="rounded-2xl border border-indigo-100 bg-indigo-50/70 p-3.5 text-indigo-600 shadow-sm">
             <Sparkles className="w-6 h-6" />
@@ -2438,7 +2438,7 @@ export default function ToolWorkspacePage() {
       </div>
 
       {/* Main Split Screen (50/50 Bento Grid Layout) */}
-      <div className="grid min-h-[calc(100vh-22rem)] grid-cols-1 gap-6 lg:grid-cols-2 items-stretch">
+      <div className="grid min-h-[calc(100vh-22rem)] grid-cols-1 gap-4 lg:gap-6 lg:grid-cols-2 items-stretch">
         {/* LEFT HALF: Pure White Bento-Grid Card for Form Inputs */}
         <form
           onSubmit={handleExecute}
@@ -2562,7 +2562,7 @@ export default function ToolWorkspacePage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="group relative flex-1 overflow-hidden rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-650 to-blue-600 py-4 px-6 text-sm font-extrabold uppercase tracking-wider text-white shadow-md transition-all duration-200 hover:shadow-indigo-500/20 hover:scale-[1.005] cursor-pointer"
+                className="group relative flex-1 overflow-hidden rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-650 to-blue-600 py-4 px-6 text-sm font-extrabold uppercase tracking-wider text-slate-900 shadow-md transition-all duration-200 hover:shadow-indigo-500/20 hover:scale-[1.005] cursor-pointer"
               >
                 <div className="relative flex items-center justify-center gap-2">
                   {loading ? (

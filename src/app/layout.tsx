@@ -71,12 +71,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full dark`}>
+    <html lang="en" className={`${inter.variable} h-full`}>
       <head>
         {/* Adsterra Popunder */}
         <script src="https://pl30657928.effectivecpmnetwork.com/f0/24/e3/f024e32dc29853c355e8fd5be3eed211.js"></script>
       </head>
-      <body className="min-h-full font-sans antialiased bg-zinc-950 text-zinc-50 selection:bg-violet-500/30 selection:text-white grain-overlay">
+      <body className="min-h-full font-sans antialiased bg-slate-50 text-slate-900 selection:bg-violet-500/30 selection:text-white grain-overlay">
         {children}
 
         {/* Cloudflare Analytics */}
