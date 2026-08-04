@@ -72,10 +72,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full`}>
-      <head>
-        {/* Adsterra Popunder */}
-        <script src="https://pl30657928.effectivecpmnetwork.com/f0/24/e3/f024e32dc29853c355e8fd5be3eed211.js"></script>
-      </head>
       <body className="min-h-full font-sans antialiased bg-slate-50 text-slate-900 selection:bg-violet-500/30 selection:text-white grain-overlay">
         {children}
 
@@ -84,12 +80,6 @@ export default function RootLayout({
           src="https://static.cloudflareinsights.com/beacon.min.js"
           strategy="afterInteractive"
           data-cf-beacon='{"token": "zenovee-free-suite-analytics"}'
-        />
-
-        {/* Adsterra Social Bar */}
-        <Script
-          src="https://pl30657929.effectivecpmnetwork.com/5e/12/8d/5e128d225e4e490d86723baab298b62b.js"
-          strategy="lazyOnload"
         />
       </body>
     </html>
