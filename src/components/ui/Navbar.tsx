@@ -22,7 +22,6 @@ export default function Navbar() {
   const navLinks = [
     { name: "Features", href: "/features" },
     { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" }
   ];
 
   const isActive = (path: string) => pathname === path;
@@ -30,18 +29,18 @@ export default function Navbar() {
   return (
     <header 
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "glass-nav py-3" : "bg-transparent py-5"
+        isScrolled ? "glass-nav py-3.5" : "bg-transparent py-5"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 shadow-[0_0_15px_rgba(124,58,237,0.5)] group-hover:shadow-[0_0_25px_rgba(124,58,237,0.7)] transition-all duration-300">
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 shadow-[0_0_15px_rgba(124,58,237,0.4)] group-hover:shadow-[0_0_25px_rgba(124,58,237,0.6)] transition-all duration-300">
               <Terminal className="w-5 h-5 text-white" />
               <div className="absolute inset-0 rounded-xl ring-1 ring-white/20"></div>
             </div>
-            <span className="text-xl font-bold tracking-tight text-slate-900 group-hover:text-violet-700 transition-colors">
+            <span className="text-2xl font-black tracking-tight text-slate-900 group-hover:text-violet-700 transition-colors">
               Zenovee<span className="text-violet-600">.</span>
             </span>
           </Link>
@@ -52,8 +51,8 @@ export default function Navbar() {
               <Link 
                 key={link.name} 
                 href={link.href}
-                className={`text-sm font-medium transition-colors hover:text-violet-700 ${
-                  isActive(link.href) ? "text-violet-700" : "text-slate-600"
+                className={`text-base font-bold transition-colors hover:text-violet-700 ${
+                  isActive(link.href) ? "text-violet-700 font-extrabold" : "text-slate-800"
                 }`}
               >
                 {link.name}

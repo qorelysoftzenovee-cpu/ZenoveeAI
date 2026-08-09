@@ -23,11 +23,11 @@ export default function AboutPage() {
       <div className="flex-1 relative z-10 pt-32 pb-24">
         {/* Hero Section */}
         <div className="max-w-4xl mx-auto px-6 text-center mb-24 anim-fade-up">
-          <div className="badge badge-violet mb-6 inline-flex">Our Story</div>
-          <h1 className="text-4xl sm:text-6xl font-extrabold text-white mb-6 tracking-tight">
+          <div className="badge badge-violet mb-6 inline-flex text-sm font-bold">Our Story</div>
+          <h1 className="text-4xl sm:text-6xl font-black text-slate-900 mb-6 tracking-tight">
             Built for the <span className="gradient-text">modern web.</span>
           </h1>
-          <p className="text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-700 font-medium max-w-2xl mx-auto leading-relaxed">
             Zenovee is on a mission to democratize powerful AI and productivity tools, bringing them directly to your browser with unparalleled speed, privacy, and user experience.
           </p>
         </div>
@@ -35,32 +35,32 @@ export default function AboutPage() {
         {/* Values Grid */}
         <div className="max-w-7xl mx-auto px-6 mb-32">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 stagger">
-            <div className="glass-card-dark rounded-2xl p-8 flex flex-col items-start anim-fade-up delay-100">
-              <div className="bg-violet-500/10 text-violet-400 rounded-xl p-3 mb-6 ring-1 ring-violet-500/20">
+            <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm flex flex-col items-start anim-fade-up delay-100">
+              <div className="bg-violet-500/10 text-violet-600 rounded-xl p-3 mb-6 ring-1 ring-violet-500/20">
                 <Target className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3">Our Mission</h3>
-              <p className="text-zinc-400 leading-relaxed">
+              <h3 className="text-xl font-black text-slate-900 mb-3">Our Mission</h3>
+              <p className="text-slate-600 font-medium text-base leading-relaxed">
                 To build beautifully designed, highly functional tools that respect your time and boost your daily productivity without unnecessary friction.
               </p>
             </div>
 
-            <div className="glass-card-dark rounded-2xl p-8 flex flex-col items-start anim-fade-up delay-200">
-              <div className="bg-cyan-500/10 text-cyan-400 rounded-xl p-3 mb-6 ring-1 ring-cyan-500/20">
+            <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm flex flex-col items-start anim-fade-up delay-200">
+              <div className="bg-cyan-500/10 text-cyan-600 rounded-xl p-3 mb-6 ring-1 ring-cyan-500/20">
                 <ShieldCheck className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3">Privacy-First</h3>
-              <p className="text-zinc-400 leading-relaxed">
+              <h3 className="text-xl font-black text-slate-900 mb-3">Privacy-First</h3>
+              <p className="text-slate-600 font-medium text-base leading-relaxed">
                 We believe your data is yours. Our tools are built to run locally in your browser whenever possible, keeping your sensitive information safe.
               </p>
             </div>
 
-            <div className="glass-card-dark rounded-2xl p-8 flex flex-col items-start anim-fade-up delay-300">
-              <div className="bg-emerald-500/10 text-emerald-400 rounded-xl p-3 mb-6 ring-1 ring-emerald-500/20">
+            <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm flex flex-col items-start anim-fade-up delay-300">
+              <div className="bg-emerald-500/10 text-emerald-600 rounded-xl p-3 mb-6 ring-1 ring-emerald-500/20">
                 <Zap className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3">Instant Speed</h3>
-              <p className="text-zinc-400 leading-relaxed">
+              <h3 className="text-xl font-black text-slate-900 mb-3">Instant Speed</h3>
+              <p className="text-slate-600 font-medium text-base leading-relaxed">
                 No waiting, no loading screens. By leveraging modern client-side technologies, our tools operate with zero latency for a seamless experience.
               </p>
             </div>
@@ -69,11 +69,11 @@ export default function AboutPage() {
 
         {/* Architecture Section */}
         <div className="max-w-5xl mx-auto px-6 mb-32 anim-fade-up delay-400">
-          <div className="glass-card-dark rounded-3xl p-10 md:p-16 border border-white/10 shadow-2xl relative overflow-hidden">
+          <div className="bg-white rounded-3xl p-10 md:p-16 border border-slate-200 shadow-lg relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-violet-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
             <div className="max-w-3xl relative z-10">
-              <h2 className="text-3xl font-bold text-white mb-6">How Zenovee works</h2>
-              <div className="space-y-6 text-zinc-300 text-lg leading-relaxed">
+              <h2 className="text-3xl font-black text-slate-900 mb-6">How Zenovee works</h2>
+              <div className="space-y-6 text-slate-700 font-medium text-lg leading-relaxed">
                 <p>
                   Unlike traditional web applications that send your data back and forth to a server, Zenovee is built on a client-side architecture powered by modern web technologies.
                 </p>

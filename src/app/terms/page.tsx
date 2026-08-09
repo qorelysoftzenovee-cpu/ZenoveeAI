@@ -19,13 +19,13 @@ export default function TermsPage() {
 
       <div className="flex-1 pt-32 pb-24 relative z-10">
         <div className="max-w-3xl mx-auto px-6">
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight mb-2">
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mb-2">
             Terms of Service
           </h1>
           
-          <div className="glass-card-dark rounded-3xl p-8 md:p-12 mt-8 border border-white/10 shadow-xl">
-            <div className="prose-output">
-              <p className="text-zinc-400 leading-relaxed mb-6">
+          <div className="bg-white rounded-3xl p-8 md:p-12 mt-8 border border-slate-200 shadow-sm">
+            <div className="prose-output text-slate-700 font-medium text-base leading-relaxed">
+              <p className="text-slate-500 font-semibold leading-relaxed mb-6">
                 Last updated: August 2026
               </p>
               

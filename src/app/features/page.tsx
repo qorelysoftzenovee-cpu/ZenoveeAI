@@ -34,11 +34,11 @@ export default function FeaturesPage() {
       <div className="flex-1 relative z-10 pt-32 pb-24">
         {/* Hero Section */}
         <div className="max-w-4xl mx-auto px-6 text-center mb-24 anim-fade-up">
-          <div className="badge badge-violet mb-6 inline-flex">Complete Toolkit</div>
-          <h1 className="text-4xl sm:text-6xl font-extrabold text-white mb-6 tracking-tight">
+          <div className="badge badge-violet mb-6 inline-flex text-sm font-bold">Complete Toolkit</div>
+          <h1 className="text-4xl sm:text-6xl font-black text-slate-900 mb-6 tracking-tight">
             Every tool, <span className="gradient-text">one platform.</span>
           </h1>
-          <p className="text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-700 font-medium max-w-2xl mx-auto leading-relaxed">
             Discover our comprehensive suite of client-side utilities designed to supercharge your workflow. From text processing to advanced generators, everything runs locally in your browser.
           </p>
         </div>
@@ -47,24 +47,24 @@ export default function FeaturesPage() {
         <div className="max-w-7xl mx-auto px-6 space-y-24">
           {Object.entries(groupedTools).map(([category, tools], index) => (
             <section key={category} className={`anim-fade-up delay-${(index % 3 + 1) * 100}`}>
-              <div className="flex items-center gap-4 mb-10 border-b border-white/5 pb-4">
-                <TerminalSquare className="w-8 h-8 text-violet-400" />
-                <h2 className="text-2xl font-bold text-white">{category}</h2>
-                <div className="badge badge-cyan ml-2">{tools.length} Tools</div>
+              <div className="flex items-center gap-4 mb-10 border-b border-slate-200 pb-4">
+                <TerminalSquare className="w-8 h-8 text-violet-600" />
+                <h2 className="text-3xl font-black text-slate-900">{category}</h2>
+                <div className="badge badge-cyan ml-2 text-xs font-bold px-3 py-1">{tools.length} Tools</div>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                 {tools.map((tool) => (
                   <Link href={`/dashboard/tools/${tool.id}`} key={tool.id} className="block group h-full">
-                    <div className="tool-card h-full flex flex-col p-5">
+                    <div className="tool-card h-full flex flex-col p-5 bg-white border border-slate-200 shadow-sm rounded-2xl">
                       <div className="flex items-center gap-3 mb-3">
-                        <h3 className="text-base font-bold text-white group-hover:text-violet-300 transition-colors line-clamp-1">{tool.title}</h3>
+                        <h3 className="text-lg font-bold text-slate-900 group-hover:text-violet-600 transition-colors line-clamp-1">{tool.title}</h3>
                       </div>
-                      <p className="text-sm text-zinc-400 flex-1 mb-4 leading-relaxed line-clamp-2">
+                      <p className="text-sm text-slate-600 font-semibold flex-1 mb-4 leading-relaxed line-clamp-2">
                         {tool.description}
                       </p>
-                      <div className="text-xs font-medium text-violet-400 flex items-center opacity-60 group-hover:opacity-100 transition-opacity">
-                        Launch Tool <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
+                      <div className="text-sm font-extrabold text-violet-600 flex items-center opacity-80 group-hover:opacity-100 transition-opacity">
+                        Launch Tool <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
                   </Link>

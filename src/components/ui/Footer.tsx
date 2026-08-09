@@ -31,31 +31,30 @@ export default function Footer() {
 
           {/* Product Links */}
           <div>
-            <h3 className="text-slate-900 font-semibold mb-4 text-sm tracking-wide uppercase">Product</h3>
+            <h3 className="text-slate-900 font-extrabold mb-4 text-base tracking-wide uppercase">Product</h3>
             <ul className="space-y-3">
-              <li><Link href="/dashboard" className="text-slate-600 hover:text-violet-400 transition-colors text-sm">Dashboard</Link></li>
-              <li><Link href="/features" className="text-slate-600 hover:text-violet-400 transition-colors text-sm">Features</Link></li>
-              <li><Link href="/dashboard?category=Developer+UI+%26+Design+Playgrounds" className="text-slate-600 hover:text-violet-400 transition-colors text-sm">Developer Tools</Link></li>
-              <li><Link href="/dashboard?category=SEO+%26+Webmaster+Suite" className="text-slate-600 hover:text-violet-400 transition-colors text-sm">SEO Tools</Link></li>
+              <li><Link href="/dashboard" className="text-slate-800 hover:text-violet-600 font-bold transition-colors text-base">Dashboard</Link></li>
+              <li><Link href="/features" className="text-slate-800 hover:text-violet-600 font-bold transition-colors text-base">Features</Link></li>
+              <li><Link href="/dashboard?category=Developer+%26+Tech+Utilities" className="text-slate-800 hover:text-violet-600 font-bold transition-colors text-base">Developer Tools</Link></li>
+              <li><Link href="/dashboard?category=Growth+Marketing+%26+SEO+Suite" className="text-slate-800 hover:text-violet-600 font-bold transition-colors text-base">SEO Tools</Link></li>
             </ul>
           </div>
 
           {/* Company Links */}
           <div>
-            <h3 className="text-slate-900 font-semibold mb-4 text-sm tracking-wide uppercase">Company</h3>
+            <h3 className="text-slate-900 font-extrabold mb-4 text-base tracking-wide uppercase">Company</h3>
             <ul className="space-y-3">
-              <li><Link href="/about" className="text-slate-600 hover:text-violet-400 transition-colors text-sm">About Us</Link></li>
-              <li><Link href="/contact" className="text-slate-600 hover:text-violet-400 transition-colors text-sm">Contact</Link></li>
-              <li><a href="#" className="text-slate-600 hover:text-violet-400 transition-colors text-sm">Blog</a></li>
+              <li><Link href="/about" className="text-slate-800 hover:text-violet-600 font-bold transition-colors text-base">About Us</Link></li>
+              <li><Link href="/features" className="text-slate-800 hover:text-violet-600 font-bold transition-colors text-base">All Features</Link></li>
             </ul>
           </div>
 
           {/* Legal Links */}
           <div>
-            <h3 className="text-slate-900 font-semibold mb-4 text-sm tracking-wide uppercase">Legal</h3>
+            <h3 className="text-slate-900 font-extrabold mb-4 text-base tracking-wide uppercase">Legal</h3>
             <ul className="space-y-3">
-              <li><Link href="/privacy" className="text-slate-600 hover:text-violet-400 transition-colors text-sm">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="text-slate-600 hover:text-violet-400 transition-colors text-sm">Terms of Service</Link></li>
+              <li><Link href="/privacy" className="text-slate-800 hover:text-violet-600 font-bold transition-colors text-base">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="text-slate-800 hover:text-violet-600 font-bold transition-colors text-base">Terms of Service</Link></li>
             </ul>
           </div>
         </div>
