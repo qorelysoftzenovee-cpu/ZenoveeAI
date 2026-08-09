@@ -22,8 +22,7 @@ import {
 } from "lucide-react";
 
 import { toolsConfig } from "@/utils/toolsConfig";
-import Banner300x250 from "@/components/ads/Banner300x250";
-import NativeBanner4x1 from "@/components/ads/NativeBanner4x1";
+
 
 // Helper for Unicode font formatting
 function convertToUnicodeStyle(text: string, styleName: string): string {
@@ -2444,8 +2443,7 @@ export default function ToolWorkspacePage() {
           onSubmit={handleExecute}
           className="flex flex-col rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden"
         >
-          {/* Adsterra Banner 300x250 (Above input workspace) */}
-          <Banner300x250 />
+
 
           {/* Card Form Header */}
           <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/50 px-6 py-4">
@@ -2683,8 +2681,7 @@ export default function ToolWorkspacePage() {
             </div>
           )}
 
-          {/* Adsterra Native Banner 4:1 (Below result box) */}
-          <NativeBanner4x1 />
+
         </div>
       </div>
     </div>
