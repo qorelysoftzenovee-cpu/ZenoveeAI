@@ -21,7 +21,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "image-compressor",
     title: "Client-Side Image Compressor & Converter",
     name: "Client-Side Image Compressor & Converter",
-    category: "Content Creation & Media",
+    category: "Media, Design & Productivity",
     description: "Compresses JPEG/PNG/WebP and converts formats locally using OffscreenCanvas.",
     inputs: [
       {
@@ -46,7 +46,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "svg-editor",
     title: "SVG Vector Editor & Color Swapper",
     name: "SVG Vector Editor & Color Swapper",
-    category: "Content Creation & Media",
+    category: "Media, Design & Productivity",
     description: "Parses SVG XML directly in browser DOM to tweak colors and resize dimensions.",
     inputs: [
       {
@@ -71,7 +71,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "og-generator",
     title: "Dynamic Open Graph Card Visual Designer",
     name: "Dynamic Open Graph Card Visual Designer",
-    category: "Content Creation & Media",
+    category: "Growth Marketing & SEO Suite",
     description: "Generates social media preview images (1200x630) using HTML5 Canvas.",
     inputs: [
       {
@@ -96,7 +96,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "code-beautifier",
     title: "Code Snippet Image Beautifier",
     name: "Code Snippet Image Beautifier",
-    category: "Content Creation & Media",
+    category: "Growth Marketing & SEO Suite",
     description: "Creates code-card images using client-side syntax highlighting and gradients.",
     inputs: [
       {
@@ -121,7 +121,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "batch-watermarker",
     title: "Privacy-First Batch Image Watermarker",
     name: "Privacy-First Batch Image Watermarker",
-    category: "Content Creation & Media",
+    category: "Media, Design & Productivity",
     description: "Stamps logos or text onto photos simultaneously using local web workers.",
     inputs: [
       {
@@ -146,7 +146,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "lottie-gif-extractor",
     title: "Lottie Animation Frame Extractor",
     name: "Lottie Animation Frame Extractor",
-    category: "Content Creation & Media",
+    category: "Media, Design & Productivity",
     description: "Unpacks Lottie JSON or animated GIFs frame-by-frame for SVG/PNG export.",
     inputs: [
       {
@@ -171,7 +171,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "schema-builder",
     title: "Dynamic JSON-LD Schema Markup Builder",
     name: "Dynamic JSON-LD Schema Markup Builder",
-    category: "Growth Marketing & Analytics",
+    category: "Growth Marketing & SEO Suite",
     description: "Generates Google-compliant JSON-LD schema (FAQ, HowTo, Product, Article).",
     inputs: [
       {
@@ -196,7 +196,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "utm-builder",
     title: "UTM Campaign Builder & History Tracker",
     name: "UTM Campaign Builder & History Tracker",
-    category: "Growth Marketing & Analytics",
+    category: "Growth Marketing & SEO Suite",
     description: "Generates tagged campaign URLs and tracks historical links in LocalStorage.",
     inputs: [
       {
@@ -221,7 +221,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "serp-simulator",
     title: "SERP Snippet Visual Simulator",
     name: "SERP Snippet Visual Simulator",
-    category: "Growth Marketing & Analytics",
+    category: "Growth Marketing & SEO Suite",
     description: "Previews how titles, descriptions, and URLs render on Google desktop and mobile.",
     inputs: [
       {
@@ -246,7 +246,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "robots-sitemap-builder",
     title: "Robots.txt & XML Sitemap Validator",
     name: "Robots.txt & XML Sitemap Validator",
-    category: "Growth Marketing & Analytics",
+    category: "Growth Marketing & SEO Suite",
     description: "Generates clean sitemaps and tests robots.txt disallow rules against URL paths.",
     inputs: [
       {
@@ -271,7 +271,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "email-signature",
     title: "Client-Side HTML Email Signature Builder",
     name: "Client-Side HTML Email Signature Builder",
-    category: "Growth Marketing & Analytics",
+    category: "Growth Marketing & SEO Suite",
     description: "Generates responsive HTML email signatures with clickable icons and avatars.",
     inputs: [
       {
@@ -296,7 +296,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "qr-studio",
     title: "Vector-Based Custom QR Code Generator",
     name: "Vector-Based Custom QR Code Generator",
-    category: "Growth Marketing & Analytics",
+    category: "Growth Marketing & SEO Suite",
     description: "Generates vector SVG & PNG QR codes with custom colors and logo embedding.",
     inputs: [
       {
@@ -321,7 +321,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "keyword-density",
     title: "On-Page Keyword Frequency Matrix",
     name: "On-Page Keyword Frequency Matrix",
-    category: "Growth Marketing & Analytics",
+    category: "Growth Marketing & SEO Suite",
     description: "Extracts 1-word, 2-word, and 3-word n-gram keyword frequencies from text.",
     inputs: [
       {
@@ -346,7 +346,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "og-tag-generator",
     title: "Open Graph Meta Tag Visualizer",
     name: "Open Graph Meta Tag Visualizer",
-    category: "Growth Marketing & Analytics",
+    category: "Growth Marketing & SEO Suite",
     description: "Generates `<meta property=\"og:title\">` and Twitter Card tags with preview.",
     inputs: [
       {
@@ -371,7 +371,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "pdf-merger",
     title: "Offline PDF Merger & Splitter (Client-Side)",
     name: "Offline PDF Merger & Splitter (Client-Side)",
-    category: "Productivity & File Utilities",
+    category: "Media, Design & Productivity",
     description: "Merges multiple PDF files or extracts pages 100% locally in browser memory.",
     inputs: [
       {
@@ -396,7 +396,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "ocr-extractor",
     title: "In-Browser OCR Image Text Extractor",
     name: "In-Browser OCR Image Text Extractor",
-    category: "Productivity & File Utilities",
+    category: "Media, Design & Productivity",
     description: "Extracts printed text from images and screenshots using client Tesseract WASM.",
     inputs: [
       {
@@ -421,7 +421,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "pomodoro-tracker",
     title: "Pomodoro Focus Engine",
     name: "Pomodoro Focus Engine",
-    category: "Productivity & File Utilities",
+    category: "Media, Design & Productivity",
     description: "Customizable 25/5 focus timer with session logs and Web Audio chimes.",
     inputs: [
       {
@@ -446,7 +446,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "file-hash",
     title: "Universal File Hash (SHA-256/MD5) Calculator",
     name: "Universal File Hash (SHA-256/MD5) Calculator",
-    category: "Productivity & File Utilities",
+    category: "Calculators & Mathematics",
     description: "Calculates SHA-256, SHA-1, and MD5 checksums for uploaded files.",
     inputs: [
       {
@@ -471,7 +471,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "screen-recorder",
     title: "In-Browser Screen & Webcam Recorder",
     name: "In-Browser Screen & Webcam Recorder",
-    category: "Productivity & File Utilities",
+    category: "Network & Server Utilities",
     description: "Captures screen recordings with audio and downloads WebM video files.",
     inputs: [
       {
@@ -496,7 +496,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "timezone-scheduler",
     title: "Multi-Timezone Visual Meeting Scheduler",
     name: "Multi-Timezone Visual Meeting Scheduler",
-    category: "Productivity & File Utilities",
+    category: "Media, Design & Productivity",
     description: "Finds optimal meeting overlap times across global timezones.",
     inputs: [
       {
@@ -521,7 +521,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "markdown-kanban",
     title: "Client-Side Markdown Kanban Board",
     name: "Client-Side Markdown Kanban Board",
-    category: "Productivity & File Utilities",
+    category: "Media, Design & Productivity",
     description: "Interactive drag-and-drop task board persisting state in LocalStorage.",
     inputs: [
       {
@@ -546,7 +546,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "voice-transcriber",
     title: "Voice Note Web Speech Dictation Tool",
     name: "Voice Note Web Speech Dictation Tool",
-    category: "Productivity & File Utilities",
+    category: "Media, Design & Productivity",
     description: "Transcribes spoken audio into text in real-time using Web Speech API.",
     inputs: [
       {
@@ -571,7 +571,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "mime-inspector",
     title: "File Magic Byte & MIME Inspector",
     name: "File Magic Byte & MIME Inspector",
-    category: "Productivity & File Utilities",
+    category: "Developer & Tech Utilities",
     description: "Inspects file header magic bytes to verify true file extension integrity.",
     inputs: [
       {
@@ -846,7 +846,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "json-formatter",
     title: "Interactive JSON Tree Visualizer & Diff",
     name: "Interactive JSON Tree Visualizer & Diff",
-    category: "Data & Tech Utilities",
+    category: "Developer & Tech Utilities",
     description: "Formats, validates, beautifies, and compares JSON data structures.",
     inputs: [
       {
@@ -871,7 +871,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "jwt-decoder",
     title: "JWT Decoder & Payload Inspector",
     name: "JWT Decoder & Payload Inspector",
-    category: "Data & Tech Utilities",
+    category: "Developer & Tech Utilities",
     description: "Decodes Base64Url JSON Web Tokens inspecting header and claim payloads.",
     inputs: [
       {
@@ -896,7 +896,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "cron-humanizer",
     title: "Cron Expression Parser & Humanizer",
     name: "Cron Expression Parser & Humanizer",
-    category: "Data & Tech Utilities",
+    category: "Developer & Tech Utilities",
     description: "Translates 5-part cron syntax (e.g. `*/5 * * * *`) into plain English.",
     inputs: [
       {
@@ -921,7 +921,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "uuid-generator",
     title: "UUID, ULID & NanoID Batch Generator",
     name: "UUID, ULID & NanoID Batch Generator",
-    category: "Data & Tech Utilities",
+    category: "Developer & Tech Utilities",
     description: "Generates RFC 4122 v4 UUIDs, ULIDs, and NanoIDs in single or batch mode.",
     inputs: [
       {
@@ -946,7 +946,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "ip-lookup",
     title: "My IP & Geolocation Inspector",
     name: "My IP & Geolocation Inspector",
-    category: "Network & IP Utilities",
+    category: "Network & Server Utilities",
     description: "Fetches public IP address, ISP provider, ASN, and city geolocation.",
     inputs: [
       {
@@ -971,7 +971,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "dns-propagation",
     title: "Multi-Server DNS Propagation Checker",
     name: "Multi-Server DNS Propagation Checker",
-    category: "Network & IP Utilities",
+    category: "Network & Server Utilities",
     description: "Queries A, CNAME, MX, and TXT records across global DNS servers.",
     inputs: [
       {
@@ -996,7 +996,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "ping-tester",
     title: "Client-Side Latency Tester",
     name: "Client-Side Latency Tester",
-    category: "Network & IP Utilities",
+    category: "Network & Server Utilities",
     description: "Measures round-trip time (RTT) latency and jitter to public web servers.",
     inputs: [
       {
@@ -1021,7 +1021,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "cidr-calculator",
     title: "Subnet / CIDR Mask Calculator",
     name: "Subnet / CIDR Mask Calculator",
-    category: "Network & IP Utilities",
+    category: "Network & Server Utilities",
     description: "Calculates network IP ranges, subnet masks, wildcard masks, and hosts.",
     inputs: [
       {
@@ -1046,7 +1046,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "header-inspector",
     title: "HTTP Security Header Inspector",
     name: "HTTP Security Header Inspector",
-    category: "Network & IP Utilities",
+    category: "Network & Server Utilities",
     description: "Inspects HTTP response headers for CSP, HSTS, and X-Frame-Options.",
     inputs: [
       {
@@ -1071,7 +1071,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "ssl-checker",
     title: "SSL Certificate Expiry Checker",
     name: "SSL Certificate Expiry Checker",
-    category: "Network & IP Utilities",
+    category: "Network & Server Utilities",
     description: "Inspects SSL/TLS certificate validity dates, issuer, and SAN domains.",
     inputs: [
       {
@@ -1096,7 +1096,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "mac-vendor",
     title: "MAC Address OUI Vendor Lookup",
     name: "MAC Address OUI Vendor Lookup",
-    category: "Network & IP Utilities",
+    category: "Network & Server Utilities",
     description: "Looks up hardware manufacturer details from MAC address OUI prefixes.",
     inputs: [
       {
@@ -1121,7 +1121,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "speed-test",
     title: "Client-Side Bandwidth Speed Test",
     name: "Client-Side Bandwidth Speed Test",
-    category: "Network & IP Utilities",
+    category: "Network & Server Utilities",
     description: "Measures download speed Mbps and latency directly in browser memory.",
     inputs: [
       {
@@ -1146,7 +1146,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "whois-lookup",
     title: "Domain Whois Lookup Interface",
     name: "Domain Whois Lookup Interface",
-    category: "Network & IP Utilities",
+    category: "Network & Server Utilities",
     description: "Queries domain registrar info, creation date, and nameservers via RDAP.",
     inputs: [
       {
@@ -1171,7 +1171,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "url-encoder-decoder",
     title: "URL Encoder / Decoder",
     name: "URL Encoder / Decoder",
-    category: "Encoders, Decoders & Converters",
+    category: "Developer & Tech Utilities",
     description: "Converts special characters to URL-safe percent-encoding and vice-versa.",
     inputs: [
       {
@@ -1196,7 +1196,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "color-code-converter",
     title: "Color Code Converter (HEX, RGB, HSL, CMYK)",
     name: "Color Code Converter (HEX, RGB, HSL, CMYK)",
-    category: "Encoders, Decoders & Converters",
+    category: "Developer & Tech Utilities",
     description: "Converts color values between HEX, RGB, HSL, and CMYK formats.",
     inputs: [
       {
@@ -1221,7 +1221,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "unix-timestamp-converter",
     title: "Unix Timestamp to Date Converter",
     name: "Unix Timestamp to Date Converter",
-    category: "Encoders, Decoders & Converters",
+    category: "Developer & Tech Utilities",
     description: "Converts epoch timestamps (seconds/ms) to human ISO date strings.",
     inputs: [
       {
@@ -1246,7 +1246,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "multi-unit-converter",
     title: "Multi-Unit Metric/Imperial Converter",
     name: "Multi-Unit Metric/Imperial Converter",
-    category: "Encoders, Decoders & Converters",
+    category: "Calculators & Mathematics",
     description: "Converts units of Length, Mass, Temperature, Volume, and Speed.",
     inputs: [
       {
@@ -1271,7 +1271,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "live-currency-calculator",
     title: "Live Currency Cross Rate Calculator",
     name: "Live Currency Cross Rate Calculator",
-    category: "Encoders, Decoders & Converters",
+    category: "Calculators & Mathematics",
     description: "Calculates real-time foreign exchange conversions across 30+ currencies.",
     inputs: [
       {
@@ -1296,7 +1296,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "html-entity-encoder",
     title: "HTML Entity Encoder / Decoder",
     name: "HTML Entity Encoder / Decoder",
-    category: "Encoders, Decoders & Converters",
+    category: "Developer & Tech Utilities",
     description: "Encodes special characters to HTML entities (`&lt;`, `&gt;`) and decodes.",
     inputs: [
       {
@@ -1321,7 +1321,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "sql-formatter",
     title: "SQL Query Formatter & Beautifier",
     name: "SQL Query Formatter & Beautifier",
-    category: "Text Processing & Manipulation",
+    category: "Developer & Tech Utilities",
     description: "Pretty-prints complex SQL queries with custom keyword capitalization.",
     inputs: [
       {
@@ -1346,7 +1346,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "text-diff-checker",
     title: "Code Diff & Visual Comparison",
     name: "Code Diff & Visual Comparison",
-    category: "Text Processing & Manipulation",
+    category: "Developer & Tech Utilities",
     description: "Side-by-side visual diff tool highlighting added and deleted text lines.",
     inputs: [
       {
@@ -1371,7 +1371,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "text-stats-counter",
     title: "Text Character, Word & Byte Counter",
     name: "Text Character, Word & Byte Counter",
-    category: "Text Processing & Manipulation",
+    category: "Developer & Tech Utilities",
     description: "Counts real-time characters, words, sentences, paragraphs, and bytes.",
     inputs: [
       {
@@ -1396,7 +1396,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "url-slug-generator",
     title: "URL Slug Generator",
     name: "URL Slug Generator",
-    category: "Text Processing & Manipulation",
+    category: "Developer & Tech Utilities",
     description: "Converts text titles into clean SEO-friendly URL slug strings.",
     inputs: [
       {
@@ -1646,7 +1646,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "htaccess-rule-builder",
     title: ".htaccess Rule Generator",
     name: ".htaccess Rule Generator",
-    category: "Web Security & Server Config",
+    category: "Developer & Tech Utilities",
     description: "Generates Apache `.htaccess` rules for HTTPS enforcement and headers.",
     inputs: [
       {
@@ -1671,7 +1671,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "favicon-generator-ui",
     title: "Favicon Multi-Resolution Builder",
     name: "Favicon Multi-Resolution Builder",
-    category: "Developer UI & Design Playgrounds",
+    category: "Developer & Tech Utilities",
     description: "Generates HTML favicon links, Apple touch icons, and Web App Manifest.",
     inputs: [
       {
@@ -1696,7 +1696,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "robots-txt-builder",
     title: "Robots.txt File Builder",
     name: "Robots.txt File Builder",
-    category: "SEO & Webmaster Suite",
+    category: "Growth Marketing & SEO Suite",
     description: "Generates clean robots.txt disallow rules and sitemap directives.",
     inputs: [
       {
@@ -1721,7 +1721,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "yaml-to-json",
     title: "YAML to JSON Engine",
     name: "YAML to JSON Engine",
-    category: "Developer Build Utilities",
+    category: "Developer & Tech Utilities",
     description: "Converts YAML configuration files into JSON structures and vice-versa.",
     inputs: [
       {
@@ -1746,7 +1746,7 @@ export const toolsConfig: ToolConfig[] = [
     id: "css-js-compressor",
     title: "Minify CSS / JS Engine",
     name: "Minify CSS / JS Engine",
-    category: "Developer Build Utilities",
+    category: "Developer & Tech Utilities",
     description: "Compresses JavaScript and CSS code removing spaces and comments.",
     inputs: [
       {
