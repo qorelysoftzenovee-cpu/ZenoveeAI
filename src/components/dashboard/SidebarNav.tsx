@@ -31,23 +31,23 @@ function SidebarNavContent() {
   return (
     <div className="space-y-6 max-h-[calc(100vh-11rem)] overflow-y-auto custom-scroll pr-1">
       <div>
-        <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-500 px-3 mb-2.5">
+        <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 px-3 mb-2.5">
           Directory
         </h3>
         <Link 
           href="/dashboard?category=all"
-          className={`flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-bold transition-all ${
+          className={`flex items-center justify-between rounded-xl px-3.5 py-3 text-base font-extrabold transition-all ${
             activeCategory === 'all' 
               ? 'bg-violet-600 text-white shadow-sm' 
-              : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
+              : 'text-slate-800 hover:bg-slate-100 hover:text-slate-950'
           }`}
         >
           <div className="flex items-center gap-2.5">
-            <LayoutGrid size={16} />
+            <LayoutGrid size={18} />
             <span>All Tools</span>
           </div>
-          <span className={`text-xs font-extrabold px-2.5 py-0.5 rounded-full ${
-            activeCategory === 'all' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700 border border-slate-200'
+          <span className={`text-xs font-black px-2.5 py-0.5 rounded-full ${
+            activeCategory === 'all' ? 'bg-white/25 text-white' : 'bg-slate-100 text-slate-800 border border-slate-200'
           }`}>
             {totalTools}
           </span>
@@ -55,7 +55,7 @@ function SidebarNavContent() {
       </div>
 
       <div>
-        <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-500 px-3 mb-2.5">
+        <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 px-3 mb-2.5">
           Categories
         </h3>
         <div className="space-y-1">
@@ -68,16 +68,16 @@ function SidebarNavContent() {
               <Link
                 key={cat.name}
                 href={`/dashboard?category=${encodeURIComponent(cat.name)}`}
-                className={`flex items-center justify-between rounded-xl px-3.5 py-2.5 text-xs font-bold transition-all ${
-                  isActive ? 'bg-violet-600 text-white shadow-sm' : 'text-slate-700 hover:bg-slate-100 hover:text-slate-950 font-semibold'
+                className={`flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-bold transition-all ${
+                  isActive ? 'bg-violet-600 text-white shadow-sm font-extrabold' : 'text-slate-800 hover:bg-slate-100 hover:text-slate-950'
                 }`}
               >
                 <div className="flex items-center gap-2.5 truncate">
-                  <Icon size={15} className={isActive ? 'text-white' : 'text-violet-600'} />
+                  <Icon size={17} className={isActive ? 'text-white' : 'text-violet-600'} />
                   <span className="truncate">{cat.name}</span>
                 </div>
-                <span className={`text-xs font-extrabold px-2 py-0.5 rounded-md ml-2 shrink-0 ${
-                  isActive ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700 border border-slate-200'
+                <span className={`text-xs font-black px-2.5 py-0.5 rounded-md ml-2 shrink-0 ${
+                  isActive ? 'bg-white/25 text-white' : 'bg-slate-100 text-slate-800 border border-slate-200'
                 }`}>
                   {cat.count}
                 </span>
@@ -88,16 +88,16 @@ function SidebarNavContent() {
       </div>
 
       <div className="border-t border-slate-200 pt-4 mt-2">
-        <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-500 px-3 mb-2.5">
+        <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 px-3 mb-2.5">
           Insights
         </h3>
         <div className="space-y-1">
-          <Link href="/dashboard/history" className="flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all">
-            <History size={15} className="text-slate-500" />
+          <Link href="/dashboard/history" className="flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-sm font-bold text-slate-800 hover:bg-slate-100 hover:text-slate-950 transition-all">
+            <History size={17} className="text-slate-500" />
             <span>History</span>
           </Link>
-          <Link href="/dashboard/analytics" className="flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all">
-            <PieChart size={15} className="text-slate-500" />
+          <Link href="/dashboard/analytics" className="flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-sm font-bold text-slate-800 hover:bg-slate-100 hover:text-slate-950 transition-all">
+            <PieChart size={17} className="text-slate-500" />
             <span>Analytics</span>
           </Link>
         </div>
