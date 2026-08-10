@@ -1481,35 +1481,6 @@ Accept-Language: en-US,en;q=0.9
         }
       }
 
-      case "xml-to-json": {
-        const raw = (inputs.xmlInput || "").trim();
-        if (!raw) return { markdownOutput: `# ℹ️ Input Required\nPlease paste valid XML code.` };
-        try {
-          if (typeof window !== "undefined") {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(raw, "text/xml");
-            const errorNode = doc.querySelector("parsererror");
-            if (errorNode) {
-              return { markdownOutput: `# ❌ XML Parsing Error\n\n\`\`\`text\n${errorNode.textContent || "Malformed XML tags or unclosed element structure."}\n\`\`\`` };
-            }
-          }
-          return { markdownOutput: `# 💻 Converted JSON Output\n\n\`\`\`json\n{\n  "root": {\n    "parsed": true,\n    "xml": "${raw.substring(0, 50)}..."\n  }\n}\n\`\`\`` };
-        } catch (err: any) {
-          return { markdownOutput: `# ❌ XML Error\n\n\`\`\`text\n${err.message}\n\`\`\`` };
-        }
-      }
-
-      case "markdown-to-html": {
-        const md = inputs.mdText || "# Headline 1\n\nThis is **bold** text.";
-        const html = md
-          .replace(/^# (.*$)/gim, "<h1>$1</h1>")
-          .replace(/^## (.*$)/gim, "<h2>$1</h2>")
-          .replace(/\*\*(.*)\*\*/gim, "<strong>$1</strong>")
-          .replace(/\*(.*)\*/gim, "<em>$1</em>")
-          .replace(/\n\n/gim, "<br/>");
-        return { markdownOutput: `# 📝 Generated HTML Code\n\n\`\`\`html\n${html}\n\`\`\`` };
-      }
-
       case "color-code-converter": {
         let hex = (inputs.hex || "#4F46E5").trim().replace("#", "");
         if (hex.length === 3) hex = hex.split("").map((c) => c + c).join("");
