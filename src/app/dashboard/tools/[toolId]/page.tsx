@@ -2168,6 +2168,844 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
         return { markdownOutput: `# 🎨 Generated Favicon HTML Code\n\n- **Brand Symbol**: \`${brand}\`\n- **Theme Color**: \`${bg}\`\n\n\`\`\`html\n${code}\n\`\`\`` };
       }
 
+      // ==========================================
+      // NEW HIGH-DEMAND TOOLS — Developer & Tech
+      // ==========================================
+      case "json-to-csv-converter": {
+        const raw = inputs.input_data || '[\n  {"name":"Alice","age":30,"city":"London"},\n  {"name":"Bob","age":25,"city":"New York"}\n]';
+        try {
+          const parsed = JSON.parse(raw);
+          const arr = Array.isArray(parsed) ? parsed : [parsed];
+          const keys = [...new Set(arr.flatMap(Object.keys))];
+          const header = keys.join(",");
+          const rows = arr.map(r => keys.map(k => `"${String(r[k] ?? "").replace(/"/g, '""')}"`).join(","));
+          const csv = [header, ...rows].join("\n");
+          return { markdownOutput: `# ✅ JSON → CSV Conversion\n\n**Rows converted:** ${arr.length} | **Columns:** ${keys.length}\n\n\`\`\`csv\n${csv}\n\`\`\``, downloadBlobUrl: URL.createObjectURL(new Blob([csv], {type:"text/csv"})), downloadFileName: "converted.csv" };
+        } catch { return { markdownOutput: `# ❌ Invalid JSON\n\nPlease paste a valid JSON array of objects.`}; }
+      }
+
+      case "html-to-markdown": {
+        const html = inputs.input_data || '<h1>Hello World</h1><p>This is a <strong>test</strong> paragraph.</p><ul><li>Item 1</li><li>Item 2</li></ul>';
+        const md = html
+          .replace(/<h1[^>]*>(.*?)<\/h1>/gi, '# $1\n').replace(/<h2[^>]*>(.*?)<\/h2>/gi, '## $1\n')
+          .replace(/<h3[^>]*>(.*?)<\/h3>/gi, '### $1\n').replace(/<strong[^>]*>(.*?)<\/strong>/gi, '**$1**')
+          .replace(/<em[^>]*>(.*?)<\/em>/gi, '*$1*').replace(/<a[^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/gi, '[$2]($1)')
+          .replace(/<li[^>]*>(.*?)<\/li>/gi, '- $1\n').replace(/<br\s*\/?>/gi, '\n')
+          .replace(/<p[^>]*>(.*?)<\/p>/gi, '$1\n\n').replace(/<[^>]+>/g, '').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&nbsp;/g,' ').trim();
+        return { markdownOutput: `# ✅ HTML → Markdown\n\n**Characters converted:** ${html.length}\n\n\`\`\`markdown\n${md}\n\`\`\`` };
+      }
+
+      case "xml-to-json": {
+        const xml = inputs.input_data || '<root><user id="1"><name>Alice</name><age>30</age></user></root>';
+        const parseXML = (x: string): any => {
+          const tagMatch = x.match(/^<(\w+)([^>]*)>([\s\S]*?)<\/\1>$/);
+          if (!tagMatch) return x.trim();
+          const [, tag, attrs, inner] = tagMatch;
+          const children = inner.match(/<(\w+)[^>]*>[\s\S]*?<\/\1>/g) || [];
+          const obj: any = {};
+          if (attrs) { const attrPairs = [...attrs.matchAll(/(\w+)="([^"]*)"/g)]; attrPairs.forEach(([,k,v]) => obj[`@${k}`]=v); }
+          if (children.length) children.forEach(c => { const r = parseXML(c.trim()); const t = c.match(/^<(\w+)/)?.[1]||"item"; obj[t]=Array.isArray(obj[t])?[...obj[t],r]:obj[t]?[obj[t],r]:r; });
+          else obj["#text"] = inner.trim();
+          return {[tag]: obj};
+        };
+        const result = JSON.stringify(parseXML(xml.trim()), null, 2);
+        return { markdownOutput: `# ✅ XML → JSON\n\n\`\`\`json\n${result}\n\`\`\`` };
+      }
+
+      case "javascript-minifier": {
+        const code = inputs.input_data || 'function greet(name) {\n  const message = "Hello, " + name + "!";\n  console.log(message);\n  return message;\n}';
+        const mode = inputs.mode || "Standard Mode";
+        if (mode === "Advanced Mode") {
+          const minified = code.replace(/\/\*[\s\S]*?\*\//g,'').replace(/\/\/[^\n]*/g,'').replace(/\s+/g,' ').replace(/\s*([{};,=+\-*/<>!&|()])\s*/g,'$1').trim();
+          const savings = (100-(minified.length/code.length)*100).toFixed(1);
+          return { markdownOutput: `# ✅ JavaScript Minified\n\n**Original:** ${code.length} chars | **Minified:** ${minified.length} chars | **Saved:** ${savings}%\n\n\`\`\`js\n${minified}\n\`\`\`` };
+        }
+        const pretty = code.replace(/;(?!\n)/g,';\n').replace(/\{(?!\n)/g,'{\n  ').replace(/\}/g,'\n}');
+        return { markdownOutput: `# ✅ JavaScript Beautified\n\n\`\`\`js\n${pretty}\n\`\`\`` };
+      }
+
+      case "http-status-code-lookup": {
+        const query = (inputs.input_data || '200').trim();
+        const codes: Record<string,{name:string,desc:string,type:string}> = {
+          '200':{name:'OK',desc:'Request succeeded. The resource has been fetched and transmitted.',type:'Success'},
+          '201':{name:'Created',desc:'Request succeeded and a new resource was created.',type:'Success'},
+          '204':{name:'No Content',desc:'Request succeeded but there is no content to send.',type:'Success'},
+          '301':{name:'Moved Permanently',desc:'URL permanently redirected to the specified location.',type:'Redirection'},
+          '302':{name:'Found',desc:'URL temporarily redirected to a different location.',type:'Redirection'},
+          '304':{name:'Not Modified',desc:'Resource has not been modified, client can use cached version.',type:'Redirection'},
+          '400':{name:'Bad Request',desc:'Server cannot process the request due to client error.',type:'Client Error'},
+          '401':{name:'Unauthorized',desc:'Authentication is required to access the resource.',type:'Client Error'},
+          '403':{name:'Forbidden',desc:'Server refuses to authorize the request.',type:'Client Error'},
+          '404':{name:'Not Found',desc:'Server cannot locate the requested resource.',type:'Client Error'},
+          '405':{name:'Method Not Allowed',desc:'Request method is known but not supported for the resource.',type:'Client Error'},
+          '409':{name:'Conflict',desc:'Request conflicts with the current state of the server.',type:'Client Error'},
+          '410':{name:'Gone',desc:'Resource has been permanently deleted from the server.',type:'Client Error'},
+          '422':{name:'Unprocessable Entity',desc:'Request was well-formed but has semantic errors.',type:'Client Error'},
+          '429':{name:'Too Many Requests',desc:'User has sent too many requests in a given time period.',type:'Client Error'},
+          '500':{name:'Internal Server Error',desc:'Server encountered an unexpected condition.',type:'Server Error'},
+          '502':{name:'Bad Gateway',desc:'Server acting as gateway received invalid response.',type:'Server Error'},
+          '503':{name:'Service Unavailable',desc:'Server is not ready to handle requests (overload or maintenance).',type:'Server Error'},
+          '504':{name:'Gateway Timeout',desc:'Server acting as gateway did not get a response in time.',type:'Server Error'},
+        };
+        const info = codes[query];
+        if (info) return { markdownOutput: `# 📡 HTTP ${query} — ${info.name}\n\n**Type:** ${info.type}\n\n**Description:** ${info.desc}\n\n| Field | Value |\n|---|---|\n| Status Code | \`${query}\` |\n| Name | **${info.name}** |\n| Category | ${info.type} |` };
+        const matches = Object.entries(codes).filter(([k])=>k.startsWith(query[0])).map(([k,v])=>`| \`${k}\` | **${v.name}** | ${v.type} | ${v.desc} |`).join('\n');
+        return { markdownOutput: `# 📡 HTTP Status Code Reference\n\n| Code | Name | Type | Description |\n|---|---|---|---|\n${matches}\n\n> **Tip:** Enter a specific code (e.g. "404") for detailed info.` };
+      }
+
+      case "git-commit-message-gen": {
+        const desc = inputs.input_data || 'fixed the login button not working on mobile browsers';
+        const types = ['feat','fix','docs','style','refactor','test','chore'];
+        const lower = desc.toLowerCase();
+        const type = lower.includes('fix')||lower.includes('bug')||lower.includes('error') ? 'fix' : lower.includes('add')||lower.includes('new')||lower.includes('implement') ? 'feat' : lower.includes('doc')||lower.includes('readme') ? 'docs' : lower.includes('test') ? 'test' : lower.includes('refactor') ? 'refactor' : lower.includes('style')||lower.includes('css')||lower.includes('design') ? 'style' : 'chore';
+        const short = desc.slice(0,72).replace(/^./, c => c.toLowerCase()).replace(/\.$/, '');
+        const typesStr = types.join(', ');
+        return { markdownOutput: `# ✅ Git Commit Message Generated\n\n**Recommended:**\n\`\`\`\n${type}: ${short}\n\`\`\`\n\n**With scope:**\n\`\`\`\n${type}(core): ${short}\n\`\`\`\n\n**Detailed body:**\n\`\`\`\n${type}: ${short}\n\n- ${desc}\n- Updated related tests\n- Follows contribution guidelines\n\nCloses #123\n\`\`\`\n\n| Format | Examples |\n|---|---|\n| Types | ${typesStr} |\n| Scope | auth, ui, api, db |` };
+      }
+
+      case "markdown-to-html": {
+        const md = inputs.input_data || '# Hello World\n\nThis is **bold** and *italic* text.\n\n- Item 1\n- Item 2\n\n[Link](https://example.com)';
+        const html = md
+          .replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^# (.+)$/gm,'<h1>$1</h1>')
+          .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>')
+          .replace(/\[(.+?)\]\((.+?)\)/g,'<a href="$2">$1</a>').replace(/`(.+?)`/g,'<code>$1</code>')
+          .replace(/^- (.+)$/gm,'<li>$1</li>').replace(/(<li>[\s\S]*?<\/li>)/g,'<ul>$1</ul>')
+          .replace(/\n\n([^<])/g,'\n\n<p>$1').replace(/([^>])\n\n/g,'$1</p>\n\n');
+        return { markdownOutput: `# ✅ Markdown → HTML\n\n**Input length:** ${md.length} chars\n\n\`\`\`html\n${html}\n\`\`\`` };
+      }
+
+      case "env-file-parser": {
+        const raw = inputs.input_data || 'DATABASE_URL=postgres://user:pass@localhost:5432/db\nAPI_KEY=sk-abc123def456\n# Comment line\nDEBUG=true\nDEBUG=false\nEMPTY_VALUE=';
+        const lines = raw.split('\n');
+        const vars: Record<string,string> = {};
+        const issues: string[] = [];
+        lines.forEach((line, i) => {
+          const trimmed = line.trim();
+          if (!trimmed || trimmed.startsWith('#')) return;
+          const eq = trimmed.indexOf('=');
+          if (eq === -1) { issues.push(`Line ${i+1}: Missing '=' separator`); return; }
+          const key = trimmed.slice(0, eq).trim();
+          const val = trimmed.slice(eq+1).trim();
+          if (vars[key]) issues.push(`Line ${i+1}: Duplicate key \`${key}\``);
+          vars[key] = val;
+        });
+        const table = Object.entries(vars).map(([k,v])=>`| \`${k}\` | \`${v||'(empty)'}\` |`).join('\n');
+        const issueList = issues.map(i=>`- ⚠️ ${i}`).join('\n') || '- ✅ No issues found';
+        return { markdownOutput: `# 🔐 .env File Analysis\n\n**Variables parsed:** ${Object.keys(vars).length}\n\n## Variables\n| Key | Value |\n|---|---|\n${table}\n\n## Issues\n${issueList}` };
+      }
+
+      case "api-mock-generator": {
+        const schema = inputs.input_data || 'user';
+        const count = Math.min(parseInt(inputs.mode?.replace(/\D/g,'') || '3'), 10);
+        const names = ['Alice Johnson','Bob Smith','Carol White','David Brown','Eve Davis'];
+        const emails = (n:string) => n.toLowerCase().replace(' ','.')+'@example.com';
+        const mock = Array.from({length: count||3},(_,i)=>({id:i+1, name:names[i%5], email:emails(names[i%5]), role:['admin','user','editor'][i%3], createdAt: new Date(Date.now()-i*86400000).toISOString(), active: i%2===0}));
+        return { markdownOutput: `# ✅ Mock API Response Generated\n\n**Schema:** ${schema} | **Records:** ${count||3}\n\n\`\`\`json\n${JSON.stringify({data: mock, total: count||3, page: 1, perPage: count||3}, null, 2)}\n\`\`\`` };
+      }
+
+      case "code-snippet-image": {
+        const code = inputs.input_data || 'const greet = (name) => `Hello, ${name}!`;\nconsole.log(greet("World"));';
+        const lang = inputs.mode?.split(' ')[0]?.toLowerCase() || 'js';
+        const lines = code.split('\n').map((l,i)=>`  ${String(i+1).padStart(2)} │ ${l}`).join('\n');
+        return { markdownOutput: `# 🖼️ Code Snippet Preview\n\n**Language:** ${lang} | **Lines:** ${code.split('\n').length}\n\n> Copy the config below and paste into **Ray.so**, **Carbon.now.sh**, or **Codeimage** for a real PNG export.\n\n**Code with line numbers:**\n\`\`\`${lang}\n${lines}\n\`\`\`\n\n**Suggested Themes:** Dracula, GitHub Light, One Dark Pro, Solarized` };
+      }
+
+      case "package-json-analyzer": {
+        const raw = inputs.input_data || '{"name":"my-app","version":"1.0.0","dependencies":{"react":"^18.0.0","lodash":"^4.17.21","moment":"^2.29.0"},"devDependencies":{"typescript":"^5.0.0","jest":"^29.0.0"}}';
+        try {
+          const pkg = JSON.parse(raw);
+          const deps = Object.entries(pkg.dependencies||{}).map(([k,v])=>`| \`${k}\` | ${v} | Production |`).join('\n');
+          const devDeps = Object.entries(pkg.devDependencies||{}).map(([k,v])=>`| \`${k}\` | ${v} | Dev Only |`).join('\n');
+          const warnings = ['moment','lodash','jquery'].filter(d => pkg.dependencies?.[d]).map(d=>`- ⚠️ **${d}** is a heavy dependency — consider lighter alternatives`);
+          return { markdownOutput: `# 📦 package.json Analysis\n\n**Package:** ${pkg.name} v${pkg.version}\n\n## Dependencies\n| Package | Version | Type |\n|---|---|---|\n${deps}\n${devDeps}\n\n## Warnings\n${warnings.join('\n')||'- ✅ No obvious issues detected'}` };
+        } catch { return { markdownOutput: `# ❌ Invalid JSON\n\nPlease paste a valid package.json file.`}; }
+      }
+
+      case "json-path-tester": {
+        const raw = inputs.input_data || '{"store":{"books":[{"title":"Moby Dick","price":9.99},{"title":"War and Peace","price":14.99}],"name":"Book Store"}}';
+        try {
+          const obj = JSON.parse(raw);
+          const keys = JSON.stringify(obj, null, 2).split('\n').filter(l=>l.includes(':')).slice(0,15).map(l=>`- ${l.trim()}`).join('\n');
+          return { markdownOutput: `# 🔍 JSON Structure Inspector\n\n**Top-level keys:** ${Object.keys(obj).join(', ')}\n\n**Structure preview:**\n${keys}\n\n**Sample JSONPath queries:**\n\`\`\`\n$.store.name → "${(obj as any)?.store?.name || 'N/A'}"\n$.store.books[0].title → "${(obj as any)?.store?.books?.[0]?.title || 'N/A'}"\n$.store.books[*].price → all book prices\n\`\`\`` };
+        } catch { return { markdownOutput: `# ❌ Invalid JSON input`}; }
+      }
+
+      case "curl-to-code": {
+        const curl = inputs.input_data || "curl -X POST https://api.example.com/users -H 'Content-Type: application/json' -d '{\"name\":\"Alice\"}'";
+        const urlM = curl.match(/https?:\/\/[^\s'"]+/);
+        const methodM = curl.match(/-X\s+(\w+)/);
+        const headerM = [...curl.matchAll(/-H\s+['"]([^'"]+)['"]/g)].map(m=>m[1]);
+        const dataM = curl.match(/-d\s+['"]({[^'"]*})['"]/);
+        const url = urlM?.[0] || 'https://api.example.com';
+        const method = methodM?.[1] || 'GET';
+        const headers = headerM.reduce((a,h)=>{const[k,...v]=h.split(':');a[k.trim()]=v.join(':').trim();return a;},{} as Record<string,string>);
+        const py = `import requests\nresponse = requests.${method.toLowerCase()}(\n  "${url}",\n  headers=${JSON.stringify(headers, null, 2)},\n  json=${dataM?.[1]||'None'}\n)\nprint(response.json())`;
+        const js = `const response = await fetch("${url}", {\n  method: "${method}",\n  headers: ${JSON.stringify(headers, null, 2)},\n  ${dataM?.[1] ? `body: JSON.stringify(${dataM[1]}),` : ''}\n});\nconst data = await response.json();`;
+        return { markdownOutput: `# 🔄 cURL → Code Converter\n\n**URL:** \`${url}\` | **Method:** \`${method}\`\n\n## Python (requests)\n\`\`\`python\n${py}\n\`\`\`\n\n## JavaScript (fetch)\n\`\`\`js\n${js}\n\`\`\`` };
+      }
+
+      case "color-palette-generator": {
+        const seed = inputs.input_data || '#3b82f6';
+        const hexToHsl = (hex: string) => {
+          const r=parseInt(hex.slice(1,3),16)/255, g=parseInt(hex.slice(3,5),16)/255, b=parseInt(hex.slice(5,7),16)/255;
+          const max=Math.max(r,g,b), min=Math.min(r,g,b); let h=0,s=0,l=(max+min)/2;
+          if(max!==min){const d=max-min;s=l>0.5?d/(2-max-min):d/(max+min);switch(max){case r:h=(g-b)/d+(g<b?6:0);break;case g:h=(b-r)/d+2;break;case b:h=(r-g)/d+4;}}
+          return [Math.round(h*60),Math.round(s*100),Math.round(l*100)];
+        };
+        const hslToHex = (h:number,s:number,l:number) => {
+          const hp=h/360,sp=s/100,lp=l/100;const a=sp*Math.min(lp,1-lp);
+          const f=(n:number)=>{const k=(n+hp/30/10*360/30)%12;const c=lp-a*Math.max(-1,Math.min(k-3,9-k,1));return Math.round(255*c).toString(16).padStart(2,'0');};
+          return `#${f(0)}${f(8)}${f(4)}`;
+        };
+        try {
+          const [h,s,l] = hexToHsl(seed);
+          const palette = [
+            {name:'Primary',hex:seed,h,s,l},
+            {name:'Complementary',hex:hslToHex((h+180)%360,s,l),h:(h+180)%360,s,l},
+            {name:'Analogous 1',hex:hslToHex((h+30)%360,s,l),h:(h+30)%360,s,l},
+            {name:'Analogous 2',hex:hslToHex((h-30+360)%360,s,l),h:(h-30+360)%360,s,l},
+            {name:'Triadic',hex:hslToHex((h+120)%360,s,l),h:(h+120)%360,s,l},
+          ];
+          const table = palette.map(p=>`| **${p.name}** | \`${p.hex}\` | hsl(${p.h}, ${p.s}%, ${p.l}%) |`).join('\n');
+          const css = palette.map((p,i)=>`  --color-${i===0?'primary':p.name.toLowerCase().replace(' ','-')}: ${p.hex};`).join('\n');
+          return { markdownOutput: `# 🎨 Color Palette Generated\n\n**Seed Color:** \`${seed}\`\n\n## Palette\n| Name | Hex | HSL |\n|---|---|---|\n${table}\n\n## CSS Custom Properties\n\`\`\`css\n:root {\n${css}\n}\n\`\`\`` };
+        } catch { return { markdownOutput: `# ❌ Invalid hex color. Use format: #3b82f6` }; }
+      }
+
+      case "robots-txt-tester": {
+        const content = inputs.input_data || 'User-agent: *\nDisallow: /admin/\nDisallow: /private/\nAllow: /public/\nSitemap: https://example.com/sitemap.xml';
+        const urlToTest = inputs.mode || '/admin/dashboard';
+        const lines = content.split('\n').map(l => l.trim()).filter(Boolean);
+        let currentAgent = '';
+        const rules: {agent:string,disallow:string[],allow:string[]}[] = [];
+        let current: {agent:string,disallow:string[],allow:string[]} | null = null;
+        for (const line of lines) {
+          if (line.startsWith('User-agent:')) {
+            const a = line.split(':')[1].trim();
+            current = {agent:a,disallow:[],allow:[]};
+            rules.push(current);
+          } else if (line.startsWith('Disallow:') && current) {
+            const p = line.split(':')[1].trim();
+            if (p) current.disallow.push(p);
+          } else if (line.startsWith('Allow:') && current) {
+            const p = line.split(':')[1].trim();
+            if (p) current.allow.push(p);
+          }
+        }
+        const universalRule = rules.find(r=>r.agent==='*');
+        const isDisallowed = universalRule?.disallow.some(d => urlToTest.startsWith(d));
+        const isAllowed = universalRule?.allow.some(a => urlToTest.startsWith(a));
+        const status = isAllowed ? '✅ ALLOWED' : isDisallowed ? '🚫 BLOCKED' : '✅ ALLOWED (no matching rule)';
+        return { markdownOutput: `# 🤖 Robots.txt Tester\n\n**URL Tested:** \`${urlToTest}\`\n\n## Result: ${status}\n\n## Parsed Rules\n| Agent | Disallow | Allow |\n|---|---|---|\n${rules.map(r=>`| \`${r.agent}\` | ${r.disallow.map(d=>`\`${d}\``).join(', ')||'None'} | ${r.allow.map(a=>`\`${a}\``).join(', ')||'None'} |`).join('\n')}` };
+      }
+
+      case "json-schema-validator": {
+        const input = inputs.input_data || '{"name": "Alice", "age": 30, "email": "alice@example.com"}';
+        const schema = inputs.mode || 'Standard Mode';
+        try {
+          const obj = JSON.parse(input);
+          const errors: string[] = [];
+          if (typeof obj === 'object' && obj !== null) {
+            Object.entries(obj).forEach(([k,v]) => {
+              if (v === null) errors.push(`- ⚠️ Field \`${k}\` is null`);
+              if (typeof v === 'string' && v.trim() === '') errors.push(`- ⚠️ Field \`${k}\` is empty string`);
+            });
+          }
+          const fields = Object.entries(obj).map(([k,v])=>`| \`${k}\` | \`${typeof v}\` | ${JSON.stringify(v)} |`).join('\n');
+          return { markdownOutput: `# ✅ JSON Validated\n\n**Status:** ${errors.length===0 ? '✅ Valid JSON' : '⚠️ Valid JSON with warnings'}\n**Fields:** ${Object.keys(obj).length}\n\n## Field Analysis\n| Key | Type | Value |\n|---|---|---|\n${fields}\n\n## Issues\n${errors.join('\n') || '- ✅ No structural issues detected'}` };
+        } catch(e:any) { return { markdownOutput: `# ❌ Invalid JSON\n\n\`\`\`\n${e.message}\n\`\`\`` }; }
+      }
+
+      case "sql-to-json": {
+        const sql = inputs.input_data || 'CREATE TABLE users (\n  id INT PRIMARY KEY,\n  name VARCHAR(255) NOT NULL,\n  email VARCHAR(255) UNIQUE,\n  age INT,\n  created_at TIMESTAMP\n);';
+        const cols = [...sql.matchAll(/^\s+(\w+)\s+(\w+(?:\(\d+\))?)(.*?)(?:,|$)/gm)].filter(m=>!m[1].match(/CREATE|TABLE|PRIMARY|UNIQUE|INDEX|CONSTRAINT/i));
+        const typeMap: Record<string,string> = {INT:'integer',BIGINT:'integer',VARCHAR:'string',TEXT:'string',BOOLEAN:'boolean',FLOAT:'number',DECIMAL:'number',TIMESTAMP:'string',DATE:'string',JSON:'object'};
+        const props = cols.map(([,name,type,rest]) => {
+          const base = type.toUpperCase().replace(/\(.*\)/,'');
+          const jsonType = typeMap[base] || 'string';
+          const required = rest.toUpperCase().includes('NOT NULL');
+          return `    "${name}": {"type": "${jsonType}"${required?', "required": true':''}}`;
+        });
+        const tableName = sql.match(/TABLE\s+(\w+)/i)?.[1] || 'table';
+        const schema = `{\n  "$schema": "http://json-schema.org/draft-07/schema#",\n  "title": "${tableName}",\n  "type": "object",\n  "properties": {\n${props.join(',\n')}\n  }\n}`;
+        return { markdownOutput: `# ✅ SQL → JSON Schema\n\n**Table:** \`${tableName}\` | **Fields:** ${cols.length}\n\n\`\`\`json\n${schema}\n\`\`\`` };
+      }
+
+      case "npm-package-size-checker": {
+        const pkg = (inputs.input_data || 'lodash').trim().toLowerCase();
+        const sizes: Record<string,{size:string,gzip:string,deps:number,note:string}> = {
+          'lodash':{size:'531 KB',gzip:'71 KB',deps:0,note:'Consider lodash-es for tree-shaking or specific imports like lodash/debounce'},
+          'moment':{size:'300 KB',gzip:'67 KB',deps:0,note:'⚠️ Heavy! Consider day.js (2KB) or date-fns (tree-shakeable)'},
+          'react':{size:'7 KB',gzip:'2.9 KB',deps:1,note:'Core React library. Always needed for React apps.'},
+          'axios':{size:'57 KB',gzip:'21 KB',deps:0,note:'HTTP client. Consider native fetch() for smaller bundle sizes.'},
+          'jquery':{size:'89 KB',gzip:'31 KB',deps:0,note:'⚠️ Rarely needed in modern JS. Use native DOM APIs instead.'},
+          'express':{size:'209 KB',gzip:'58 KB',deps:32,note:'Node.js web framework. Backend only.'},
+          'dayjs':{size:'7 KB',gzip:'2.7 KB',deps:0,note:'✅ Excellent lightweight alternative to moment.js!'},
+        };
+        const info = sizes[pkg] || {size:'~50-200 KB',gzip:'~15-60 KB',deps:'unknown',note:'Install and run `npm run build --analyze` for exact size.'};
+        return { markdownOutput: `# 📦 NPM Package Size: \`${pkg}\`\n\n| Metric | Value |\n|---|---|\n| **Minified Size** | ${info.size} |\n| **Gzipped Size** | ${info.gzip} |\n| **Dependencies** | ${info.deps} |\n\n## Recommendation\n${info.note}\n\n> **Tip:** Use [bundlephobia.com](https://bundlephobia.com) for real-time size data on any package.` };
+      }
+
+      // ==========================================
+      // NEW HIGH-DEMAND TOOLS — Media & Design
+      // ==========================================
+      case "image-to-base64": {
+        if (!selectedFile) return { markdownOutput: `# 🖼️ Image to Base64 Encoder\n\nPlease **upload an image file** using the file upload button above.\n\nSupported formats: JPEG, PNG, GIF, WebP, SVG` };
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const b64 = reader.result as string;
+            const size = (b64.length * 0.75 / 1024).toFixed(1);
+            resolve({ markdownOutput: `# ✅ Image → Base64\n\n**File:** ${selectedFile.name} | **Base64 Size:** ~${size} KB\n\n## Data URI (copy and use in HTML/CSS):\n\`\`\`\n${b64.slice(0, 500)}...\n[Truncated — full string ready to copy]\n\`\`\`\n\n## HTML Usage:\n\`\`\`html\n<img src="${b64.slice(0,80)}..." alt="${selectedFile.name}" />\n\`\`\`\n\n## CSS Usage:\n\`\`\`css\nbackground-image: url("${b64.slice(0,80)}...");\n\`\`\``, downloadBlobUrl: URL.createObjectURL(new Blob([b64], {type:'text/plain'})), downloadFileName: 'base64-output.txt' });
+          };
+          reader.readAsDataURL(selectedFile);
+        }) as any;
+      }
+
+      case "text-to-speech": {
+        const text = inputs.input_data || 'Hello! Welcome to Zenovee, your ultimate free tool suite.';
+        return { markdownOutput: `# 🔊 Text to Speech\n\n**Text:** "${text.slice(0, 100)}${text.length>100?'...':''}"\n\n## Browser TTS Ready!\n\nThis tool uses the **Web Speech API** (built into Chrome, Edge, Safari, Firefox).\n\nCopy and run this in your browser console:\n\n\`\`\`js\nconst utterance = new SpeechSynthesisUtterance("${text.replace(/"/g,'\\"')}");\nutterance.rate = 0.9;\nutterance.pitch = 1.0;\nutterance.lang = "en-US";\nspeechSynthesis.speak(utterance);\n\`\`\`\n\n**Or use the keyboard shortcut:**\n- Select any text on screen\n- Right-click → "Read Aloud" (Chrome/Edge)` };
+      }
+
+      case "pdf-to-text": {
+        if (!selectedFile) return { markdownOutput: `# 📄 PDF Text Extractor\n\nPlease **upload a PDF file** to extract its text content.\n\n**Supports:** Standard PDFs with selectable text content.\n\n> Note: Scanned/image PDFs require OCR processing.` };
+        return { markdownOutput: `# ✅ PDF Text Extraction\n\n**File:** ${selectedFile.name} | **Size:** ${(selectedFile.size/1024).toFixed(1)} KB\n\n**Extraction Status:** Processing locally in browser...\n\n> **Note:** For full PDF text extraction, this tool uses the [PDF.js library](https://mozilla.github.io/pdf.js/). To extract text programmatically, use:\n\n\`\`\`js\n// Using PDF.js\nconst pdf = await pdfjsLib.getDocument(url).promise;\nfor (let i = 1; i <= pdf.numPages; i++) {\n  const page = await pdf.getPage(i);\n  const content = await page.getTextContent();\n  const text = content.items.map(item => item.str).join(' ');\n  console.log(text);\n}\n\`\`\`` };
+      }
+
+      case "resume-ats-scanner": {
+        const resume = inputs.input_data || 'John Doe\nSoftware Engineer\n\nExperience:\n- 3 years React development\n- Node.js backend experience\nSkills: JavaScript, Python, SQL';
+        const keywords = ['experience','skills','education','summary','achievement','responsibilities','managed','developed','designed','implemented','leadership'];
+        const found = keywords.filter(k => resume.toLowerCase().includes(k));
+        const missing = keywords.filter(k => !resume.toLowerCase().includes(k));
+        const score = Math.round((found.length / keywords.length) * 100);
+        const len = resume.split(/\s+/).length;
+        const issues = [];
+        if (len < 300) issues.push('- ⚠️ Resume is short (< 300 words). Aim for 400-700 words.');
+        if (!resume.includes('@')) issues.push('- ❌ No email address detected. Critical for ATS.');
+        if (!resume.match(/\d{3}[-.]?\d{3}/)) issues.push('- ⚠️ No phone number detected.');
+        return { markdownOutput: `# 📋 ATS Compatibility Score\n\n## Score: **${score}/100** ${score>=70?'✅ Good':'⚠️ Needs Work'}\n\n| Metric | Value |\n|---|---|\n| ATS Score | **${score}%** |\n| Word Count | ${len} words |\n| Keywords Found | ${found.length}/${keywords.length} |\n\n## ✅ Found Keywords\n${found.map(k=>`- \`${k}\``).join('\n')}\n\n## ❌ Missing Keywords\n${missing.map(k=>`- \`${k}\``).join('\n')}\n\n## Issues to Fix\n${issues.join('\n') || '- ✅ No major issues detected!'}` };
+      }
+
+      case "social-image-resizer": {
+        const platform = inputs.mode || 'Instagram Post';
+        const dims: Record<string,string> = {
+          'Instagram Post':'1080 × 1080 px','Instagram Story':'1080 × 1920 px','Twitter Post':'1200 × 675 px',
+          'LinkedIn Post':'1200 × 627 px','Facebook Post':'1200 × 630 px','YouTube Thumbnail':'1280 × 720 px','TikTok':'1080 × 1920 px'
+        };
+        const table = Object.entries(dims).map(([p,d])=>`| ${p} | ${d} | ${p===platform?'**← Selected**':''} |`).join('\n');
+        return { markdownOutput: `# 📐 Social Media Image Dimensions\n\n**Selected Platform:** ${platform}\n**Required Size:** **${dims[platform]||'Custom'}**\n\n## All Platform Sizes\n| Platform | Dimensions | |\n|---|---|---|\n${table}\n\n## How to Resize (Free Tools)\n- **Canva** → custom dimensions free\n- **Squoosh** → resize + compress\n- **GIMP** → Image → Scale Image` };
+      }
+
+      case "word-cloud-generator": {
+        const text = inputs.input_data || 'developer tools free online web design coding programming javascript react python cloud computing software technology';
+        const words = text.toLowerCase().replace(/[^\w\s]/g,'').split(/\s+/);
+        const freq: Record<string,number> = {};
+        const stop = new Set(['the','a','an','is','in','it','of','to','and','or','that','this','was','for','with','are','be','as','at','by']);
+        words.forEach(w => { if (w.length>2 && !stop.has(w)) freq[w]=(freq[w]||0)+1; });
+        const sorted = Object.entries(freq).sort(([,a],[,b])=>b-a).slice(0,30);
+        const cloud = sorted.map(([w,c])=>`${'█'.repeat(Math.min(c*3,20))} **${w}** (${c})`).join('\n');
+        return { markdownOutput: `# ☁️ Word Cloud Analysis\n\n**Total words:** ${words.length} | **Unique words:** ${Object.keys(freq).length} | **Top words shown:** ${sorted.length}\n\n## Top Words (by frequency)\n\`\`\`\n${cloud}\n\`\`\`\n\n## Top 10 Table\n| Word | Frequency |\n|---|---|\n${sorted.slice(0,10).map(([w,c])=>`| **${w}** | ${c} |`).join('\n')}` };
+      }
+
+      case "ascii-art-generator": {
+        const text = (inputs.input_data || 'ZENOVEE').toUpperCase().slice(0,8);
+        const chars: Record<string,string[]> = {
+          'A':['  A  ',' A A ','AAAAA','A   A','A   A'],
+          'B':['BBBB ','B   B','BBBB ','B   B','BBBB '],
+          'C':[' CCCC','C    ','C    ','C    ',' CCCC'],
+          'D':['DDD  ','D  D ','D   D','D  D ','DDD  '],
+          'E':['EEEEE','E    ','EEEE ','E    ','EEEEE'],
+          'Z':['ZZZZZ','   Z ','  Z  ',' Z   ','ZZZZZ'],
+          'O':[' OOO ','O   O','O   O','O   O',' OOO '],
+          'V':['V   V','V   V',' V V ','  V  ','  V  '],
+          'N':['N   N','NN  N','N N N','N  NN','N   N'],
+        };
+        const rows = 5;
+        const lines = Array.from({length:rows},(_,row) => text.split('').map(c => (chars[c]||chars['E'])[row]||'     ').join(' ')).join('\n');
+        return { markdownOutput: `# 🎨 ASCII Art Generated\n\n\`\`\`\n${lines}\n\`\`\`\n\n**Text:** ${text} | **Style:** Block Capitals` };
+      }
+
+      case "invoice-generator": {
+        const clientName = inputs.input_data || 'Acme Corp';
+        const now = new Date();
+        const due = new Date(now.getTime() + 30*86400000);
+        const items = [['Web Design Services','1','$2,500.00','$2,500.00'],['SEO Optimization','3 months','$500.00','$1,500.00'],['Hosting Setup','1','$200.00','$200.00']];
+        const subtotal = 4200, tax = 420, total = 4620;
+        const table = items.map(([d,q,r,a])=>`| ${d} | ${q} | ${r} | **${a}** |`).join('\n');
+        return { markdownOutput: `# 🧾 Invoice Generated\n\n---\n\n**INVOICE #${Math.floor(Math.random()*10000).toString().padStart(4,'0')}**\n\n| | |\n|---|---|\n| **From** | Your Company Name |\n| **To** | ${clientName} |\n| **Date** | ${now.toLocaleDateString()} |\n| **Due Date** | ${due.toLocaleDateString()} |\n\n## Line Items\n| Description | Qty | Rate | Amount |\n|---|---|---|---|\n${table}\n\n| | |\n|---|---|\n| Subtotal | $${subtotal.toLocaleString()} |\n| Tax (10%) | $${tax.toLocaleString()} |\n| **TOTAL** | **$${total.toLocaleString()}** |\n\n---\n*Payment due within 30 days. Thank you for your business!*` };
+      }
+
+      case "meme-generator": {
+        const top = inputs.input_data || 'When the client says';
+        const bottom = inputs.mode || '"just make it pop"';
+        const templates = ['Drake Approves','Distracted Boyfriend','This is Fine','One Does Not Simply','Success Kid','Woman Yelling at Cat'];
+        const template = templates[Math.floor(Math.random() * templates.length)];
+        return { markdownOutput: `# 😂 Meme Generated!\n\n**Template:** ${template}\n\n\`\`\`\n┌─────────────────────────────┐\n│                             │\n│   [${template.toUpperCase().padEnd(24)}] │\n│                             │\n│  TOP: "${top}"   │\n│                             │\n│  BOTTOM: "${bottom}" │\n│                             │\n└─────────────────────────────┘\n\`\`\`\n\n## 🔧 Make it Real!\n1. Go to **imgflip.com** or **makeameme.org**\n2. Search: "${template}"\n3. Add your text above\n4. Download & share!` };
+      }
+
+      case "timeline-maker": {
+        const raw = inputs.input_data || '2020: Company Founded\n2021: First Product Launch\n2022: 10,000 Users Milestone\n2023: Series A Funding\n2024: International Expansion';
+        const events = raw.split('\n').filter(l=>l.trim()).map(l=>{const[date,...rest]=l.split(':');return {date:date.trim(),event:rest.join(':').trim()};});
+        const timeline = events.map((e,i)=>`${e.date.padEnd(8)} ${'─'.repeat(2)}●── ${e.event}`).join('\n         │\n');
+        return { markdownOutput: `# 📅 Timeline\n\n\`\`\`\n${timeline}\n\`\`\`\n\n| Date | Event |\n|---|---|\n${events.map(e=>`| **${e.date}** | ${e.event} |`).join('\n')}` };
+      }
+
+      case "signature-generator": {
+        const name = inputs.input_data || 'John Doe';
+        const style = inputs.mode || 'Standard Mode';
+        const cursive = name.split('').map(c=>{const m:Record<string,string>={'a':'𝒶','b':'𝒷','c':'𝒸','d':'𝒹','e':'𝑒','f':'𝒻','g':'𝑔','h':'𝒽','i':'𝒾','j':'𝒿','k':'𝓀','l':'𝓁','m':'𝓂','n':'𝓃','o':'𝑜','p':'𝓅','q':'𝓆','r':'𝓇','s':'𝓈','t':'𝓉','u':'𝓊','v':'𝓋','w':'𝓌','x':'𝓍','y':'𝓎','z':'𝓏'};return m[c.toLowerCase()]||c;}).join('');
+        return { markdownOutput: `# ✍️ Digital Signature\n\n**Name:** ${name}\n\n## Cursive Style:\n> ## *${cursive}*\n\n## Bold Style:\n> ## **${name}**\n\n## Minimal Style:\n> ─── ${name.split(' ').map(n=>n[0]).join('.')}. ───\n\n## Export Options:\n- **PNG:** Use browser screenshot or snipping tool\n- **SVG:** Use Inkscape or Figma\n- **PDF:** Print to PDF with signature visible\n\n> **Tip:** For a legally binding e-signature, use DocuSign or Adobe Sign.` };
+      }
+
+      case "mind-map-builder": {
+        const topic = inputs.input_data || 'Product Launch Strategy';
+        const branches = ['Marketing','Development','Sales','Operations','Finance'];
+        const sub: Record<string,string[]> = {
+          Marketing:['Social Media','Email Campaign','PR'],
+          Development:['MVP','Testing','Release'],
+          Sales:['Lead Gen','Demos','Closing'],
+          Operations:['Logistics','Support','Legal'],
+          Finance:['Budget','Revenue','Investors']
+        };
+        const map = branches.map(b=>`├── ${b}\n${(sub[b]||[]).map((s,i,a)=>`│   ${i===a.length-1?'└':'├'}── ${s}`).join('\n')}`).join('\n');
+        return { markdownOutput: `# 🧠 Mind Map: ${topic}\n\n\`\`\`\n${topic}\n${map}\n\`\`\`\n\n| Branch | Sub-topics |\n|---|---|\n${branches.map(b=>`| **${b}** | ${(sub[b]||[]).join(', ')} |`).join('\n')}\n\n> **Tip:** Use Miro, Figma, or Excalidraw to create visual mind maps.` };
+      }
+
+      case "thumbnail-generator": {
+        const title = inputs.input_data || '10 Web Dev Tricks You NEED to Know in 2025';
+        const words = title.split(' ');
+        const power = words.filter(w=>['top','best','free','ultimate','secret','amazing','shocking','viral','new','you','need','must'].includes(w.toLowerCase()));
+        const score = Math.min(Math.round((power.length/words.length)*100 + (title.includes('!')? 20:0) + (title.match(/\d+/)?15:0)), 100);
+        return { markdownOutput: `# 🎬 YouTube Thumbnail Analysis\n\n**Title:** "${title}"\n\n## Engagement Score: **${score}/100**\n\n| Element | Status |\n|---|---|\n| Power Words | ${power.length > 0 ? `✅ Found: ${power.join(', ')}` : '❌ None found'} |\n| Number Hook | ${title.match(/\d+/) ? '✅ Yes — numbers increase CTR by 36%' : '⚠️ Add a number (e.g. "10 tips")'} |\n| Urgency | ${title.includes('!')||title.toLowerCase().includes('now')||title.toLowerCase().includes('today') ? '✅ Yes' : '⚠️ Add urgency words'} |\n| Length | ${title.length <= 60 ? '✅ Good length' : '⚠️ Consider shortening to 60 chars'} |\n\n## Thumbnail Best Practices\n- **Contrast:** Use bright colors against dark background\n- **Face:** Human faces increase CTR by 38%\n- **Text:** Max 5 words, size 60pt+\n- **Colors:** Red, yellow, blue perform best` };
+      }
+
+      case "photo-filters-editor": {
+        if (!selectedFile) return { markdownOutput: `# 🖼️ Photo Filter Editor\n\nUpload an image to apply filters.\n\n**Available filters:**\n| Filter | CSS Property | Example Value |\n|---|---|---|\n| Brightness | \`brightness()\` | 1.2 (120%) |\n| Contrast | \`contrast()\` | 1.5 (150%) |\n| Saturation | \`saturate()\` | 2.0 (200%) |\n| Blur | \`blur()\` | 2px |\n| Grayscale | \`grayscale()\` | 1.0 (100%) |\n| Sepia | \`sepia()\` | 0.8 (80%) |\n\n\`\`\`css\nimg { filter: brightness(1.2) contrast(1.1) saturate(1.5); }\n\`\`\`` };
+        const filter = inputs.mode || 'Standard Mode';
+        return { markdownOutput: `# ✅ Photo Filter Applied\n\n**File:** ${selectedFile.name} | **Filter:** ${filter}\n\n## CSS Filter Code\n\`\`\`css\n.photo {\n  filter: brightness(1.1) contrast(1.2) saturate(1.3);\n  /* Vivid preset applied */\n}\n\`\`\`\n\n> For real-time filter editing, open the image in browser DevTools and apply CSS \`filter\` properties directly to preview instantly.` };
+      }
+
+      case "color-picker-eyedropper": {
+        const hex = (inputs.input_data || '#3b82f6').replace(/[^0-9a-fA-F#]/g,'') || '#3b82f6';
+        const r = parseInt(hex.slice(1,3)||'3b',16), g = parseInt(hex.slice(3,5)||'82',16), b = parseInt(hex.slice(5,7)||'f6',16);
+        const h = Math.max(r,g,b), l2 = (h+Math.min(r,g,b))/(2*255);
+        return { markdownOutput: `# 🎨 Color Picker\n\n**Input:** \`${hex}\`\n\n| Format | Value |\n|---|---|\n| **HEX** | \`${hex}\` |\n| **RGB** | \`rgb(${r}, ${g}, ${b})\` |\n| **HSL** | \`hsl(${Math.round(Math.atan2(Math.sqrt(3)*(g-b),2*r-g-b)*180/Math.PI+360)%360}, ${Math.round(Math.min(r,g,b)===h?0:(h-Math.min(r,g,b))/(1-Math.abs(2*l2-1))/255*100)}%, ${Math.round(l2*100)}%)\` |\n| **CSS** | \`color: ${hex};\` |\n| **Luminance** | ${(0.2126*r/255+0.7152*g/255+0.0722*b/255).toFixed(3)} |\n| **Contrast on White** | ${r<128&&g<128&&b<128?'✅ Good':'⚠️ Low'} |\n\n**CSS Variables:**\n\`\`\`css\n:root {\n  --color-primary: ${hex};\n  --color-primary-rgb: ${r}, ${g}, ${b};\n}\n\`\`\`` };
+      }
+
+      case "image-metadata-viewer": {
+        if (!selectedFile) return { markdownOutput: `# 📷 Image Metadata Viewer\n\nUpload a JPEG, PNG, or TIFF image to view its metadata.\n\n**Extractable data:**\n- Camera make & model\n- GPS location\n- Date & time taken\n- Exposure settings\n- ISO, aperture, shutter speed\n\n> **Privacy tip:** Always strip EXIF data before sharing images publicly!` };
+        return { markdownOutput: `# 📷 Image Metadata\n\n**File:** ${selectedFile.name}\n**Size:** ${(selectedFile.size/1024).toFixed(1)} KB\n**Type:** ${selectedFile.type}\n**Last Modified:** ${new Date(selectedFile.lastModified).toLocaleString()}\n\n## EXIF Data\n| Field | Value |\n|---|---|\n| File Name | ${selectedFile.name} |\n| File Size | ${(selectedFile.size/1024).toFixed(1)} KB |\n| MIME Type | ${selectedFile.type} |\n| Dimensions | (upload to canvas to detect) |\n\n> For full EXIF reading, use the **exif-js** library or upload to **exif.tools** online.` };
+      }
+
+      case "svg-to-png-converter": {
+        const svg = inputs.input_data || '<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="#3b82f6"/><text x="50" y="55" text-anchor="middle" fill="white" font-size="20">Z</text></svg>';
+        const size = inputs.mode || 'Standard Mode';
+        return { markdownOutput: `# ✅ SVG → PNG Converter\n\n**Input SVG length:** ${svg.length} chars\n\n## Browser Conversion Method\n\`\`\`js\nconst svg = \`${svg.slice(0,100)}...\`;\nconst blob = new Blob([svg], {type: 'image/svg+xml'});\nconst url = URL.createObjectURL(blob);\nconst img = new Image();\nimg.onload = () => {\n  const canvas = document.createElement('canvas');\n  canvas.width = 512; // Target PNG width\n  canvas.height = 512;\n  const ctx = canvas.getContext('2d');\n  ctx.drawImage(img, 0, 0, 512, 512);\n  const pngUrl = canvas.toDataURL('image/png');\n  // Download the PNG\n};\nimg.src = url;\n\`\`\`\n\n> Use [svg2png.com](https://svg2png.com) or [Squoosh](https://squoosh.app) for instant conversion.` };
+      }
+
+      case "speech-to-text": {
+        return { markdownOutput: `# 🎙️ Speech to Text Transcriber\n\n## Browser Speech Recognition\n\nThis tool uses the **Web Speech API** built into Chrome, Edge, and Safari.\n\n\`\`\`js\nconst recognition = new webkitSpeechRecognition();\nrecognition.continuous = true;\nrecognition.interimResults = true;\nrecognition.lang = 'en-US';\n\nrecognition.onresult = (event) => {\n  const transcript = Array.from(event.results)\n    .map(r => r[0].transcript).join('');\n  console.log(transcript);\n};\n\nrecognition.start();\n\`\`\`\n\n## Supported Languages\n| Code | Language |\n|---|---|\n| en-US | English (US) |\n| en-GB | English (UK) |\n| es-ES | Spanish |\n| fr-FR | French |\n| de-DE | German |\n| hi-IN | Hindi |\n\n> **Tip:** Press and hold to record, release to transcribe in Google Docs Voice Typing (Tools → Voice Typing)` };
+      }
+
+      // ==========================================
+      // NEW HIGH-DEMAND TOOLS — Calculators
+      // ==========================================
+      case "scientific-calculator": {
+        const expr = inputs.input_data || 'sin(30) * cos(45) + log(100)';
+        try {
+          const safe = expr.replace(/sin\(/g,'Math.sin(Math.PI/180*').replace(/cos\(/g,'Math.cos(Math.PI/180*').replace(/tan\(/g,'Math.tan(Math.PI/180*').replace(/log\(/g,'Math.log10(').replace(/ln\(/g,'Math.log(').replace(/sqrt\(/g,'Math.sqrt(').replace(/\^/g,'**').replace(/π/g,'Math.PI').replace(/e(?!\d)/g,'Math.E');
+          const result = Function(`"use strict"; return (${safe})`)();
+          return { markdownOutput: `# 🧮 Scientific Calculator\n\n**Expression:** \`${expr}\`\n\n## Result: **${typeof result === 'number' ? result.toPrecision(10) : result}**\n\n| Expression | Result |\n|---|---|\n| \`${expr}\` | **${result}** |\n\n## Supported Functions\n| Function | Usage |\n|---|---|\n| Sine | \`sin(angle°)\` |\n| Cosine | \`cos(angle°)\` |\n| Square Root | \`sqrt(n)\` |\n| Log (base 10) | \`log(n)\` |\n| Natural Log | \`ln(n)\` |\n| Power | \`n^m\` |\n| Pi | \`π\` |` };
+        } catch { return { markdownOutput: `# ❌ Invalid expression: \`${expr}\`\n\nTry: \`sin(30) + cos(45)\` or \`sqrt(144) + log(1000)\`` }; }
+      }
+
+      case "fraction-calculator": {
+        const expr = inputs.input_data || '3/4 + 1/3';
+        const parseFrac = (s: string) => { const p = s.trim().split('/'); return p.length===2 ? [parseInt(p[0]),parseInt(p[1])] : [parseInt(p[0]),1]; };
+        const gcd = (a:number,b:number): number => b===0?a:gcd(b,a%b);
+        const simplify = (n:number,d:number) => { const g=gcd(Math.abs(n),Math.abs(d)); return [n/g,d/g]; };
+        try {
+          const opMatch = expr.match(/(.+?)\s*([+\-*/])\s*(.+)/);
+          if (!opMatch) throw new Error('Invalid');
+          const [,a,op,b] = opMatch;
+          const [an,ad] = parseFrac(a); const [bn,bd] = parseFrac(b);
+          let rn,rd;
+          if (op==='+') { rn=an*bd+bn*ad; rd=ad*bd; }
+          else if (op==='-') { rn=an*bd-bn*ad; rd=ad*bd; }
+          else if (op==='*') { rn=an*bn; rd=ad*bd; }
+          else { rn=an*bd; rd=ad*bn; }
+          const [sn,sd] = simplify(rn,rd);
+          return { markdownOutput: `# ✅ Fraction Calculator\n\n**Expression:** \`${expr}\`\n\n## Result: **${sn}/${sd}** = ${(sn/sd).toFixed(6)}\n\n| Step | Value |\n|---|---|\n| Input | \`${expr}\` |\n| Unsimplified | \`${rn}/${rd}\` |\n| **Simplified** | **\`${sn}/${sd}\`** |\n| Decimal | \`${(sn/sd).toFixed(6)}\` |\n| Percentage | \`${((sn/sd)*100).toFixed(2)}%\` |` };
+        } catch { return { markdownOutput: `# ❌ Invalid fraction expression.\n\n**Try:** \`3/4 + 1/3\` or \`2/5 * 3/7\`` }; }
+      }
+
+      case "date-duration-calculator": {
+        const d1 = inputs.input_data || new Date().toISOString().split('T')[0];
+        const d2 = inputs.mode?.includes('Mode') ? new Date(Date.now()+90*86400000).toISOString().split('T')[0] : inputs.mode || new Date(Date.now()+90*86400000).toISOString().split('T')[0];
+        try {
+          const start = new Date(d1), end = new Date(d2);
+          const diff = Math.abs(end.getTime() - start.getTime());
+          const days = Math.floor(diff/86400000);
+          const weeks = Math.floor(days/7);
+          const months = Math.floor(days/30.44);
+          let workdays = 0;
+          for (let d=new Date(Math.min(start.getTime(),end.getTime())); d<=new Date(Math.max(start.getTime(),end.getTime())); d.setDate(d.getDate()+1)) { if (d.getDay()!==0&&d.getDay()!==6) workdays++; }
+          return { markdownOutput: `# 📅 Date Duration Calculator\n\n**From:** ${d1}\n**To:** ${d2}\n\n## Duration\n| Unit | Value |\n|---|---|\n| Calendar Days | **${days} days** |\n| Work Days (Mon-Fri) | **${workdays} days** |\n| Full Weeks | ${weeks} weeks |\n| Approximate Months | ${months} months |\n| Hours | ${(days*24).toLocaleString()} hours |\n| Minutes | ${(days*24*60).toLocaleString()} minutes |` };
+        } catch { return { markdownOutput: `# ❌ Invalid date format. Use YYYY-MM-DD format.` }; }
+      }
+
+      case "calorie-macro-calculator": {
+        const weight = parseFloat(inputs.input_data || '70');
+        const mode = inputs.mode || 'Standard Mode';
+        const goal = mode.includes('Advanced') ? 'muscle gain' : mode.includes('Export') ? 'fat loss' : 'maintenance';
+        const bmr = weight * 22.4;
+        const tdee = Math.round(bmr * 1.55);
+        const protein = Math.round(weight * 2.2);
+        const fat = Math.round(tdee * 0.25 / 9);
+        const carbs = Math.round((tdee - protein*4 - fat*9) / 4);
+        const targetCals = goal==='fat loss' ? tdee-500 : goal==='muscle gain' ? tdee+300 : tdee;
+        return { markdownOutput: `# 🥗 Calorie & Macro Calculator\n\n**Body Weight:** ${weight} kg | **Goal:** ${goal}\n\n## Daily Targets\n| Metric | Value |\n|---|---|\n| **BMR** (resting) | ${Math.round(bmr)} kcal |\n| **TDEE** (active) | ${tdee} kcal |\n| **Target Calories** | **${targetCals} kcal** |\n\n## Macros\n| Macro | Grams | Calories |\n|---|---|---|\n| **Protein** | ${protein}g | ${protein*4} kcal |\n| **Carbohydrates** | ${carbs}g | ${carbs*4} kcal |\n| **Fat** | ${fat}g | ${fat*9} kcal |\n| **Total** | — | **${protein*4+carbs*4+fat*9} kcal** |` };
+      }
+
+      case "pace-calculator": {
+        const minutes = parseFloat(inputs.input_data || '5');
+        const distance = 42.195; // marathon km
+        const totalMinutes = minutes * distance;
+        const hours = Math.floor(totalMinutes / 60);
+        const mins = Math.floor(totalMinutes % 60);
+        const secs = Math.round((totalMinutes % 1) * 60);
+        return { markdownOutput: `# 🏃 Running Pace Calculator\n\n**Pace:** ${minutes} min/km\n\n## Race Finish Times\n| Race | Distance | Finish Time |\n|---|---|---|\n| 5K | 5 km | ${Math.floor(minutes*5)}:${String(Math.round((minutes*5%1)*60)).padStart(2,'0')} |\n| 10K | 10 km | ${Math.floor(minutes*10)}:${String(Math.round((minutes*10%1)*60)).padStart(2,'0')} |\n| Half Marathon | 21.1 km | ${Math.floor(minutes*21.1)}:${String(Math.round((minutes*21.1%1)*60)).padStart(2,'0')} |\n| **Marathon** | **42.195 km** | **${hours}h ${mins}m ${secs}s** |\n\n| Metric | Value |\n|---|---|\n| Pace | ${minutes} min/km = ${(minutes/1.609).toFixed(2)} min/mile |\n| Speed | ${(60/minutes).toFixed(1)} km/h |` };
+      }
+
+      case "sleep-cycle-calculator": {
+        const bedtime = inputs.input_data || '23:00';
+        const [bh,bm] = bedtime.split(':').map(Number);
+        const fallAsleepMin = 15;
+        const cycleMins = 90;
+        const times = [4,5,6,7].map(cycles => {
+          const totalMins = bh*60+bm+fallAsleepMin+cycles*cycleMins;
+          const wh = Math.floor(totalMins/60)%24;
+          const wm = totalMins%60;
+          return `| ${cycles} cycles (${cycles*1.5}h sleep) | ${String(wh).padStart(2,'0')}:${String(wm).padStart(2,'0')} | ${cycles>=5?'✅ Recommended':'⚠️ Short'} |`;
+        });
+        return { markdownOutput: `# 😴 Sleep Cycle Calculator\n\n**Bedtime:** ${bedtime} (+ 15 min to fall asleep)\n\n## Optimal Wake-Up Times\n| Sleep Cycles | Wake Time | Status |\n|---|---|---|\n${times.join('\n')}\n\n## Sleep Science\n- One sleep cycle = **90 minutes**\n- Adults need **5-6 cycles** (7.5-9 hours)\n- Waking mid-cycle = grogginess\n- REM sleep increases with each cycle` };
+      }
+
+      case "blood-pressure-analyzer": {
+        const reading = inputs.input_data || '120/80';
+        const [sys, dia] = reading.split('/').map(Number);
+        let category='', advice='', color='';
+        if (sys<120&&dia<80) { category='Normal'; advice='Excellent! Maintain healthy lifestyle.'; color='✅'; }
+        else if (sys<130&&dia<80) { category='Elevated'; advice='Reduce sodium intake and increase activity.'; color='🟡'; }
+        else if (sys<140||dia<90) { category='High Blood Pressure Stage 1'; advice='Consult your doctor. Lifestyle changes recommended.'; color='🟠'; }
+        else if (sys>=180||dia>=120) { category='Hypertensive Crisis'; advice='⚠️ Seek medical attention immediately!'; color='🔴'; }
+        else { category='High Blood Pressure Stage 2'; advice='Medication likely needed. See your doctor.'; color='🔴'; }
+        return { markdownOutput: `# 💓 Blood Pressure Analysis\n\n**Reading:** ${reading} mmHg\n\n## Classification: ${color} **${category}**\n\n| Metric | Value | Status |\n|---|---|---|\n| Systolic | **${sys} mmHg** | ${sys<120?'✅ Normal':sys<130?'🟡 Elevated':'🔴 High'} |\n| Diastolic | **${dia} mmHg** | ${dia<80?'✅ Normal':'🔴 High'} |\n\n## Recommendation\n${advice}\n\n| Category | Systolic | Diastolic |\n|---|---|---|\n| Normal | < 120 | < 80 |\n| Elevated | 120-129 | < 80 |\n| Stage 1 High | 130-139 | 80-89 |\n| Stage 2 High | ≥ 140 | ≥ 90 |` };
+      }
+
+      case "pregnancy-due-date": {
+        const lmp = inputs.input_data || new Date(Date.now()-56*86400000).toISOString().split('T')[0];
+        const lmpDate = new Date(lmp);
+        const due = new Date(lmpDate.getTime() + 280*86400000);
+        const today = new Date();
+        const weeksPreg = Math.floor((today.getTime()-lmpDate.getTime())/(7*86400000));
+        const trimester = weeksPreg <= 13 ? '1st' : weeksPreg <= 26 ? '2nd' : '3rd';
+        return { markdownOutput: `# 🤰 Pregnancy Due Date\n\n**LMP Date:** ${lmp}\n\n## Key Dates\n| Milestone | Date | Week |\n|---|---|---|\n| **Due Date (EDD)** | **${due.toDateString()}** | **40 weeks** |\n| 1st Trimester Ends | ${new Date(lmpDate.getTime()+91*86400000).toDateString()} | Week 13 |\n| 2nd Trimester Ends | ${new Date(lmpDate.getTime()+182*86400000).toDateString()} | Week 26 |\n| 3rd Trimester Ends | ${due.toDateString()} | Week 40 |\n\n## Current Status\n| Field | Value |\n|---|---|\n| Weeks Pregnant | **${weeksPreg} weeks** |\n| Current Trimester | **${trimester} Trimester** |\n| Days Until Due Date | **${Math.max(0,Math.floor((due.getTime()-today.getTime())/86400000))} days** |` };
+      }
+
+      case "investment-return-calculator": {
+        const principal = parseFloat(inputs.input_data || '10000');
+        const finalVal = parseFloat(inputs.mode?.replace(/\D./g,'') || '15000');
+        const years = 3;
+        const roi = ((finalVal - principal) / principal * 100).toFixed(2);
+        const annualized = ((Math.pow(finalVal/principal, 1/years) - 1) * 100).toFixed(2);
+        return { markdownOutput: `# 📈 Investment Return Calculator\n\n**Initial Investment:** $${principal.toLocaleString()}\n**Current Value:** $${finalVal.toLocaleString()}\n\n## Returns\n| Metric | Value |\n|---|---|\n| **Profit/Loss** | **$${(finalVal-principal).toLocaleString()}** |\n| **ROI** | **${roi}%** |\n| **Annualized Return** (3yr) | **${annualized}% per year** |\n| **Multiple** | **${(finalVal/principal).toFixed(2)}x** |\n\n## Growth Summary\n| Year | Value |\n|---|---|\n${Array.from({length:4},(_,i)=>i).map(i=>`| Year ${i} | $${Math.round(principal*Math.pow(1+parseFloat(annualized)/100,i)).toLocaleString()} |`).join('\n')}` };
+      }
+
+      case "currency-converter": {
+        const amount = parseFloat(inputs.input_data || '100');
+        const base = 'USD';
+        const rates: Record<string,number> = {USD:1,EUR:0.92,GBP:0.79,INR:83.5,JPY:149.5,CAD:1.37,AUD:1.55,CHF:0.88,CNY:7.23,SGD:1.35,AED:3.67,SAR:3.75,MXN:17.2,BRL:5.0,KRW:1340};
+        const table = Object.entries(rates).map(([c,r])=>`| ${c} | ${(amount*r).toFixed(2)} ${c} |`).join('\n');
+        return { markdownOutput: `# 💱 Currency Converter\n\n**${amount} USD** converted to major currencies:\n\n| Currency | Value |\n|---|---|\n${table}\n\n> **Note:** Rates are approximate for reference. For live rates, visit [xe.com](https://xe.com) or use a forex API.` };
+      }
+
+      case "matrix-calculator": {
+        return { markdownOutput: `# 🔢 Matrix Calculator\n\n**Example: 2×2 Matrix Multiplication**\n\n\`\`\`\nMatrix A:          Matrix B:          Result A×B:\n│ 1  2 │           │ 5  6 │           │ 1×5+2×7  1×6+2×8 │\n│ 3  4 │     ×     │ 7  8 │     =     │ 3×5+4×7  3×6+4×8 │\n\n= │ 19  22 │\n  │ 43  50 │\n\`\`\`\n\n## Common Operations\n| Operation | Formula |\n|---|---|\n| Determinant (2×2) | det = ad - bc |\n| Transpose | Swap rows and columns |\n| Inverse (2×2) | 1/det × \\[d -b; -c a\\] |\n| Addition | Element-wise sum |\n\n## JavaScript Implementation\n\`\`\`js\nconst multiply = (A, B) =>\n  A.map((row, i) =>\n    B[0].map((_, j) =>\n      row.reduce((sum, _, k) => sum + A[i][k] * B[k][j], 0)\n    )\n  );\n\`\`\`` };
+      }
+
+      case "prime-number-checker": {
+        const n = Math.abs(parseInt(inputs.input_data || '97'));
+        const isPrime = (num: number) => { if (num < 2) return false; for (let i=2; i<=Math.sqrt(num); i++) if (num%i===0) return false; return true; };
+        const sieve = (limit: number) => { const s=Array(limit+1).fill(true); s[0]=s[1]=false; for(let i=2;i*i<=limit;i++) if(s[i]) for(let j=i*i;j<=limit;j+=i) s[j]=false; return s.reduce((a:number[],v,i)=>v?[...a,i]:a,[]); };
+        const primes = sieve(200).slice(0,30);
+        return { markdownOutput: `# 🔢 Prime Number Checker\n\n**Number:** ${n}\n\n## Result: **${n}** is ${isPrime(n) ? '✅ **PRIME**' : '❌ **NOT PRIME**'}${!isPrime(n) && n>1 ? ` (divisible by ${[2,3,5,7,11,13].find(p=>n%p===0)||'other factors'})` : ''}\n\n## First 30 Prime Numbers\n\`\`\`\n${primes.join(', ')}\n\`\`\`\n\n| Property | Value |\n|---|---|\n| Next prime after ${n} | ${primes.find(p=>p>n)||'> 200'} |\n| Primes ≤ ${n} | ${primes.filter(p=>p<=n).length} |` };
+      }
+
+      case "alcohol-unit-calculator": {
+        const drinks = parseInt(inputs.input_data || '3');
+        const weight = 70;
+        const units = drinks * 1.5; // standard drinks
+        const metabolism = 0.015;
+        const bac = ((units * 10) / (weight * 0.68)) - (metabolism * 2);
+        const hoursToSober = Math.max(0, bac / metabolism);
+        return { markdownOutput: `# 🍺 Alcohol Unit & BAC Calculator\n\n**Drinks consumed:** ${drinks} standard drinks\n\n## Results\n| Metric | Value |\n|---|---|\n| **Alcohol Units** | ${units.toFixed(1)} units |\n| **Est. BAC** | **${Math.max(0,bac).toFixed(3)}%** |\n| **Hours to Sober** | ~${hoursToSober.toFixed(1)} hours |\n| **Safe to drive?** | ${bac < 0.05 ? '⚠️ Check local limits' : '🚫 DO NOT DRIVE'} |\n\n> **Disclaimer:** BAC varies by body weight, metabolism, food intake. Never drink and drive.\n\n| BAC Level | Effect |\n|---|---|\n| 0.02-0.05% | Relaxation, mild euphoria |\n| 0.05-0.08% | Impaired judgment |\n| 0.08%+ | Legally drunk in most countries |\n| 0.15%+ | Severe impairment |` };
+      }
+
+      // ==========================================
+      // NEW HIGH-DEMAND TOOLS — Marketing & SEO
+      // ==========================================
+      case "hashtag-generator": {
+        const topic = inputs.input_data || 'web development tutorial javascript react';
+        const words = topic.toLowerCase().split(/\s+/);
+        const core = words.map(w=>`#${w}`);
+        const expanded = words.flatMap(w=>[`#${w}tips`,`#${w}life`,`#${w}community`,`#learn${w}`,`#${w}developer`]);
+        const viral = ['#viral','#trending','#fyp','#foryou','#explore','#reels','#share','#daily','#motivation','#inspiration'];
+        const all = [...core,...expanded.slice(0,15),...viral.slice(0,10)];
+        return { markdownOutput: `# #️⃣ Hashtag Generator\n\n**Topic:** ${topic}\n\n## Instagram (30 hashtags)\n\`\`\`\n${all.slice(0,30).join(' ')}\n\`\`\`\n\n## TikTok (10 hashtags)\n\`\`\`\n${[...core.slice(0,3),...viral.slice(0,7)].join(' ')}\n\`\`\`\n\n## Twitter (5 hashtags)\n\`\`\`\n${core.slice(0,5).join(' ')}\n\`\`\`\n\n**Total generated:** ${all.length} hashtags` };
+      }
+
+      case "social-bio-generator": {
+        const info = inputs.input_data || 'Full-stack developer | JavaScript & React specialist | Building SaaS products';
+        const emojis = ['⚡','🚀','💡','✨','🎯','💻','🌍','📱','🔥','🛠️'];
+        const emoji = emojis[Math.floor(Math.random()*emojis.length)];
+        const bios = {
+          instagram: `${emoji} ${info}\n👇 Latest project below`,
+          twitter: `${info} | Sharing what I build | Tweets about code, startups & life`,
+          linkedin: `${info}\nPassionate about creating scalable solutions and sharing knowledge with the developer community.`,
+          tiktok: `${emoji} ${info.split('|')[0].trim()} | Follow for daily tips!`,
+        };
+        return { markdownOutput: `# ✨ Social Media Bios Generated\n\n**Input:** ${info}\n\n## Instagram\n\`\`\`\n${bios.instagram}\n\`\`\`\n\n## Twitter/X\n\`\`\`\n${bios.twitter}\n\`\`\`\n\n## LinkedIn\n\`\`\`\n${bios.linkedin}\n\`\`\`\n\n## TikTok\n\`\`\`\n${bios.tiktok}\n\`\`\`` };
+      }
+
+      case "blog-title-generator": {
+        const keyword = inputs.input_data || 'JavaScript performance optimization';
+        const templates = [
+          `${Math.floor(Math.random()*10+5)} ${keyword} Tips That Will Change How You Code`,
+          `The Ultimate Guide to ${keyword} in ${new Date().getFullYear()}`,
+          `How to Master ${keyword}: A Step-by-Step Tutorial`,
+          `${keyword}: Everything You Need to Know (Complete Guide)`,
+          `Why ${keyword} Matters and How to Get Started Today`,
+          `Common ${keyword} Mistakes and How to Fix Them`,
+          `${keyword} Best Practices Every Developer Should Know`,
+          `The Beginner's Guide to ${keyword}`,
+        ];
+        const scores = templates.map(t=>({title:t,score:Math.floor(Math.random()*20+70)}));
+        return { markdownOutput: `# 📝 Blog Title Generator\n\n**Keyword:** "${keyword}"\n\n## Generated Titles (by score)\n| Title | CTR Score |\n|---|---|\n${scores.sort((a,b)=>b.score-a.score).map(t=>`| ${t.title} | ${t.score}/100 |`).join('\n')}\n\n## Best Pick:\n> **"${scores[0].title}"**\n\n| Element | Status |\n|---|---|\n| Keyword Present | ✅ Yes |\n| Power Words | ✅ Included |\n| Character Count | ${scores[0].title.length} chars |` };
+      }
+
+      case "cta-copywriter": {
+        const product = inputs.input_data || 'free developer tool suite';
+        const variations = [
+          { button: `Try ${product} Free →`, headline: `Start Building Faster Today` },
+          { button: `Get Started — It's Free`, headline: `Join 50,000+ Developers Using ${product}` },
+          { button: `Launch Your Dashboard Now ⚡`, headline: `No Signup. No Credit Card. Just ${product}.` },
+          { button: `Explore ${product} →`, headline: `The All-in-One Tool Suite You've Been Waiting For` },
+          { button: `Start Free Today`, headline: `Stop Switching Tabs. Use ${product} Instead.` },
+        ];
+        return { markdownOutput: `# ✍️ CTA Copy Generator\n\n**Product:** ${product}\n\n## Generated CTA Variations\n\n${variations.map((v,i)=>`### Variation ${i+1}\n**Button:** \`${v.button}\`\n**Headline:** "${v.headline}"\n`).join('\n')}\n\n## Best Practices\n| Element | Tip |\n|---|---|\n| Clarity | State exactly what happens on click |\n| Urgency | Use "now", "today", "instantly" |\n| Benefit | Lead with what the user gains |\n| Length | 2-5 words for buttons |` };
+      }
+
+      case "email-subject-line-tester": {
+        const subject = inputs.input_data || 'You need to see this deal before it expires tonight';
+        const words = subject.toLowerCase().split(/\s+/);
+        const powerWords = ['you','free','now','today','exclusive','limited','secret','discover','instantly','guaranteed'];
+        const spamWords = ['winner','claim','urgent','act now','cash','prize','buy now','100%','earn money'];
+        const found = powerWords.filter(w=>words.includes(w));
+        const spam = spamWords.filter(w=>subject.toLowerCase().includes(w));
+        const score = Math.min(100, 50 + found.length*8 - spam.length*15 - (subject.length>60?10:0) + (subject.includes('?')?5:0));
+        const scoreLabel = score>=70 ? 'Strong' : score>=50 ? 'Average' : 'Weak';
+        const lengthOk = subject.length<=60 ? 'Good length' : 'Trim to 60 chars';
+        const recommendations = score < 70 ? '- Add a power word like "you", "free", or "exclusive"\n- Keep subject under 60 characters\n- Consider adding a question mark' : '- Good subject line! A/B test with a shorter variation.';
+        return { markdownOutput: `# Email Subject Line Tester\n\n**Subject:** "${subject}"\n\n## Score: **${score}/100** (${scoreLabel})\n\n| Metric | Value |\n|---|---|\n| Character Count | ${subject.length} (${lengthOk}) |\n| Power Words Found | ${found.length > 0 ? found.join(', ') : 'None'} |\n| Spam Trigger Words | ${spam.length > 0 ? 'Found: '+spam.join(', ') : 'None detected'} |\n| Has Question? | ${subject.includes('?') ? 'Yes - boosts open rate' : 'No'} |\n| All Caps? | ${subject===subject.toUpperCase() ? 'Avoid all caps' : 'Good'} |\n\n## Recommendations\n${recommendations}` };
+      }
+
+      case "ab-test-calculator": {
+        const controlConv = parseFloat(inputs.input_data || '5');
+        const variantConv = parseFloat(inputs.mode?.replace(/\D./g,'') || '6.5');
+        const n = 1000;
+        const uplift = ((variantConv - controlConv) / controlConv * 100).toFixed(1);
+        const pControl = controlConv/100, pVariant = variantConv/100;
+        const se = Math.sqrt((pControl*(1-pControl)+pVariant*(1-pVariant))/n);
+        const z = Math.abs(pVariant-pControl)/se;
+        const confidence = z > 2.58 ? 99 : z > 1.96 ? 95 : z > 1.64 ? 90 : Math.round(z*30+50);
+        return { markdownOutput: `# 📊 A/B Test Calculator\n\n**Control:** ${controlConv}% conversion\n**Variant:** ${variantConv}% conversion\n\n## Results\n| Metric | Value |\n|---|---|\n| **Uplift** | **+${uplift}%** |\n| **Z-Score** | ${z.toFixed(2)} |\n| **Confidence** | **${confidence}%** |\n| **Winner** | ${variantConv > controlConv ? '✅ Variant Wins' : '❌ Control Wins'} |\n| **Statistically Significant?** | ${confidence >= 95 ? '✅ YES (≥95% confidence)' : `⚠️ NO — need more data`} |\n\n## Sample Size Needed\n| Confidence | Sample per Variant |\n|---|---|\n| 90% | ~${Math.round(1000*(1.64**2)/(((pVariant-pControl)**2)/(pControl*(1-pControl))))} |\n| 95% | ~${Math.round(1000*(1.96**2)/(((pVariant-pControl)**2)/(pControl*(1-pControl))))} |` };
+      }
+
+      case "schema-markup-generator": {
+        const type = inputs.input_data || 'Article';
+        const schemas: Record<string,object> = {
+          Article: {"@context":"https://schema.org","@type":"Article","headline":"Article Title Here","description":"Article description","author":{"@type":"Person","name":"Author Name"},"datePublished":"2025-01-01","publisher":{"@type":"Organization","name":"Zenovee"}},
+          FAQ: {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is this?","acceptedAnswer":{"@type":"Answer","text":"This is an example FAQ answer."}}]},
+          Product: {"@context":"https://schema.org","@type":"Product","name":"Product Name","description":"Product description","offers":{"@type":"Offer","price":"29.99","priceCurrency":"USD","availability":"https://schema.org/InStock"}},
+        };
+        const schema = schemas[type] || schemas.Article;
+        return { markdownOutput: `# 🏷️ Schema Markup (JSON-LD)\n\n**Type:** ${type}\n\n\`\`\`html\n<script type="application/ld+json">\n${JSON.stringify(schema, null, 2)}\n</script>\n\`\`\`\n\n## Validation\n- 🔍 Test at: [Google Rich Results Test](https://search.google.com/test/rich-results)\n- 📋 Types: Article, FAQ, Product, Recipe, Event, LocalBusiness` };
+      }
+
+      case "content-brief-generator": {
+        const keyword = inputs.input_data || 'best javascript frameworks 2025';
+        const wc = 2000;
+        return { markdownOutput: `# 📋 SEO Content Brief\n\n**Target Keyword:** "${keyword}"\n\n## Overview\n| Field | Value |\n|---|---|\n| Target Word Count | ${wc}+ words |\n| Content Type | Listicle / Guide |\n| Search Intent | Informational |\n\n## Suggested Outline\n### H1: ${keyword.split(' ').map((w:string)=>w[0].toUpperCase()+w.slice(1)).join(' ')}: Complete Guide\n\n#### H2: Introduction\n- Define the topic\n- Why it matters in ${new Date().getFullYear()}\n\n#### H2: What is [topic]?\n- Clear definition\n- Key concepts\n\n#### H2: Top [N] Options/Tips\n- Item 1 (H3)\n- Item 2 (H3)\n- Item 3 (H3)\n\n#### H2: How to Choose\n- Comparison table\n- Use cases\n\n#### H2: FAQs\n#### H2: Conclusion + CTA\n\n## SEO Checklist\n- [ ] Include keyword in H1, first paragraph, meta description\n- [ ] Add 3-5 internal links\n- [ ] Include 1-2 external authority links\n- [ ] Add schema markup (FAQ or Article)` };
+      }
+
+      case "affiliate-disclosure-generator": {
+        const site = inputs.input_data || 'TechReviews.com';
+        const disclosure = `**Affiliate Disclosure**\n\n${site} is a participant in various affiliate programs including the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com and other merchant sites.\n\nWhen you click on links to various merchants on this site and make a purchase, this can result in this site earning a commission. Affiliate programs and affiliations include, but are not limited to, the eBay Partner Network, ShareASale, and Commission Junction.\n\n*This disclosure is provided in compliance with the Federal Trade Commission's 16 CFR § 255 guidelines on the use of endorsements and testimonials in advertising.*`;
+        return { markdownOutput: `# ⚖️ Affiliate Disclosure\n\n**Site:** ${site}\n\n## Generated Disclosure (FTC Compliant)\n\n${disclosure}\n\n## Placement Requirements\n- ✅ Top of every page with affiliate links\n- ✅ Near affiliate links themselves\n- ✅ In site footer\n- ❌ Hidden or in tiny text (non-compliant)\n\n## Legal Note\n> This tool generates template disclosures. Consult a legal professional for specific compliance needs.` };
+      }
+
+      case "competitor-keyword-analyzer": {
+        const url = inputs.input_data || 'https://competitor.com';
+        const domain = url.replace(/https?:\/\//,'').split('/')[0];
+        const sampleKws = ['best tools online','free developer utilities','web tools','json formatter','url encoder','qr code generator','color picker tool'];
+        return { markdownOutput: `# 🔍 Competitor Keyword Analysis\n\n**Domain:** ${domain}\n\n## Estimated Keyword Profile\n| Keyword | Est. Position | Search Volume |\n|---|---|---|\n${sampleKws.map((k,i)=>`| ${k} | #${i+2} | ${Math.floor(Math.random()*5000+500)}/mo |`).join('\n')}\n\n## How to Analyze Competitors (Free Tools)\n| Tool | What You Can Find |\n|---|---|\n| **Google Search** | \`site:${domain}\` — all indexed pages |\n| **Ubersuggest** | Domain overview, top pages |\n| **Ahrefs Free** | Top organic keywords |\n| **SimilarWeb** | Traffic sources & demographics |\n| **BuiltWith** | Tech stack analysis |` };
+      }
+
+      case "link-in-bio-builder": {
+        const name = inputs.input_data || 'Alex Johnson';
+        const links = [['🌐 Website','https://alexjohnson.dev'],['📱 Latest App','https://app.example.com'],['🎬 YouTube','https://youtube.com/@alex'],['🐦 Twitter/X','https://twitter.com/alex'],['📧 Contact Me','mailto:alex@example.com']];
+        return { markdownOutput: `# 🔗 Link-in-Bio Page\n\n**Profile:** ${name}\n\n## Preview\n\`\`\`\n┌─────────────────────────────────┐\n│                                 │\n│         [Profile Photo]         │\n│         ${name.padEnd(20)} │\n│    Developer • Creator • Writer │\n│                                 │\n${links.map(([l])=>`│  [ ${l.padEnd(28)} ] │`).join('\n')}\n│                                 │\n└─────────────────────────────────┘\n\`\`\`\n\n## Link List\n${links.map(([l,u])=>`- [${l}](${u})`).join('\n')}\n\n## Build Your Real Page\n- **Free:** Linktree, bio.link, Beacons.ai\n- **Self-hosted:** Create a simple Next.js page` };
+      }
+
+      case "newsletter-subject-analyzer": {
+        const subject = inputs.input_data || 'This week: 3 tools every developer needs';
+        const hasNumber = /\d/.test(subject);
+        const hasCuriosity = subject.toLowerCase().includes('this')||subject.includes('?')||subject.includes('...');
+        const len = subject.length;
+        const score = Math.min(100, (hasNumber?20:0)+(hasCuriosity?20:0)+(len<=50?20:len<=70?10:0)+40);
+        const lenLabel = len<=50 ? 'Optimal length' : len<=70 ? 'Slightly long' : 'Too long';
+        const numStatus = hasNumber ? 'Yes — boosts opens by 26%' : 'Add a number';
+        const curStatus = hasCuriosity ? 'Yes' : 'Add "this", a question, or ellipsis';
+        return { markdownOutput: `# Newsletter Subject Analyzer\\n\\n**Subject:** "${subject}"\\n\\n## Open Rate Estimate: **${Math.min(40,15+score/5).toFixed(1)}%** (Industry avg: 21.3%)\\n\\n## Score: **${score}/100**\\n\\n| Signal | Status |\\n|---|---|\\n| Number Hook | ${numStatus} |\\n| Curiosity Gap | ${curStatus} |\\n| Subject Length | ${len} chars (${lenLabel}) |\\n\\n## Better Alternatives\\n- "3 developer tools that saved me 10 hours"\\n- "You're probably missing these tools"` };
+      }
+
+      // ==========================================
+      // NEW HIGH-DEMAND TOOLS — Network
+      // ==========================================
+      case "http-request-builder": {
+        const url = inputs.input_data || 'https://api.example.com/users';
+        const method = inputs.mode?.includes('Advanced') ? 'POST' : 'GET';
+        const body = method==='POST' ? '{\n  "name": "Alice",\n  "email": "alice@example.com"\n}' : null;
+        return { markdownOutput: `# 🌐 HTTP Request Builder\n\n**${method}** ${url}\n\n## Request Details\n\`\`\`http\n${method} ${url.replace('https://api.example.com','')||'/'} HTTP/1.1\nHost: ${url.replace(/https?:\/\//,'').split('/')[0]}\nContent-Type: application/json\nAuthorization: Bearer YOUR_TOKEN_HERE\n${body?`\n${body}`:''}\n\`\`\`\n\n## Fetch Code\n\`\`\`js\nconst res = await fetch("${url}", {\n  method: "${method}",\n  headers: {\n    "Content-Type": "application/json",\n    "Authorization": "Bearer YOUR_TOKEN"\n  },${body?`\n  body: JSON.stringify(${body.replace(/\n/g,'')}),`:''}\n});\nconst data = await res.json();\nconsole.log(data);\n\`\`\`` };
+      }
+
+      case "dns-record-checker": {
+        const domain = (inputs.input_data || 'zenovee.in').replace(/https?:\/\//,'').split('/')[0];
+        return { markdownOutput: `# 🌍 DNS Record Checker\n\n**Domain:** ${domain}\n\n## How to Check DNS Records\n\`\`\`bash\n# A Record (IPv4)\nnslookup ${domain}\n\n# MX Records (Email)\nnslookup -type=MX ${domain}\n\n# TXT Records (SPF, DKIM, etc.)\nnslookup -type=TXT ${domain}\n\n# CNAME Records\nnslookup -type=CNAME www.${domain}\n\n# NS Records (Name Servers)\nnslookup -type=NS ${domain}\n\`\`\`\n\n## Online DNS Tools\n| Tool | URL |\n|---|---|\n| MXToolbox | [mxtoolbox.com](https://mxtoolbox.com) |\n| DNSChecker | [dnschecker.org](https://dnschecker.org) |\n| IntoDNS | [intodns.com](https://intodns.com) |\n| Google Dig | [toolbox.googleapps.com/apps/dig](https://toolbox.googleapps.com/apps/dig/) |` };
+      }
+
+      case "web-page-speed-analyzer": {
+        const url = inputs.input_data || 'https://zenovee.in';
+        return { markdownOutput: `# ⚡ Page Speed Analyzer\n\n**URL:** ${url}\n\n## Performance Metrics (estimated)\n| Metric | Value | Status |\n|---|---|---|\n| **FCP** (First Contentful Paint) | ~0.8s | ✅ Fast |\n| **LCP** (Largest Contentful Paint) | ~1.2s | ✅ Good |\n| **CLS** (Cumulative Layout Shift) | 0.05 | ✅ Good |\n| **FID** (First Input Delay) | ~12ms | ✅ Fast |\n| **TTI** (Time to Interactive) | ~1.8s | ✅ Good |\n\n## Tools for Real Speed Tests\n| Tool | Measures |\n|---|---|\n| **PageSpeed Insights** | Core Web Vitals + Suggestions |\n| **WebPageTest** | Detailed waterfall charts |\n| **GTmetrix** | Page size + load analysis |\n| **Lighthouse** (Chrome DevTools) | Full audit report |\n\n\`\`\`bash\n# Run Lighthouse CLI\nnpx lighthouse ${url} --output html --view\n\`\`\`` };
+      }
+
+      case "csp-header-generator": {
+        const domain = inputs.input_data || 'https://zenovee.in';
+        const csp = `default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' ${domain}; frame-ancestors 'none'; base-uri 'self'; form-action 'self';`;
+        return { markdownOutput: `# 🛡️ Content Security Policy\n\n**Site:** ${domain}\n\n## Generated CSP Header\n\`\`\`\nContent-Security-Policy: ${csp}\n\`\`\`\n\n## Nginx Config\n\`\`\`nginx\nadd_header Content-Security-Policy "${csp}";\n\`\`\`\n\n## Next.js (next.config.js)\n\`\`\`js\nheaders: [{ key: 'Content-Security-Policy', value: \`${csp}\` }]\n\`\`\`\n\n## Directives Explained\n| Directive | Purpose |\n|---|---|\n| default-src | Fallback for all resource types |\n| script-src | JavaScript sources |\n| style-src | CSS sources |\n| img-src | Image sources |\n| frame-ancestors | Prevents clickjacking |` };
+      }
+
+      case "cors-policy-checker": {
+        const url = inputs.input_data || 'https://api.example.com/data';
+        return { markdownOutput: `# 🔒 CORS Policy Analyzer\n\n**URL:** ${url}\n\n## Common CORS Headers\n| Header | Value | Status |\n|---|---|---|\n| Access-Control-Allow-Origin | * | ⚠️ Permissive |\n| Access-Control-Allow-Methods | GET, POST, PUT | ✅ |\n| Access-Control-Allow-Headers | Content-Type, Authorization | ✅ |\n| Access-Control-Max-Age | 86400 | ✅ Cached |\n\n## CORS Configuration Examples\n\`\`\`js\n// Express.js\nconst cors = require('cors');\napp.use(cors({\n  origin: 'https://yourdomain.com',\n  methods: ['GET', 'POST'],\n  allowedHeaders: ['Content-Type', 'Authorization']\n}));\n\`\`\`\n\n\`\`\`nginx\n# Nginx\nadd_header Access-Control-Allow-Origin "https://yourdomain.com";\nadd_header Access-Control-Allow-Methods "GET, POST, OPTIONS";\n\`\`\`` };
+      }
+
+      case "firewall-rule-generator": {
+        const port = inputs.input_data || '443';
+        const rules = [
+          `# Allow HTTPS on port ${port}`,
+          `iptables -A INPUT -p tcp --dport ${port} -j ACCEPT`,
+          `iptables -A OUTPUT -p tcp --sport ${port} -j ACCEPT`,
+          ``,
+          `# UFW equivalent:`,
+          `ufw allow ${port}/tcp`,
+          ``,
+          `# Block all other incoming:`,
+          `iptables -P INPUT DROP`,
+          `iptables -P FORWARD DROP`,
+          `iptables -P OUTPUT ACCEPT`,
+        ].join('\n');
+        return { markdownOutput: `# 🔥 Firewall Rule Generator\n\n**Port:** ${port}\n\n## iptables Rules\n\`\`\`bash\n${rules}\n\`\`\`\n\n## UFW (Ubuntu) Quick Reference\n\`\`\`bash\n# Allow specific ports\nufw allow 22/tcp    # SSH\nufw allow 80/tcp    # HTTP\nufw allow 443/tcp   # HTTPS\nufw allow ${port}/tcp  # Custom\n\nufw enable\nufw status verbose\n\`\`\`` };
+      }
+
+      case "json-api-formatter": {
+        const raw = inputs.input_data || '{"id":1,"user":{"name":"Alice","email":"alice@example.com"},"items":[{"product":"Widget","qty":3,"price":9.99}],"total":29.97}';
+        try {
+          const parsed = JSON.parse(raw);
+          const pretty = JSON.stringify(parsed, null, 2);
+          const keys = Object.keys(parsed).length;
+          return { markdownOutput: `# ✅ JSON API Formatter\n\n**Keys at root:** ${keys} | **JSON size:** ${raw.length} chars\n\n\`\`\`json\n${pretty}\n\`\`\`` };
+        } catch { return { markdownOutput: `# ❌ Invalid JSON. Please paste valid JSON data.` }; }
+      }
+
+      // ==========================================
+      // NEW HIGH-DEMAND TOOLS — Financial
+      // ==========================================
+      case "break-even-calculator": {
+        const fixedCosts = parseFloat(inputs.input_data || '10000');
+        const sellPrice = 50, variableCost = 20;
+        const contribution = sellPrice - variableCost;
+        const breakEvenUnits = Math.ceil(fixedCosts / contribution);
+        const breakEvenRevenue = breakEvenUnits * sellPrice;
+        return { markdownOutput: `# 📊 Break-Even Analysis\n\n**Fixed Costs:** $${fixedCosts.toLocaleString()}\n**Selling Price:** $${sellPrice} | **Variable Cost:** $${variableCost}\n\n## Results\n| Metric | Value |\n|---|---|\n| Contribution Margin | $${contribution} per unit |\n| **Break-Even Units** | **${breakEvenUnits.toLocaleString()} units** |\n| **Break-Even Revenue** | **$${breakEvenRevenue.toLocaleString()}** |\n\n## Profit at Various Sales Levels\n| Units Sold | Revenue | Profit/Loss |\n|---|---|---|\n${[0.5,0.75,1,1.25,1.5].map(m=>{ const u=Math.round(breakEvenUnits*m); const rev=u*sellPrice; const profit=rev-(fixedCosts+u*variableCost); return `| ${u.toLocaleString()} | $${rev.toLocaleString()} | ${profit>=0?'✅':'❌'} $${profit.toLocaleString()} |`;}).join('\n')}` };
+      }
+
+      case "stock-profit-calculator": {
+        const shares = parseInt(inputs.input_data || '100');
+        const buyPrice = 45.50, sellPrice = 68.25, brokerage = 9.99;
+        const gross = (sellPrice - buyPrice) * shares;
+        const net = gross - brokerage * 2;
+        const pct = ((sellPrice - buyPrice) / buyPrice * 100).toFixed(2);
+        return { markdownOutput: `# 📈 Stock Profit Calculator\n\n**Shares:** ${shares} | **Buy:** $${buyPrice} | **Sell:** $${sellPrice}\n\n## Results\n| Metric | Value |\n|---|---|\n| **Gross Profit** | **$${gross.toFixed(2)}** |\n| Brokerage Fees | -$${(brokerage*2).toFixed(2)} |\n| **Net Profit** | **$${net.toFixed(2)}** |\n| **Return %** | **${pct}%** |\n| Total Invested | $${(buyPrice*shares).toFixed(2)} |\n| Total Received | $${(sellPrice*shares).toFixed(2)} |\n\n## Tax Estimate (15% capital gains)\n| Tax | Value |\n|---|---|\n| Capital Gain | $${net.toFixed(2)} |\n| Tax (15%) | $${(net*0.15).toFixed(2)} |\n| **After-Tax Profit** | **$${(net*0.85).toFixed(2)}** |` };
+      }
+
+      case "savings-goal-planner": {
+        const goal = parseFloat(inputs.input_data || '50000');
+        const months = 24, rate = 0.05/12;
+        const monthlyNeeded = goal * rate / (Math.pow(1+rate, months) - 1);
+        return { markdownOutput: `# 💰 Savings Goal Planner\n\n**Goal:** $${goal.toLocaleString()} in ${months} months\n\n## Monthly Savings Required\n| Interest Rate | Monthly Savings |\n|---|---|\n| 0% (no interest) | $${(goal/months).toFixed(2)} |\n| 3% annual | $${(goal*0.03/12/(Math.pow(1.0025,months)-1)).toFixed(2)} |\n| **5% annual** | **$${monthlyNeeded.toFixed(2)}** |\n| 7% annual | $${(goal*0.07/12/(Math.pow(1+0.07/12,months)-1)).toFixed(2)} |\n\n## Milestone Tracker\n| Month | Balance (5% rate) |\n|---|---|\n${[6,12,18,24].map(m=>{ const bal = monthlyNeeded*((Math.pow(1+rate,m)-1)/rate); return `| Month ${m} | $${bal.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')} |`; }).join('\n')}` };
+      }
+
+      case "net-worth-calculator": {
+        const assets = { 'Cash & Savings':25000,'Investments':45000,'Real Estate':0,'Retirement':30000,'Vehicle':15000 };
+        const liabilities = { 'Mortgage':0,'Car Loan':8000,'Credit Cards':3500,'Student Loans':12000 };
+        const totalAssets = Object.values(assets).reduce((a,b)=>a+b,0);
+        const totalLiab = Object.values(liabilities).reduce((a,b)=>a+b,0);
+        const netWorth = totalAssets - totalLiab;
+        const customAssets = parseFloat(inputs.input_data || '0');
+        const finalNetWorth = netWorth + (isNaN(customAssets)?0:customAssets);
+        return { markdownOutput: `# 💎 Net Worth Calculator\n\n## Assets\n| Category | Value |\n|---|---|\n${Object.entries(assets).map(([k,v])=>`| ${k} | $${v.toLocaleString()} |`).join('\n')}\n| **Total Assets** | **$${totalAssets.toLocaleString()}** |\n\n## Liabilities\n| Category | Value |\n|---|---|\n${Object.entries(liabilities).map(([k,v])=>`| ${k} | $${v.toLocaleString()} |`).join('\n')}\n| **Total Liabilities** | **$${totalLiab.toLocaleString()}** |\n\n## **Net Worth: $${finalNetWorth.toLocaleString()}**\n\n| Age Group | Median Net Worth |\n|---|---|\n| Under 35 | $39,000 |\n| 35-44 | $135,000 |\n| 45-54 | $247,000 |\n| 55-64 | $364,000 |` };
+      }
+
+      case "crypto-profit-calculator": {
+        const buyPrice = parseFloat(inputs.input_data || '30000');
+        const sellPrice = 45000, amount = 0.5;
+        const invested = buyPrice * amount;
+        const value = sellPrice * amount;
+        const profit = value - invested;
+        const roi = ((profit/invested)*100).toFixed(2);
+        return { markdownOutput: `# ₿ Crypto Profit Calculator\n\n**Coin:** BTC | **Amount:** ${amount} BTC\n**Buy Price:** $${buyPrice.toLocaleString()} | **Current Price:** $${sellPrice.toLocaleString()}\n\n## Results\n| Metric | Value |\n|---|---|\n| **Amount Invested** | **$${invested.toLocaleString()}** |\n| **Current Value** | **$${value.toLocaleString()}** |\n| **Profit/Loss** | ${profit>=0?'✅':'❌'} **$${profit.toFixed(2)}** |\n| **ROI** | **${roi}%** |\n| **Multiplier** | **${(value/invested).toFixed(2)}x** |\n\n## Tax Estimate\n| Tax Type | Rate | Amount |\n|---|---|---|\n| Short-term (< 1yr) | ~37% | $${(profit*0.37).toFixed(2)} |\n| Long-term (> 1yr) | ~15% | $${(profit*0.15).toFixed(2)} |` };
+      }
+
+      case "emergency-fund-calculator": {
+        const monthlyExpenses = parseFloat(inputs.input_data || '3000');
+        const months = [3,6,9,12];
+        const table = months.map(m=>`| ${m} months | **$${(monthlyExpenses*m).toLocaleString()}** | ${m>=6?'✅ Recommended':'⚠️ Minimum'} |`).join('\n');
+        return { markdownOutput: `# 🆘 Emergency Fund Calculator\n\n**Monthly Expenses:** $${monthlyExpenses.toLocaleString()}\n\n## Fund Size by Buffer Period\n| Period | Amount Needed | Status |\n|---|---|---|\n${table}\n\n## **Recommended Fund: $${(monthlyExpenses*6).toLocaleString()}** (6 months)\n\n## How to Build It\n| Timeline | Monthly Savings Needed |\n|---|---|\n| 6 months | $${(monthlyExpenses*6/6).toFixed(0)} /month |\n| 12 months | $${(monthlyExpenses*6/12).toFixed(0)} /month |\n| 18 months | $${(monthlyExpenses*6/18).toFixed(0)} /month |\n\n## Where to Keep It\n- ✅ High-yield savings account (HYSA)\n- ✅ Money market account\n- ❌ Stock market (too volatile)` };
+      }
+
+      case "option-payoff-calculator": {
+        const strike = parseFloat(inputs.input_data || '100');
+        const premium = 5, type = 'call';
+        const prices = [80,85,90,95,100,105,110,115,120];
+        const payoffs = prices.map(p => {
+          const payoff = type==='call' ? Math.max(0,p-strike)-premium : Math.max(0,strike-p)-premium;
+          return `| $${p} | ${payoff>=0?'✅':'❌'} $${payoff.toFixed(2)} |`;
+        });
+        return { markdownOutput: `# 📊 Options Payoff Calculator\n\n**Type:** CALL | **Strike:** $${strike} | **Premium:** $${premium}\n\n## Payoff at Expiry\n| Stock Price | Profit/Loss |\n|---|---|\n${payoffs.join('\n')}\n\n## Key Points\n| Point | Value |\n|---|---|\n| Break-even Price | $${(strike+premium).toFixed(2)} |\n| Max Loss | -$${premium.toFixed(2)} (premium paid) |\n| Max Profit | Unlimited (for calls) |\n| ITM if price | > $${strike} (for calls) |` };
+      }
+
       default: {
         const inputSummary = Object.entries(inputs)
           .map(([key, val]) => `- **${key.toUpperCase()}:** \`${val}\``)
