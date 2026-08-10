@@ -2612,7 +2612,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
       case "date-duration-calculator": {
         const d1 = inputs.input_data || new Date().toISOString().split('T')[0];
-        const d2 = inputs.mode?.includes('Mode') ? new Date(Date.now()+90*86400000).toISOString().split('T')[0] : inputs.mode || new Date(Date.now()+90*86400000).toISOString().split('T')[0];
+        const d2 = inputs.mode && !inputs.mode.includes('Mode') ? inputs.mode : new Date(Date.now()+90*86400000).toISOString().split('T')[0];
         try {
           const start = new Date(d1), end = new Date(d2);
           const diff = Math.abs(end.getTime() - start.getTime());
@@ -2628,7 +2628,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
       case "calorie-macro-calculator": {
         const weight = parseFloat(inputs.input_data || '70');
         const mode = inputs.mode || 'Standard Mode';
-        const goal = mode.includes('Advanced') ? 'muscle gain' : mode.includes('Export') ? 'fat loss' : 'maintenance';
+        const goal = mode.includes('Muscle') || mode.includes('bulk') ? 'muscle gain' : mode.includes('Fat') || mode.includes('cut') || mode.includes('Cut') ? 'fat loss' : mode.includes('Aggressive') ? 'fat loss' : 'maintenance';
         const bmr = weight * 22.4;
         const tdee = Math.round(bmr * 1.55);
         const protein = Math.round(weight * 2.2);
@@ -2640,7 +2640,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
       case "pace-calculator": {
         const minutes = parseFloat(inputs.input_data || '5');
-        const distance = 42.195; // marathon km
+        const distMap: Record<string,number> = {'All races (5K, 10K, Half, Marathon)':42.195,'5K only':5,'10K only':10,'Half Marathon only':21.0975,'Full Marathon only':42.195}; const distance = distMap[inputs.mode||''] || 42.195;
         const totalMinutes = minutes * distance;
         const hours = Math.floor(totalMinutes / 60);
         const mins = Math.floor(totalMinutes % 60);
@@ -2686,7 +2686,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
       case "investment-return-calculator": {
         const principal = parseFloat(inputs.input_data || '10000');
-        const finalVal = parseFloat(inputs.mode?.replace(/\D./g,'') || '15000');
+        const finalVal = parseFloat(inputs.mode?.replace(/[^0-9.]/g,'') || '15000');
         const years = 3;
         const roi = ((finalVal - principal) / principal * 100).toFixed(2);
         const annualized = ((Math.pow(finalVal/principal, 1/years) - 1) * 100).toFixed(2);
@@ -2695,7 +2695,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
       case "currency-converter": {
         const amount = parseFloat(inputs.input_data || '100');
-        const base = 'USD';
+        const fromCurr = inputs.mode?.split(' ')[0] || 'USD'; const base = fromCurr;
         const rates: Record<string,number> = {USD:1,EUR:0.92,GBP:0.79,INR:83.5,JPY:149.5,CAD:1.37,AUD:1.55,CHF:0.88,CNY:7.23,SGD:1.35,AED:3.67,SAR:3.75,MXN:17.2,BRL:5.0,KRW:1340};
         const table = Object.entries(rates).map(([c,r])=>`| ${c} | ${(amount*r).toFixed(2)} ${c} |`).join('\n');
         return { markdownOutput: `# 💱 Currency Converter\n\n**${amount} USD** converted to major currencies:\n\n| Currency | Value |\n|---|---|\n${table}\n\n> **Note:** Rates are approximate for reference. For live rates, visit [xe.com](https://xe.com) or use a forex API.` };
@@ -2793,7 +2793,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
       case "ab-test-calculator": {
         const controlConv = parseFloat(inputs.input_data || '5');
-        const variantConv = parseFloat(inputs.mode?.replace(/\D./g,'') || '6.5');
+        const variantConv = parseFloat(inputs.mode?.replace(/[^0-9.]/g,'') || '6.5');
         const n = 1000;
         const uplift = ((variantConv - controlConv) / controlConv * 100).toFixed(1);
         const pControl = controlConv/100, pVariant = variantConv/100;
@@ -2915,7 +2915,8 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
       // ==========================================
       case "break-even-calculator": {
         const fixedCosts = parseFloat(inputs.input_data || '10000');
-        const sellPrice = 50, variableCost = 20;
+        const priceMap: Record<string,number[]> = {'Price $50, Cost $20/unit':[50,20],'Price $100, Cost $40/unit':[100,40],'Price $25, Cost $10/unit':[25,10],'Price $200, Cost $80/unit':[200,80]};
+        const [sellPrice, variableCost] = priceMap[inputs.mode||''] || [50, 20];
         const contribution = sellPrice - variableCost;
         const breakEvenUnits = Math.ceil(fixedCosts / contribution);
         const breakEvenRevenue = breakEvenUnits * sellPrice;
@@ -2923,8 +2924,9 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
       }
 
       case "stock-profit-calculator": {
-        const shares = parseInt(inputs.input_data || '100');
-        const buyPrice = 45.50, sellPrice = 68.25, brokerage = 9.99;
+        const shares = parseInt(inputs.input_data?.replace(/[^0-9]/g,'') || '100');
+        const priceMap2: Record<string,number[]> = {'$45.50 -> $68.25 (50% gain)':[45.50,68.25],'$100 -> $150 (50% gain)':[100,150],'$200 -> $180 (10% loss)':[200,180],'$50 -> $75 (50% gain)':[50,75]};
+        const [buyPrice, sellPrice] = priceMap2[inputs.mode?.replace(/[→]/g,'->')||''] || [45.50, 68.25]; const brokerage = 9.99;
         const gross = (sellPrice - buyPrice) * shares;
         const net = gross - brokerage * 2;
         const pct = ((sellPrice - buyPrice) / buyPrice * 100).toFixed(2);
@@ -2933,25 +2935,26 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
       case "savings-goal-planner": {
         const goal = parseFloat(inputs.input_data || '50000');
-        const months = 24, rate = 0.05/12;
+        const monthsMap: Record<string,number> = {'12 months':12,'24 months':24,'36 months':36,'5 years':60,'10 years':120};
+        const months = monthsMap[inputs.mode || ''] || 24, rate = 0.05/12;
         const monthlyNeeded = goal * rate / (Math.pow(1+rate, months) - 1);
         return { markdownOutput: `# 💰 Savings Goal Planner\n\n**Goal:** $${goal.toLocaleString()} in ${months} months\n\n## Monthly Savings Required\n| Interest Rate | Monthly Savings |\n|---|---|\n| 0% (no interest) | $${(goal/months).toFixed(2)} |\n| 3% annual | $${(goal*0.03/12/(Math.pow(1.0025,months)-1)).toFixed(2)} |\n| **5% annual** | **$${monthlyNeeded.toFixed(2)}** |\n| 7% annual | $${(goal*0.07/12/(Math.pow(1+0.07/12,months)-1)).toFixed(2)} |\n\n## Milestone Tracker\n| Month | Balance (5% rate) |\n|---|---|\n${[6,12,18,24].map(m=>{ const bal = monthlyNeeded*((Math.pow(1+rate,m)-1)/rate); return `| Month ${m} | $${bal.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')} |`; }).join('\n')}` };
       }
 
       case "net-worth-calculator": {
-        const assets = { 'Cash & Savings':25000,'Investments':45000,'Real Estate':0,'Retirement':30000,'Vehicle':15000 };
-        const liabilities = { 'Mortgage':0,'Car Loan':8000,'Credit Cards':3500,'Student Loans':12000 };
-        const totalAssets = Object.values(assets).reduce((a,b)=>a+b,0);
-        const totalLiab = Object.values(liabilities).reduce((a,b)=>a+b,0);
+        const totalAssets = parseFloat(inputs.input_data?.replace(/[^0-9.]/g,'') || '115000');
+        const totalLiab = parseFloat(inputs.mode?.replace(/[^0-9.]/g,'') || '23500');
         const netWorth = totalAssets - totalLiab;
-        const customAssets = parseFloat(inputs.input_data || '0');
-        const finalNetWorth = netWorth + (isNaN(customAssets)?0:customAssets);
-        return { markdownOutput: `# 💎 Net Worth Calculator\n\n## Assets\n| Category | Value |\n|---|---|\n${Object.entries(assets).map(([k,v])=>`| ${k} | $${v.toLocaleString()} |`).join('\n')}\n| **Total Assets** | **$${totalAssets.toLocaleString()}** |\n\n## Liabilities\n| Category | Value |\n|---|---|\n${Object.entries(liabilities).map(([k,v])=>`| ${k} | $${v.toLocaleString()} |`).join('\n')}\n| **Total Liabilities** | **$${totalLiab.toLocaleString()}** |\n\n## **Net Worth: $${finalNetWorth.toLocaleString()}**\n\n| Age Group | Median Net Worth |\n|---|---|\n| Under 35 | $39,000 |\n| 35-44 | $135,000 |\n| 45-54 | $247,000 |\n| 55-64 | $364,000 |` };
+        const dtar = totalAssets > 0 ? ((totalLiab/totalAssets)*100).toFixed(1) : '0.0';
+        const health = totalAssets > 0 ? (totalLiab/totalAssets < 0.3 ? 'Excellent (under 30%)' : totalLiab/totalAssets < 0.5 ? 'Good (30-50%)' : totalLiab/totalAssets < 0.75 ? 'Fair (50-75%)' : 'High Debt (over 75%)') : 'N/A';
+        return { markdownOutput: `# Net Worth Calculator\n\n**Total Assets:** $${totalAssets.toLocaleString()}\n**Total Liabilities:** $${totalLiab.toLocaleString()}\n\n## Net Worth: **$${netWorth.toLocaleString()}**\n\n| Metric | Value |\n|---|---|\n| Net Worth | ${netWorth >= 0 ? 'Positive' : 'Negative'} |\n| Debt-to-Asset Ratio | ${dtar}% |\n| Financial Health | ${health} |\n\n## Age Benchmarks (Median Net Worth)\n| Age Group | Median |\n|---|---|\n| Under 35 | $39,000 |\n| 35-44 | $135,000 |\n| 45-54 | $247,000 |\n| 55-64 | $364,000 |\n\n> Tip: Focus on reducing high-interest debt first to grow net worth faster.` };
       }
 
       case "crypto-profit-calculator": {
         const buyPrice = parseFloat(inputs.input_data || '30000');
-        const sellPrice = 45000, amount = 0.5;
+        const cryptoMap: Record<string,number[]> = {'Sell at $45,000 — 0.5 BTC':[45000,0.5],'Sell at $60,000 — 1 BTC':[60000,1],'Sell at $100,000 — 0.1 BTC':[100000,0.1],'Sell at $20,000 — 1 ETH':[20000,1],'Sell at $1 — 10,000 USDT':[1,10000]};
+        const modeKey = Object.keys(cryptoMap).find(k => inputs.mode?.includes(k.split(' ')[2]?.replace(',',''))) || 'Sell at $45,000 — 0.5 BTC';
+        const [sellPrice, amount] = cryptoMap[modeKey] || [45000, 0.5];
         const invested = buyPrice * amount;
         const value = sellPrice * amount;
         const profit = value - invested;
@@ -2961,6 +2964,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
       case "emergency-fund-calculator": {
         const monthlyExpenses = parseFloat(inputs.input_data || '3000');
+        const efMonths = inputs.mode?.includes('3 months') ? 3 : inputs.mode?.includes('9 months') ? 9 : inputs.mode?.includes('12 months') ? 12 : 6;
         const months = [3,6,9,12];
         const table = months.map(m=>`| ${m} months | **$${(monthlyExpenses*m).toLocaleString()}** | ${m>=6?'✅ Recommended':'⚠️ Minimum'} |`).join('\n');
         return { markdownOutput: `# 🆘 Emergency Fund Calculator\n\n**Monthly Expenses:** $${monthlyExpenses.toLocaleString()}\n\n## Fund Size by Buffer Period\n| Period | Amount Needed | Status |\n|---|---|---|\n${table}\n\n## **Recommended Fund: $${(monthlyExpenses*6).toLocaleString()}** (6 months)\n\n## How to Build It\n| Timeline | Monthly Savings Needed |\n|---|---|\n| 6 months | $${(monthlyExpenses*6/6).toFixed(0)} /month |\n| 12 months | $${(monthlyExpenses*6/12).toFixed(0)} /month |\n| 18 months | $${(monthlyExpenses*6/18).toFixed(0)} /month |\n\n## Where to Keep It\n- ✅ High-yield savings account (HYSA)\n- ✅ Money market account\n- ❌ Stock market (too volatile)` };
