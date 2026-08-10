@@ -343,31 +343,6 @@ export const toolsConfig: ToolConfig[] = [
 ]
   },
   {
-    id: "og-tag-generator",
-    title: "Open Graph Meta Tag Visualizer",
-    name: "Open Graph Meta Tag Visualizer",
-    category: "Growth Marketing & SEO Suite",
-    description: "Generates `<meta property=\"og:title\">` and Twitter Card tags with preview.",
-    inputs: [
-      {
-            "id": "inputData",
-            "label": "Input Parameter / Data String for Open Graph Meta Tag Visualizer",
-            "type": "textarea",
-            "placeholder": "Enter parameters or paste target payload for Open Graph Meta Tag Visualizer..."
-    },
-      {
-            "id": "mode",
-            "label": "Operation / Execution Preset",
-            "type": "dropdown",
-            "options": [
-                  "Standard Execution Mode",
-                  "High-Precision Mode",
-                  "Verbose Diagnostic Mode"
-            ]
-    }
-]
-  },
-  {
     id: "pdf-merger",
     title: "Offline PDF Merger & Splitter (Client-Side)",
     name: "Offline PDF Merger & Splitter (Client-Side)",
@@ -1693,31 +1668,6 @@ export const toolsConfig: ToolConfig[] = [
 ]
   },
   {
-    id: "robots-txt-builder",
-    title: "Robots.txt File Builder",
-    name: "Robots.txt File Builder",
-    category: "Growth Marketing & SEO Suite",
-    description: "Generates clean robots.txt disallow rules and sitemap directives.",
-    inputs: [
-      {
-            "id": "inputData",
-            "label": "Input Parameter / Data String for Robots.txt File Builder",
-            "type": "textarea",
-            "placeholder": "Enter parameters or paste target payload for Robots.txt File Builder..."
-    },
-      {
-            "id": "mode",
-            "label": "Operation / Execution Preset",
-            "type": "dropdown",
-            "options": [
-                  "Standard Execution Mode",
-                  "High-Precision Mode",
-                  "Verbose Diagnostic Mode"
-            ]
-    }
-]
-  },
-  {
     id: "yaml-to-json",
     title: "YAML to JSON Engine",
     name: "YAML to JSON Engine",
@@ -1792,26 +1742,6 @@ export const toolsConfig: ToolConfig[] = [
     title: "Regex Tester & Visualizer",
     category: "Developer & Tech Utilities",
     description: "Tests regular expressions against sample text with real-time match highlighting.",
-    inputs: [
-      {
-        id: "input_data",
-        label: "Primary Input / Payload",
-        type: "textarea",
-        placeholder: "Enter text, data, or configuration parameters here..."
-      },
-      {
-        id: "mode",
-        label: "Operation / Execution Mode",
-        type: "dropdown",
-        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
-      }
-    ]
-  },
-  {
-    id: "sql-query-formatter-optimizer",
-    title: "SQL Query Formatter & Optimizer",
-    category: "Developer & Tech Utilities",
-    description: "Cleans messy SQL code and suggests structural improvements.",
     inputs: [
       {
         id: "input_data",
@@ -2012,26 +1942,6 @@ export const toolsConfig: ToolConfig[] = [
     title: "Fluid Typography Calculator",
     category: "Media, Design & Productivity",
     description: "Computes CSS clamp() values for responsive font sizing across viewports.",
-    inputs: [
-      {
-        id: "input_data",
-        label: "Primary Input / Payload",
-        type: "textarea",
-        placeholder: "Enter text, data, or configuration parameters here..."
-      },
-      {
-        id: "mode",
-        label: "Operation / Execution Mode",
-        type: "dropdown",
-        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
-      }
-    ]
-  },
-  {
-    id: "favicon-generator",
-    title: "Favicon Generator",
-    category: "Media, Design & Productivity",
-    description: "Converts a single PNG into multi-resolution icons and manifest files.",
     inputs: [
       {
         id: "input_data",
@@ -2412,26 +2322,6 @@ export const toolsConfig: ToolConfig[] = [
     title: "Broken Link Checker Script",
     category: "Growth Marketing & SEO Suite",
     description: "Scans internal anchor references for HTTP 404 error codes.",
-    inputs: [
-      {
-        id: "input_data",
-        label: "Primary Input / Payload",
-        type: "textarea",
-        placeholder: "Enter text, data, or configuration parameters here..."
-      },
-      {
-        id: "mode",
-        label: "Operation / Execution Mode",
-        type: "dropdown",
-        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
-      }
-    ]
-  },
-  {
-    id: "h1-h6-heading-hierarchy-tree",
-    title: "H1-H6 Heading Hierarchy Tree",
-    category: "Growth Marketing & SEO Suite",
-    description: "Extracts structural outlines from any public web page URL.",
     inputs: [
       {
         id: "input_data",
