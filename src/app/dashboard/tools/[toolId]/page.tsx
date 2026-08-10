@@ -3249,6 +3249,11 @@ export default function ToolWorkspacePage() {
         </div>
       </div>
 
+      {/* TOP BANNER */}
+      <div style={{ minHeight: '250px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px' }}>
+        {/* PASTE YOUR HILLTOPADS 300x250 OR 728x90 BANNER SCRIPT HERE */}
+      </div>
+
       {/* Main Split Screen (50/50 Bento Grid Layout) */}
       <div className="grid min-h-[calc(100vh-22rem)] grid-cols-1 gap-4 lg:gap-6 lg:grid-cols-2 items-stretch">
         {/* LEFT HALF: Pure White Bento-Grid Card for Form Inputs */}
@@ -3496,6 +3501,11 @@ export default function ToolWorkspacePage() {
 
 
         </div>
+      </div>
+
+      {/* BOTTOM BANNER */}
+      <div style={{ minHeight: '250px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
+        {/* PASTE YOUR SECOND HILLTOPADS BANNER SCRIPT HERE */}
       </div>
     </div>
   );
