@@ -72,6 +72,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full`}>
+      <head>
+        {/* HalalSpark Auto Ads — zenovee profile */}
+        <script src="https://ads.halalspark.co.uk/get-auto-ads-script?websiteId=2875478e-37fb-4d99-9394-5b41c3e16c10&profile=zenovee" async></script>
+      </head>
       <body className="min-h-full font-sans antialiased bg-white text-slate-900 selection:bg-blue-500/20 selection:text-blue-900 grain-overlay">
         {children}
 
