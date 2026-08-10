@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#09090b",
+  themeColor: "#2563eb",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -72,7 +72,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full`}>
-      <body className="min-h-full font-sans antialiased bg-slate-50 text-slate-900 selection:bg-violet-500/30 selection:text-white grain-overlay">
+      <body className="min-h-full font-sans antialiased bg-white text-slate-900 selection:bg-blue-500/20 selection:text-blue-900 grain-overlay">
         {children}
 
         {/* Cloudflare Analytics */}

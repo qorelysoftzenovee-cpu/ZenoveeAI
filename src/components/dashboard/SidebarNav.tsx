@@ -11,7 +11,7 @@ const categoryMeta: Record<string, { icon: any, color: string, activeClass: stri
   'document': { icon: FileText, color: 'text-indigo-500', activeClass: 'bg-indigo-500/10 text-indigo-400' },
   'coding': { icon: Code, color: 'text-cyan-500', activeClass: 'bg-cyan-500/10 text-cyan-400' },
   '3d': { icon: Box, color: 'text-amber-500', activeClass: 'bg-amber-500/10 text-amber-400' },
-  'default': { icon: Sparkles, color: 'text-violet-500', activeClass: 'bg-violet-500/10 text-violet-400' }
+  'default': { icon: Sparkles, color: 'text-blue-500', activeClass: 'bg-blue-500/10 text-blue-600' }
 }
 
 function SidebarNavContent() {
@@ -38,8 +38,8 @@ function SidebarNavContent() {
           href="/dashboard?category=all"
           className={`flex items-center justify-between rounded-xl px-3.5 py-3 text-base font-extrabold transition-all ${
             activeCategory === 'all' 
-              ? 'bg-violet-600 text-white shadow-sm' 
-              : 'text-slate-800 hover:bg-slate-100 hover:text-slate-950'
+              ? 'bg-blue-600 text-white shadow-sm' 
+              : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
           }`}
         >
           <div className="flex items-center gap-2.5">
@@ -69,11 +69,11 @@ function SidebarNavContent() {
                 key={cat.name}
                 href={`/dashboard?category=${encodeURIComponent(cat.name)}`}
                 className={`flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-bold transition-all ${
-                  isActive ? 'bg-violet-600 text-white shadow-sm font-extrabold' : 'text-slate-800 hover:bg-slate-100 hover:text-slate-950'
+                  isActive ? 'bg-blue-600 text-white shadow-sm font-extrabold' : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
                 }`}
               >
                 <div className="flex items-center gap-2.5 truncate">
-                  <Icon size={17} className={isActive ? 'text-white' : 'text-violet-600'} />
+                  <Icon size={17} className={isActive ? 'text-white' : 'text-blue-600'} />
                   <span className="truncate">{cat.name}</span>
                 </div>
                 <span className={`text-xs font-black px-2.5 py-0.5 rounded-md ml-2 shrink-0 ${

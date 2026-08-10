@@ -34,8 +34,8 @@ function DashboardContent() {
 
   return (
     <div className="anim-fade-up">
-      <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-6 md:p-8 mb-8 relative overflow-hidden shadow-sm border border-slate-200">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-violet-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+      <div className="bg-white rounded-2xl p-6 md:p-8 mb-8 relative overflow-hidden shadow-sm border border-slate-200">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/8 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
         <div className="relative z-10">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
@@ -44,7 +44,7 @@ function DashboardContent() {
               placeholder="Search across all tools..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-10 py-4 rounded-xl border border-slate-300 bg-slate-50 text-slate-900 font-semibold text-lg placeholder-slate-400 focus:border-violet-600 focus:bg-white focus:ring-2 focus:ring-violet-500/20 outline-none transition-all shadow-inner"
+              className="w-full pl-12 pr-10 py-4 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-semibold text-lg placeholder-slate-400 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500/15 outline-none transition-all"
             />
             {searchQuery && (
               <button 
@@ -61,8 +61,8 @@ function DashboardContent() {
               onClick={() => setSelectedCategory('all')}
               className={`rounded-xl px-4 py-2.5 text-sm font-bold cursor-pointer transition-all border ${
                 selectedCategory === 'all' 
-                  ? 'bg-violet-600 text-white border-violet-600 shadow-sm ring-2 ring-violet-500/30' 
-                  : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-violet-50 hover:text-violet-700 hover:border-violet-300'
+                  ? 'bg-blue-600 text-white border-blue-600 shadow-sm ring-2 ring-blue-500/25' 
+                  : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300'
               }`}
             >
               All Tools
@@ -73,8 +73,8 @@ function DashboardContent() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`rounded-xl px-4 py-2.5 text-sm font-bold cursor-pointer transition-all border capitalize ${
                   selectedCategory === cat
-                    ? 'bg-violet-600 text-white border-violet-600 shadow-sm ring-2 ring-violet-500/30' 
-                    : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-violet-50 hover:text-violet-700 hover:border-violet-300'
+                    ? 'bg-blue-600 text-white border-blue-600 shadow-sm ring-2 ring-blue-500/25' 
+                    : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300'
                 }`}
               >
                 {cat}
@@ -86,12 +86,12 @@ function DashboardContent() {
 
       <div className="flex justify-between items-center mb-6">
         <h2 className="font-black text-3xl text-slate-900 tracking-tight">Available Tools</h2>
-        <span className="badge badge-violet text-sm font-bold px-3.5 py-1.5">{filteredTools.length} {filteredTools.length === 1 ? 'tool' : 'tools'}</span>
+        <span className="badge badge-blue text-sm font-bold px-3.5 py-1.5">{filteredTools.length} {filteredTools.length === 1 ? 'tool' : 'tools'}</span>
       </div>
 
       {filteredTools.length === 0 ? (
         <div className="bg-white rounded-2xl p-12 text-center anim-fade-scale border border-slate-200 shadow-sm">
-          <div className="mx-auto w-14 h-14 bg-violet-500/10 text-violet-600 rounded-full flex items-center justify-center mb-4 ring-1 ring-violet-500/20">
+          <div className="mx-auto w-14 h-14 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4 ring-1 ring-blue-200">
             <Sparkles size={28} />
           </div>
           <h3 className="text-xl font-extrabold text-slate-900 mb-2">No tools found</h3>
@@ -108,14 +108,14 @@ function DashboardContent() {
           {filteredTools.map((tool, i) => (
             <Link href={`/dashboard/tools/${tool.id}`} key={tool.id} className={`tool-card group delay-${(i % 5 + 1) * 100}`}>
               <div className="flex items-start justify-between mb-2">
-                <span className="badge badge-violet text-xs uppercase tracking-wider font-bold capitalize px-2.5 py-1">{tool.category}</span>
+                <span className="badge badge-blue text-xs uppercase tracking-wider font-bold capitalize px-2.5 py-1">{tool.category}</span>
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mt-2.5 line-clamp-1 group-hover:text-violet-600 transition-colors">{tool.title}</h3>
+              <h3 className="text-lg font-bold text-slate-900 mt-2.5 line-clamp-1 group-hover:text-blue-600 transition-colors">{tool.title}</h3>
               <p className="text-sm text-slate-600 font-semibold mt-2 line-clamp-2 leading-relaxed">{tool.description}</p>
               
-              <div className="mt-5 pt-3.5 border-t border-slate-100 flex justify-between items-center group-hover:border-violet-200 transition-colors">
-                <span className="text-sm font-extrabold text-violet-600">Launch Tool</span>
-                <ChevronRight size={16} className="text-violet-600 opacity-80 group-hover:opacity-100 transform -translate-x-1 group-hover:translate-x-0 transition-all" />
+              <div className="mt-5 pt-3.5 border-t border-slate-100 flex justify-between items-center group-hover:border-blue-200 transition-colors">
+                <span className="text-sm font-extrabold text-blue-600">Launch Tool</span>
+                <ChevronRight size={16} className="text-blue-600 opacity-80 group-hover:opacity-100 transform -translate-x-1 group-hover:translate-x-0 transition-all" />
               </div>
             </Link>
           ))}
