@@ -60,8 +60,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     "browser tool",
   ];
 
-  const seoTitle = `${tool.title} — Free Online Tool`;
-  const seoDesc = `${tool.description} Use ${tool.title} free online — no signup required, runs 100% in your browser. Part of Zenovee's ${tool.category} suite.`;
+  const seoTitle = `Free Online ${tool.title} | Fast & Private — Zenovee`;
+  const seoDesc = `${tool.description} 100% free, private client-side tool with zero server uploads or data collection.`;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -84,7 +84,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 
   return {
-    title: seoTitle,
+    title: { absolute: seoTitle },
     description: seoDesc,
     keywords: toolKeywords,
     alternates: {

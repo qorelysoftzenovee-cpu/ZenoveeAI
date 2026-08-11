@@ -3493,9 +3493,33 @@ export default function ToolWorkspacePage() {
               </button>
             </div>
           )}
-
-
         </div>
+
+        {/* On-Page SEO Guide & Security Description Section */}
+        <section className="mt-10 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-6">
+          <div className="border-b border-slate-100 pb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+              <span>📖</span> About Free Online {tool.title}
+            </h2>
+            <p className="text-sm text-slate-500 mt-1">
+              Complete guide, instructions, and privacy details for this utility.
+            </p>
+          </div>
+
+          <div className="space-y-4 text-slate-600 text-sm leading-relaxed">
+            <p>
+              <strong className="text-slate-800">What It Does:</strong> The <strong>{tool.title}</strong> is a high-performance utility designed for {tool.category.toLowerCase()}. {tool.description} It delivers instant, accurate results right inside your browser window with zero setup required.
+            </p>
+
+            <p>
+              <strong className="text-slate-800">How to Use It:</strong> Enter your input data or configure your options using the form fields on the left, then click <strong>Execute Tool</strong>. Your results will automatically process and display in the output terminal on the right, where you can instantly copy or export them.
+            </p>
+
+            <p>
+              <strong className="text-slate-800">100% Client-Side Processing & Privacy:</strong> Security and privacy are built into Zenovee by default. This tool operates using <strong>100% client-side JavaScript execution</strong>. Your input data is processed strictly within your local browser memory thread — zero data is uploaded to remote servers, saved to databases, or shared with third parties.
+            </p>
+          </div>
+        </section>
       </div>
     </div>
   );
