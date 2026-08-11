@@ -1,0 +1,182 @@
+[
+  {
+    "user_tool": "JSON/YAML Linter & Formatter",
+    "matched_existing": "Dynamic JSON-LD Schema Markup Builder",
+    "id": "schema-builder"
+  },
+  {
+    "user_tool": "SQL Query Formatter & Optimizer",
+    "matched_existing": "SQL Query Formatter & Beautifier",
+    "id": "sql-formatter"
+  },
+  {
+    "user_tool": "JWT Decoder & Inspector",
+    "matched_existing": "JWT Decoder & Payload Inspector",
+    "id": "jwt-decoder"
+  },
+  {
+    "user_tool": "Cron Expression Generator",
+    "matched_existing": "Cron Expression Parser & Humanizer",
+    "id": "cron-humanizer"
+  },
+  {
+    "user_tool": "SVG Path Editor & Optimizer",
+    "matched_existing": "SVG Vector Editor & Color Swapper",
+    "id": "svg-editor"
+  },
+  {
+    "user_tool": "Base64 / URL / HTML Encoder",
+    "matched_existing": "URL Encoder / Decoder",
+    "id": "url-encoder-decoder"
+  },
+  {
+    "user_tool": "Color Palette Extractor from Image",
+    "matched_existing": "In-Browser OCR Image Text Extractor",
+    "id": "ocr-extractor"
+  },
+  {
+    "user_tool": "SVG Wave / Blob Generator",
+    "matched_existing": "SVG Vector Editor & Color Swapper",
+    "id": "svg-editor"
+  },
+  {
+    "user_tool": "SSL Certificate Checker",
+    "matched_existing": "SSL Certificate Expiry Checker",
+    "id": "ssl-checker"
+  },
+  {
+    "user_tool": "IP Address & DNS Lookup",
+    "matched_existing": "My IP & Geolocation Inspector",
+    "id": "ip-lookup"
+  },
+  {
+    "user_tool": "Hash Generator (MD5, SHA-256)",
+    "matched_existing": "Universal File Hash (SHA-256/MD5) Calculator",
+    "id": "file-hash"
+  },
+  {
+    "user_tool": "PDF to Image Converter (Client-Side)",
+    "matched_existing": "Client-Side Image Compressor & Converter",
+    "id": "image-compressor"
+  },
+  {
+    "user_tool": "Image Compressor (PNG/JPEG/WebP)",
+    "matched_existing": "Client-Side Image Compressor & Converter",
+    "id": "image-compressor"
+  },
+  {
+    "user_tool": "CSV to JSON / XML Converter",
+    "matched_existing": "Dynamic JSON-LD Schema Markup Builder",
+    "id": "schema-builder"
+  },
+  {
+    "user_tool": "Markdown to PDF Exporter",
+    "matched_existing": "Offline PDF Merger & Splitter (Client-Side)",
+    "id": "pdf-merger"
+  },
+  {
+    "user_tool": "PDF Page Merger / Splitter",
+    "matched_existing": "Offline PDF Merger & Splitter (Client-Side)",
+    "id": "pdf-merger"
+  },
+  {
+    "user_tool": "Compound Interest & Retirement Planner",
+    "matched_existing": "Compound Interest & DRIP Simulator",
+    "id": "compound-interest"
+  },
+  {
+    "user_tool": "Loan & Mortgage Amortization Schedule",
+    "matched_existing": "Loan & Mortgage Schedule Engine",
+    "id": "mortgage-amortization"
+  },
+  {
+    "user_tool": "IP subnet & CIDR Math Tool",
+    "matched_existing": "Subnet / CIDR Mask Calculator",
+    "id": "cidr-calculator"
+  },
+  {
+    "user_tool": "Timezone Meeting Planner",
+    "matched_existing": "Multi-Timezone Visual Meeting Scheduler",
+    "id": "timezone-scheduler"
+  },
+  {
+    "user_tool": "BMI & Body Fat Estimator",
+    "matched_existing": "BMI & Body Composition Calculator",
+    "id": "bmi-body-fat"
+  },
+  {
+    "user_tool": "Meta Tag & OpenGraph Inspector",
+    "matched_existing": "Open Graph Meta Tag Visualizer",
+    "id": "og-tag-generator"
+  },
+  {
+    "user_tool": "Keyword Density Analyzer",
+    "matched_existing": "On-Page Keyword Frequency Matrix",
+    "id": "keyword-density"
+  },
+  {
+    "user_tool": "Robots.txt & Sitemap Validator",
+    "matched_existing": "Robots.txt & XML Sitemap Validator",
+    "id": "robots-sitemap-builder"
+  },
+  {
+    "user_tool": "UTM Campaign Link Builder",
+    "matched_existing": "UTM Campaign Builder & History Tracker",
+    "id": "utm-builder"
+  },
+  {
+    "user_tool": "SERP Snippet Preview Tool",
+    "matched_existing": "SERP Snippet Visual Simulator",
+    "id": "serp-simulator"
+  },
+  {
+    "user_tool": "Slug Generator",
+    "matched_existing": "URL Slug Generator",
+    "id": "url-slug-generator"
+  },
+  {
+    "user_tool": "Character & Word Counter with Analytics",
+    "matched_existing": "Text Character, Word & Byte Counter",
+    "id": "text-stats-counter"
+  },
+  {
+    "user_tool": "Diff Checker (Text Comparison)",
+    "matched_existing": "Code Diff & Visual Comparison",
+    "id": "text-diff-checker"
+  },
+  {
+    "user_tool": "JSON to TypeScript Interface Generator",
+    "matched_existing": "Dynamic JSON-LD Schema Markup Builder",
+    "id": "schema-builder"
+  },
+  {
+    "user_tool": "Text Extractor / Line Cleaner",
+    "matched_existing": "In-Browser OCR Image Text Extractor",
+    "id": "ocr-extractor"
+  },
+  {
+    "user_tool": "Pomodoro Focus Timer",
+    "matched_existing": "Pomodoro Focus Engine",
+    "id": "pomodoro-tracker"
+  },
+  {
+    "user_tool": "Kanban Task Board (LocalStorage)",
+    "matched_existing": "Client-Side Markdown Kanban Board",
+    "id": "markdown-kanban"
+  },
+  {
+    "user_tool": "QR Code Generator with Custom Styling",
+    "matched_existing": "Vector-Based Custom QR Code Generator",
+    "id": "qr-studio"
+  },
+  {
+    "user_tool": "In-Browser Stopwatch & Lap Splitter",
+    "matched_existing": "In-Browser OCR Image Text Extractor",
+    "id": "ocr-extractor"
+  },
+  {
+    "user_tool": "Resistor Color Code Calculator",
+    "matched_existing": "Color Code Converter (HEX, RGB, HSL, CMYK)",
+    "id": "color-code-converter"
+  }
+]

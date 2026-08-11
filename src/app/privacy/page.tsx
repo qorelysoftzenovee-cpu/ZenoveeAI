@@ -3,8 +3,19 @@ import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/ui/Footer';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Zenovee',
-  description: 'Privacy Policy for Zenovee AI.',
+  title: "Privacy Policy — Your Data Stays in Your Browser | Zenovee",
+  description:
+    "Zenovee's privacy policy. All tools run 100% client-side in your browser. No data is ever sent to our servers. Zero tracking, zero data collection.",
+  keywords: ["privacy policy", "zenovee privacy", "no data collection", "browser privacy", "client-side tools"],
+  alternates: { canonical: "https://zenovee.in/privacy" },
+  openGraph: {
+    title: "Privacy Policy | Zenovee",
+    description: "All Zenovee tools run in your browser. Your data is never sent to any server.",
+    url: "https://zenovee.in/privacy",
+    type: "website",
+    siteName: "Zenovee",
+  },
+  robots: { index: true, follow: false },
 };
 
 export default function PrivacyPage() {

@@ -17,40 +17,60 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://zenovee.in"),
   title: {
-    default: "Zenovee — Premium Developer & Marketing Tool Suite",
-    template: "%s | Zenovee",
+    default: "Zenovee — 200+ Free Online Tools for Developers & Marketers",
+    template: "%s | Zenovee — Free Online Tools",
   },
   description:
-    "Experience the ultimate collection of 250+ ultra-fast, premium client-side tools for developers and marketers. Zero server calls, total privacy, absolutely free.",
+    "200+ free browser-native tools for developers, designers, and marketers. JSON formatter, image compressor, SEO tools, calculators & more — zero signup, runs 100% in your browser.",
   keywords: [
     "free online tools",
     "developer tools",
     "marketing tools",
-    "client-side utilities",
-    "WebP converter",
-    "UTM builder",
     "JSON formatter",
     "image compressor",
+    "SEO tools",
+    "calculator",
     "Base64 encoder",
+    "password generator",
+    "color picker",
+    "regex tester",
+    "client-side utilities",
     "privacy-first tools",
+    "zenovee",
   ],
-  authors: [{ name: "Zenovee" }],
+  authors: [{ name: "Zenovee", url: "https://zenovee.in" }],
   creator: "Zenovee",
+  publisher: "Zenovee",
+  alternates: {
+    canonical: "https://zenovee.in",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://zenovee.ai",
-    title: "Zenovee — Free Browser-Native Developer & Marketing Tools",
+    url: "https://zenovee.in",
+    title: "Zenovee — 200+ Free Online Tools for Developers & Marketers",
     description:
-      "250+ free tools that run 100% in your browser. No signup, no data collection, no limits.",
+      "200+ free tools that run 100% in your browser. JSON formatter, image tools, SEO suite, calculators. No signup, no data collection.",
     siteName: "Zenovee",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Zenovee — Free Online Tools",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Zenovee — Free Browser-Native Tools",
+    site: "@zenovee",
+    creator: "@zenovee",
+    title: "Zenovee — 200+ Free Browser-Native Tools",
     description:
-      "250+ free client-side tools for developers and marketers. Zero data collection.",
+      "200+ free tools for developers & marketers. Zero data collection, zero signup.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
@@ -62,9 +82,6 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
-  },
-  other: {
-    "30acbe2a8af4cf681bb7482fcbd408a5429db953": "30acbe2a8af4cf681bb7482fcbd408a5429db953",
   },
 };
 

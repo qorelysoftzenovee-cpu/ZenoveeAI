@@ -5,8 +5,25 @@ import Link from 'next/link';
 import { Target, ShieldCheck, Zap, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'About | Zenovee',
-  description: 'Learn about Zenovee, our mission, and how we build tools for the modern web.',
+  title: "About Zenovee — Free Browser-Native Tools for Developers & Marketers",
+  description:
+    "Learn about Zenovee — a free, privacy-first tool suite with 200+ browser-native utilities for developers, designers, and marketers. No signup, no data collection.",
+  keywords: ["about zenovee", "free online tools", "privacy first", "browser tools", "developer tools"],
+  alternates: { canonical: "https://zenovee.in/about" },
+  openGraph: {
+    title: "About Zenovee — Free Developer & Marketing Tools",
+    description: "200+ free tools that run entirely in your browser. No data leaves your device.",
+    url: "https://zenovee.in/about",
+    type: "website",
+    siteName: "Zenovee",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "About Zenovee" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Zenovee — Free Browser-Native Tools",
+    description: "200+ free tools. No signup, no data collection.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function AboutPage() {

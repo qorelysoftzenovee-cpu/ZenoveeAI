@@ -1,0 +1,1540 @@
+  {
+    id: "json-to-csv-converter",
+    title: "JSON to CSV Converter",
+    category: "Developer & Tech Utilities",
+    description: "Instantly converts JSON arrays and objects into clean downloadable CSV spreadsheets in-browser.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "html-to-markdown",
+    title: "HTML to Markdown Converter",
+    category: "Developer & Tech Utilities",
+    description: "Converts raw HTML markup into clean GitHub-flavored Markdown for documentation and blogs.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "xml-to-json",
+    title: "XML to JSON Converter",
+    category: "Developer & Tech Utilities",
+    description: "Parses complex XML documents into structured JSON objects for API and data workflows.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "javascript-minifier",
+    title: "JavaScript Minifier & Beautifier",
+    category: "Developer & Tech Utilities",
+    description: "Minifies or beautifies JavaScript code client-side for production optimization and readability.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "css-variable-extractor",
+    title: "CSS Variable Extractor",
+    category: "Developer & Tech Utilities",
+    description: "Scans a CSS file and extracts all custom properties (--variables) into a clean design token list.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "http-status-code-lookup",
+    title: "HTTP Status Code Explorer",
+    category: "Developer & Tech Utilities",
+    description: "Interactive reference for all HTTP status codes with descriptions, use cases, and examples.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "git-commit-message-gen",
+    title: "Git Commit Message Generator",
+    category: "Developer & Tech Utilities",
+    description: "Generates professional, conventional commit messages from a brief description of your changes.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "markdown-to-html",
+    title: "Markdown to HTML Converter",
+    category: "Developer & Tech Utilities",
+    description: "Converts Markdown text to production-ready, semantic HTML output with syntax highlighting.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "env-file-parser",
+    title: ".env File Parser & Formatter",
+    category: "Developer & Tech Utilities",
+    description: "Parses, validates, and formats .env files — detects duplicates, missing values, and syntax errors.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "api-mock-generator",
+    title: "API Mock Data Generator",
+    category: "Developer & Tech Utilities",
+    description: "Generates realistic mock API JSON responses with user, product, and order schemas for testing.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "typescript-type-checker",
+    title: "TypeScript Interface Validator",
+    category: "Developer & Tech Utilities",
+    description: "Validates JavaScript objects against TypeScript interface definitions and shows type mismatches.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "code-snippet-image",
+    title: "Code Snippet to Image",
+    category: "Developer & Tech Utilities",
+    description: "Converts code blocks into beautiful, shareable PNG images with syntax highlighting themes.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "package-json-analyzer",
+    title: "package.json Analyzer",
+    category: "Developer & Tech Utilities",
+    description: "Analyzes package.json to identify outdated, duplicate, or unused dependencies in your project.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "json-path-tester",
+    title: "JSONPath & JQ Query Tester",
+    category: "Developer & Tech Utilities",
+    description: "Tests JSONPath expressions and jq-style queries against live JSON data with highlighted results.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "sql-to-json",
+    title: "SQL to JSON Schema Generator",
+    category: "Developer & Tech Utilities",
+    description: "Converts SQL CREATE TABLE statements into JSON Schema definitions for API documentation.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "curl-to-code",
+    title: "cURL Command to Code Converter",
+    category: "Developer & Tech Utilities",
+    description: "Converts cURL commands into equivalent Python, JavaScript, PHP, and Go HTTP request code.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "color-palette-generator",
+    title: "AI Color Palette Generator",
+    category: "Developer & Tech Utilities",
+    description: "Generates harmonious 5-color palettes from a seed color using color theory and HSL math.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "npm-package-size-checker",
+    title: "NPM Package Size Checker",
+    category: "Developer & Tech Utilities",
+    description: "Estimates the bundle size impact of any npm package before adding it to your project.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "robots-txt-tester",
+    title: "Robots.txt Rule Tester",
+    category: "Developer & Tech Utilities",
+    description: "Tests if a specific URL is allowed or blocked by robots.txt rules for common search engine bots.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "json-schema-validator",
+    title: "JSON Schema Validator",
+    category: "Developer & Tech Utilities",
+    description: "Validates JSON data against a JSON Schema definition and reports all validation errors clearly.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "image-to-base64",
+    title: "Image to Base64 Encoder",
+    category: "Media, Design & Productivity",
+    description: "Converts uploaded images to Base64 data URIs for embedding in HTML, CSS, and JSON payloads.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "svg-to-png-converter",
+    title: "SVG to PNG Converter",
+    category: "Media, Design & Productivity",
+    description: "Renders SVG vector files into high-resolution PNG images at any custom pixel size.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "image-metadata-viewer",
+    title: "Image Metadata Viewer",
+    category: "Media, Design & Productivity",
+    description: "Extracts and displays all EXIF, IPTC, and XMP metadata embedded in JPEG, PNG, and TIFF files.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "color-picker-eyedropper",
+    title: "Color Picker & Eyedropper",
+    category: "Media, Design & Productivity",
+    description: "Upload any image and click to extract exact hex, RGB, and HSL color values from any pixel.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "photo-filters-editor",
+    title: "Photo Filter & Enhancement Editor",
+    category: "Media, Design & Productivity",
+    description: "Applies brightness, contrast, saturation, blur, and sepia filters to images entirely client-side.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "text-to-speech",
+    title: "Text to Speech Converter",
+    category: "Media, Design & Productivity",
+    description: "Converts typed text to spoken audio using browser Web Speech API with voice and speed controls.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "speech-to-text",
+    title: "Speech to Text Transcriber",
+    category: "Media, Design & Productivity",
+    description: "Records microphone audio and transcribes it to text live using the Web Speech Recognition API.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "pdf-to-text",
+    title: "PDF Text Extractor",
+    category: "Media, Design & Productivity",
+    description: "Extracts all text content from uploaded PDF documents for editing or data processing locally.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "resume-ats-scanner",
+    title: "Resume ATS Score Checker",
+    category: "Media, Design & Productivity",
+    description: "Analyzes a resume for ATS compatibility, keyword density, and formatting issues with a score.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "social-image-resizer",
+    title: "Social Media Image Resizer",
+    category: "Media, Design & Productivity",
+    description: "Resizes and crops images to exact dimensions for Instagram, Twitter, LinkedIn, and Facebook.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "thumbnail-generator",
+    title: "YouTube Thumbnail Generator",
+    category: "Media, Design & Productivity",
+    description: "Creates professional YouTube thumbnail layouts with text overlays and branded color schemes.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "word-cloud-generator",
+    title: "Word Cloud Generator",
+    category: "Media, Design & Productivity",
+    description: "Generates a visual word cloud from pasted text with customizable colors, fonts, and layouts.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "meme-generator",
+    title: "Meme Generator",
+    category: "Media, Design & Productivity",
+    description: "Creates memes by adding top and bottom caption text over popular template images instantly.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "ascii-art-generator",
+    title: "ASCII Art Generator",
+    category: "Media, Design & Productivity",
+    description: "Converts images or typed text into beautiful ASCII art patterns for terminal and text displays.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "timeline-maker",
+    title: "Visual Timeline Maker",
+    category: "Media, Design & Productivity",
+    description: "Creates clean, shareable project or historical timelines exportable as PNG from browser.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "invoice-generator",
+    title: "Free Invoice Generator",
+    category: "Media, Design & Productivity",
+    description: "Creates professional, printable PDF invoices with custom branding, line items, and tax calculations.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "mind-map-builder",
+    title: "Mind Map Builder",
+    category: "Media, Design & Productivity",
+    description: "Drag-and-drop mind mapping tool that saves to localStorage and exports as PNG or JSON.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "signature-generator",
+    title: "Digital Signature Generator",
+    category: "Media, Design & Productivity",
+    description: "Draw or type a custom signature and download it as a transparent PNG for document signing.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "scientific-calculator",
+    title: "Scientific Calculator",
+    category: "Calculators & Mathematics",
+    description: "Full-featured scientific calculator with trigonometry, logarithms, and memory functions.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "fraction-calculator",
+    title: "Fraction & Mixed Number Calculator",
+    category: "Calculators & Mathematics",
+    description: "Adds, subtracts, multiplies, and divides fractions with step-by-step working shown.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "matrix-calculator",
+    title: "Matrix Calculator",
+    category: "Calculators & Mathematics",
+    description: "Performs matrix addition, multiplication, transposition, and determinant calculations.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "prime-number-checker",
+    title: "Prime Number Checker & Generator",
+    category: "Calculators & Mathematics",
+    description: "Checks if any number is prime and generates prime lists using the Sieve of Eratosthenes.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "date-duration-calculator",
+    title: "Date Duration & Working Days Calculator",
+    category: "Calculators & Mathematics",
+    description: "Calculates exact calendar days, weeks, months, and business days between two dates.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "calorie-macro-calculator",
+    title: "Calorie & Macro Calculator",
+    category: "Calculators & Mathematics",
+    description: "Computes daily calorie needs (TDEE) and macro splits based on weight, height, age, and goal.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "pace-calculator",
+    title: "Running Pace & Race Time Calculator",
+    category: "Calculators & Mathematics",
+    description: "Calculates running pace, finish time, and distance for races from 5K to marathons.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "blood-pressure-analyzer",
+    title: "Blood Pressure Analyzer",
+    category: "Calculators & Mathematics",
+    description: "Categorizes blood pressure readings and provides health guidance based on WHO guidelines.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "alcohol-unit-calculator",
+    title: "Alcohol Unit & BAC Calculator",
+    category: "Calculators & Mathematics",
+    description: "Estimates blood alcohol content (BAC) based on drinks consumed, body weight, and time.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "pregnancy-due-date",
+    title: "Pregnancy Due Date Calculator",
+    category: "Calculators & Mathematics",
+    description: "Calculates estimated due date, trimester milestones, and weekly progression from LMP date.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "sleep-cycle-calculator",
+    title: "Sleep Cycle Calculator",
+    category: "Calculators & Mathematics",
+    description: "Calculates optimal wake-up times based on sleep cycles to minimize grogginess.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "investment-return-calculator",
+    title: "ROI & Investment Return Calculator",
+    category: "Calculators & Mathematics",
+    description: "Calculates ROI percentage, annualized return, and profit/loss for any investment period.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "currency-converter",
+    title: "Multi-Currency Converter",
+    category: "Calculators & Mathematics",
+    description: "Converts between 150+ world currencies using up-to-date exchange rate tables instantly.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "hashtag-generator",
+    title: "Hashtag Generator for Instagram/TikTok",
+    category: "Growth Marketing & SEO Suite",
+    description: "Generates viral, niche-relevant hashtag sets for Instagram, TikTok, and Twitter posts.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "social-bio-generator",
+    title: "Social Media Bio Generator",
+    category: "Growth Marketing & SEO Suite",
+    description: "Creates punchy, optimized bios for Instagram, Twitter, TikTok, and LinkedIn profiles.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "blog-title-generator",
+    title: "Blog Post Title Generator",
+    category: "Growth Marketing & SEO Suite",
+    description: "Generates SEO-optimized, click-worthy blog titles from a topic keyword using proven formulas.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "cta-copywriter",
+    title: "Call-to-Action Copywriter",
+    category: "Growth Marketing & SEO Suite",
+    description: "Generates high-converting CTA button text and banner copy for landing pages and ads.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "email-subject-line-tester",
+    title: "Email Subject Line Tester",
+    category: "Growth Marketing & SEO Suite",
+    description: "Scores email subject lines for open rate potential using spam analysis and emotional triggers.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "ab-test-calculator",
+    title: "A/B Test Significance Calculator",
+    category: "Growth Marketing & SEO Suite",
+    description: "Calculates statistical significance of A/B tests and declares a winner with confidence levels.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "competitor-keyword-analyzer",
+    title: "Competitor Keyword Analyzer",
+    category: "Growth Marketing & SEO Suite",
+    description: "Extracts and analyzes keyword density and meta tags from any competitor URL for SEO insights.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "content-brief-generator",
+    title: "SEO Content Brief Generator",
+    category: "Growth Marketing & SEO Suite",
+    description: "Creates detailed SEO content briefs with H2/H3 outlines, word count targets, and keyword usage.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "schema-markup-generator",
+    title: "Schema Markup Generator (JSON-LD)",
+    category: "Growth Marketing & SEO Suite",
+    description: "Generates Google-compliant JSON-LD schema markup for articles, products, FAQs, and events.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "link-in-bio-builder",
+    title: "Link-in-Bio Page Builder",
+    category: "Growth Marketing & SEO Suite",
+    description: "Creates a beautiful, mobile-first link-in-bio page with customizable buttons and themes.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "affiliate-disclosure-generator",
+    title: "Affiliate Disclosure Generator",
+    category: "Growth Marketing & SEO Suite",
+    description: "Generates FTC-compliant affiliate disclosure statements for blogs and review websites.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "newsletter-subject-analyzer",
+    title: "Newsletter Open Rate Optimizer",
+    category: "Growth Marketing & SEO Suite",
+    description: "Analyzes newsletter subject lines for curiosity gaps, length, and power word density scores.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "http-request-builder",
+    title: "HTTP Request Builder & Sender",
+    category: "Network & Server Utilities",
+    description: "Constructs and sends GET, POST, PUT, DELETE requests with custom headers and JSON body.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "dns-record-checker",
+    title: "DNS Record Checker (A, MX, TXT, CNAME)",
+    category: "Network & Server Utilities",
+    description: "Looks up all DNS record types for any domain and shows propagation status globally.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "web-page-speed-analyzer",
+    title: "Web Page Load Speed Analyzer",
+    category: "Network & Server Utilities",
+    description: "Measures page load time, resource sizes, and identifies performance bottlenecks for any URL.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "json-api-formatter",
+    title: "JSON API Response Formatter",
+    category: "Network & Server Utilities",
+    description: "Fetches a JSON API endpoint and displays the response formatted, highlighted, and searchable.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "csp-header-generator",
+    title: "Content Security Policy Generator",
+    category: "Network & Server Utilities",
+    description: "Generates strict Content-Security-Policy headers with directives for scripts, styles, and media.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "cors-policy-checker",
+    title: "CORS Policy Analyzer",
+    category: "Network & Server Utilities",
+    description: "Analyzes CORS headers from any URL and validates cross-origin resource sharing configuration.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "firewall-rule-generator",
+    title: "Firewall Rule Generator (iptables/UFW)",
+    category: "Network & Server Utilities",
+    description: "Generates ready-to-use iptables or UFW firewall rules from simple allow/deny configuration UI.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "break-even-calculator",
+    title: "Break-Even Analysis Calculator",
+    category: "Financial & Investment Engines",
+    description: "Calculates units needed to break even based on fixed costs, variable costs, and selling price.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "stock-profit-calculator",
+    title: "Stock Profit & Loss Calculator",
+    category: "Financial & Investment Engines",
+    description: "Computes profit, loss, percentage gain, and brokerage cost for stock trades in any currency.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "option-payoff-calculator",
+    title: "Options Payoff Calculator",
+    category: "Financial & Investment Engines",
+    description: "Visualizes profit/loss payoff diagrams for call and put options at various expiry price points.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "savings-goal-planner",
+    title: "Savings Goal Planner",
+    category: "Financial & Investment Engines",
+    description: "Calculates monthly savings required to reach a financial goal by a target date with interest.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "net-worth-calculator",
+    title: "Net Worth Calculator",
+    category: "Financial & Investment Engines",
+    description: "Totals assets and liabilities to compute personal net worth with categorized breakdown charts.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "crypto-profit-calculator",
+    title: "Crypto Profit & Loss Calculator",
+    category: "Financial & Investment Engines",
+    description: "Calculates cryptocurrency investment gains, losses, and ROI from entry price to current price.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  },
+  {
+    id: "emergency-fund-calculator",
+    title: "Emergency Fund Calculator",
+    category: "Financial & Investment Engines",
+    description: "Calculates ideal emergency fund size based on monthly expenses and recommended buffer months.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Input Data / Parameters",
+        type: "textarea",
+        placeholder: "Enter your data, URL, text, or configuration here..."
+      },
+      {
+        id: "mode",
+        label: "Mode / Options",
+        type: "dropdown",
+        options: ["Standard Mode", "Advanced Mode", "Export Output"]
+      }
+    ]
+  }

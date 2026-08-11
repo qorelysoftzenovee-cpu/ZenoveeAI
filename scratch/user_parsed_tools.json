@@ -1,0 +1,452 @@
+[
+  {
+    "category": "Development & Code Tools",
+    "title": "JSON/YAML Linter & Formatter",
+    "description": "Checks syntax errors and cleans up nested data structures instantly."
+  },
+  {
+    "category": "Development & Code Tools",
+    "title": "Regex Tester & Visualizer",
+    "description": "Tests regular expressions against sample text with real-time match highlighting."
+  },
+  {
+    "category": "Development & Code Tools",
+    "title": "SQL Query Formatter & Optimizer",
+    "description": "Cleans messy SQL code and suggests structural improvements."
+  },
+  {
+    "category": "Development & Code Tools",
+    "title": "JWT Decoder & Inspector",
+    "description": "Decodes JSON Web Tokens to inspect payload data and expiration times."
+  },
+  {
+    "category": "Development & Code Tools",
+    "title": "Cron Expression Generator",
+    "description": "Builds complex cron schedules through an intuitive UI calendar picker."
+  },
+  {
+    "category": "Development & Code Tools",
+    "title": "API Testing Client (REST/GraphQL)",
+    "description": "Lightweight browser-based HTTP request sender with headers and body parameters."
+  },
+  {
+    "category": "Development & Code Tools",
+    "title": "CSS Grid & Flexbox Generator",
+    "description": "Visual layout builders that output clean, production-ready CSS code."
+  },
+  {
+    "category": "Development & Code Tools",
+    "title": "SVG Path Editor & Optimizer",
+    "description": "Minifies SVG code and allows direct node manipulation of vector graphics."
+  },
+  {
+    "category": "Development & Code Tools",
+    "title": "Markdown Live Preview Editor",
+    "description": "Splits screen for raw text input and real-time HTML rendering."
+  },
+  {
+    "category": "Development & Code Tools",
+    "title": "Base64 / URL / HTML Encoder",
+    "description": "Converts string data securely back and forth without server requests."
+  },
+  {
+    "category": "Design & Color Utilities",
+    "title": "Color Palette Extractor from Image",
+    "description": "Uploads an image and pulls a matching hex code color scheme."
+  },
+  {
+    "category": "Design & Color Utilities",
+    "title": "Contrast Checker for Accessibility (WCAG)",
+    "description": "Tests text and background color pairs against official accessibility standards."
+  },
+  {
+    "category": "Design & Color Utilities",
+    "title": "CSS Glassmorphism Generator",
+    "description": "Adjusts blur, transparency, and borders to create modern frosted glass UI effects."
+  },
+  {
+    "category": "Design & Color Utilities",
+    "title": "CSS Box Shadow Generator",
+    "description": "Sliders for depth, spread, and opacity with instant copy-paste code."
+  },
+  {
+    "category": "Design & Color Utilities",
+    "title": "Gradient Mesh Creator",
+    "description": "Generates smooth, multi-color gradient backgrounds for modern hero sections."
+  },
+  {
+    "category": "Design & Color Utilities",
+    "title": "SVG Wave / Blob Generator",
+    "description": "Creates custom organic vector shapes and dividers for web design."
+  },
+  {
+    "category": "Design & Color Utilities",
+    "title": "Fluid Typography Calculator",
+    "description": "Computes CSS clamp() values for responsive font sizing across viewports."
+  },
+  {
+    "category": "Design & Color Utilities",
+    "title": "Favicon Generator",
+    "description": "Converts a single PNG into multi-resolution icons and manifest files."
+  },
+  {
+    "category": "Design & Color Utilities",
+    "title": "Font Pairer and Previewer",
+    "description": "Displays Google Font combinations side-by-side with readability tests."
+  },
+  {
+    "category": "Design & Color Utilities",
+    "title": "UI Skeleton Screen Generator",
+    "description": "Builds animated loading placeholders for custom dashboard layouts."
+  },
+  {
+    "category": "Security & Network Utilities",
+    "title": "SSL Certificate Checker",
+    "description": "Inspects a domain\u2019s SSL expiration date, issuer chain, and security protocols."
+  },
+  {
+    "category": "Security & Network Utilities",
+    "title": "IP Address & DNS Lookup",
+    "description": "Fetches public IP details, geolocation data, and current DNS propagation records."
+  },
+  {
+    "category": "Security & Network Utilities",
+    "title": "Password Strength & Entropy Analyzer",
+    "description": "Calculates exact time-to-crack estimates for custom passphrases."
+  },
+  {
+    "category": "Security & Network Utilities",
+    "title": "Hash Generator (MD5, SHA-256)",
+    "description": "Computes cryptographic checksums for text strings and uploaded files locally."
+  },
+  {
+    "category": "Security & Network Utilities",
+    "title": "CORS Header Tester",
+    "description": "Checks if a target endpoint permits cross-origin resource sharing."
+  },
+  {
+    "category": "Security & Network Utilities",
+    "title": "HTTP Headers Inspector",
+    "description": "Dumps all response headers returned by a specified web server URL."
+  },
+  {
+    "category": "Security & Network Utilities",
+    "title": "Port Checker Tool",
+    "description": "Verifies if specific common ports are open on a given host IP address."
+  },
+  {
+    "category": "Security & Network Utilities",
+    "title": "URL Redirect Trace Checker",
+    "description": "Follows HTTP status codes through multiple redirect hops to final destination."
+  },
+  {
+    "category": "Security & Network Utilities",
+    "title": "Subnet Calculator",
+    "description": "Computes IPv4 network ranges, broadcast addresses, and usable host counts."
+  },
+  {
+    "category": "Security & Network Utilities",
+    "title": "Data Breach Email Checker",
+    "description": "Queries public lookup databases to see if an email appears in known leaks."
+  },
+  {
+    "category": "Document & File Conversion",
+    "title": "PDF to Image Converter (Client-Side)",
+    "description": "Renders PDF pages into high-res PNG or JPG files directly in-browser."
+  },
+  {
+    "category": "Document & File Conversion",
+    "title": "Image Compressor (PNG/JPEG/WebP)",
+    "description": "Reduces file sizes locally using HTML5 canvas without losing visual quality."
+  },
+  {
+    "category": "Document & File Conversion",
+    "title": "HEIC to JPG Converter",
+    "description": "Converts Apple image formats into standard web-compatible files."
+  },
+  {
+    "category": "Document & File Conversion",
+    "title": "CSV to JSON / XML Converter",
+    "description": "Parses spreadsheet text data into structured hierarchical formats."
+  },
+  {
+    "category": "Document & File Conversion",
+    "title": "Audio Format Transcoder",
+    "description": "Converts small audio clips between WAV, MP3, and OGG formats using Web Audio API."
+  },
+  {
+    "category": "Document & File Conversion",
+    "title": "Markdown to PDF Exporter",
+    "description": "Compiles formatted text files into downloadable professional document layouts."
+  },
+  {
+    "category": "Document & File Conversion",
+    "title": "EXIF Data Remover",
+    "description": "Strips hidden GPS and camera metadata from uploaded personal photos for privacy."
+  },
+  {
+    "category": "Document & File Conversion",
+    "title": "Sprite Sheet Generator",
+    "description": "Combines multiple small icons into a single optimized PNG layout."
+  },
+  {
+    "category": "Document & File Conversion",
+    "title": "PDF Page Merger / Splitter",
+    "description": "Reorders and extracts specific pages from multi-page document files."
+  },
+  {
+    "category": "Document & File Conversion",
+    "title": "Video to GIF Converter",
+    "description": "Clips short video segments into looping animated graphics."
+  },
+  {
+    "category": "Math, Finance & Utility Calculators",
+    "title": "Compound Interest & Retirement Planner",
+    "description": "Visualizes long-term asset growth with adjustable annual contributions."
+  },
+  {
+    "category": "Math, Finance & Utility Calculators",
+    "title": "Loan & Mortgage Amortization Schedule",
+    "description": "Computes monthly payments, principal breakdowns, and total interest paid."
+  },
+  {
+    "category": "Math, Finance & Utility Calculators",
+    "title": "Crypto Unit & Gas Fee Converter",
+    "description": "Translates Wei to Gwei to ETH alongside live fiat conversions."
+  },
+  {
+    "category": "Math, Finance & Utility Calculators",
+    "title": "IP subnet & CIDR Math Tool",
+    "description": "Converts binary network notations into standard decimal configurations."
+  },
+  {
+    "category": "Math, Finance & Utility Calculators",
+    "title": "Bandwidth & Download Time Estimator",
+    "description": "Calculates transfer duration based on file sizes and connection speeds."
+  },
+  {
+    "category": "Math, Finance & Utility Calculators",
+    "title": "Aspect Ratio Calculator",
+    "description": "Scales video or image dimensions proportionally (e.g., 16:9 to custom pixels)."
+  },
+  {
+    "category": "Math, Finance & Utility Calculators",
+    "title": "Unit Converter (Advanced Physics/Engineering)",
+    "description": "Converts niche metrics like Pascal to PSI or Joules to BTU."
+  },
+  {
+    "category": "Math, Finance & Utility Calculators",
+    "title": "Percentage & Margin Calculator",
+    "description": "Computes markup, gross margins, and VAT adjustments instantly."
+  },
+  {
+    "category": "Math, Finance & Utility Calculators",
+    "title": "Timezone Meeting Planner",
+    "description": "Aligns business hours across multiple global cities on a visual timeline."
+  },
+  {
+    "category": "Math, Finance & Utility Calculators",
+    "title": "BMI & Body Fat Estimator",
+    "description": "Standard biometric tracker with localized metric and imperial toggle options."
+  },
+  {
+    "category": "SEO & Marketing Helpers",
+    "title": "Meta Tag & OpenGraph Inspector",
+    "description": "Crawls a URL to preview how a page looks when shared on social media."
+  },
+  {
+    "category": "SEO & Marketing Helpers",
+    "title": "Keyword Density Analyzer",
+    "description": "Scans pasted text content to highlight overused terms and word counts."
+  },
+  {
+    "category": "SEO & Marketing Helpers",
+    "title": "Robots.txt & Sitemap Validator",
+    "description": "Checks crawler directives and file structural integrity."
+  },
+  {
+    "category": "SEO & Marketing Helpers",
+    "title": "UTM Campaign Link Builder",
+    "description": "Generates standardized tracking parameters for clean digital marketing analytics."
+  },
+  {
+    "category": "SEO & Marketing Helpers",
+    "title": "SERP Snippet Preview Tool",
+    "description": "Tests Google title lengths and meta descriptions against truncation limits."
+  },
+  {
+    "category": "SEO & Marketing Helpers",
+    "title": "Readability Score Calculator (Flesch-Kincaid)",
+    "description": "Measures text comprehension levels and grade requirements."
+  },
+  {
+    "category": "SEO & Marketing Helpers",
+    "title": "Broken Link Checker Script",
+    "description": "Scans internal anchor references for HTTP 404 error codes."
+  },
+  {
+    "category": "SEO & Marketing Helpers",
+    "title": "H1-H6 Heading Hierarchy Tree",
+    "description": "Extracts structural outlines from any public web page URL."
+  },
+  {
+    "category": "SEO & Marketing Helpers",
+    "title": "Slug Generator",
+    "description": "Converts messy article titles into clean, URL-friendly lowercase strings."
+  },
+  {
+    "category": "SEO & Marketing Helpers",
+    "title": "Character & Word Counter with Analytics",
+    "description": "Estimates reading time, speaking duration, and syllable counts."
+  },
+  {
+    "category": "Text & Data Processing",
+    "title": "String Case Converter",
+    "description": "Switches text between camelCase, snake_case, PascalCase, and kebab-case."
+  },
+  {
+    "category": "Text & Data Processing",
+    "title": "Diff Checker (Text Comparison)",
+    "description": "Highlights line-by-line insertions and deletions between two text blocks."
+  },
+  {
+    "category": "Text & Data Processing",
+    "title": "List Sorter & Duplicate Remover",
+    "description": "Cleans, alphabetizes, and strips duplicate rows from raw text arrays."
+  },
+  {
+    "category": "Text & Data Processing",
+    "title": "Lorem Ipsum & Dummy Data Generator",
+    "description": "Creates structured placeholder text, names, and addresses for mockups."
+  },
+  {
+    "category": "Text & Data Processing",
+    "title": "JSON to TypeScript Interface Generator",
+    "description": "Converts raw API payloads into strongly typed frontend definitions."
+  },
+  {
+    "category": "Text & Data Processing",
+    "title": "Text Obfuscator / De-obfuscator",
+    "description": "Masks sensitive strings or decodes encoded text blocks."
+  },
+  {
+    "category": "Text & Data Processing",
+    "title": "CSV Row Filter & Query Tool",
+    "description": "Applies basic filter logic to tabular data sets inside the browser."
+  },
+  {
+    "category": "Text & Data Processing",
+    "title": "Unicode & Emoji Lookup Table",
+    "description": "Searches symbol codes, hex values, and HTML entity equivalents."
+  },
+  {
+    "category": "Text & Data Processing",
+    "title": "Markdown Table Generator",
+    "description": "Visual spreadsheet UI that outputs clean markdown tables."
+  },
+  {
+    "category": "Text & Data Processing",
+    "title": "Text Extractor / Line Cleaner",
+    "description": "Strips empty lines, trailing whitespaces, and unwanted special characters."
+  },
+  {
+    "category": "Productivity & Organization",
+    "title": "Pomodoro Focus Timer",
+    "description": "Customizable countdown timer with break intervals and desktop notification alarms."
+  },
+  {
+    "category": "Productivity & Organization",
+    "title": "Kanban Task Board (LocalStorage)",
+    "description": "Drag-and-drop personal project board saved directly to user browser cache."
+  },
+  {
+    "category": "Productivity & Organization",
+    "title": "Markdown Sticky Notes",
+    "description": "Quick scratchpad that auto-saves thoughts locally without login requirements."
+  },
+  {
+    "category": "Productivity & Organization",
+    "title": "QR Code Generator with Custom Styling",
+    "description": "Encodes text or URLs into downloadable high-res vector QR codes."
+  },
+  {
+    "category": "Productivity & Organization",
+    "title": "Barcode Generator (UPC/EAN/Code128)",
+    "description": "Renders retail and inventory tracking barcode graphics instantly."
+  },
+  {
+    "category": "Productivity & Organization",
+    "title": "Random Picker / Wheel Spinner",
+    "description": "Interactive decision-making tool for raffles, teams, or random choices."
+  },
+  {
+    "category": "Productivity & Organization",
+    "title": "Habit Tracker Grid",
+    "description": "365-day heat map calendar for tracking daily personal milestones."
+  },
+  {
+    "category": "Productivity & Organization",
+    "title": "Meeting Cost Calculator",
+    "description": "Real-time running financial meter based on participant hourly rates."
+  },
+  {
+    "category": "Productivity & Organization",
+    "title": "In-Browser Stopwatch & Lap Splitter",
+    "description": "High-precision time recorder with exportable log data."
+  },
+  {
+    "category": "Productivity & Organization",
+    "title": "Simple Markdown Resume Builder",
+    "description": "Clean layout builder that prints straight to a formatted PDF."
+  },
+  {
+    "category": "Science, Engineering & Conversion Helpers",
+    "title": "Periodic Table of Elements Inspector",
+    "description": "Interactive chemical database with atomic weights and electron configurations."
+  },
+  {
+    "category": "Science, Engineering & Conversion Helpers",
+    "title": "Resistor Color Code Calculator",
+    "description": "Decodes 4-band and 5-band electronic resistance values visually."
+  },
+  {
+    "category": "Science, Engineering & Conversion Helpers",
+    "title": "Ohm\u2019s Law Calculator",
+    "description": "Computes voltage, current, resistance, and power when two values are provided."
+  },
+  {
+    "category": "Science, Engineering & Conversion Helpers",
+    "title": "Acoustic Frequency Tone Generator",
+    "description": "Outputs pure sinusoidal audio frequencies via the Web Audio API."
+  },
+  {
+    "category": "Science, Engineering & Conversion Helpers",
+    "title": "Pixel to REM / EM Scaler",
+    "description": "Converts legacy pixel units to scalable relative font units for web devs."
+  },
+  {
+    "category": "Science, Engineering & Conversion Helpers",
+    "title": "Data Storage Unit Converter",
+    "description": "Converts seamlessly between Megabytes, Gigabytes, Terabytes, and Kibibytes."
+  },
+  {
+    "category": "Science, Engineering & Conversion Helpers",
+    "title": "Astronomical Date & Julian Day Calculator",
+    "description": "Computes time differences and orbital alignment metrics."
+  },
+  {
+    "category": "Science, Engineering & Conversion Helpers",
+    "title": "Wind Chill & Heat Index Calculator",
+    "description": "Combines temperature and humidity metrics into perceived thermal scores."
+  },
+  {
+    "category": "Science, Engineering & Conversion Helpers",
+    "title": "Concrete & Volume Estimator",
+    "description": "Standard construction math tool for cubic yardage calculations."
+  },
+  {
+    "category": "Science, Engineering & Conversion Helpers",
+    "title": "Gear Ratio & RPM Calculator",
+    "description": "Mechanical calculation helper for rotational velocity and torque outputs."
+  }
+]

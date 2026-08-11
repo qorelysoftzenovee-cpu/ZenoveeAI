@@ -6,8 +6,25 @@ import { toolsConfig } from '@/utils/toolsConfig';
 import { ArrowRight, TerminalSquare } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Features | Zenovee',
-  description: 'Explore the complete suite of premium client-side developer and marketing tools by Zenovee.',
+  title: "All 200+ Free Tools — Developer, Design, SEO & More | Zenovee",
+  description:
+    "Explore Zenovee's complete suite of 200+ free browser-native tools for developers, designers, and marketers. JSON formatters, image tools, SEO analyzers, calculators — all free.",
+  keywords: ["all free tools", "tool list", "developer utilities", "seo tools", "image tools", "calculators", "zenovee features"],
+  alternates: { canonical: "https://zenovee.in/features" },
+  openGraph: {
+    title: "All 200+ Free Tools | Zenovee",
+    description: "Browse every tool in Zenovee's free suite — developer utilities, design tools, SEO, calculators and more.",
+    url: "https://zenovee.in/features",
+    type: "website",
+    siteName: "Zenovee",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Zenovee Features" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "All 200+ Free Tools | Zenovee",
+    description: "Browse every free tool on Zenovee. No signup needed.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function FeaturesPage() {

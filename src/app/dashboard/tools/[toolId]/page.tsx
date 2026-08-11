@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useMemo, useState, useEffect, useRef } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -3032,33 +3032,6 @@ Please verify your input formatting on the left and try again.`,
   }
 }
 
-
-const HilltopAd = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    
-    // Clear any previous ads (in case of re-renders)
-    containerRef.current.innerHTML = '';
-    
-    const s = document.createElement('script');
-    (s as any).settings = {};
-    s.src = "//fond-appointment.com/boXQV.sidAG/lk0JYQW/cJ/XeQmd9subZmUyltkTPBTdc/z/MRDLY_0MOvDikQtFN/znM/wjN/j_Q/5SM/ww";
-    s.async = true;
-    s.referrerPolicy = 'no-referrer-when-downgrade';
-    
-    containerRef.current.appendChild(s);
-  }, []);
-
-  return (
-    <div 
-      ref={containerRef}
-      style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '250px', margin: '20px 0' }}
-    />
-  );
-};
-
 export default function ToolWorkspacePage() {
   const params = useParams();
   const router = useRouter();
@@ -3275,9 +3248,6 @@ export default function ToolWorkspacePage() {
           </div>
         </div>
       </div>
-
-      {/* TOP BANNER */}
-      <HilltopAd />
 
       {/* Main Split Screen (50/50 Bento Grid Layout) */}
       <div className="grid min-h-[calc(100vh-22rem)] grid-cols-1 gap-4 lg:gap-6 lg:grid-cols-2 items-stretch">
@@ -3527,9 +3497,6 @@ export default function ToolWorkspacePage() {
 
         </div>
       </div>
-
-      {/* BOTTOM BANNER */}
-      <HilltopAd />
     </div>
   );
 }

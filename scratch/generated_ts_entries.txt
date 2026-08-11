@@ -1,0 +1,1239 @@
+  {
+    id: "jsonyaml-linter-formatter",
+    title: "JSON/YAML Linter & Formatter",
+    name: "JSON/YAML Linter & Formatter",
+    category: "Developer & Tech Utilities",
+    description: "Checks syntax errors and cleans up nested data structures instantly.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "regex-tester-visualizer",
+    title: "Regex Tester & Visualizer",
+    name: "Regex Tester & Visualizer",
+    category: "Developer & Tech Utilities",
+    description: "Tests regular expressions against sample text with real-time match highlighting.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "sql-query-formatter-optimizer",
+    title: "SQL Query Formatter & Optimizer",
+    name: "SQL Query Formatter & Optimizer",
+    category: "Developer & Tech Utilities",
+    description: "Cleans messy SQL code and suggests structural improvements.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "api-testing-client-restgraphql",
+    title: "API Testing Client (REST/GraphQL)",
+    name: "API Testing Client (REST/GraphQL)",
+    category: "Developer & Tech Utilities",
+    description: "Lightweight browser-based HTTP request sender with headers and body parameters.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "css-grid-flexbox-generator",
+    title: "CSS Grid & Flexbox Generator",
+    name: "CSS Grid & Flexbox Generator",
+    category: "Developer & Tech Utilities",
+    description: "Visual layout builders that output clean, production-ready CSS code.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "svg-path-editor-optimizer",
+    title: "SVG Path Editor & Optimizer",
+    name: "SVG Path Editor & Optimizer",
+    category: "Developer & Tech Utilities",
+    description: "Minifies SVG code and allows direct node manipulation of vector graphics.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "markdown-live-preview-editor",
+    title: "Markdown Live Preview Editor",
+    name: "Markdown Live Preview Editor",
+    category: "Developer & Tech Utilities",
+    description: "Splits screen for raw text input and real-time HTML rendering.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "contrast-checker-for-accessibility-wcag",
+    title: "Contrast Checker for Accessibility (WCAG)",
+    name: "Contrast Checker for Accessibility (WCAG)",
+    category: "Media, Design & Productivity",
+    description: "Tests text and background color pairs against official accessibility standards.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "css-glassmorphism-generator",
+    title: "CSS Glassmorphism Generator",
+    name: "CSS Glassmorphism Generator",
+    category: "Media, Design & Productivity",
+    description: "Adjusts blur, transparency, and borders to create modern frosted glass UI effects.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "css-box-shadow-generator",
+    title: "CSS Box Shadow Generator",
+    name: "CSS Box Shadow Generator",
+    category: "Media, Design & Productivity",
+    description: "Sliders for depth, spread, and opacity with instant copy-paste code.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "gradient-mesh-creator",
+    title: "Gradient Mesh Creator",
+    name: "Gradient Mesh Creator",
+    category: "Media, Design & Productivity",
+    description: "Generates smooth, multi-color gradient backgrounds for modern hero sections.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "svg-wave-blob-generator",
+    title: "SVG Wave / Blob Generator",
+    name: "SVG Wave / Blob Generator",
+    category: "Media, Design & Productivity",
+    description: "Creates custom organic vector shapes and dividers for web design.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "fluid-typography-calculator",
+    title: "Fluid Typography Calculator",
+    name: "Fluid Typography Calculator",
+    category: "Media, Design & Productivity",
+    description: "Computes CSS clamp() values for responsive font sizing across viewports.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "favicon-generator",
+    title: "Favicon Generator",
+    name: "Favicon Generator",
+    category: "Media, Design & Productivity",
+    description: "Converts a single PNG into multi-resolution icons and manifest files.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "font-pairer-and-previewer",
+    title: "Font Pairer and Previewer",
+    name: "Font Pairer and Previewer",
+    category: "Media, Design & Productivity",
+    description: "Displays Google Font combinations side-by-side with readability tests.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "ui-skeleton-screen-generator",
+    title: "UI Skeleton Screen Generator",
+    name: "UI Skeleton Screen Generator",
+    category: "Media, Design & Productivity",
+    description: "Builds animated loading placeholders for custom dashboard layouts.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "password-strength-entropy-analyzer",
+    title: "Password Strength & Entropy Analyzer",
+    name: "Password Strength & Entropy Analyzer",
+    category: "Network & Server Utilities",
+    description: "Calculates exact time-to-crack estimates for custom passphrases.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "cors-header-tester",
+    title: "CORS Header Tester",
+    name: "CORS Header Tester",
+    category: "Network & Server Utilities",
+    description: "Checks if a target endpoint permits cross-origin resource sharing.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "port-checker-tool",
+    title: "Port Checker Tool",
+    name: "Port Checker Tool",
+    category: "Network & Server Utilities",
+    description: "Verifies if specific common ports are open on a given host IP address.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "url-redirect-trace-checker",
+    title: "URL Redirect Trace Checker",
+    name: "URL Redirect Trace Checker",
+    category: "Network & Server Utilities",
+    description: "Follows HTTP status codes through multiple redirect hops to final destination.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "data-breach-email-checker",
+    title: "Data Breach Email Checker",
+    name: "Data Breach Email Checker",
+    category: "Network & Server Utilities",
+    description: "Queries public lookup databases to see if an email appears in known leaks.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "image-compressor-pngjpegwebp",
+    title: "Image Compressor (PNG/JPEG/WebP)",
+    name: "Image Compressor (PNG/JPEG/WebP)",
+    category: "Media, Design & Productivity",
+    description: "Reduces file sizes locally using HTML5 canvas without losing visual quality.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "heic-to-jpg-converter",
+    title: "HEIC to JPG Converter",
+    name: "HEIC to JPG Converter",
+    category: "Media, Design & Productivity",
+    description: "Converts Apple image formats into standard web-compatible files.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "audio-format-transcoder",
+    title: "Audio Format Transcoder",
+    name: "Audio Format Transcoder",
+    category: "Media, Design & Productivity",
+    description: "Converts small audio clips between WAV, MP3, and OGG formats using Web Audio API.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "exif-data-remover",
+    title: "EXIF Data Remover",
+    name: "EXIF Data Remover",
+    category: "Media, Design & Productivity",
+    description: "Strips hidden GPS and camera metadata from uploaded personal photos for privacy.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "sprite-sheet-generator",
+    title: "Sprite Sheet Generator",
+    name: "Sprite Sheet Generator",
+    category: "Media, Design & Productivity",
+    description: "Combines multiple small icons into a single optimized PNG layout.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "video-to-gif-converter",
+    title: "Video to GIF Converter",
+    name: "Video to GIF Converter",
+    category: "Media, Design & Productivity",
+    description: "Clips short video segments into looping animated graphics.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "crypto-unit-gas-fee-converter",
+    title: "Crypto Unit & Gas Fee Converter",
+    name: "Crypto Unit & Gas Fee Converter",
+    category: "Calculators & Mathematics",
+    description: "Translates Wei to Gwei to ETH alongside live fiat conversions.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "bandwidth-download-time-estimator",
+    title: "Bandwidth & Download Time Estimator",
+    name: "Bandwidth & Download Time Estimator",
+    category: "Calculators & Mathematics",
+    description: "Calculates transfer duration based on file sizes and connection speeds.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "aspect-ratio-calculator",
+    title: "Aspect Ratio Calculator",
+    name: "Aspect Ratio Calculator",
+    category: "Calculators & Mathematics",
+    description: "Scales video or image dimensions proportionally (e.g., 16:9 to custom pixels).",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "unit-converter-advanced-physicsengineering",
+    title: "Unit Converter (Advanced Physics/Engineering)",
+    name: "Unit Converter (Advanced Physics/Engineering)",
+    category: "Calculators & Mathematics",
+    description: "Converts niche metrics like Pascal to PSI or Joules to BTU.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "readability-score-calculator-flesch-kincaid",
+    title: "Readability Score Calculator (Flesch-Kincaid)",
+    name: "Readability Score Calculator (Flesch-Kincaid)",
+    category: "Growth Marketing & SEO Suite",
+    description: "Measures text comprehension levels and grade requirements.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "broken-link-checker-script",
+    title: "Broken Link Checker Script",
+    name: "Broken Link Checker Script",
+    category: "Growth Marketing & SEO Suite",
+    description: "Scans internal anchor references for HTTP 404 error codes.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "h1-h6-heading-hierarchy-tree",
+    title: "H1-H6 Heading Hierarchy Tree",
+    name: "H1-H6 Heading Hierarchy Tree",
+    category: "Growth Marketing & SEO Suite",
+    description: "Extracts structural outlines from any public web page URL.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "string-case-converter",
+    title: "String Case Converter",
+    name: "String Case Converter",
+    category: "Developer & Tech Utilities",
+    description: "Switches text between camelCase, snake_case, PascalCase, and kebab-case.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "list-sorter-duplicate-remover",
+    title: "List Sorter & Duplicate Remover",
+    name: "List Sorter & Duplicate Remover",
+    category: "Developer & Tech Utilities",
+    description: "Cleans, alphabetizes, and strips duplicate rows from raw text arrays.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "lorem-ipsum-dummy-data-generator",
+    title: "Lorem Ipsum & Dummy Data Generator",
+    name: "Lorem Ipsum & Dummy Data Generator",
+    category: "Developer & Tech Utilities",
+    description: "Creates structured placeholder text, names, and addresses for mockups.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "text-obfuscator-de-obfuscator",
+    title: "Text Obfuscator / De-obfuscator",
+    name: "Text Obfuscator / De-obfuscator",
+    category: "Developer & Tech Utilities",
+    description: "Masks sensitive strings or decodes encoded text blocks.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "csv-row-filter-query-tool",
+    title: "CSV Row Filter & Query Tool",
+    name: "CSV Row Filter & Query Tool",
+    category: "Developer & Tech Utilities",
+    description: "Applies basic filter logic to tabular data sets inside the browser.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "unicode-emoji-lookup-table",
+    title: "Unicode & Emoji Lookup Table",
+    name: "Unicode & Emoji Lookup Table",
+    category: "Developer & Tech Utilities",
+    description: "Searches symbol codes, hex values, and HTML entity equivalents.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "markdown-table-generator",
+    title: "Markdown Table Generator",
+    name: "Markdown Table Generator",
+    category: "Developer & Tech Utilities",
+    description: "Visual spreadsheet UI that outputs clean markdown tables.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "text-extractor-line-cleaner",
+    title: "Text Extractor / Line Cleaner",
+    name: "Text Extractor / Line Cleaner",
+    category: "Developer & Tech Utilities",
+    description: "Strips empty lines, trailing whitespaces, and unwanted special characters.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "markdown-sticky-notes",
+    title: "Markdown Sticky Notes",
+    name: "Markdown Sticky Notes",
+    category: "Media, Design & Productivity",
+    description: "Quick scratchpad that auto-saves thoughts locally without login requirements.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "barcode-generator-upceancode128",
+    title: "Barcode Generator (UPC/EAN/Code128)",
+    name: "Barcode Generator (UPC/EAN/Code128)",
+    category: "Media, Design & Productivity",
+    description: "Renders retail and inventory tracking barcode graphics instantly.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "random-picker-wheel-spinner",
+    title: "Random Picker / Wheel Spinner",
+    name: "Random Picker / Wheel Spinner",
+    category: "Media, Design & Productivity",
+    description: "Interactive decision-making tool for raffles, teams, or random choices.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "habit-tracker-grid",
+    title: "Habit Tracker Grid",
+    name: "Habit Tracker Grid",
+    category: "Media, Design & Productivity",
+    description: "365-day heat map calendar for tracking daily personal milestones.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "meeting-cost-calculator",
+    title: "Meeting Cost Calculator",
+    name: "Meeting Cost Calculator",
+    category: "Media, Design & Productivity",
+    description: "Real-time running financial meter based on participant hourly rates.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "in-browser-stopwatch-lap-splitter",
+    title: "In-Browser Stopwatch & Lap Splitter",
+    name: "In-Browser Stopwatch & Lap Splitter",
+    category: "Media, Design & Productivity",
+    description: "High-precision time recorder with exportable log data.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "simple-markdown-resume-builder",
+    title: "Simple Markdown Resume Builder",
+    name: "Simple Markdown Resume Builder",
+    category: "Media, Design & Productivity",
+    description: "Clean layout builder that prints straight to a formatted PDF.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "periodic-table-of-elements-inspector",
+    title: "Periodic Table of Elements Inspector",
+    name: "Periodic Table of Elements Inspector",
+    category: "Calculators & Mathematics",
+    description: "Interactive chemical database with atomic weights and electron configurations.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "resistor-color-code-calculator",
+    title: "Resistor Color Code Calculator",
+    name: "Resistor Color Code Calculator",
+    category: "Calculators & Mathematics",
+    description: "Decodes 4-band and 5-band electronic resistance values visually.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "ohms-law-calculator",
+    title: "Ohm’s Law Calculator",
+    name: "Ohm’s Law Calculator",
+    category: "Calculators & Mathematics",
+    description: "Computes voltage, current, resistance, and power when two values are provided.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "acoustic-frequency-tone-generator",
+    title: "Acoustic Frequency Tone Generator",
+    name: "Acoustic Frequency Tone Generator",
+    category: "Calculators & Mathematics",
+    description: "Outputs pure sinusoidal audio frequencies via the Web Audio API.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "pixel-to-rem-em-scaler",
+    title: "Pixel to REM / EM Scaler",
+    name: "Pixel to REM / EM Scaler",
+    category: "Calculators & Mathematics",
+    description: "Converts legacy pixel units to scalable relative font units for web devs.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "data-storage-unit-converter",
+    title: "Data Storage Unit Converter",
+    name: "Data Storage Unit Converter",
+    category: "Calculators & Mathematics",
+    description: "Converts seamlessly between Megabytes, Gigabytes, Terabytes, and Kibibytes.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "astronomical-date-julian-day-calculator",
+    title: "Astronomical Date & Julian Day Calculator",
+    name: "Astronomical Date & Julian Day Calculator",
+    category: "Calculators & Mathematics",
+    description: "Computes time differences and orbital alignment metrics.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "wind-chill-heat-index-calculator",
+    title: "Wind Chill & Heat Index Calculator",
+    name: "Wind Chill & Heat Index Calculator",
+    category: "Calculators & Mathematics",
+    description: "Combines temperature and humidity metrics into perceived thermal scores.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "concrete-volume-estimator",
+    title: "Concrete & Volume Estimator",
+    name: "Concrete & Volume Estimator",
+    category: "Calculators & Mathematics",
+    description: "Standard construction math tool for cubic yardage calculations.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  },
+  {
+    id: "gear-ratio-rpm-calculator",
+    title: "Gear Ratio & RPM Calculator",
+    name: "Gear Ratio & RPM Calculator",
+    category: "Calculators & Mathematics",
+    description: "Mechanical calculation helper for rotational velocity and torque outputs.",
+    inputs: [
+      {
+        id: "input_data",
+        label: "Primary Input / Payload",
+        type: "textarea",
+        placeholder: "Enter text, data, or configuration parameters here..."
+      },
+      {
+        id: "mode",
+        label: "Operation / Execution Mode",
+        type: "dropdown",
+        options: ["Standard Mode", "High-Precision Mode", "Export / Copy Output"]
+      }
+    ]
+  }

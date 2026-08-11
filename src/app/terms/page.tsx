@@ -3,8 +3,19 @@ import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/ui/Footer';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | Zenovee',
-  description: 'Terms of Service for Zenovee AI.',
+  title: "Terms of Service | Zenovee",
+  description:
+    "Zenovee's terms of service. By using Zenovee's free online tools, you agree to these simple terms. No accounts, no payments, no obligations.",
+  keywords: ["terms of service", "zenovee terms", "free tools terms", "usage policy"],
+  alternates: { canonical: "https://zenovee.in/terms" },
+  openGraph: {
+    title: "Terms of Service | Zenovee",
+    description: "Simple terms for using Zenovee's free browser-native tools.",
+    url: "https://zenovee.in/terms",
+    type: "website",
+    siteName: "Zenovee",
+  },
+  robots: { index: true, follow: false },
 };
 
 export default function TermsPage() {
