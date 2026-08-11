@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({
@@ -94,13 +93,6 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} h-full`}>
       <body className="min-h-full font-sans antialiased bg-white text-slate-900 selection:bg-blue-500/20 selection:text-blue-900 grain-overlay">
         {children}
-
-        {/* Cloudflare Analytics */}
-        <Script
-          src="https://static.cloudflareinsights.com/beacon.min.js"
-          strategy="afterInteractive"
-          data-cf-beacon='{"token": "zenovee-free-suite-analytics"}'
-        />
       </body>
     </html>
   );
