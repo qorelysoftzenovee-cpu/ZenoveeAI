@@ -2,10 +2,10 @@
 import { toolsConfig } from '@/utils/toolsConfig'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { LayoutGrid, PenTool, Image, FileText, Code, Box, History, PieChart, Sparkles } from 'lucide-react'
-import React, { Suspense, useMemo } from 'react'
+import { LayoutGrid, PenTool, Image, FileText, Code, Box, LineChart, History, PieChart, Sparkles } from 'lucide-react'
+import { Suspense, useMemo } from 'react'
 
-const categoryMeta: Record<string, { icon: React.ComponentType<{ className?: string; size?: number }>, color: string, activeClass: string }> = {
+const categoryMeta: Record<string, { icon: any, color: string, activeClass: string }> = {
   'writing': { icon: PenTool, color: 'text-rose-500', activeClass: 'bg-rose-500/10 text-rose-400' },
   'image': { icon: Image, color: 'text-emerald-500', activeClass: 'bg-emerald-500/10 text-emerald-400' },
   'document': { icon: FileText, color: 'text-indigo-500', activeClass: 'bg-indigo-500/10 text-indigo-400' },

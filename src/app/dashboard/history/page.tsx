@@ -192,7 +192,7 @@ export default function HistoryPage() {
         </div>
       ) : (
         <section className="space-y-3">
-          {filtered.map((entry) => {
+          {filtered.map((entry, idx) => {
             const meta = getToolMeta(entry.tool_id);
             const colors = getCategoryColor(meta.category);
             const inputPreview = entry.input_data
