@@ -368,6 +368,11 @@ ${finalUrl}
 ### 📝 Generated robots.txt:
 \`\`\`text
 ${robots}
+\`\`\`
+
+### 🗺️ Generated sitemap.xml:
+\`\`\`xml
+${sitemapXml}
 \`\`\``;
         return { markdownOutput };
       }
@@ -1785,7 +1790,7 @@ Accept-Language: en-US,en;q=0.9
             totalDeposits += pM;
           }
           const totalEarnedInterest = currentBalance - totalDeposits;
-          table += `| Year ${y} | $${Math.round(totalDeposits).toLocaleString()} | $${Math.round(totalEarnedInterest).toLocaleString()} | $${Math.round(currentBalance).toLocaleString()} |\n`;
+          table += `| Year ${y} | $${Math.round(totalDeposits).toLocaleString()} | $${Math.round(yrInterest).toLocaleString()} | $${Math.round(currentBalance).toLocaleString()} |\n`;
         }
 
         const totalEarned = currentBalance - totalDeposits;
@@ -2347,7 +2352,6 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
         const content = inputs.input_data || 'User-agent: *\nDisallow: /admin/\nDisallow: /private/\nAllow: /public/\nSitemap: https://example.com/sitemap.xml';
         const urlToTest = inputs.mode || '/admin/dashboard';
         const lines = content.split('\n').map(l => l.trim()).filter(Boolean);
-        let currentAgent = '';
         const rules: {agent:string,disallow:string[],allow:string[]}[] = [];
         let current: {agent:string,disallow:string[],allow:string[]} | null = null;
         for (const line of lines) {
@@ -2517,7 +2521,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
       case "timeline-maker": {
         const raw = inputs.input_data || '2020: Company Founded\n2021: First Product Launch\n2022: 10,000 Users Milestone\n2023: Series A Funding\n2024: International Expansion';
         const events = raw.split('\n').filter(l=>l.trim()).map(l=>{const[date,...rest]=l.split(':');return {date:date.trim(),event:rest.join(':').trim()};});
-        const timeline = events.map((e,i)=>`${e.date.padEnd(8)} ${'─'.repeat(2)}●── ${e.event}`).join('\n         │\n');
+        const timeline = events.map((e)=>`${e.date.padEnd(8)} ${'─'.repeat(2)}●── ${e.event}`).join('\n         │\n');
         return { markdownOutput: `# 📅 Timeline\n\n\`\`\`\n${timeline}\n\`\`\`\n\n| Date | Event |\n|---|---|\n${events.map(e=>`| **${e.date}** | ${e.event} |`).join('\n')}` };
       }
 
@@ -2571,7 +2575,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
       case "svg-to-png-converter": {
         const svg = inputs.input_data || '<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="#3b82f6"/><text x="50" y="55" text-anchor="middle" fill="white" font-size="20">Z</text></svg>';
         const size = inputs.mode || 'Standard Mode';
-        return { markdownOutput: `# ✅ SVG → PNG Converter\n\n**Input SVG length:** ${svg.length} chars\n\n## Browser Conversion Method\n\`\`\`js\nconst svg = \`${svg.slice(0,100)}...\`;\nconst blob = new Blob([svg], {type: 'image/svg+xml'});\nconst url = URL.createObjectURL(blob);\nconst img = new Image();\nimg.onload = () => {\n  const canvas = document.createElement('canvas');\n  canvas.width = 512; // Target PNG width\n  canvas.height = 512;\n  const ctx = canvas.getContext('2d');\n  ctx.drawImage(img, 0, 0, 512, 512);\n  const pngUrl = canvas.toDataURL('image/png');\n  // Download the PNG\n};\nimg.src = url;\n\`\`\`\n\n> Use [svg2png.com](https://svg2png.com) or [Squoosh](https://squoosh.app) for instant conversion.` };
+        return { markdownOutput: `# ✅ SVG → PNG Converter\n\n**Input SVG length:** ${svg.length} chars | **Conversion Mode:** ${size}\n\n## Browser Conversion Method\n\`\`\`js\nconst svg = \`${svg.slice(0,100)}...\`;\nconst blob = new Blob([svg], {type: 'image/svg+xml'});\nconst url = URL.createObjectURL(blob);\nconst img = new Image();\nimg.onload = () => {\n  const canvas = document.createElement('canvas');\n  canvas.width = 512; // Target PNG width\n  canvas.height = 512;\n  const ctx = canvas.getContext('2d');\n  ctx.drawImage(img, 0, 0, 512, 512);\n  const pngUrl = canvas.toDataURL('image/png');\n  // Download the PNG\n};\nimg.src = url;\n\`\`\`\n\n> Use [svg2png.com](https://svg2png.com) or [Squoosh](https://squoosh.app) for instant conversion.` };
       }
 
       case "speech-to-text": {
@@ -2695,7 +2699,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
       case "currency-converter": {
         const amount = parseFloat(inputs.input_data || '100');
-        const fromCurr = inputs.mode?.split(' ')[0] || 'USD'; const base = fromCurr;
+        const fromCurr = inputs.mode?.split(' ')[0] || 'USD';
         const rates: Record<string,number> = {USD:1,EUR:0.92,GBP:0.79,INR:83.5,JPY:149.5,CAD:1.37,AUD:1.55,CHF:0.88,CNY:7.23,SGD:1.35,AED:3.67,SAR:3.75,MXN:17.2,BRL:5.0,KRW:1340};
         const table = Object.entries(rates).map(([c,r])=>`| ${c} | ${(amount*r).toFixed(2)} ${c} |`).join('\n');
         return { markdownOutput: `# 💱 Currency Converter\n\n**${amount} USD** converted to major currencies:\n\n| Currency | Value |\n|---|---|\n${table}\n\n> **Note:** Rates are approximate for reference. For live rates, visit [xe.com](https://xe.com) or use a forex API.` };
@@ -2967,7 +2971,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
         const efMonths = inputs.mode?.includes('3 months') ? 3 : inputs.mode?.includes('9 months') ? 9 : inputs.mode?.includes('12 months') ? 12 : 6;
         const months = [3,6,9,12];
         const table = months.map(m=>`| ${m} months | **$${(monthlyExpenses*m).toLocaleString()}** | ${m>=6?'✅ Recommended':'⚠️ Minimum'} |`).join('\n');
-        return { markdownOutput: `# 🆘 Emergency Fund Calculator\n\n**Monthly Expenses:** $${monthlyExpenses.toLocaleString()}\n\n## Fund Size by Buffer Period\n| Period | Amount Needed | Status |\n|---|---|---|\n${table}\n\n## **Recommended Fund: $${(monthlyExpenses*6).toLocaleString()}** (6 months)\n\n## How to Build It\n| Timeline | Monthly Savings Needed |\n|---|---|\n| 6 months | $${(monthlyExpenses*6/6).toFixed(0)} /month |\n| 12 months | $${(monthlyExpenses*6/12).toFixed(0)} /month |\n| 18 months | $${(monthlyExpenses*6/18).toFixed(0)} /month |\n\n## Where to Keep It\n- ✅ High-yield savings account (HYSA)\n- ✅ Money market account\n- ❌ Stock market (too volatile)` };
+        return { markdownOutput: `# 🆘 Emergency Fund Calculator\n\n**Monthly Expenses:** $${monthlyExpenses.toLocaleString()} | **Target:** ${efMonths} months ($${(monthlyExpenses*efMonths).toLocaleString()})\n\n## Fund Size by Buffer Period\n| Period | Amount Needed | Status |\n|---|---|---|\n${table}\n\n## **Recommended Fund: $${(monthlyExpenses*6).toLocaleString()}** (6 months)\n\n## How to Build It\n| Timeline | Monthly Savings Needed |\n|---|---|\n| 6 months | $${(monthlyExpenses*6/6).toFixed(0)} /month |\n| 12 months | $${(monthlyExpenses*6/12).toFixed(0)} /month |\n| 18 months | $${(monthlyExpenses*6/18).toFixed(0)} /month |\n\n## Where to Keep It\n- ✅ High-yield savings account (HYSA)\n- ✅ Money market account\n- ❌ Stock market (too volatile)` };
       }
 
       case "option-payoff-calculator": {

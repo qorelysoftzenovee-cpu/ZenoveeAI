@@ -13,10 +13,8 @@ function DashboardContent() {
   const [searchQuery, setSearchQuery] = useState(initialSearch)
   const [selectedCategory, setSelectedCategory] = useState(initialCategory)
   
-  useEffect(() => {
-    const cat = searchParams.get('category') || 'all'
-    setSelectedCategory(cat)
-  }, [searchParams])
+  const categoryParam = searchParams.get('category') || 'all'
+  const activeCategory = selectedCategory !== categoryParam && searchQuery === '' ? categoryParam : selectedCategory
 
   const categories = useMemo(() => {
     const cats = new Set(toolsConfig.map(t => t.category))
@@ -27,10 +25,10 @@ function DashboardContent() {
     return toolsConfig.filter(tool => {
       const matchesSearch = tool.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                             tool.description.toLowerCase().includes(searchQuery.toLowerCase())
-      const matchesCategory = selectedCategory === 'all' || tool.category === selectedCategory
+      const matchesCategory = activeCategory === 'all' || tool.category === activeCategory
       return matchesSearch && matchesCategory
     })
-  }, [searchQuery, selectedCategory])
+  }, [searchQuery, activeCategory])
 
   return (
     <div className="anim-fade-up">
@@ -60,7 +58,7 @@ function DashboardContent() {
             <button
               onClick={() => setSelectedCategory('all')}
               className={`rounded-xl px-4 py-2.5 text-sm font-bold cursor-pointer transition-all border ${
-                selectedCategory === 'all' 
+                activeCategory === 'all' 
                   ? 'bg-blue-600 text-white border-blue-600 shadow-sm ring-2 ring-blue-500/25' 
                   : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300'
               }`}
@@ -72,7 +70,7 @@ function DashboardContent() {
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
                 className={`rounded-xl px-4 py-2.5 text-sm font-bold cursor-pointer transition-all border capitalize ${
-                  selectedCategory === cat
+                  activeCategory === cat
                     ? 'bg-blue-600 text-white border-blue-600 shadow-sm ring-2 ring-blue-500/25' 
                     : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300'
                 }`}
@@ -95,7 +93,7 @@ function DashboardContent() {
             <Sparkles size={28} />
           </div>
           <h3 className="text-xl font-extrabold text-slate-900 mb-2">No tools found</h3>
-          <p className="text-base text-slate-600 mb-6 font-semibold">We couldn't find any tools matching your criteria.</p>
+          <p className="text-base text-slate-600 mb-6 font-semibold">We could not find any tools matching your criteria.</p>
           <button
             onClick={() => { setSearchQuery(''); setSelectedCategory('all') }}
             className="btn-primary text-base py-3.5 px-6"
